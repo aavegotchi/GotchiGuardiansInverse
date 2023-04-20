@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3805818175144359571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3805818175144359570}
+  - component: {fileID: 3805818175144359565}
+  m_Layer: 0
+  m_Name: ImpactManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3805818175144359570
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3805818175144359571}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3805818175144359565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3805818175144359571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fee54fad1c05241bd8018f2b8668cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cannonballImpactPrefab: {fileID: 456723035866326931, guid: 1ad290b052ec5df40a8c556ec5969498,
+    type: 3}
+  missileImpactPrefab: {fileID: 456723035866326931, guid: bd1bf2d8477d74c4baeb9aca65708dc8,
+    type: 3}
+  arrowImpactPrefab: {fileID: 2356846386370303098, guid: 478cd8e90102c32488a4a9ed71561f42,
+    type: 3}
+  fireballImpactPrefab: {fileID: 7130715709782991300, guid: a04b8d89f7d07c1468700a0ce34b26c6,
+    type: 3}
+  iceballImpactPrefab: {fileID: 7517170642317603038, guid: 28e12555676a0514a8f0f94e3740d74a,
+    type: 3}
+  basicTowerExplosionPrefab: {fileID: 456723035866326931, guid: 731ee6b4cbe058340875036f463b172a,
+    type: 3}
+  bombTowerExplosionPrefab: {fileID: 456723035866326931, guid: 3486df7fc1c7fbd46a3b2b5ff5813dcf,
+    type: 3}
+  slowTowerExplosionPrefab: {fileID: 456723035866326931, guid: caadbf992648c8641bcfc97acc1c437c,
+    type: 3}
+  laserImpactPrefab: {fileID: 5880440780311507398, guid: 094212b9c2679ce45bc1879a6f2667c1,
+    type: 3}
+  cannonballImpactPoolSize: 30
+  missileImpactPoolSize: 20
+  arrowImpactPoolSize: 20
+  fireballImpactPoolSize: 20
+  iceballImpactPoolSize: 20
+  basicTowerExplosionPoolSize: 10
+  bombTowerExplosionPoolSize: 10
+  slowTowerExplosionPoolSize: 10
+  laserImpactPoolSize: 10

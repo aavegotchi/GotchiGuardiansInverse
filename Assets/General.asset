@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34bf522f6e4a888418d17364548edf84, type: 3}
+  m_Name: General
+  m_EditorClassIdentifier: 
+  SpiritGems: 1000
+  EnemyKillRewardMultipleByCost: 0.5
+  EnemySpawnRewardMultipleByCost: 0.25
+  TowerSellRewardMultipleByCost: 0.5
+  EnemySellRewardMultipleByCost: 0.5
+  PrepPhaseCountdown: 30

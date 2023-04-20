@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f8c67cbd91be9b40b10ada3b5a33269, type: 3}
+  m_Name: IceTower_2
+  m_EditorClassIdentifier: 
+  Name: Ice Tower (Level 2)
+  Type: 11
+  Cost: 150
+  buildTime: 3
+  Health: 300
+  AttackRange: 35
+  AttackCountdown: 1.5
+  AttackDamageMultiplier: 1
+  AttackRotationSpeed: 2
+  deathEffectType: 4
+  projectile: {fileID: 11400000, guid: 3ea662321f65b2d41b39349e8fdb7a3b, type: 2}

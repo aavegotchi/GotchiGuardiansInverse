@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3041988294203579022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8672783815577021957}
+  - component: {fileID: 2098581967210504937}
+  m_Layer: 0
+  m_Name: PhaseManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8672783815577021957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3041988294203579022}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2098581967210504937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3041988294203579022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 612003ff9c2fcd64c9bfbdc64f23445f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionScreenAnimator: {fileID: 0}
+  transitionCountdownTextUI: {fileID: 0}
+  countdownTextUI: {fileID: 0}
+  rewardsScreenUI: {fileID: 0}
+  pawnLickquidatorRewardTextUI: {fileID: 0}
+  aerialLickquidatorRewardTextUI: {fileID: 0}
+  bossLickquidatorRewardTextUI: {fileID: 0}
+  basicTowerRewardTextUI: {fileID: 0}
+  arrowTowerRewardTextUI: {fileID: 0}
+  fireTowerRewardTextUI: {fileID: 0}
+  iceTowerRewardTextUI: {fileID: 0}
+  pawnLickquidatorCostTextUI: {fileID: 0}
+  aerialLickquidatorCostTextUI: {fileID: 0}
+  bossLickquidatorCostTextUI: {fileID: 0}
+  basicTowerCostTextUI: {fileID: 0}
+  arrowTowerCostTextUI: {fileID: 0}
+  fireTowerCostTextUI: {fileID: 0}
+  iceTowerCostTextUI: {fileID: 0}
+  enemiesSpawnBonusTextUI: {fileID: 0}
+  netTextUI: {fileID: 0}
+  generalSO: {fileID: 11400000, guid: 185dd8ec98cbab1408d76c8295922571, type: 2}
+  prepPhaseText: Prep Phase Starting Soon...
+  survivalPhaseText: Survival Phase Starting...
+  numSecondsOnRewardsScreen: 8
+  numSecondsOnNonRewardsScreen: 2

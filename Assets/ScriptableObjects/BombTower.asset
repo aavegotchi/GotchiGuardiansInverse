@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f8c67cbd91be9b40b10ada3b5a33269, type: 3}
+  m_Name: BombTower
+  m_EditorClassIdentifier: 
+  Name: Bomb Tower
+  Type: 2
+  Cost: 100
+  buildTime: 2
+  Health: 200
+  AttackRange: 50
+  AttackCountdown: 4
+  AttackDamageMultiplier: 1
+  AttackRotationSpeed: 4
+  deathEffectType: 6
+  projectile: {fileID: 11400000, guid: d37805d44126244468084f1d474c767f, type: 2}

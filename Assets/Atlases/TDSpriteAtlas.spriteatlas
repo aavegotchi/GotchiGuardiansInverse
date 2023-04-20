@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: TDSpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 0f173fe8e4c23be42b973236103316ff, type: 3}
+    - {fileID: 2800000, guid: b6f0e990373c5c540a185e8b895efb7d, type: 3}
+    - {fileID: 2800000, guid: 095afc2001c483744be2c092d4245913, type: 3}
+    - {fileID: 2800000, guid: 399ea3fe29e05214dafe0b15cb763755, type: 3}
+    - {fileID: 2800000, guid: eb0182561362f704aa3fbd61a1743fdf, type: 3}
+    - {fileID: 2800000, guid: 93e45b43e469be84caefd64f65e136a3, type: 3}
+    - {fileID: 2800000, guid: fcad6569d27dbb94e964514de4d74fd1, type: 3}
+    - {fileID: 2800000, guid: ad6e81b3c9eb61841bafce7f2fa96439, type: 3}
+    - {fileID: 2800000, guid: 6ed97b62ea3263a4399c8980260578b3, type: 3}
+    - {fileID: 2800000, guid: bbe9d9ab335f7d24c9a75df4d6931ee6, type: 3}
+    - {fileID: 2800000, guid: 5287a51607268f846b5f97df96f6b256, type: 3}
+    - {fileID: 2800000, guid: cf7500ac36bb1dd4d8c213c020471724, type: 3}
+    - {fileID: 2800000, guid: e1651eb8548f69a47a29ab4ee7cdbf85, type: 3}
+    - {fileID: 2800000, guid: 15420bfd70a4bda459f2006c6df40538, type: 3}
+    - {fileID: 2800000, guid: 16ed41a407434ba4fb511d433973c11c, type: 3}
+    - {fileID: 2800000, guid: b45b12495f0dff84285b231af84e020e, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 095afc2001c483744be2c092d4245913, type: 3}
+  - {fileID: 21300000, guid: b6f0e990373c5c540a185e8b895efb7d, type: 3}
+  - {fileID: 21300000, guid: 6ed97b62ea3263a4399c8980260578b3, type: 3}
+  - {fileID: 21300000, guid: 93e45b43e469be84caefd64f65e136a3, type: 3}
+  - {fileID: 21300000, guid: ad6e81b3c9eb61841bafce7f2fa96439, type: 3}
+  - {fileID: 21300000, guid: 16ed41a407434ba4fb511d433973c11c, type: 3}
+  - {fileID: 21300000, guid: 5287a51607268f846b5f97df96f6b256, type: 3}
+  - {fileID: 21300000, guid: eb0182561362f704aa3fbd61a1743fdf, type: 3}
+  - {fileID: 21300000, guid: e1651eb8548f69a47a29ab4ee7cdbf85, type: 3}
+  - {fileID: 21300000, guid: 0f173fe8e4c23be42b973236103316ff, type: 3}
+  - {fileID: 21300000, guid: b45b12495f0dff84285b231af84e020e, type: 3}
+  - {fileID: 21300000, guid: fcad6569d27dbb94e964514de4d74fd1, type: 3}
+  - {fileID: 21300000, guid: bbe9d9ab335f7d24c9a75df4d6931ee6, type: 3}
+  - {fileID: 21300000, guid: cf7500ac36bb1dd4d8c213c020471724, type: 3}
+  - {fileID: 21300000, guid: 15420bfd70a4bda459f2006c6df40538, type: 3}
+  - {fileID: 21300000, guid: 399ea3fe29e05214dafe0b15cb763755, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - TD_SlowTower
+  - TD_BombTower
+  - TD_BossLickquidator
+  - TD_IceTower_1
+  - TD_AerialLickquidator
+  - TD_IceTower_3
+  - TD_ArrowTower_3
+  - TD_FireTower_1
+  - TD_FireTower_3
+  - TD_BasicTower
+  - TD_SpiritGem
+  - TD_PawnLickquidator
+  - TD_ArrowTower_2
+  - TD_FireTower_2
+  - TD_IceTower_2
+  - TD_ArrowTower_1
+  m_RenderDataMap: {}
+  m_Tag: TDSpriteAtlas
+  m_IsVariant: 0
