@@ -12,13 +12,22 @@ public class LookAtCamera : MonoBehaviour
     #endregion
 
     #region Unity Functions
-    void Start()
+    void Awake()
     {
         mainCamera = Camera.main;
     }
 
     void Update()
     {
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+            if (mainCamera == null)
+            {
+                return;
+            }
+        }
+
         Vector3 directionToCamera = mainCamera.transform.position - transform.position;
 
         // Flip the direction if the element should face away from the camera
