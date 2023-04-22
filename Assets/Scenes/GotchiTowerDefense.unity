@@ -3193,6 +3193,11 @@ PrefabInstance:
       propertyPath: eventSystem
       value: 
       objectReference: {fileID: 443031896}
+    - target: {fileID: 1408561646227189876, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1408561646231090534, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: m_Pivot.x
