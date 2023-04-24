@@ -72,6 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82d8eac96e850e4eb0ef2ac0c950f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  faceAwayFromCamera: 0
 --- !u!1 &4412985714509673107
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,7 +150,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -828588951
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &3746632888174054133
@@ -174,7 +175,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 100
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fa328c1ae3ffb6b4583cf371153b0be6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9c2e79f9a8c53d4abb4b7c4532fa2a9, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: dbd4da2e3a9eca84b83d901fcf5d5255, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -241,6 +242,6 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_renderer: {fileID: 5692815853241970370}
   m_maskType: 0

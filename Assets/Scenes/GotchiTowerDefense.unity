@@ -171,6 +171,12 @@ MonoBehaviour:
   progressBarPrefab: {fileID: 9208720214513312333, guid: 104c4925c050b494786113ae4b6e06c9,
     type: 3}
   progressBarPoolSize: 15
+--- !u!1 &327141662 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 462755329267642744, guid: 5e07df5628a177d4ab67ea3174725eda,
+    type: 3}
+  m_PrefabInstance: {fileID: 462755330232994019}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &335254946 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6872936215617912665, guid: 0db00547c97d89641a099995fbf0b123,
@@ -1528,6 +1534,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1153815047, guid: 0db00547c97d89641a099995fbf0b123, type: 3}
+      propertyPath: managers
+      value: 
+      objectReference: {fileID: 327141662}
     - target: {fileID: 274652597854947595, guid: 0db00547c97d89641a099995fbf0b123,
         type: 3}
       propertyPath: m_AnchorMax.y
