@@ -112,7 +112,7 @@ public abstract class BaseEnemy : MonoBehaviour
         target = null;
         currentTarget = null;
 
-        if(agent.enabled) agent.isStopped = false;
+        if(agent.enabled && agent.isOnNavMesh) agent.isStopped = false;
     }
 
     protected virtual void OnAttackSound() { }
