@@ -66,17 +66,35 @@ public class EnemyInventory : MonoBehaviour
     #region Public Functions
     public void SelectPawnLickquidator()
     {
-        buildSelectedEnemy(pawnLickquidator);
+        EnemyBlueprint enemyBlueprint = new EnemyBlueprint
+        {
+            type = EnemyManager.EnemyType.PawnLickquidator,
+            buildTime = pawnLickquidatorSO.buildTime,
+            cost = pawnLickquidatorSO.Cost
+        };
+        buildSelectedEnemy(enemyBlueprint);
     }
 
     public void SelectAerialLickquidator()
     {
-        buildSelectedEnemy(aerialLickquidator);
+        EnemyBlueprint enemyBlueprint = new EnemyBlueprint
+        {
+            type = EnemyManager.EnemyType.AerialLickquidator,
+            buildTime = aerialLickquidatorSO.buildTime,
+            cost = aerialLickquidatorSO.Cost
+        };
+        buildSelectedEnemy(enemyBlueprint);
     }
 
     public void SelectBossLickquidator()
     {
-        buildSelectedEnemy(bossLickquidator);
+        EnemyBlueprint enemyBlueprint = new EnemyBlueprint
+        {
+            type = EnemyManager.EnemyType.BossLickquidator,
+            buildTime = bossLickquidatorSO.buildTime,
+            cost = bossLickquidatorSO.Cost
+        };
+        buildSelectedEnemy(enemyBlueprint);
     }
 
     public void UpdateOptionsBasedOnMoney()

@@ -76,22 +76,46 @@ public class TowerInventory : MonoBehaviour
     #region Public Functions
     public void SelectBasicTower()
     {
-        buildSelectedTower(basicTower);
+        TowerBlueprint basicTowerBlueprint = new TowerBlueprint
+        {
+            type = basicTowerSO.Type,
+            buildTime = basicTowerSO.buildTime,
+            cost = basicTowerSO.Cost
+        };
+        buildSelectedTower(basicTowerBlueprint);
     }
 
     public void SelectArrowTower()
     {
-        buildSelectedTower(arrowTower);
+        TowerBlueprint arrowTowerBlueprint = new TowerBlueprint
+        {
+            type = arrowTowerSO.Type,
+            buildTime = arrowTowerSO.buildTime,
+            cost = arrowTowerSO.Cost
+        };
+        buildSelectedTower(arrowTowerBlueprint);
     }
 
     public void SelectFireTower()
     {
-        buildSelectedTower(fireTower);
+        TowerBlueprint fireTowerBlueprint = new TowerBlueprint
+        {
+            type = fireTowerSO.Type,
+            buildTime = fireTowerSO.buildTime,
+            cost = fireTowerSO.Cost
+        };
+        buildSelectedTower(fireTowerBlueprint);
     }
 
     public void SelectIceTower()
     {
-        buildSelectedTower(iceTower);
+        TowerBlueprint iceTowerBlueprint = new TowerBlueprint
+        {
+            type = iceTowerSO.Type,
+            buildTime = iceTowerSO.buildTime,
+            cost = iceTowerSO.Cost
+        };
+        buildSelectedTower(iceTowerBlueprint);
     }
 
     public void UpdateOptionsBasedOnMoney()

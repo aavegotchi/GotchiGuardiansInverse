@@ -124,13 +124,22 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void goAfterGotchi()
     {
-        if(PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Survival)
+        if (PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Survival)
         {
-            if(!agent.enabled) agent.enabled = true;
+            if (!agent.enabled) agent.enabled = true;
         }
 
-        agent.SetDestination(GotchiManager.Instance.Player.transform.position);
+        if (GotchiManager.Instance != null && GotchiManager.Instance.Player != null)
+        {
+            agent.SetDestination(GotchiManager.Instance.Player.transform.position);
+        } else
+        {
+            healthbar.Reset();
+            healthbar = null;
+            gameObject.SetActive(false);
+        }
     }
+
 
     // Add the Freeze function
     public void Freeze()

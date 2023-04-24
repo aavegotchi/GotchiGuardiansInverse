@@ -7,6 +7,7 @@ public class GameOver_UI : MonoBehaviour
 {
     #region Fields
     [SerializeField] private string loadSceneName = "GotchiTowerDefense";
+    [SerializeField] private GameObject managers;
     #endregion
 
     #region Unity Functions
@@ -24,6 +25,7 @@ public class GameOver_UI : MonoBehaviour
     #region Public Functions
     public void Restart()
     {
+        Destroy(managers);
         SceneManager.LoadScene(loadSceneName);
     }
     #endregion
