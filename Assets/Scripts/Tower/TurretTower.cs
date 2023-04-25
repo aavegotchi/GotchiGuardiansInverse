@@ -27,8 +27,34 @@ public class TurretTower : BaseTower
     protected override void Update()
     {
         base.Update();
-        if (target == null) return;
+
+        if (target == null) // Check if the target is not active in the hierarchy
+        {
+            if (projectile != null && isLaserAttack())
+            {
+                projectile.gameObject.SetActive(false);
+                projectile.ClearLaser();
+                projectile = null;
+            }
+            target = null;
+            return;
+        }
+
         if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Survival) return;
+
+        float distanceToTarget = Vector3.Distance(transform.position, target.position);
+        if (distanceToTarget > turretTowerObjectSO.AttackRange) // Check if the target is still within the attack range
+        {
+            target = null;
+
+            if (isLaserAttack())
+            {
+                projectile.gameObject.SetActive(false);
+                projectile.ClearLaser();
+                projectile = null;
+            }
+            return;
+        }
 
         lockOntoTarget();
 
@@ -36,6 +62,7 @@ public class TurretTower : BaseTower
 
         attack();
     }
+
 
     void OnDrawGizmosSelected()
     {

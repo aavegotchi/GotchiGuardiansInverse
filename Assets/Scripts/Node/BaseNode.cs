@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -104,6 +105,12 @@ public abstract class BaseNode : MonoBehaviour
     #endregion
 
     #region Public Functions
+    public void SetOccupiedStatusToFalse()
+    {
+        render.material = unoccupiedMaterial;
+        occupied = false;
+    }
+
     protected abstract void UpdateNodeUI();
     #endregion
 

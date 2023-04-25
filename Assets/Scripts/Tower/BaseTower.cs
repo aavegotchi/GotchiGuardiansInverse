@@ -77,6 +77,7 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     public void PlayDead()
     {
         EventBus.TowerEvents.TowerDied(towerBlueprint.type);
+        towerBlueprint.node.SetOccupiedStatusToFalse();
 
         ImpactManager.Instance.SpawnImpact(impactType, transform.position, transform.rotation);
         isDead = true;
