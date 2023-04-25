@@ -24,7 +24,7 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
 
     #region Fields
     [Header("Settings")]
-    [SerializeField] protected BaseTowerObjectSO towerObjectSO = null;
+    [SerializeField] protected BaseTowerObjectSO towerObjectSOOriginal = null;
 
     [Header("Required Refs")]
     [SerializeField] private Transform healthbarOffset = null;
@@ -37,11 +37,28 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     #region Private Variables
     private HealthBar_UI healthbar = null;
     protected TowerBlueprint towerBlueprint = null;
+    protected BaseTowerObjectSO towerObjectSO = null;
     #endregion
 
     #region Unity Functions
+    protected virtual void Awake()
+    {
+        if (towerObjectSOOriginal is TurretTowerObjectSO)
+        {
+            towerObjectSO = ScriptableObject.CreateInstance<TurretTowerObjectSO>();
+            resetScriptableObjectTurret();
+        }
+        else if (towerObjectSOOriginal is AreaOfEffectTowerObjectSO)
+        {
+            towerObjectSO = ScriptableObject.CreateInstance<AreaOfEffectTowerObjectSO>();
+            resetScriptableObjectAoe();
+        }
+    }
+
     protected virtual void Start()
     {
+        if (enemyTag == "Tower") return; // TODO: messy atm as this is prevent tower's upgrade ui for the aerial lickquidator
+
         SetupHealthBar();
     }
 
@@ -80,7 +97,7 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
 
     public abstract void OnEnemyEnter(Collider collider);
 
-    public void PlayDead()
+    public void PlayDead(bool isUpgrade = false)
     {
         EventBus.TowerEvents.TowerDied(towerBlueprint.type);
         towerBlueprint.node.SetOccupiedStatusToFalse();
@@ -92,6 +109,18 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
             healthbar.Reset();
             healthbar = null;
         }
+
+        if (!isUpgrade)
+        {
+            if (towerObjectSOOriginal is TurretTowerObjectSO)
+            {
+                resetScriptableObjectTurret();
+            }
+            else if (towerObjectSOOriginal is AreaOfEffectTowerObjectSO)
+            {
+                resetScriptableObjectAoe();
+            }
+        }
     }
     #endregion
 
@@ -101,6 +130,35 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
         healthbar = HealthBarManager.Instance.GetHealthbar(healthbarOffset);
         healthbar.CurrentHealth = towerObjectSO.Health;
         healthbar.MaxHealth = towerObjectSO.Health;
+    }
+
+    private void resetScriptableObjectTurret()
+    {
+        towerObjectSO.Name = towerObjectSOOriginal.Name;
+        towerObjectSO.Type = towerObjectSOOriginal.Type;
+        towerObjectSO.Cost = towerObjectSOOriginal.Cost;
+        towerObjectSO.buildTime = towerObjectSOOriginal.buildTime;
+        towerObjectSO.Health = towerObjectSOOriginal.Health;
+
+        ((TurretTowerObjectSO)towerObjectSO).AttackRange = ((TurretTowerObjectSO)towerObjectSOOriginal).AttackRange;
+        ((TurretTowerObjectSO)towerObjectSO).AttackCountdown = ((TurretTowerObjectSO)towerObjectSOOriginal).AttackCountdown;
+        ((TurretTowerObjectSO)towerObjectSO).AttackDamageMultiplier = ((TurretTowerObjectSO)towerObjectSOOriginal).AttackDamageMultiplier;
+        ((TurretTowerObjectSO)towerObjectSO).AttackRotationSpeed = ((TurretTowerObjectSO)towerObjectSOOriginal).AttackRotationSpeed;
+        ((TurretTowerObjectSO)towerObjectSO).deathEffectType = ((TurretTowerObjectSO)towerObjectSOOriginal).deathEffectType;
+        ((TurretTowerObjectSO)towerObjectSO).projectile = ((TurretTowerObjectSO)towerObjectSOOriginal).projectile;
+    }
+
+    private void resetScriptableObjectAoe()
+    {
+        towerObjectSO.Name = towerObjectSOOriginal.Name;
+        towerObjectSO.Type = towerObjectSOOriginal.Type;
+        towerObjectSO.Cost = towerObjectSOOriginal.Cost;
+        towerObjectSO.buildTime = towerObjectSOOriginal.buildTime;
+        towerObjectSO.Health = towerObjectSOOriginal.Health;
+
+        ((AreaOfEffectTowerObjectSO)towerObjectSO).AreaOfEffectRange = ((AreaOfEffectTowerObjectSO)towerObjectSOOriginal).AreaOfEffectRange;
+        ((AreaOfEffectTowerObjectSO)towerObjectSO).SlowStrength = ((AreaOfEffectTowerObjectSO)towerObjectSOOriginal).SlowStrength;
+        ((AreaOfEffectTowerObjectSO)towerObjectSO).deathEffectType = ((AreaOfEffectTowerObjectSO)towerObjectSOOriginal).deathEffectType;
     }
     #endregion
 }

@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f8c67cbd91be9b40b10ada3b5a33269, type: 3}
   m_Name: LaserTurret
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Laser
+  Type: 0
   Cost: 0
+  buildTime: 2
   Health: 0
   AttackRange: 30
   AttackCountdown: 2.5
+  AttackDamageMultiplier: 1
   AttackRotationSpeed: 2
-  towerDeathSound: 5
   deathEffectType: 10
   projectile: {fileID: 11400000, guid: 11446a8a4e5cd9e4480ff86aa6e4229d, type: 2}

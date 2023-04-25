@@ -47,8 +47,6 @@ public class UpgradeInventory : MonoBehaviour
     private Image sellButtonImage = null;
     private BaseTower towerHolder = null;
     private Enemy enemyHolder = null;
-    private BaseTowerObjectSO newTowerObjectSO = null;
-    private LickquidatorObjectSO newLickquidatorObjectSO = null;
     #endregion
 
     #region Public Functions
@@ -305,46 +303,39 @@ public class UpgradeInventory : MonoBehaviour
 
     private void upgradeTower()
     {
-        if (newTowerObjectSO != null)
-        {
-            Destroy(newTowerObjectSO);
-        }
-
         if (towerHolder.ObjectSO.Type == TowerManager.TowerType.BasicTower)
         {
-            newTowerObjectSO = Instantiate(basicTower2SO); // basic to bomb
+            towerHolder.ObjectSO = basicTower2SO; // basic to bomb
         }
         else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.BombTower)
         {
-            newTowerObjectSO = Instantiate(basicTower3SO); // bomb to slow
+            towerHolder.ObjectSO = basicTower3SO; // bomb to slow
         }
         else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.ArrowTower1)
         {
-            newTowerObjectSO = Instantiate(arrowTower2SO); // arrow 1 to arrow 2
+            towerHolder.ObjectSO = arrowTower2SO; // arrow 1 to arrow 2
         }
         else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.ArrowTower2)
         {
-            newTowerObjectSO = Instantiate(arrowTower3SO); // arrow 2 to arrow 3
+            towerHolder.ObjectSO = arrowTower3SO; // arrow 2 to arrow 3
         }
         else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.FireTower1)
         {
-            newTowerObjectSO = Instantiate(fireTower2SO); // fire 1 to fire 2
+            towerHolder.ObjectSO = fireTower2SO; // fire 1 to fire 2
         }
         else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.FireTower2)
         {
-            newTowerObjectSO = Instantiate(fireTower3SO); // fire 2 to fire 3
+            towerHolder.ObjectSO = fireTower3SO; // fire 2 to fire 3
         }
         else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.IceTower1)
         {
-            newTowerObjectSO = Instantiate(iceTower2SO); // ice 1 to ice 2
+            towerHolder.ObjectSO = iceTower2SO; // ice 1 to ice 2
         }
         else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.IceTower2)
         {
-            newTowerObjectSO = Instantiate(iceTower3SO); // ice 2 to ice 3
+            towerHolder.ObjectSO = iceTower3SO; // ice 2 to ice 3
         }
         
-        towerHolder.ObjectSO = newTowerObjectSO;
-
         StatsManager.Instance.Money -= towerHolder.ObjectSO.Cost;
         TowerBlueprint towerBlueprint = new TowerBlueprint();
         towerBlueprint.type = towerHolder.ObjectSO.Type;
@@ -353,20 +344,13 @@ public class UpgradeInventory : MonoBehaviour
 
         BaseTower tower = transformHolder.GetComponent<BaseTower>();
         towerBlueprint.node = tower.TowerBlueprint.node;
-        tower.PlayDead();
+        tower.PlayDead(true);
         
         ProgressBarManager.Instance.GetAndShowProgressBar(towerBlueprint);
     }
 
     private void upgradeLickquidator()
     {
-        if (newLickquidatorObjectSO != null)
-        {
-            Destroy(newLickquidatorObjectSO);
-        }
-        newLickquidatorObjectSO = Instantiate(enemyHolder.ObjectSO);
-        enemyHolder.ObjectSO = newLickquidatorObjectSO;
-
         enemyHolder.ObjectSO.Cost = calculateNewLickquidatorCost();
         enemyHolder.ObjectSO.Level += 1;
         float levelBasedUpgradeValue = enemyHolder.ObjectSO.Level * generalSO.GenericUpgradeMultipleByLevel;
@@ -385,7 +369,7 @@ public class UpgradeInventory : MonoBehaviour
 
         Enemy enemy = transformHolder.GetComponent<Enemy>();
         enemyBlueprint.node = enemy.EnemyBlueprint.node;
-        enemy.PlayDead();
+        enemy.PlayDead(true);
 
         ProgressBarManager.Instance.GetAndShowProgressBar(enemyBlueprint);
     }

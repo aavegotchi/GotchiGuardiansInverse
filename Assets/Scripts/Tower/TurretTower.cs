@@ -12,8 +12,8 @@ public class TurretTower : BaseTower
     #region Private Variables
     private float attackCountdownTracker = 1f;
     private Transform target = null;
-    private TurretTowerObjectSO turretTowerObjectSO;
     private Projectile projectile = null;
+    private TurretTowerObjectSO turretTowerObjectSO = null;
     #endregion
 
     #region Unity Functions

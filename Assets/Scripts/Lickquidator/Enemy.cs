@@ -7,11 +7,6 @@ using Gotchi.Events;
 public class Enemy : MonoBehaviour, IDamageable
 {
     #region Public Variables
-    public float MovementSpeed
-    {
-        get { return lickquidatorObjectSO.MovementSpeed; }
-    }
-
     public Transform HealthbarOffset
     {
         get { return healthbarOffset; }
@@ -32,7 +27,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     #region Fields
     [Header("Settings")]
-    [SerializeField] private LickquidatorObjectSO lickquidatorObjectSO = null;
+    [SerializeField] private LickquidatorObjectSO lickquidatorObjectSOOriginal = null;
     [SerializeField] private GeneralSO generalSO = null;
 
     [Header("Required Refs")]
@@ -48,6 +43,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private EnemyBlueprint enemyBlueprint = null;
     private BoxCollider boxCollider = null;
     private Rigidbody body = null;
+    private LickquidatorObjectSO lickquidatorObjectSO = null;
     #endregion
 
     #region Unity Functions
@@ -56,7 +52,11 @@ public class Enemy : MonoBehaviour, IDamageable
         agent = GetComponent<NavMeshAgent>();
         boxCollider = GetComponent<BoxCollider>();
         body = GetComponent<Rigidbody>();
+
+        lickquidatorObjectSO = ScriptableObject.CreateInstance<LickquidatorObjectSO>();
+        resetScriptableObject();
     }
+
     void Update()
     {
         if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Survival) return;
@@ -113,7 +113,7 @@ public class Enemy : MonoBehaviour, IDamageable
         body.AddForce(force, ForceMode.Impulse);
     }
 
-    public void PlayDead()
+    public void PlayDead(bool isUpgrade = false)
     {
         EventBus.EnemyEvents.EnemyDied(enemyBlueprint.type);   
         enemyBlueprint.node.SetOccupiedStatusToFalse();   
@@ -124,6 +124,11 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             healthbar.Reset();
             healthbar = null;
+        }
+
+        if (!isUpgrade)
+        {
+            resetScriptableObject();
         }
 
         float value = lickquidatorObjectSO.Cost / generalSO.EnemyKillRewardMultipleByCost;
@@ -191,6 +196,28 @@ public class Enemy : MonoBehaviour, IDamageable
             healthbar = null;
             gameObject.SetActive(false);
         }
+    }
+
+    private void resetScriptableObject()
+    {
+        lickquidatorObjectSO.Name = lickquidatorObjectSOOriginal.Name;
+        lickquidatorObjectSO.Type = lickquidatorObjectSOOriginal.Type;
+        lickquidatorObjectSO.Level = lickquidatorObjectSOOriginal.Level;
+        lickquidatorObjectSO.AttackDamage = lickquidatorObjectSOOriginal.AttackDamage;
+        lickquidatorObjectSO.AttackRange = lickquidatorObjectSOOriginal.AttackRange;
+        lickquidatorObjectSO.AttackCountdown = lickquidatorObjectSOOriginal.AttackCountdown;
+        lickquidatorObjectSO.Cost = lickquidatorObjectSOOriginal.Cost;
+        lickquidatorObjectSO.buildTime = lickquidatorObjectSOOriginal.buildTime;
+        lickquidatorObjectSO.Health = lickquidatorObjectSOOriginal.Health;
+        lickquidatorObjectSO.OffsetDistance = lickquidatorObjectSOOriginal.OffsetDistance;
+        lickquidatorObjectSO.MovementSpeed = lickquidatorObjectSOOriginal.MovementSpeed;
+        lickquidatorObjectSO.MovementAcceleration = lickquidatorObjectSOOriginal.MovementAcceleration;
+        lickquidatorObjectSO.AngularSpeed = lickquidatorObjectSOOriginal.AngularSpeed;
+        lickquidatorObjectSO.AttackRotationSpeed = lickquidatorObjectSOOriginal.AttackRotationSpeed;
+        lickquidatorObjectSO.NavMeshAgentHeight = lickquidatorObjectSOOriginal.NavMeshAgentHeight;
+        lickquidatorObjectSO.NavMeshAgentPriority = lickquidatorObjectSOOriginal.NavMeshAgentPriority;
+        lickquidatorObjectSO.NavMeshAgentRadius = lickquidatorObjectSOOriginal.NavMeshAgentRadius;
+        lickquidatorObjectSO.NavMeshAgentStoppingDistance = lickquidatorObjectSOOriginal.NavMeshAgentStoppingDistance;
     }
     #endregion
 }

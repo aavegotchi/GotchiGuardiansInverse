@@ -10,8 +10,8 @@ public class AreaOfEffectTower : BaseTower
 
     #region Private Variables
     private int numEnemyColliders = 0;
-    private GameObject activatedAreaOfEffectField;
-    private AreaOfEffectTowerObjectSO aoeTowerObjectSO;
+    private GameObject activatedAreaOfEffectField = null;
+    private AreaOfEffectTowerObjectSO aoeTowerObjectSO = null;
     #endregion
 
     #region Unity Functions
@@ -47,7 +47,7 @@ public class AreaOfEffectTower : BaseTower
 
         if (aoeTowerObjectSO != null)
         {
-            enemy.AdjustEnemySpeed(enemy.MovementSpeed / aoeTowerObjectSO.SlowStrength);
+            enemy.AdjustEnemySpeed(enemy.ObjectSO.MovementSpeed / aoeTowerObjectSO.SlowStrength);
         }
 
         numEnemyColliders++;
@@ -80,7 +80,7 @@ public class AreaOfEffectTower : BaseTower
 
         if (aoeTowerObjectSO != null)
         {
-            enemy.AdjustEnemySpeed(enemy.MovementSpeed * aoeTowerObjectSO.SlowStrength);
+            enemy.AdjustEnemySpeed(enemy.ObjectSO.MovementSpeed * aoeTowerObjectSO.SlowStrength);
         }
 
         numEnemyColliders--;

@@ -7,5 +7,6 @@ public class EnemyBlueprint
     public int cost;
     public float buildTime;
     public BaseNode node;
+    public LickquidatorObjectSO objectSO;
 }
 

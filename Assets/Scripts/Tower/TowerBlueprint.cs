@@ -7,5 +7,6 @@ public class TowerBlueprint
     public int cost;
     public float buildTime;
     public BaseNode node;
+    public BaseTowerObjectSO objectSO;
 }
 

@@ -2307,7 +2307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ddde112ea267f47854735a0da27f8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lickquidatorObjectSO: {fileID: 11400000, guid: 8eeca3ce5c676454fb231d8af4893727,
+  lickquidatorObjectSOOriginal: {fileID: 11400000, guid: 8eeca3ce5c676454fb231d8af4893727,
     type: 2}
   generalSO: {fileID: 11400000, guid: 185dd8ec98cbab1408d76c8295922571, type: 2}
   healthbar: {fileID: 9208720214513312327, guid: 076327f8421e28a4ab3ad5e7068e5119,
@@ -2326,8 +2326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9babdb0c3d8a2045aa11c39bb7b590f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lickquidatorObjectSO: {fileID: 11400000, guid: 8eeca3ce5c676454fb231d8af4893727,
-    type: 2}
   anim: {fileID: 0}
   attackParticleEffectGO: {fileID: 0}
   attackTrigger: Attack
@@ -2416,7 +2414,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e7202824830a84aa8755d986402ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerObjectSO: {fileID: 11400000, guid: 57372b414878509489950dc817b84aea, type: 2}
+  towerObjectSOOriginal: {fileID: 11400000, guid: 57372b414878509489950dc817b84aea,
+    type: 2}
   healthbarOffset: {fileID: 6177874959328656165}
   enemyTag: Tower
   impactType: 5

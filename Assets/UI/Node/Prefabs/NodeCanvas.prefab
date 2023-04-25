@@ -4177,7 +4177,7 @@ MonoBehaviour:
   basicTower3SO: {fileID: 11400000, guid: f902fedbbc9fb7a48bb48c40da3998fe, type: 2}
   arrowTower2SO: {fileID: 11400000, guid: 34659a1b9c86e1948a99cc36c0fe178c, type: 2}
   arrowTower3SO: {fileID: 11400000, guid: 6613cb35b3610fe43b219290b119db8d, type: 2}
-  fireTower2SO: {fileID: 11400000, guid: edd738e0403e4d44b9b51244ef9b9155, type: 2}
+  fireTower2SO: {fileID: 11400000, guid: 721b1a8dc46c3254aaa92f4df5a71511, type: 2}
   fireTower3SO: {fileID: 11400000, guid: 67bac934b9f607747beecc5419c6c0f6, type: 2}
   iceTower2SO: {fileID: 11400000, guid: 85f2571781ffcdb4ab96406d7a6f40ed, type: 2}
   iceTower3SO: {fileID: 11400000, guid: 53b46a2a052c81042b4e387e84d98a2b, type: 2}
