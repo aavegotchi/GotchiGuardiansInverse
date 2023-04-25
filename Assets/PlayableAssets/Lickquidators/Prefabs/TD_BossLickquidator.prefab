@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3459662070546464107}
   - component: {fileID: 5563519181929526525}
   - component: {fileID: 5188278783812393725}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TD_BossLickquidator
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -51,13 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ddde112ea267f47854735a0da27f8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lickquidatorObjectSO: {fileID: 11400000, guid: f77ddd3b31a346f4ebafdca3715c8f0a,
+  lickquidatorObjectSO: {fileID: 11400000, guid: 90974a00ac41e324aabef1265175efb0,
     type: 2}
   generalSO: {fileID: 11400000, guid: 185dd8ec98cbab1408d76c8295922571, type: 2}
   healthbar: {fileID: 9208720214513312327, guid: 076327f8421e28a4ab3ad5e7068e5119,
     type: 3}
   healthbarOffset: {fileID: 4733366673996628668}
-  rigidbody: {fileID: 5188278783812393725}
   deathEffect: 5
 --- !u!114 &54298468115301730
 MonoBehaviour:
@@ -71,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3846a61efc82634ca4cad843f559848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lickquidatorObjectSO: {fileID: 11400000, guid: f77ddd3b31a346f4ebafdca3715c8f0a,
+  lickquidatorObjectSO: {fileID: 11400000, guid: 90974a00ac41e324aabef1265175efb0,
     type: 2}
   anim: {fileID: 0}
   attackParticleEffectGO: {fileID: 0}

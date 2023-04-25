@@ -14,6 +14,12 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
         get { return towerBlueprint; }
         set { towerBlueprint = value; }
     }
+
+    public BaseTowerObjectSO ObjectSO
+    {
+        get { return towerObjectSO; }
+        set { towerObjectSO = value; }
+    }
     #endregion
 
     #region Fields
@@ -29,7 +35,6 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     #endregion
 
     #region Private Variables
-    private bool isDead = false;
     private HealthBar_UI healthbar = null;
     protected TowerBlueprint towerBlueprint = null;
     #endregion
@@ -52,15 +57,16 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     void OnMouseDown()
     {
         if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep) return;
-        
-        openNodeUI();
+        if (enemyTag == "Tower") return; // TODO: messy atm as this is prevent tower's upgrade ui for the aerial lickquidator
+
+        NodeManager.Instance.NodeUI.OpenNodeUpgradeUI(transform, this);
     }
     #endregion
 
     #region Public Functions
     public void Damage(float damage)
     {
-        if (isDead) return;
+        if (healthbar == null) return;
 
         healthbar.CurrentHealth -= damage;
         healthbar.ShowDamagePopUpAndColorDifferentlyIfEnemy(damage, false);
@@ -78,9 +84,8 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     {
         EventBus.TowerEvents.TowerDied(towerBlueprint.type);
         towerBlueprint.node.SetOccupiedStatusToFalse();
-
         ImpactManager.Instance.SpawnImpact(impactType, transform.position, transform.rotation);
-        isDead = true;
+        
         gameObject.SetActive(false);
         if (healthbar != null) 
         {
@@ -91,20 +96,6 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     #endregion
 
     #region Private Functions
-    private void openNodeUI()
-    {
-        Vector3 nodeUIPosition = transform.position;
-        nodeUIPosition.y = 25f;
-        nodeUIPosition.z -= 8f;
-
-        NodeUI nodeUI = NodeManager.Instance.NodeUI;
-        nodeUI.transform.position = nodeUIPosition;
-
-        nodeUI.Close();
-        nodeUI.UpgradeInventory.Open(towerObjectSO, transform);
-        nodeUI.Open();
-    }  
-
     private void SetupHealthBar()
     {
         healthbar = HealthBarManager.Instance.GetHealthbar(healthbarOffset);

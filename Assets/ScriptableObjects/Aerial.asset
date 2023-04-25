@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Aerial
   m_EditorClassIdentifier: 
   Name: Aerial
+  Type: 2
+  Level: 1
   AttackDamage: 20
   AttackRange: 25
   AttackCountdown: 2.5
   Cost: 75
-  Health: 100
+  buildTime: 2
+  Health: 150
   OffsetDistance: 20
   MovementSpeed: 20
   MovementAcceleration: 20

@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: Boss
   m_EditorClassIdentifier: 
   Name: Boss
-  AttackDamage: 20
+  Type: 3
+  Level: 1
+  AttackDamage: 40
   AttackRange: 20
-  AttackCountdown: 2.5
-  Cost: 75
+  AttackCountdown: 3
+  Cost: 100
+  buildTime: 2.5
   Health: 200
   OffsetDistance: 20
-  MovementSpeed: 7
-  MovementAcceleration: 7
-  AngularSpeed: 100
+  MovementSpeed: 5
+  MovementAcceleration: 5
+  AngularSpeed: 200
   AttackRotationSpeed: 2
-  NavMeshAgentHeight: 4
+  NavMeshAgentHeight: 2
   NavMeshAgentPriority: 50
-  NavMeshAgentRadius: 4
+  NavMeshAgentRadius: 2
   NavMeshAgentStoppingDistance: 5

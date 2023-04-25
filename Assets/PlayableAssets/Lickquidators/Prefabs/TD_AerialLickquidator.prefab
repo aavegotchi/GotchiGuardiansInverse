@@ -2270,7 +2270,7 @@ GameObject:
   - component: {fileID: 8656449059945063059}
   - component: {fileID: 1772166786773167060}
   - component: {fileID: 922941150835799122}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TD_AerialLickquidator
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -2313,7 +2313,6 @@ MonoBehaviour:
   healthbar: {fileID: 9208720214513312327, guid: 076327f8421e28a4ab3ad5e7068e5119,
     type: 3}
   healthbarOffset: {fileID: 6177874959328656165}
-  rigidbody: {fileID: 1772166786773167060}
   deathEffect: 5
 --- !u!114 &5500659574896895993
 MonoBehaviour:
@@ -2421,7 +2420,6 @@ MonoBehaviour:
   healthbarOffset: {fileID: 6177874959328656165}
   enemyTag: Tower
   impactType: 5
-  soundType: 5
   partToRotate: {fileID: 6308958348193739739}
   attackPoint: {fileID: 895852044441267717}
 --- !u!1 &9014571768921774415

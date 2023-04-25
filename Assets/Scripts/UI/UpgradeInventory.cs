@@ -18,6 +18,7 @@ public class UpgradeInventory : MonoBehaviour
 
     [Header("Required Refs")]
     [SerializeField] private TextMeshProUGUI upgradeCostText = null;
+    [SerializeField] private TextMeshProUGUI upgradeText = null;
     [SerializeField] private TextMeshProUGUI sellRewardText = null;
     [SerializeField] private Button upgradeButton = null;
     [SerializeField] private Button sellButton = null;
@@ -34,92 +35,55 @@ public class UpgradeInventory : MonoBehaviour
     [SerializeField] private Sprite iceTower1Sprite = null;
     [SerializeField] private Sprite iceTower2Sprite = null;
     [SerializeField] private Sprite iceTower3Sprite = null;
+    [SerializeField] private Sprite pawnLickquidatorSprite = null;
+    [SerializeField] private Sprite aerialLickquidatorSprite = null;
+    [SerializeField] private Sprite bossLickquidatorSprite = null;
     [SerializeField] private NodeUI nodeUI = null;
     #endregion 
 
     #region Private Variables
-    private BaseTowerObjectSO towerObjectSO = null;
-    private LickquidatorObjectSO lickquidatorObjectSO = null;
-    private BaseTowerObjectSO newTowerObjectSO = null;
-    // private LickquidatorObjectSO newLickquidatorObjectSO = null;
     private Transform transformHolder = null;
     private Image upgradeButtonImage = null;
     private Image sellButtonImage = null;
+    private BaseTower towerHolder = null;
+    private Enemy enemyHolder = null;
+    private BaseTowerObjectSO newTowerObjectSO = null;
+    private LickquidatorObjectSO newLickquidatorObjectSO = null;
     #endregion
 
     #region Public Functions
     public void SelectUpgrade()
-    {
-        if (lickquidatorObjectSO != null)
+    {    
+        if (towerHolder != null)
         {
-            // TODO enemy upgrades
-            Debug.Log("upgrades not implemented for enemies yet");
-            close();
-            return;
+            upgradeTower();
+        }
+        else if (enemyHolder != null)
+        {
+            upgradeLickquidator();
         }
 
-        if (towerObjectSO == null) return;
-
-        if (towerObjectSO.Type == TowerManager.TowerType.BasicTower)
-        {
-            newTowerObjectSO = basicTower2SO; // basic to bomb
-        }
-        else if (towerObjectSO.Type == TowerManager.TowerType.BombTower)
-        {
-            newTowerObjectSO = basicTower3SO; // bomb to slow
-        }
-        else if (towerObjectSO.Type == TowerManager.TowerType.ArrowTower1)
-        {
-            newTowerObjectSO = arrowTower2SO; // arrow 1 to arrow 2
-        }
-        else if (towerObjectSO.Type == TowerManager.TowerType.ArrowTower2)
-        {
-            newTowerObjectSO = arrowTower3SO; // arrow 2 to arrow 3
-        }
-        else if (towerObjectSO.Type == TowerManager.TowerType.FireTower1)
-        {
-            newTowerObjectSO = fireTower2SO; // fire 1 to fire 2
-        }
-        else if (towerObjectSO.Type == TowerManager.TowerType.FireTower2)
-        {
-            newTowerObjectSO = fireTower3SO; // fire 2 to fire 3
-        }
-        else if (towerObjectSO.Type == TowerManager.TowerType.IceTower1)
-        {
-            newTowerObjectSO = iceTower2SO; // ice 1 to ice 2
-        }
-        else if (towerObjectSO.Type == TowerManager.TowerType.IceTower2)
-        {
-            newTowerObjectSO = iceTower3SO; // ice 2 to ice 3
-        }
-
-        StatsManager.Instance.Money -= newTowerObjectSO.Cost;
-        TowerBlueprint towerBlueprint = new TowerBlueprint();
-        towerBlueprint.type = newTowerObjectSO.Type;
-        towerBlueprint.cost = newTowerObjectSO.Cost;
-        towerBlueprint.buildTime = newTowerObjectSO.buildTime;
-
-        BaseTower tower = transformHolder.GetComponent<BaseTower>();
-        towerBlueprint.node = tower.TowerBlueprint.node;
-        tower.PlayDead();
-        
-        ProgressBarManager.Instance.GetAndShowProgressBar(towerBlueprint);
-        
-        close();
+        reset();
+        nodeUI.Close();
     }
 
     public void SelectSell()
     {
-        // TODO enemy sell
-        if (lickquidatorObjectSO != null)
+        if (towerHolder != null)
         {
-            Debug.Log("selling not implemented for enemies yet");
-            close();
-            return;
+            sellTower();
+        }
+        else if (enemyHolder != null)
+        {
+            sellLickquidator();
         }
 
-        if (towerObjectSO == null) return;
+        reset();
+        nodeUI.Close();
+    }
 
+    private void sellTower()
+    {
         BaseTower tower = transformHolder.GetComponent<BaseTower>();
         TowerBlueprint towerBlueprint = tower.TowerBlueprint;
         StatsManager.Instance.Money += calculateSellReward(towerBlueprint.cost);
@@ -127,15 +91,26 @@ public class UpgradeInventory : MonoBehaviour
 
         towerBlueprint.node.Occupied = false;
         towerBlueprint.node.Renderer.material = towerBlueprint.node.UnoccupiedMaterial;
-        
-        close();
     }
 
-    public void Open(BaseTowerObjectSO objectSO, Transform towerTransform)
+    private void sellLickquidator()
     {
-        towerObjectSO = objectSO;
+        Enemy enemy = transformHolder.GetComponent<Enemy>();
+        EnemyBlueprint enemyBlueprint = enemy.EnemyBlueprint;
+        StatsManager.Instance.Money += calculateSellReward(enemyBlueprint.cost);
+        enemy.PlayDead();
+
+        enemyBlueprint.node.Occupied = false;
+        enemyBlueprint.node.Renderer.material = enemyBlueprint.node.UnoccupiedMaterial;
+    }
+
+    public void Open(Transform towerTransform, BaseTower tower)
+    {
+        reset();
+
+        towerHolder = tower;
         transformHolder = towerTransform;
-        sellRewardText.text = $"{calculateSellReward(towerObjectSO.Cost)}";
+        sellRewardText.text = $"{calculateSellReward(towerHolder.ObjectSO.Cost)}";
 
         if (upgradeButtonImage == null || sellButtonImage == null)
         {
@@ -143,23 +118,25 @@ public class UpgradeInventory : MonoBehaviour
             sellButtonImage = sellButton.gameObject.GetComponent<Image>();
         }
         
-        if (towerObjectSO.Type == TowerManager.TowerType.BasicTower)
+        if (towerHolder.ObjectSO.Type == TowerManager.TowerType.BasicTower)
         {
             // basic to bomb
             upgradeButtonImage.sprite = basicTower2Sprite;
             sellButtonImage.sprite = basicTower1Sprite;
+            upgradeText.text = "Evolve to II";
             upgradeCostText.text = $"{basicTower2SO.Cost}";
-            disableButtonIfNoMoney(basicTower2SO.Cost, upgradeButton, upgradeCanvasGroup);
+            disableUpgradeButtonIfNoMoney(basicTower2SO.Cost);
         }
-        else if (towerObjectSO.Type == TowerManager.TowerType.BombTower)
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.BombTower)
         {
             // bomb to slow
             upgradeButtonImage.sprite = basicTower3Sprite;
             sellButtonImage.sprite = basicTower2Sprite;
+            upgradeText.text = "Evolve to III";
             upgradeCostText.text = $"{basicTower3SO.Cost}";
-            disableButtonIfNoMoney(basicTower3SO.Cost, upgradeButton, upgradeCanvasGroup);
+            disableUpgradeButtonIfNoMoney(basicTower3SO.Cost);
         }
-        else if (towerObjectSO.Type == TowerManager.TowerType.SlowTower)
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.SlowTower)
         {
             // slow, so don't show upgrade
             upgradeCanvasGroup.alpha = 0f;
@@ -167,25 +144,28 @@ public class UpgradeInventory : MonoBehaviour
 
             upgradeButtonImage.sprite = basicTower3Sprite;
             sellButtonImage.sprite = basicTower3Sprite;
+            upgradeText.text = "";
             upgradeCostText.text = "";
         }
-        else if (towerObjectSO.Type == TowerManager.TowerType.ArrowTower1)
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.ArrowTower1)
         {
             // arrow 1 to arrow 2
             upgradeButtonImage.sprite = arrowTower2Sprite;
             sellButtonImage.sprite = arrowTower1Sprite;
+            upgradeText.text = "Evolve to II";
             upgradeCostText.text = $"{arrowTower2SO.Cost}";
-            disableButtonIfNoMoney(arrowTower2SO.Cost, upgradeButton, upgradeCanvasGroup);
+            disableUpgradeButtonIfNoMoney(arrowTower2SO.Cost);
         }
-        else if (towerObjectSO.Type == TowerManager.TowerType.ArrowTower2)
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.ArrowTower2)
         {
             // arrow 2 to arrow 3
             upgradeButtonImage.sprite = arrowTower3Sprite;
             sellButtonImage.sprite = arrowTower2Sprite;
+            upgradeText.text = "Evolve to III";
             upgradeCostText.text = $"{arrowTower3SO.Cost}";
-            disableButtonIfNoMoney(arrowTower3SO.Cost, upgradeButton, upgradeCanvasGroup);
+            disableUpgradeButtonIfNoMoney(arrowTower3SO.Cost);
         }
-        else if (towerObjectSO.Type == TowerManager.TowerType.ArrowTower3)
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.ArrowTower3)
         {
             // arrow 3, so don't show upgrade
             upgradeCanvasGroup.alpha = 0f;
@@ -193,25 +173,28 @@ public class UpgradeInventory : MonoBehaviour
 
             upgradeButtonImage.sprite = arrowTower3Sprite;
             sellButtonImage.sprite = arrowTower3Sprite;
+            upgradeText.text = "";
             upgradeCostText.text = "";
         }
-        else if (towerObjectSO.Type == TowerManager.TowerType.FireTower1)
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.FireTower1)
         {
             // fire 1 to fire 2
             upgradeButtonImage.sprite = fireTower2Sprite;
             sellButtonImage.sprite = fireTower1Sprite;
+            upgradeText.text = "Evolve to II";
             upgradeCostText.text = $"{fireTower2SO.Cost}";
-            disableButtonIfNoMoney(fireTower2SO.Cost, upgradeButton, upgradeCanvasGroup);
+            disableUpgradeButtonIfNoMoney(fireTower2SO.Cost);
         }
-        else if (towerObjectSO.Type == TowerManager.TowerType.FireTower2)
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.FireTower2)
         {
             // fire 2 to fire 3
             upgradeButtonImage.sprite = fireTower3Sprite;
             sellButtonImage.sprite = fireTower2Sprite;
+            upgradeText.text = "Evolve to III";
             upgradeCostText.text = $"{fireTower3SO.Cost}";
-            disableButtonIfNoMoney(fireTower3SO.Cost, upgradeButton, upgradeCanvasGroup);
+            disableUpgradeButtonIfNoMoney(fireTower3SO.Cost);
         }
-        else if (towerObjectSO.Type == TowerManager.TowerType.FireTower3)
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.FireTower3)
         {
             // fire 3, so don't show upgrade
             upgradeCanvasGroup.alpha = 0f;
@@ -219,25 +202,28 @@ public class UpgradeInventory : MonoBehaviour
             
             upgradeButtonImage.sprite = fireTower3Sprite;
             sellButtonImage.sprite = fireTower3Sprite;
+            upgradeText.text = "";
             upgradeCostText.text = "";
         }
-        else if (towerObjectSO.Type == TowerManager.TowerType.IceTower1)
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.IceTower1)
         {
             // ice 1 to ice 2
             upgradeButtonImage.sprite = iceTower2Sprite;
             sellButtonImage.sprite = iceTower1Sprite;
+            upgradeText.text = "Evolve to II";
             upgradeCostText.text = $"{iceTower2SO.Cost}";
-            disableButtonIfNoMoney(iceTower2SO.Cost, upgradeButton, upgradeCanvasGroup);
+            disableUpgradeButtonIfNoMoney(iceTower2SO.Cost);
         }
-        else if (towerObjectSO.Type == TowerManager.TowerType.IceTower2)
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.IceTower2)
         {
             // ice 2 to ice 3
             upgradeButtonImage.sprite = iceTower3Sprite;
             sellButtonImage.sprite = iceTower2Sprite;
+            upgradeText.text = "Evolve to III";
             upgradeCostText.text = $"{iceTower3SO.Cost}";
-            disableButtonIfNoMoney(iceTower3SO.Cost, upgradeButton, upgradeCanvasGroup);
+            disableUpgradeButtonIfNoMoney(iceTower3SO.Cost);
         }
-        else if (towerObjectSO.Type == TowerManager.TowerType.IceTower3)
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.IceTower3)
         {
             // ice 3, so don't show upgrade
             upgradeCanvasGroup.alpha = 0f;
@@ -245,22 +231,53 @@ public class UpgradeInventory : MonoBehaviour
 
             upgradeButtonImage.sprite = iceTower3Sprite;
             sellButtonImage.sprite = iceTower3Sprite;
+            upgradeText.text = "";
             upgradeCostText.text = "";
         }
         
         gameObject.SetActive(true);
     }
 
-    public void Open(LickquidatorObjectSO objectSO, Transform enemyTransform)
+    public void Open(Transform lickquidatorTransform, Enemy enemy)
     {
-        lickquidatorObjectSO = objectSO;
-        transformHolder = enemyTransform;
-        disableButtonIfNoMoney(lickquidatorObjectSO.Cost, upgradeButton, upgradeCanvasGroup);
-        
-        if (lickquidatorObjectSO != null)
+        reset();
+
+        enemyHolder = enemy;
+        transformHolder = lickquidatorTransform;
+        sellRewardText.text = $"{calculateSellReward(enemyHolder.ObjectSO.Cost)}";
+
+        if (upgradeButtonImage == null || sellButtonImage == null)
         {
-            // TODO enemy upgrades
-            Debug.Log("enemy upgrade/sell sprites are not yet implemented");
+            upgradeButtonImage = upgradeButton.gameObject.GetComponent<Image>();
+            sellButtonImage = sellButton.gameObject.GetComponent<Image>();
+        }
+
+        int upgradeCost = calculateNewLickquidatorCost();
+        upgradeCostText.text = $"{upgradeCost}";
+        upgradeText.text = $"Upgrade to {convertToRomanNumeral(enemyHolder.ObjectSO.Level + 1)}";
+        disableUpgradeButtonIfNoMoney(upgradeCost);
+        
+        if (enemyHolder.ObjectSO.Type == EnemyManager.EnemyType.PawnLickquidator)
+        {
+            upgradeButtonImage.sprite = pawnLickquidatorSprite;
+            sellButtonImage.sprite = pawnLickquidatorSprite;
+        }
+        else if (enemyHolder.ObjectSO.Type == EnemyManager.EnemyType.AerialLickquidator)
+        {
+            upgradeButtonImage.sprite = aerialLickquidatorSprite;
+            sellButtonImage.sprite = aerialLickquidatorSprite;
+        }
+        else if (enemyHolder.ObjectSO.Type == EnemyManager.EnemyType.BossLickquidator)
+        {
+            upgradeButtonImage.sprite = bossLickquidatorSprite;
+            sellButtonImage.sprite = bossLickquidatorSprite;
+        }
+
+        if (enemyHolder.ObjectSO.Level == 10) // max level
+        {
+            upgradeCanvasGroup.alpha = 0f;
+            upgradeButton.enabled = false;
+            upgradeCostText.text = "";
         }
 
         gameObject.SetActive(true);
@@ -268,30 +285,140 @@ public class UpgradeInventory : MonoBehaviour
     #endregion
 
     #region Private Functions
+    private string convertToRomanNumeral(int num)
+    {
+        switch (num)
+        {
+            case 1: return "I";
+            case 2: return "II";
+            case 3: return "III";
+            case 4: return "IV";
+            case 5: return "V";
+            case 6: return "VI";
+            case 7: return "VII";
+            case 8: return "VIII";
+            case 9: return "IX";
+            case 10: return "X";
+        }
+        return "";
+    }
+
+    private void upgradeTower()
+    {
+        if (newTowerObjectSO != null)
+        {
+            Destroy(newTowerObjectSO);
+        }
+
+        if (towerHolder.ObjectSO.Type == TowerManager.TowerType.BasicTower)
+        {
+            newTowerObjectSO = Instantiate(basicTower2SO); // basic to bomb
+        }
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.BombTower)
+        {
+            newTowerObjectSO = Instantiate(basicTower3SO); // bomb to slow
+        }
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.ArrowTower1)
+        {
+            newTowerObjectSO = Instantiate(arrowTower2SO); // arrow 1 to arrow 2
+        }
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.ArrowTower2)
+        {
+            newTowerObjectSO = Instantiate(arrowTower3SO); // arrow 2 to arrow 3
+        }
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.FireTower1)
+        {
+            newTowerObjectSO = Instantiate(fireTower2SO); // fire 1 to fire 2
+        }
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.FireTower2)
+        {
+            newTowerObjectSO = Instantiate(fireTower3SO); // fire 2 to fire 3
+        }
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.IceTower1)
+        {
+            newTowerObjectSO = Instantiate(iceTower2SO); // ice 1 to ice 2
+        }
+        else if (towerHolder.ObjectSO.Type == TowerManager.TowerType.IceTower2)
+        {
+            newTowerObjectSO = Instantiate(iceTower3SO); // ice 2 to ice 3
+        }
+        
+        towerHolder.ObjectSO = newTowerObjectSO;
+
+        StatsManager.Instance.Money -= towerHolder.ObjectSO.Cost;
+        TowerBlueprint towerBlueprint = new TowerBlueprint();
+        towerBlueprint.type = towerHolder.ObjectSO.Type;
+        towerBlueprint.cost = towerHolder.ObjectSO.Cost;
+        towerBlueprint.buildTime = towerHolder.ObjectSO.buildTime;
+
+        BaseTower tower = transformHolder.GetComponent<BaseTower>();
+        towerBlueprint.node = tower.TowerBlueprint.node;
+        tower.PlayDead();
+        
+        ProgressBarManager.Instance.GetAndShowProgressBar(towerBlueprint);
+    }
+
+    private void upgradeLickquidator()
+    {
+        if (newLickquidatorObjectSO != null)
+        {
+            Destroy(newLickquidatorObjectSO);
+        }
+        newLickquidatorObjectSO = Instantiate(enemyHolder.ObjectSO);
+        enemyHolder.ObjectSO = newLickquidatorObjectSO;
+
+        enemyHolder.ObjectSO.Cost = calculateNewLickquidatorCost();
+        enemyHolder.ObjectSO.Level += 1;
+        float levelBasedUpgradeValue = enemyHolder.ObjectSO.Level * generalSO.GenericUpgradeMultipleByLevel;
+        float levelBasedUpgradeValueInverse = enemyHolder.ObjectSO.Level / generalSO.GenericUpgradeMultipleByLevel;
+        enemyHolder.ObjectSO.buildTime += levelBasedUpgradeValueInverse;
+        enemyHolder.ObjectSO.AttackDamage += levelBasedUpgradeValue;
+        enemyHolder.ObjectSO.AttackCountdown = Mathf.Max(1f, enemyHolder.ObjectSO.AttackCountdown - enemyHolder.ObjectSO.AttackCountdown * enemyHolder.ObjectSO.Level * 0.1f);
+        enemyHolder.ObjectSO.Health += Mathf.RoundToInt(levelBasedUpgradeValue);
+        enemyHolder.ObjectSO.MovementSpeed += levelBasedUpgradeValue;
+
+        StatsManager.Instance.Money -= enemyHolder.ObjectSO.Cost;
+        EnemyBlueprint enemyBlueprint = new EnemyBlueprint();
+        enemyBlueprint.type = enemyHolder.ObjectSO.Type;
+        enemyBlueprint.cost = enemyHolder.ObjectSO.Cost;
+        enemyBlueprint.buildTime = enemyHolder.ObjectSO.buildTime;
+
+        Enemy enemy = transformHolder.GetComponent<Enemy>();
+        enemyBlueprint.node = enemy.EnemyBlueprint.node;
+        enemy.PlayDead();
+
+        ProgressBarManager.Instance.GetAndShowProgressBar(enemyBlueprint);
+    }
+
+    private int calculateNewLickquidatorCost()
+    {
+        float levelBasedUpgradeValueInverse = (enemyHolder.ObjectSO.Level + 1) / generalSO.GenericUpgradeMultipleByLevel;
+        return enemyHolder.ObjectSO.Cost * Mathf.RoundToInt(Mathf.Max(1f, levelBasedUpgradeValueInverse));
+    }
+
     private int calculateSellReward(int cost)
     {
         float sellReward = cost * generalSO.TowerSellRewardMultipleByCost;
         return Mathf.RoundToInt(sellReward);
     }
 
-    private void close()
+    private void reset()
     {
-        towerObjectSO = null;
-        lickquidatorObjectSO = null;
-        nodeUI.Close();
+        towerHolder = null;
+        enemyHolder = null;
     }
 
-    private void disableButtonIfNoMoney(int cost, Button button, CanvasGroup canvasGroup)
+    private void disableUpgradeButtonIfNoMoney(int cost)
     {
         if (StatsManager.Instance.Money < cost)
         {
-            canvasGroup.alpha = 0f;
-            button.enabled = false;
+            upgradeCanvasGroup.alpha = 0f;
+            upgradeButton.enabled = false;
         }
         else
         {
-            canvasGroup.alpha = 1f;
-            button.enabled = true;
+            upgradeCanvasGroup.alpha = 1f;
+            upgradeButton.enabled = true;
         }
     }
     #endregion

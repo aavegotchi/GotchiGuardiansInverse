@@ -49,6 +49,7 @@ public class ProgressBarManager : MonoBehaviour
     {
         Transform nodeTransform = towerBlueprint.node.transform;
         ProgressBar_UI progressBar = getProgressBar(nodeTransform, towerBlueprint.buildTime);
+        
         progressBar.ShowProgressBarAndSetDuration(towerBlueprint.buildTime, () =>
         {
             EventBus.TowerEvents.TowerFinished(towerBlueprint);
@@ -60,8 +61,6 @@ public class ProgressBarManager : MonoBehaviour
     {
         Transform nodeTransform = enemyBlueprint.node.transform;
         ProgressBar_UI progressBar = getProgressBar(nodeTransform, enemyBlueprint.buildTime);
-
-        if (progressBar == null) return;
         
         progressBar.ShowProgressBarAndSetDuration(enemyBlueprint.buildTime, () =>
         {

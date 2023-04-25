@@ -22,6 +22,12 @@ public class Enemy : MonoBehaviour, IDamageable
         get { return enemyBlueprint; }
         set { enemyBlueprint = value; }
     }
+
+    public LickquidatorObjectSO ObjectSO
+    {
+        get { return lickquidatorObjectSO; }
+        set { lickquidatorObjectSO = value; }
+    }
     #endregion
 
     #region Fields
@@ -58,9 +64,21 @@ public class Enemy : MonoBehaviour, IDamageable
         goAfterGotchi();
     }
 
+    // void FixedUpdate()
+    // {
+    //     listenForRigidbodyClicks();
+    // }
+
     void Start()
     {
         setNavMeshAgentFields();
+    }
+
+    void OnMouseDown()
+    {
+        if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep) return;
+
+        NodeManager.Instance.NodeUI.OpenNodeUpgradeUI(transform, this);
     }
     #endregion
 
@@ -97,21 +115,56 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void PlayDead()
     {
+        EventBus.EnemyEvents.EnemyDied(enemyBlueprint.type);   
+        enemyBlueprint.node.SetOccupiedStatusToFalse();   
         ImpactManager.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
         
-        EventBus.EnemyEvents.EnemyDied(enemyBlueprint.type);        
-        
         gameObject.SetActive(false);
-        healthbar.Reset();
-        healthbar = null;
+        if (healthbar != null) 
+        {
+            healthbar.Reset();
+            healthbar = null;
+        }
 
         float value = lickquidatorObjectSO.Cost / generalSO.EnemyKillRewardMultipleByCost;
         int roundedValue = Mathf.RoundToInt(value / 5.0f) * 5;
         StatsManager.Instance.Money += roundedValue;
     }
+
+    public void Freeze()
+    {
+        agent.enabled = false;
+        // boxCollider.enabled = false;
+    }
+
+    public void Unfreeze()
+    {
+        agent.enabled = true;
+        // boxCollider.enabled = true;
+    }
     #endregion
 
     #region Private Functions
+    // private void listenForRigidbodyClicks()
+    // {
+    //     int layerToHit = 1 << 6; // only register clicks for "Lickquidator" layer (#6)
+    //     // NOTE: to register clicks for everything other than a specific layer, invert using "layerToHit = ~layerToHit;"
+        
+    //     RaycastHit hit;
+
+    //     if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerToHit))
+    //     {
+    //         if (hit.rigidbody != null)
+    //         {
+    //             hit.rigidbody.gameObject.SendMessage("OnMouseDown");
+    //         }
+    //         else
+    //         {
+    //             hit.collider.SendMessage("OnMouseDown");
+    //         }
+    //     }
+    // }
+
     private void setNavMeshAgentFields()
     {
         agent.speed = lickquidatorObjectSO.MovementSpeed;
@@ -139,22 +192,5 @@ public class Enemy : MonoBehaviour, IDamageable
             gameObject.SetActive(false);
         }
     }
-
-
-    // Add the Freeze function
-    public void Freeze()
-    {
-        agent.enabled = false;
-        boxCollider.enabled = false;
-
-    }
-
-    // Add the Unfreeze function
-    public void Unfreeze()
-    {
-        agent.enabled = true;
-        boxCollider.enabled = true;
-    }
-
     #endregion
 }

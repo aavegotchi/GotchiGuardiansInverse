@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: SlowTower
   m_EditorClassIdentifier: 
   Name: Slow Tower
+  Type: 3
   Cost: 75
+  buildTime: 2
   Health: 200
   AreaOfEffectRange: 40
   SlowStrength: 1.5
-  towerDeathSound: 10
   deathEffectType: 0

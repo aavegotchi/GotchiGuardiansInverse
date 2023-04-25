@@ -70,5 +70,31 @@ public class NodeUI : MonoBehaviour
         gameObject.SetActive(true);
         uiAnimator.SetTrigger("Open");
     }
+
+    public void OpenNodeUpgradeUI(Transform transformHolder, BaseTower tower)
+    {
+        Vector3 nodeUIPosition = transformHolder.position;
+        nodeUIPosition.y = 25f;
+        nodeUIPosition.z -= 8f;
+
+        transform.position = nodeUIPosition;
+
+        Close();
+        upgradeInventory.Open(transformHolder, tower);
+        Open();
+    }  
+
+    public void OpenNodeUpgradeUI(Transform transformHolder, Enemy enemy)
+    {
+        Vector3 nodeUIPosition = transformHolder.position;
+        nodeUIPosition.y = 25f;
+        nodeUIPosition.z -= 8f;
+
+        transform.position = nodeUIPosition;
+
+        Close();
+        upgradeInventory.Open(transformHolder, enemy);
+        Open();
+    }  
     #endregion
 }

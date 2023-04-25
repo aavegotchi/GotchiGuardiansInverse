@@ -5,6 +5,7 @@ public class LickquidatorObjectSO : ScriptableObject
 {
     public string Name;
     public EnemyManager.EnemyType Type;
+    public int Level = 1;
 
     [Header("Attack")]
     public float AttackDamage = 20f;
