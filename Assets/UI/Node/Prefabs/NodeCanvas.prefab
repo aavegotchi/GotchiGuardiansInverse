@@ -1669,7 +1669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1408561646227189879
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4129,7 +4129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4885432715475828984
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4177,11 +4177,12 @@ MonoBehaviour:
   basicTower3SO: {fileID: 11400000, guid: f902fedbbc9fb7a48bb48c40da3998fe, type: 2}
   arrowTower2SO: {fileID: 11400000, guid: 34659a1b9c86e1948a99cc36c0fe178c, type: 2}
   arrowTower3SO: {fileID: 11400000, guid: 6613cb35b3610fe43b219290b119db8d, type: 2}
-  fireTower2SO: {fileID: 11400000, guid: edd738e0403e4d44b9b51244ef9b9155, type: 2}
+  fireTower2SO: {fileID: 11400000, guid: 721b1a8dc46c3254aaa92f4df5a71511, type: 2}
   fireTower3SO: {fileID: 11400000, guid: 67bac934b9f607747beecc5419c6c0f6, type: 2}
   iceTower2SO: {fileID: 11400000, guid: 85f2571781ffcdb4ab96406d7a6f40ed, type: 2}
   iceTower3SO: {fileID: 11400000, guid: 53b46a2a052c81042b4e387e84d98a2b, type: 2}
   upgradeCostText: {fileID: 6138617368861392819}
+  upgradeText: {fileID: 4916495226058607686}
   sellRewardText: {fileID: 4849494722603668661}
   upgradeButton: {fileID: 8869502220155855946}
   sellButton: {fileID: 4926574797051760894}
@@ -4198,6 +4199,12 @@ MonoBehaviour:
   iceTower1Sprite: {fileID: 21300000, guid: 93e45b43e469be84caefd64f65e136a3, type: 3}
   iceTower2Sprite: {fileID: 21300000, guid: 15420bfd70a4bda459f2006c6df40538, type: 3}
   iceTower3Sprite: {fileID: 21300000, guid: 16ed41a407434ba4fb511d433973c11c, type: 3}
+  pawnLickquidatorSprite: {fileID: 21300000, guid: fcad6569d27dbb94e964514de4d74fd1,
+    type: 3}
+  aerialLickquidatorSprite: {fileID: 21300000, guid: ad6e81b3c9eb61841bafce7f2fa96439,
+    type: 3}
+  bossLickquidatorSprite: {fileID: 21300000, guid: 6ed97b62ea3263a4399c8980260578b3,
+    type: 3}
   nodeUI: {fileID: 1987178572867475627}
 --- !u!1 &5982737133612229317
 GameObject:
@@ -4552,8 +4559,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27
-  m_fontSizeBase: 27
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5180,8 +5187,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27
-  m_fontSizeBase: 27
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5873,7 +5880,7 @@ MonoBehaviour:
   pawnLickquidatorSO: {fileID: 11400000, guid: dd8423788cd7a5a4eb94971b4ddeb3d7, type: 2}
   aerialLickquidatorSO: {fileID: 11400000, guid: 8eeca3ce5c676454fb231d8af4893727,
     type: 2}
-  bossLickquidatorSO: {fileID: 11400000, guid: f77ddd3b31a346f4ebafdca3715c8f0a, type: 2}
+  bossLickquidatorSO: {fileID: 11400000, guid: 90974a00ac41e324aabef1265175efb0, type: 2}
   pawnLickquidatorCostText: {fileID: 8365410944409665556}
   aerialLickquidatorCostText: {fileID: 5129541213320787187}
   bossLickquidatorCostText: {fileID: 597299487472911669}

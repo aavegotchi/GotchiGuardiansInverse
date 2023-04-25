@@ -49,9 +49,10 @@ public class ProgressBarManager : MonoBehaviour
     {
         Transform nodeTransform = towerBlueprint.node.transform;
         ProgressBar_UI progressBar = getProgressBar(nodeTransform, towerBlueprint.buildTime);
-        progressBar.ShowProgressBarAndSetDuration(towerBlueprint.buildTime, () =>
+        
+        progressBar.ShowProgressBarAndSetDuration(towerBlueprint, (TowerBlueprint blueprint) =>
         {
-            EventBus.TowerEvents.TowerFinished(towerBlueprint);
+            EventBus.TowerEvents.TowerFinished(blueprint);
             progressBar.Reset();
         });
     }
@@ -60,12 +61,10 @@ public class ProgressBarManager : MonoBehaviour
     {
         Transform nodeTransform = enemyBlueprint.node.transform;
         ProgressBar_UI progressBar = getProgressBar(nodeTransform, enemyBlueprint.buildTime);
-
-        if (progressBar == null) return;
         
-        progressBar.ShowProgressBarAndSetDuration(enemyBlueprint.buildTime, () =>
+        progressBar.ShowProgressBarAndSetDuration(enemyBlueprint, (EnemyBlueprint blueprint) =>
         {
-            EventBus.EnemyEvents.EnemyFinished(enemyBlueprint);
+            EventBus.EnemyEvents.EnemyFinished(blueprint);
             progressBar.Reset();
         });
     }  

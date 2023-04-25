@@ -129,7 +129,7 @@ public abstract class BaseNode : MonoBehaviour
         return results.Count > 0;
     }
 
-    private void openNodeUI()
+    private void openNodeUI() // TODO: this can probbaly be extrapolated like "OpenNodeUpgradeUI()" in NodeUI.cs
     {
         NodeManager.Instance.SelectedNode = this;
 

@@ -46,8 +46,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 582269604283479029}
-  - component: {fileID: 582269604283479035}
   - component: {fileID: 582269604283479034}
+  - component: {fileID: 4310319700662613799}
   m_Layer: 0
   m_Name: portal_image
   m_TagString: Untagged
@@ -70,25 +70,6 @@ Transform:
   m_Father: {fileID: 4965136545165623190}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &582269604283479035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 582269604283479028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bdf00a054785c14db37aa3fb4bcdfd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Frames:
-  - {fileID: 21300000, guid: fa67c7d18931fff43b7acaa0600f3078, type: 3}
-  - {fileID: 21300000, guid: 39c372315f281534b8b706dae1b63368, type: 3}
-  - {fileID: 21300000, guid: 3c742a198c12e4b498b830e58d9535b2, type: 3}
-  - {fileID: 21300000, guid: dd3d0ef78c9fb8442852efa8a7935e63, type: 3}
-  - {fileID: 21300000, guid: bd20b08737e4d924e84d5fbc3b0d2de7, type: 3}
-  FramesPerSecond: 8
 --- !u!212 &582269604283479034
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -141,6 +122,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4310319700662613799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582269604283479028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd8ee436682d834b93cc82456dc7958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Frames:
+  - {fileID: 21300000, guid: fa67c7d18931fff43b7acaa0600f3078, type: 3}
+  - {fileID: 21300000, guid: 39c372315f281534b8b706dae1b63368, type: 3}
+  - {fileID: 21300000, guid: 3c742a198c12e4b498b830e58d9535b2, type: 3}
+  - {fileID: 21300000, guid: dd3d0ef78c9fb8442852efa8a7935e63, type: 3}
+  - {fileID: 21300000, guid: bd20b08737e4d924e84d5fbc3b0d2de7, type: 3}
+  FramesPerSecond: 8
 --- !u!1 &582269604315080385
 GameObject:
   m_ObjectHideFlags: 0

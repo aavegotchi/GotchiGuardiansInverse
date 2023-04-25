@@ -1407,7 +1407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e7202824830a84aa8755d986402ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerObjectSO: {fileID: 11400000, guid: 53b46a2a052c81042b4e387e84d98a2b, type: 2}
+  towerObjectSOOriginal: {fileID: 11400000, guid: 53b46a2a052c81042b4e387e84d98a2b,
+    type: 2}
   healthbarOffset: {fileID: 1122669376739005150}
   enemyTag: Enemy
   impactType: 4

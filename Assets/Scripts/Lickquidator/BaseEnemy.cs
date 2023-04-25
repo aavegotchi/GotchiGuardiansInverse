@@ -7,9 +7,6 @@ using System.Linq;
 public abstract class BaseEnemy : MonoBehaviour
 {
     #region Fields
-    [Header("Settings")]
-    [SerializeField] private LickquidatorObjectSO lickquidatorObjectSO = null;
-
     [Header("Required References")]
     [SerializeField] protected Animator anim = null;
     protected NavMeshAgent agent = null;
@@ -24,6 +21,7 @@ public abstract class BaseEnemy : MonoBehaviour
     protected float attackCountdownTracker = 1f;
     protected Transform target = null;
     protected IDamageable currentTarget = null;
+    protected Enemy enemy = null;
     #endregion
 
     #region Unity Functions
@@ -31,6 +29,7 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        enemy = GetComponent<Enemy>();
     }
 
     protected virtual void Start()
@@ -50,7 +49,7 @@ public abstract class BaseEnemy : MonoBehaviour
     protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lickquidatorObjectSO.AttackRange);
+        Gizmos.DrawWireSphere(transform.position, enemy.ObjectSO.AttackRange);
     }
     #endregion
 
@@ -64,12 +63,12 @@ public abstract class BaseEnemy : MonoBehaviour
             yield break;
         }
 
-        attackCountdownTracker = lickquidatorObjectSO.AttackCountdown;
+        attackCountdownTracker = enemy.ObjectSO.AttackCountdown;
 
         if(anim != null) anim.SetTrigger(attackTrigger);
         if(attackParticleEffectGO != null) attackParticleEffectGO.SetActive(true);
         OnAttackSound();
-        currentTarget.Damage(lickquidatorObjectSO.AttackDamage);
+        currentTarget.Damage(enemy.ObjectSO.AttackDamage);
     }
 
     protected virtual void LockOntoTarget()
@@ -78,7 +77,7 @@ public abstract class BaseEnemy : MonoBehaviour
 
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * lickquidatorObjectSO.AttackRotationSpeed).eulerAngles;
+        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * enemy.ObjectSO.AttackRotationSpeed).eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
 
@@ -100,7 +99,7 @@ public abstract class BaseEnemy : MonoBehaviour
             }
         }
 
-        bool isClosestTarget = nearestTarget != null && shortestDistance <= lickquidatorObjectSO.AttackRange;
+        bool isClosestTarget = nearestTarget != null && shortestDistance <= enemy.ObjectSO.AttackRange;
         if (isClosestTarget)
         {
             target = nearestTarget.transform;

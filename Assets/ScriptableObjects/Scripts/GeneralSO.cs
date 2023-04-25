@@ -9,6 +9,7 @@ public class GeneralSO : ScriptableObject
     public float EnemySpawnRewardMultipleByCost = 0.25f;
     public float TowerSellRewardMultipleByCost = 0.5f;
     public float EnemySellRewardMultipleByCost = 0.5f;
+    public float GenericUpgradeMultipleByLevel = 2f;
 
     [Header("Phases")]
     public float PrepPhaseCountdown = 30f;
