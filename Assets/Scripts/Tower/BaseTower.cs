@@ -97,7 +97,7 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
 
     public abstract void OnEnemyEnter(Collider collider);
 
-    public void PlayDead(bool isUpgrade = false)
+    public void PlayDead(bool keepUpgrades = false)
     {
         EventBus.TowerEvents.TowerDied(towerBlueprint.type);
         towerBlueprint.node.SetOccupiedStatusToFalse();
@@ -110,7 +110,7 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
             healthbar = null;
         }
 
-        if (!isUpgrade)
+        if (!keepUpgrades)
         {
             if (towerObjectSOOriginal is TurretTowerObjectSO)
             {

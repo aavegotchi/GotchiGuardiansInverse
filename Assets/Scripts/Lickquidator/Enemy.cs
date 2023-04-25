@@ -103,7 +103,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if (healthbar.CurrentHealth <= 0) 
         {
-            PlayDead();
+            PlayDead(true);
             StatsManager.Instance.TrackKillEnemy(enemyBlueprint);
         }
     }
@@ -113,7 +113,7 @@ public class Enemy : MonoBehaviour, IDamageable
         body.AddForce(force, ForceMode.Impulse);
     }
 
-    public void PlayDead(bool isUpgrade = false)
+    public void PlayDead(bool keepUpgrades = false)
     {
         EventBus.EnemyEvents.EnemyDied(enemyBlueprint.type);   
         enemyBlueprint.node.SetOccupiedStatusToFalse();   
@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour, IDamageable
             healthbar = null;
         }
 
-        if (!isUpgrade)
+        if (!keepUpgrades)
         {
             resetScriptableObject();
         }
