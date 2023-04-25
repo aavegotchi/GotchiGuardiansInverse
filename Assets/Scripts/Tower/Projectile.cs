@@ -65,6 +65,7 @@ public class Projectile : MonoBehaviour
 
         if (isLaserAttack())
         {
+            lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, attackPoint.position);
             lineRenderer.SetPosition(1, target.position);
 
@@ -94,6 +95,13 @@ public class Projectile : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, turretTowerObjectSO.projectile.ProjectileExplosiveRadius);
+    }
+    #endregion
+
+    #region Public Functions() {
+        public void ClearLaser()
+    {
+        lineRenderer.positionCount = 0;
     }
     #endregion
 
