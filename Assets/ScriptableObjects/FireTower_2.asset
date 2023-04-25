@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Fire Tower (Level 2)
   Type: 8
   Cost: 200
-  buildTime: 3
+  buildTime: 2
   Health: 300
   AttackRange: 35
   AttackCountdown: 1.5

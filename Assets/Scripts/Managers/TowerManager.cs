@@ -112,7 +112,6 @@ public class TowerManager : MonoBehaviour
         Vector3 position = nodeTransform.position;
         Quaternion rotation = nodeTransform.rotation;
 
-        StatsManager.Instance.Money -= towerBlueprint.cost;
         StatsManager.Instance.TrackCreateTower(towerBlueprint);
 
         List<GameObject> towerPool = getTowerPool(towerBlueprint.type);

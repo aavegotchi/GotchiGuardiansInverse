@@ -38,7 +38,7 @@ public class SlowTower : MonoBehaviour
         if (obj.tag != "Enemy") return;
          
         Enemy enemy = EnemyManager.Instance.GetEnemyByObject(obj);
-        enemy.AdjustEnemySpeed(enemy.MovementSpeed / slowStrength);
+        enemy.AdjustEnemySpeed(enemy.ObjectSO.MovementSpeed / slowStrength);
         numEnemyColliders++;
 
         bool isFirstEnemy = numEnemyColliders == 1;

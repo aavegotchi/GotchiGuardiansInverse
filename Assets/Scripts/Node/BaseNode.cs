@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -104,6 +105,12 @@ public abstract class BaseNode : MonoBehaviour
     #endregion
 
     #region Public Functions
+    public void SetOccupiedStatusToFalse()
+    {
+        render.material = unoccupiedMaterial;
+        occupied = false;
+    }
+
     protected abstract void UpdateNodeUI();
     #endregion
 
@@ -122,7 +129,7 @@ public abstract class BaseNode : MonoBehaviour
         return results.Count > 0;
     }
 
-    private void openNodeUI()
+    private void openNodeUI() // TODO: this can probbaly be extrapolated like "OpenNodeUpgradeUI()" in NodeUI.cs
     {
         NodeManager.Instance.SelectedNode = this;
 

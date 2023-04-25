@@ -1,11 +1,12 @@
 using UnityEngine;
 
 [System.Serializable]
-public class EnemyBlueprint
+public class TowerBlueprint
 {
-    public EnemyManager.EnemyType type;
+    public TowerManager.TowerType type;
     public int cost;
     public float buildTime;
     public BaseNode node;
+    public BaseTowerObjectSO objectSO;
 }
 

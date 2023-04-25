@@ -7,11 +7,6 @@ using Gotchi.Events;
 public class Enemy : MonoBehaviour, IDamageable
 {
     #region Public Variables
-    public float MovementSpeed
-    {
-        get { return lickquidatorObjectSO.MovementSpeed; }
-    }
-
     public Transform HealthbarOffset
     {
         get { return healthbarOffset; }
@@ -22,11 +17,17 @@ public class Enemy : MonoBehaviour, IDamageable
         get { return enemyBlueprint; }
         set { enemyBlueprint = value; }
     }
+
+    public LickquidatorObjectSO ObjectSO
+    {
+        get { return lickquidatorObjectSO; }
+        set { lickquidatorObjectSO = value; }
+    }
     #endregion
 
     #region Fields
     [Header("Settings")]
-    [SerializeField] private LickquidatorObjectSO lickquidatorObjectSO = null;
+    [SerializeField] private LickquidatorObjectSO lickquidatorObjectSOOriginal = null;
     [SerializeField] private GeneralSO generalSO = null;
 
     [Header("Required Refs")]
@@ -42,6 +43,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private EnemyBlueprint enemyBlueprint = null;
     private BoxCollider boxCollider = null;
     private Rigidbody body = null;
+    private LickquidatorObjectSO lickquidatorObjectSO = null;
     #endregion
 
     #region Unity Functions
@@ -50,7 +52,11 @@ public class Enemy : MonoBehaviour, IDamageable
         agent = GetComponent<NavMeshAgent>();
         boxCollider = GetComponent<BoxCollider>();
         body = GetComponent<Rigidbody>();
+
+        lickquidatorObjectSO = ScriptableObject.CreateInstance<LickquidatorObjectSO>();
+        resetScriptableObject();
     }
+
     void Update()
     {
         if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Survival) return;
@@ -58,9 +64,21 @@ public class Enemy : MonoBehaviour, IDamageable
         goAfterGotchi();
     }
 
+    // void FixedUpdate()
+    // {
+    //     listenForRigidbodyClicks();
+    // }
+
     void Start()
     {
         setNavMeshAgentFields();
+    }
+
+    void OnMouseDown()
+    {
+        if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep) return;
+
+        NodeManager.Instance.NodeUI.OpenNodeUpgradeUI(transform, this);
     }
     #endregion
 
@@ -85,7 +103,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if (healthbar.CurrentHealth <= 0) 
         {
-            PlayDead();
+            PlayDead(true);
             StatsManager.Instance.TrackKillEnemy(enemyBlueprint);
         }
     }
@@ -95,23 +113,63 @@ public class Enemy : MonoBehaviour, IDamageable
         body.AddForce(force, ForceMode.Impulse);
     }
 
-    public void PlayDead()
+    public void PlayDead(bool keepUpgrades = false)
     {
+        EventBus.EnemyEvents.EnemyDied(enemyBlueprint.type);   
+        enemyBlueprint.node.SetOccupiedStatusToFalse();   
         ImpactManager.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
         
-        EventBus.EnemyEvents.EnemyDied(enemyBlueprint.type);        
-        
         gameObject.SetActive(false);
-        healthbar.Reset();
-        healthbar = null;
+        if (healthbar != null) 
+        {
+            healthbar.Reset();
+            healthbar = null;
+        }
+
+        if (!keepUpgrades)
+        {
+            resetScriptableObject();
+        }
 
         float value = lickquidatorObjectSO.Cost / generalSO.EnemyKillRewardMultipleByCost;
         int roundedValue = Mathf.RoundToInt(value / 5.0f) * 5;
         StatsManager.Instance.Money += roundedValue;
     }
+
+    public void Freeze()
+    {
+        agent.enabled = false;
+        // boxCollider.enabled = false;
+    }
+
+    public void Unfreeze()
+    {
+        agent.enabled = true;
+        // boxCollider.enabled = true;
+    }
     #endregion
 
     #region Private Functions
+    // private void listenForRigidbodyClicks()
+    // {
+    //     int layerToHit = 1 << 6; // only register clicks for "Lickquidator" layer (#6)
+    //     // NOTE: to register clicks for everything other than a specific layer, invert using "layerToHit = ~layerToHit;"
+        
+    //     RaycastHit hit;
+
+    //     if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerToHit))
+    //     {
+    //         if (hit.rigidbody != null)
+    //         {
+    //             hit.rigidbody.gameObject.SendMessage("OnMouseDown");
+    //         }
+    //         else
+    //         {
+    //             hit.collider.SendMessage("OnMouseDown");
+    //         }
+    //     }
+    // }
+
     private void setNavMeshAgentFields()
     {
         agent.speed = lickquidatorObjectSO.MovementSpeed;
@@ -124,28 +182,42 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void goAfterGotchi()
     {
-        if(PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Survival)
+        if (PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Survival)
         {
-            if(!agent.enabled) agent.enabled = true;
+            if (!agent.enabled) agent.enabled = true;
         }
 
-        agent.SetDestination(GotchiManager.Instance.Player.transform.position);
+        if (GotchiManager.Instance != null && GotchiManager.Instance.Player != null)
+        {
+            agent.SetDestination(GotchiManager.Instance.Player.transform.position);
+        } else
+        {
+            healthbar.Reset();
+            healthbar = null;
+            gameObject.SetActive(false);
+        }
     }
 
-    // Add the Freeze function
-    public void Freeze()
+    private void resetScriptableObject()
     {
-        agent.enabled = false;
-        boxCollider.enabled = false;
-
+        lickquidatorObjectSO.Name = lickquidatorObjectSOOriginal.Name;
+        lickquidatorObjectSO.Type = lickquidatorObjectSOOriginal.Type;
+        lickquidatorObjectSO.Level = lickquidatorObjectSOOriginal.Level;
+        lickquidatorObjectSO.AttackDamage = lickquidatorObjectSOOriginal.AttackDamage;
+        lickquidatorObjectSO.AttackRange = lickquidatorObjectSOOriginal.AttackRange;
+        lickquidatorObjectSO.AttackCountdown = lickquidatorObjectSOOriginal.AttackCountdown;
+        lickquidatorObjectSO.Cost = lickquidatorObjectSOOriginal.Cost;
+        lickquidatorObjectSO.buildTime = lickquidatorObjectSOOriginal.buildTime;
+        lickquidatorObjectSO.Health = lickquidatorObjectSOOriginal.Health;
+        lickquidatorObjectSO.OffsetDistance = lickquidatorObjectSOOriginal.OffsetDistance;
+        lickquidatorObjectSO.MovementSpeed = lickquidatorObjectSOOriginal.MovementSpeed;
+        lickquidatorObjectSO.MovementAcceleration = lickquidatorObjectSOOriginal.MovementAcceleration;
+        lickquidatorObjectSO.AngularSpeed = lickquidatorObjectSOOriginal.AngularSpeed;
+        lickquidatorObjectSO.AttackRotationSpeed = lickquidatorObjectSOOriginal.AttackRotationSpeed;
+        lickquidatorObjectSO.NavMeshAgentHeight = lickquidatorObjectSOOriginal.NavMeshAgentHeight;
+        lickquidatorObjectSO.NavMeshAgentPriority = lickquidatorObjectSOOriginal.NavMeshAgentPriority;
+        lickquidatorObjectSO.NavMeshAgentRadius = lickquidatorObjectSOOriginal.NavMeshAgentRadius;
+        lickquidatorObjectSO.NavMeshAgentStoppingDistance = lickquidatorObjectSOOriginal.NavMeshAgentStoppingDistance;
     }
-
-    // Add the Unfreeze function
-    public void Unfreeze()
-    {
-        agent.enabled = true;
-        boxCollider.enabled = true;
-    }
-
     #endregion
 }

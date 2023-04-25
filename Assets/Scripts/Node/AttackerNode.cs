@@ -9,12 +9,12 @@ public class AttackerNode : BaseNode
     #region Unity Functions
     void OnEnable()
     {
-        EventBus.PhaseEvents.PrepPhaseStarted += delaySpawnEnemy;
+        EventBus.PhaseEvents.PrepPhaseStarted += spawnEnemy;
     }
 
     void OnDisable()
     {
-        EventBus.PhaseEvents.PrepPhaseStarted -= delaySpawnEnemy;
+        EventBus.PhaseEvents.PrepPhaseStarted -= spawnEnemy;
     }
     #endregion
 
@@ -27,17 +27,10 @@ public class AttackerNode : BaseNode
         enemyInventory.UpdateOptionsBasedOnMoney();
     }
 
-    private void delaySpawnEnemy()
+    private void spawnEnemy()
     {
         if (spawnedEnemyBlueprint == null || spawnedEnemyBlueprint.type == EnemyManager.EnemyType.None) return;
-        
-        StartCoroutine(delaySpawn());
-    }
-
-    private IEnumerator delaySpawn()
-    {
         occupied = true;
-        yield return new WaitForSeconds(2f);
         EventBus.EnemyEvents.EnemyFinished(spawnedEnemyBlueprint);
     }
 

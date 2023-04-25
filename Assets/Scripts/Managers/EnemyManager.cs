@@ -185,7 +185,7 @@ public class EnemyManager : MonoBehaviour
         return enemyPool;
     }
 
-    private List<Enemy> GetActiveEnemyScripts()
+    private List<Enemy> getActiveEnemyScripts()
     {
         List<Enemy> activeEnemyScripts = new List<Enemy>();
 
@@ -203,7 +203,7 @@ public class EnemyManager : MonoBehaviour
 
     private void unfreezeEnemies()
     {
-        List<Enemy> activeEnemies = GetActiveEnemyScripts();
+        List<Enemy> activeEnemies = getActiveEnemyScripts();
 
         foreach (Enemy enemy in activeEnemies)
         {
@@ -213,7 +213,7 @@ public class EnemyManager : MonoBehaviour
 
     private void freezeEnemies()
     {
-        List<Enemy> activeEnemies = GetActiveEnemyScripts();
+        List<Enemy> activeEnemies = getActiveEnemyScripts();
 
         foreach (Enemy enemy in activeEnemies)
         {

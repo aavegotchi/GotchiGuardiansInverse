@@ -17,7 +17,10 @@ public class ProgressBar_UI : MonoBehaviour
     private float progressTimer = 0f;
     private float currentProgress = 0f;
     private bool progressStarted = false;
-    private Action callback = null;
+    private Action<TowerBlueprint> towerBlueprintCallback = null;
+    private Action<EnemyBlueprint> enemyBlueprintCallback = null;
+    private TowerBlueprint towerBlueprintHolder = null;
+    private EnemyBlueprint enemyBlueprintHolder = null;
     #endregion
 
     #region Unity Functions
@@ -38,11 +41,20 @@ public class ProgressBar_UI : MonoBehaviour
     #endregion
 
     #region Public Functions
-    public void ShowProgressBarAndSetDuration(float duration, Action cb)
+    public void ShowProgressBarAndSetDuration(TowerBlueprint towerBlueprint, Action<TowerBlueprint> callback)
     {
-        callback = cb;
+        towerBlueprintCallback = callback;
+        towerBlueprintHolder = towerBlueprint;
         progressBarAnimator.SetTrigger("Show");
-        StartCoroutine(delayStartUntilAfterAnimation(duration));
+        StartCoroutine(delayStartUntilAfterAnimation(towerBlueprint.buildTime));
+    }
+
+    public void ShowProgressBarAndSetDuration(EnemyBlueprint enemyBlueprint, Action<EnemyBlueprint> callback)
+    {
+        enemyBlueprintCallback = callback;
+        enemyBlueprintHolder = enemyBlueprint;
+        progressBarAnimator.SetTrigger("Show");
+        StartCoroutine(delayStartUntilAfterAnimation(enemyBlueprint.buildTime));
     }
 
     public void Reset()
@@ -50,6 +62,8 @@ public class ProgressBar_UI : MonoBehaviour
         gameObject.SetActive(false);
         gameObject.transform.SetParent(ProgressBarManager.Instance.gameObject.transform, true);
         progressBar.fillAmount = 0f;
+        towerBlueprintHolder = null;
+        enemyBlueprintHolder = null;
     }
     #endregion
 
@@ -72,7 +86,15 @@ public class ProgressBar_UI : MonoBehaviour
         {
             progressStarted = false;
             progressBarAnimator.SetTrigger("Hide");
-            callback();
+
+            if (towerBlueprintHolder != null)
+            {
+                towerBlueprintCallback(towerBlueprintHolder);
+            }
+            else if (enemyBlueprintHolder != null)
+            {
+                enemyBlueprintCallback(enemyBlueprintHolder);
+            }
         }
     }
     #endregion
