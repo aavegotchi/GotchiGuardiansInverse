@@ -375,6 +375,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1866851194 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5707385274694863018, guid: 0db00547c97d89641a099995fbf0b123,
+    type: 3}
+  m_PrefabInstance: {fileID: 4340525003975045554}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c47af5807c271479551a2d35471271, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1877931047 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1517740296842828477, guid: 0db00547c97d89641a099995fbf0b123,
@@ -544,6 +556,11 @@ PrefabInstance:
       propertyPath: netTextUI
       value: 
       objectReference: {fileID: 1352337422}
+    - target: {fileID: 1789636863122144143, guid: 5e07df5628a177d4ab67ea3174725eda,
+        type: 3}
+      propertyPath: countdownTimer
+      value: 
+      objectReference: {fileID: 1866851194}
     - target: {fileID: 1789636863122144143, guid: 5e07df5628a177d4ab67ea3174725eda,
         type: 3}
       propertyPath: countdownTextUI
@@ -2165,6 +2182,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3929179483705299294, guid: 0db00547c97d89641a099995fbf0b123,
+        type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3939019593932074418, guid: 0db00547c97d89641a099995fbf0b123,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3088,7 +3110,7 @@ PrefabInstance:
     - target: {fileID: 8773791542949423789, guid: 0db00547c97d89641a099995fbf0b123,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8994856767578047866, guid: 0db00547c97d89641a099995fbf0b123,
         type: 3}
