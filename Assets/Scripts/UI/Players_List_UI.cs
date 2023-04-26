@@ -58,8 +58,8 @@ public class Players_List_UI : MonoBehaviour
     #region public functions
     public void Show()
     {
-        if (!isVisible)
-        {
+        if (!isVisible) {
+            show = true;
             isVisible = true;
 
             if (visibilityTweener != null)
@@ -86,6 +86,7 @@ public class Players_List_UI : MonoBehaviour
     public void Hide()
     {
         if (isVisible) {
+            show = false;
             isVisible = false;
 
             if (visibilityTweener != null)

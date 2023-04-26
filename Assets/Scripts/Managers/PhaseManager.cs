@@ -24,7 +24,7 @@ public class PhaseManager : MonoBehaviour
     [Header("Required Refs")]
     [SerializeField] private Animator transitionScreenAnimator = null;
     [SerializeField] private TextMeshProUGUI transitionCountdownTextUI = null;
-    [SerializeField] private TextMeshProUGUI countdownTextUI = null;
+    [SerializeField] private CountdownTimer_UI countdownTimer = null;
     [SerializeField] private GameObject rewardsScreenUI = null;
 
     [SerializeField] private TextMeshProUGUI pawnLickquidatorRewardTextUI = null;
@@ -215,7 +215,7 @@ public class PhaseManager : MonoBehaviour
 
         countdownTracker -= Time.deltaTime;
         countdownTracker = Mathf.Clamp(countdownTracker, 0f, Mathf.Infinity);
-        countdownTextUI.text = string.Format("Prep Phase Ending... {0:00.00}", countdownTracker);
+        countdownTimer.SetTimeLeft(countdownTracker);
     }
 
     private void updatePhase(Phase nextPhase)
@@ -225,13 +225,13 @@ public class PhaseManager : MonoBehaviour
         if (CurrentPhase == Phase.Prep)
         {
             countdownTracker = generalSO.PrepPhaseCountdown;
-            countdownTextUI.enabled = true;
+            countdownTimer.Show();
 
             EventBus.PhaseEvents.PrepPhaseStarted();
         }
         else if (CurrentPhase == Phase.Survival)
         {
-            countdownTextUI.enabled = false;
+            countdownTimer.Hide();
 
             EventBus.PhaseEvents.SurvivalPhaseStarted();
         }
