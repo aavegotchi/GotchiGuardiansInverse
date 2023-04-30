@@ -1,20 +1,22 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Gotchi.Events;
 
 public class AttackerNode : BaseNode
 {
-    private EnemyBlueprint spawnedEnemyBlueprint = null;
+    [SerializeField] private List<EnemyBlueprint> spawnedEnemyBlueprints = new List<EnemyBlueprint>();
+    [SerializeField] private int maxEnemiesPerNode = 8;
 
     #region Unity Functions
     void OnEnable()
     {
-        EventBus.PhaseEvents.PrepPhaseStarted += spawnEnemy;
+        EventBus.PhaseEvents.SurvivalPhaseStarted += StartSpawnEnemies;
     }
 
     void OnDisable()
     {
-        EventBus.PhaseEvents.PrepPhaseStarted -= spawnEnemy;
+        EventBus.PhaseEvents.SurvivalPhaseStarted -= StartSpawnEnemies;
     }
     #endregion
 
@@ -27,16 +29,42 @@ public class AttackerNode : BaseNode
         enemyInventory.UpdateOptionsBasedOnMoney();
     }
 
-    private void spawnEnemy()
+    private void StartSpawnEnemies()
     {
-        if (spawnedEnemyBlueprint == null || spawnedEnemyBlueprint.type == EnemyManager.EnemyType.None) return;
-        occupied = true;
-        EventBus.EnemyEvents.EnemyFinished(spawnedEnemyBlueprint);
+        StartCoroutine(SpawnEnemies());
     }
 
-    public void SetSpawnedEnemy(EnemyBlueprint enemyBlueprint)
+    private IEnumerator SpawnEnemies()
     {
-        spawnedEnemyBlueprint = enemyBlueprint;
+        if (spawnedEnemyBlueprints.Count == 0) yield break;
+
+        occupied = true;
+        List<EnemyBlueprint> tempList = new List<EnemyBlueprint>(spawnedEnemyBlueprints);
+        foreach (EnemyBlueprint enemyBlueprint in tempList)
+        {
+            BuildSelectedEnemy(enemyBlueprint);
+            //EventBus.EnemyEvents.EnemyFinished(enemyBlueprint);
+            yield return new WaitForSeconds(3f);
+        }
+    }
+    #endregion
+
+    #region Public Functions
+    public void AddSpawnedEnemy(EnemyBlueprint enemyBlueprint)
+    {
+        spawnedEnemyBlueprints.Add(enemyBlueprint);
+    }
+
+    public void BuildSelectedEnemy(EnemyBlueprint enemyBlueprint)
+    {
+        if (this.occupied != true) this.occupied = true;
+
+        StatsManager.Instance.Money -= enemyBlueprint.cost;
+        enemyBlueprint.node = this;
+        ProgressBarManager.Instance.GetAndShowProgressBar(enemyBlueprint);
+        this.BuildEffect.SetActive(true);
+        EventBus.EnemyEvents.EnemyStarted();
+        NodeManager.Instance.SelectedNode = null;
     }
     #endregion
 }

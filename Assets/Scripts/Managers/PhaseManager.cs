@@ -13,6 +13,7 @@ public class PhaseManager : MonoBehaviour
     {
         None,
         Prep,
+        Spawning,
         Survival,
         Transitioning
     };
@@ -200,10 +201,10 @@ public class PhaseManager : MonoBehaviour
 
     private void HandleEndSurvivalPhase()
     {
-        if (EnemyManager.Instance.ActiveEnemies.Count == 0 && !GotchiManager.Instance.Player.IsDead)
-        {
-            startNextPhase();
-        }
+        //if (EnemyManager.Instance.ActiveEnemies.Count == 0 && !GotchiManager.Instance.Player.IsDead)
+        //{
+        //    startNextPhase();
+        //}
     }
 
     private void TrackPhaseCountdown()

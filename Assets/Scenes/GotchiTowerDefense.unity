@@ -565,7 +565,7 @@ PrefabInstance:
         type: 3}
       propertyPath: countdownTextUI
       value: 
-      objectReference: {fileID: 3349316516030901774}
+      objectReference: {fileID: 0}
     - target: {fileID: 1789636863122144143, guid: 5e07df5628a177d4ab67ea3174725eda,
         type: 3}
       propertyPath: rewardsScreenUI
@@ -1483,18 +1483,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 781c39547c41b944db7fc24c3235a5fb, type: 3}
---- !u!114 &3349316516030901774 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1317177401775284156, guid: 0db00547c97d89641a099995fbf0b123,
-    type: 3}
-  m_PrefabInstance: {fileID: 4340525003975045554}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4299974843984948214 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 544988507135056452, guid: 0db00547c97d89641a099995fbf0b123,
@@ -1878,6 +1866,11 @@ PrefabInstance:
     - target: {fileID: 1775389715772573643, guid: 0db00547c97d89641a099995fbf0b123,
         type: 3}
       propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2196422869979443244, guid: 0db00547c97d89641a099995fbf0b123,
+        type: 3}
+      propertyPath: m_fontStyle
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2257019731594221202, guid: 0db00547c97d89641a099995fbf0b123,
