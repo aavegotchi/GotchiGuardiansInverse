@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gotchi.Events;
+using Gotchi.Utility;
 
 public class AttackerNode : BaseNode
 {
     [SerializeField] private List<EnemyBlueprint> spawnedEnemyBlueprints = new List<EnemyBlueprint>();
     [SerializeField] private int maxEnemiesPerNode = 8;
+    [SerializeField] private EnemySlots_UI enemySlotsUI;
 
     #region Unity Functions
     void OnEnable()
@@ -53,6 +55,20 @@ public class AttackerNode : BaseNode
     public void AddSpawnedEnemy(EnemyBlueprint enemyBlueprint)
     {
         spawnedEnemyBlueprints.Add(enemyBlueprint);
+        enemySlotsUI.ActivateNextSlot();
+    }
+
+    public void RemoveSpawnedEnemy(int index)
+    {
+        if (index >= 0 && index < spawnedEnemyBlueprints.Count)
+        {
+            spawnedEnemyBlueprints.RemoveAt(index);
+            enemySlotsUI.DeactivateLastSlot();
+        }
+        else
+        {
+            Debug.LogError("Invalid index provided for RemoveSpawnedEnemy");
+        }
     }
 
     public void BuildSelectedEnemy(EnemyBlueprint enemyBlueprint)
