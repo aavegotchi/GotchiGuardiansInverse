@@ -136,21 +136,15 @@ public class EnemyInventory : MonoBehaviour
     {
         BaseNode selectedNode = NodeManager.Instance.SelectedNode;
 
-        if(selectedNode != null) selectedNode.Occupied = true;
-
-        StatsManager.Instance.Money -= enemyBlueprint.cost;
-        enemyBlueprint.node = selectedNode;
-        ProgressBarManager.Instance.GetAndShowProgressBar(enemyBlueprint);
-        selectedNode.BuildEffect.SetActive(true);
-        EventBus.EnemyEvents.EnemyStarted();
-        nodeUI.Close();
-
         if (selectedNode is AttackerNode attackerNode)
         {
-            attackerNode.SetSpawnedEnemy(enemyBlueprint);
+            attackerNode.AddSpawnedEnemy(enemyBlueprint);
         }
 
         NodeManager.Instance.SelectedNode = null;
+        nodeUI.Close();
     }
+
+    // LOGIC here to handle if the EnemyQueueUI is shown.
     #endregion
 }
