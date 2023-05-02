@@ -125,9 +125,7 @@ public class TowerManager : MonoBehaviour
             tower.transform.position = position;
             tower.transform.rotation = rotation;
             tower.SetActive(true);
-
-            BaseNode node = nodeTransform.gameObject.GetComponent<BaseNode>();
-            node.Renderer.material = node.OccupiedMaterial;
+            
             return;
         }
     }

@@ -144,7 +144,5 @@ public class EnemyInventory : MonoBehaviour
         NodeManager.Instance.SelectedNode = null;
         nodeUI.Close();
     }
-
-    // LOGIC here to handle if the EnemyQueueUI is shown.
     #endregion
 }

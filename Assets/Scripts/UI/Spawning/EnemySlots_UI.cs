@@ -20,45 +20,43 @@ public class EnemySlots_UI : MonoBehaviour
     #region Unity Functions
     private void Start()
     {
-        DeactivateAllSlots();
+        deactivateAllSlots();
     }
     #endregion
 
     #region Public Functions
-    // Activate the next slot and change the color if all slots are active
     public void ActivateNextSlot()
     {
-        if (activeSlots < enemySlots.Length)
-        {
-            enemySlots[activeSlots].gameObject.SetActive(true);
-            activeSlots++;
+        if (activeSlots >= enemySlots.Length) return;
 
-            if (activeSlots == enemySlots.Length)
-            {
-                SetSlotsColor(maxOccupancyColor);
-            }
-            else
-            {
-                SetSlotsColor(withinMaxOccupancyColor);
-            }
+        enemySlots[activeSlots].gameObject.SetActive(true);
+        activeSlots++;
+
+        if (activeSlots == enemySlots.Length)
+        {
+            setSlotsColor(maxOccupancyColor);
+        }
+        else
+        {
+            setSlotsColor(withinMaxOccupancyColor);
         }
     }
 
     // Deactivate the last active slot and update the color
-    public void DeactivateLastSlot()
-    {
-        if (activeSlots > 0)
-        {
-            activeSlots--;
-            enemySlots[activeSlots].gameObject.SetActive(false);
-            SetSlotsColor(withinMaxOccupancyColor);
-        }
-    }
+    // public void DeactivateLastSlot()
+    // {
+    //     if (activeSlots > 0)
+    //     {
+    //         activeSlots--;
+    //         enemySlots[activeSlots].gameObject.SetActive(false);
+    //         SetSlotsColor(withinMaxOccupancyColor);
+    //     }
+    // }
     #endregion
 
     #region Private Functions
     // Deactivate all slots at the beginning
-    private void DeactivateAllSlots()
+    private void deactivateAllSlots()
     {
         foreach (Image enemySlot in enemySlots)
         {
@@ -67,7 +65,7 @@ public class EnemySlots_UI : MonoBehaviour
     }
 
     // Set the color of the enemySlots
-    private void SetSlotsColor(Color color)
+    private void setSlotsColor(Color color)
     {
         foreach (Image enemySlot in enemySlots)
         {

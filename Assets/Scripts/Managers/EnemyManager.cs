@@ -126,20 +126,17 @@ public class EnemyManager : MonoBehaviour
             bool isEnemyNotAvailable = enemy.activeSelf;
             if (isEnemyNotAvailable) continue;
 
-            // enemy.Reset();
             enemy.GetComponent<Enemy>().EnemyBlueprint = enemyBlueprint;
             enemy.transform.position = position;
             enemy.transform.rotation = rotation;
             enemy.gameObject.SetActive(true);
-
-            BaseNode node = nodeTransform.gameObject.GetComponent<BaseNode>();
-            node.Renderer.material = node.OccupiedMaterial;
 
             Enemy enemyScript = GetEnemyByObject(enemy);
             enemyScript.SetHealthbarAndResetHealth(HealthBarManager.Instance.GetHealthbar(enemyScript.HealthbarOffset));
             enemyScript.Freeze(); // to prevent prep phase 'pushing'
             
             spawnedEnemies.Add(enemy);
+            
             return;
         }
     }

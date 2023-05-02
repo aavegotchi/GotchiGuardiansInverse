@@ -159,8 +159,7 @@ public class TowerInventory : MonoBehaviour
     private void buildSelectedTower(TowerBlueprint towerBlueprint)
     {
         BaseNode selectedNode = NodeManager.Instance.SelectedNode;
-        if (selectedNode != null) selectedNode.Occupied = true;
-
+        selectedNode.Occupied = true;
         StatsManager.Instance.Money -= towerBlueprint.cost;
         towerBlueprint.node = selectedNode;
         ProgressBarManager.Instance.GetAndShowProgressBar(towerBlueprint);
