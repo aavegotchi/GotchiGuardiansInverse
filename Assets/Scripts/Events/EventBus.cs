@@ -22,7 +22,8 @@ namespace Gotchi.Events
 
     public class MenuEventsBlueprint
     {
-        public EventBus.EmptyFn MenuItemSelected;
+        public EventBus.EmptyFn MenuItemSelectedLong;
+        public EventBus.EmptyFn MenuItemSelectedShort;
     }
 
     public class PhaseEventsBlueprint

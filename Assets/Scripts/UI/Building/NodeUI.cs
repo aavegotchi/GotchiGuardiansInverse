@@ -69,6 +69,7 @@ public class NodeUI : MonoBehaviour
 
     public void Open()
     {
+        EventBus.MenuEvents.MenuItemSelectedShort();
         gameObject.SetActive(true);
         uiAnimator.SetTrigger("Open");
     }

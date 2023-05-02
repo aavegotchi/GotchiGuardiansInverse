@@ -51,7 +51,7 @@ public class GameBalancingSettings_UI : MonoBehaviour
         }
         else
         {
-            EventBus.MenuEvents.MenuItemSelected();
+            EventBus.MenuEvents.MenuItemSelectedLong();
             Time.timeScale = 0;
             settingsWindow.SetActive(true);
         }
@@ -66,7 +66,7 @@ public class GameBalancingSettings_UI : MonoBehaviour
         }
         else
         {
-            EventBus.MenuEvents.MenuItemSelected();
+            EventBus.MenuEvents.MenuItemSelectedLong();
             Time.timeScale = 0;
             pauseWindow.SetActive(true);
         }

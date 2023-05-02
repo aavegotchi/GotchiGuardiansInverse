@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartFreePlay()
     {
-        EventBus.MenuEvents.MenuItemSelected();
+        EventBus.MenuEvents.MenuItemSelectedLong();
         mainMenuCanvasAnimator.SetTrigger(mainMenuCanvasAnimatorCloseTrigger);
         StartCoroutine(waitAndStart());
     }
