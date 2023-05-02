@@ -59,7 +59,7 @@ public class AttackerNode : BaseNode
         spawnedEnemyBlueprints.Add(enemyBlueprint);
         ProgressBarManager.Instance.GetAndShowProgressBar(enemyBlueprint, true);
         this.BuildEffect.SetActive(true);
-        enemySlotsUI.ActivateNextSlot();
+        enemySlotsUI.OccupyNextSlot(maxEnemiesPerNode);
         NodeManager.Instance.SelectedNode = null;
     }
     #endregion
