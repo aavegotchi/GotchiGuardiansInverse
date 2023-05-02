@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7006909897354720935}
   - component: {fileID: 7006909897354720932}
   - component: {fileID: 7006909897354720933}
+  - component: {fileID: 1190478520104431520}
+  - component: {fileID: 2781771797846513225}
   m_Layer: 0
   m_Name: BuildSphere
   m_TagString: Untagged
@@ -84,6 +86,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &1190478520104431520
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7006909897354720939}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2781771797846513225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7006909897354720939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4997ce3e374d4064f808fa3ff5ad9f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  node: {fileID: 0}
+  enemyQueueUI: {fileID: 0}
 --- !u!1001 &2386712758797540652
 PrefabInstance:
   m_ObjectHideFlags: 0

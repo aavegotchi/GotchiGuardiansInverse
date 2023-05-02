@@ -7,9 +7,14 @@ using Gotchi.Utility;
 public class AttackerNode : BaseNode
 {
     #region Public Variables
-    public bool HasNoMoreSlots
+    public List<EnemyBlueprint> SpawnedEnemyBlueprints
     {
-        get { return spawnedEnemyBlueprints.Count >= maxEnemiesPerNode; }
+        get { return spawnedEnemyBlueprints; }
+    }
+
+    public int MaxEnemiesPerNode
+    {
+        get { return maxEnemiesPerNode; }
     }
     #endregion
 
@@ -28,13 +33,11 @@ public class AttackerNode : BaseNode
     #region Unity Functions
     void OnEnable()
     {
-        EventBus.PhaseEvents.PrepPhaseStarted += checkIfSlotsAvailable;
         EventBus.PhaseEvents.SurvivalPhaseStarted += startSpawnEnemies;
     }
 
     void OnDisable()
     {
-        EventBus.PhaseEvents.PrepPhaseStarted -= checkIfSlotsAvailable;
         EventBus.PhaseEvents.SurvivalPhaseStarted -= startSpawnEnemies;
     }
     #endregion
@@ -46,6 +49,10 @@ public class AttackerNode : BaseNode
         enemyInventory.gameObject.SetActive(true);
         upgradeInventory.gameObject.SetActive(false);
         enemyInventory.UpdateOptionsBasedOnMoney();
+        if (spawnedEnemyBlueprints.Count >= maxEnemiesPerNode)
+        {
+            enemyInventory.DisableOptions();
+        }
     }
     #endregion
 
@@ -65,14 +72,8 @@ public class AttackerNode : BaseNode
     #endregion
 
     #region Private Functions
-    private void checkIfSlotsAvailable()
-    {
-        this.Occupied = this.HasNoMoreSlots;
-    }
-
     private void startSpawnEnemies()
     {
-        this.Occupied = true;
         if (spawnedEnemyBlueprints.Count == 0) return;
         StartCoroutine(spawnEnemies());
     }

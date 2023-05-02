@@ -28,6 +28,7 @@ public class NodeUI : MonoBehaviour
     [SerializeField] private TowerInventory towerInventory = null;
     [SerializeField] private EnemyInventory enemyInventory = null;
     [SerializeField] private UpgradeInventory upgradeInventory = null;
+    [SerializeField] private GameObject enemyQueueUI = null;
     [SerializeField] private Animator uiAnimator = null;
     #endregion
 
@@ -63,6 +64,7 @@ public class NodeUI : MonoBehaviour
         towerInventory.gameObject.SetActive(false);
         enemyInventory.gameObject.SetActive(false);
         upgradeInventory.gameObject.SetActive(false);
+        enemyQueueUI.SetActive(false);
     }
 
     public void Open()

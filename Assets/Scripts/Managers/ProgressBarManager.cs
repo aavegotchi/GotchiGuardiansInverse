@@ -69,8 +69,6 @@ public class ProgressBarManager : MonoBehaviour
                 EventBus.EnemyEvents.EnemyFinished(blueprint);
             }
 
-            blueprint.node.Occupied = ((AttackerNode)blueprint.node).HasNoMoreSlots;
-
             progressBar.Reset();
         });
     }  

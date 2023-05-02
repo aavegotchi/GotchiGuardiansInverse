@@ -74,7 +74,7 @@ public abstract class BaseNode : MonoBehaviour
     {
         if (!visualRenderer.enabled) return;
 
-        openNodeUI();
+        OpenNodeUI();
     }
     #endregion
 
@@ -96,7 +96,7 @@ public abstract class BaseNode : MonoBehaviour
         return results.Count > 0;
     }
 
-    private void openNodeUI() // TODO: this can probbaly be extrapolated like "OpenNodeUpgradeUI()" in NodeUI.cs
+    public void OpenNodeUI()
     {
         NodeManager.Instance.SelectedNode = this;
 

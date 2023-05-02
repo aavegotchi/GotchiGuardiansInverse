@@ -297,6 +297,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9079165373484715491}
     m_Modifications:
+    - target: {fileID: 2781771797846513225, guid: 68ccdf747e8d50048a797cc9d23e0506,
+        type: 3}
+      propertyPath: node
+      value: 
+      objectReference: {fileID: 1725726141064650241}
+    - target: {fileID: 2781771797846513225, guid: 68ccdf747e8d50048a797cc9d23e0506,
+        type: 3}
+      propertyPath: enemyQueueUI
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7006909897354720935, guid: 68ccdf747e8d50048a797cc9d23e0506,
         type: 3}
       propertyPath: m_RootOrder
