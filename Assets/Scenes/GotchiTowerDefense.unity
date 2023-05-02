@@ -1750,6 +1750,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2612610369548806185, guid: 1d91093c2e1b5854096ceea184d7db3f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d91093c2e1b5854096ceea184d7db3f, type: 3}
 --- !u!114 &4299974843984948214 stripped

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Gotchi.Events;
 
 public class GameBalancingSettings_UI : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class GameBalancingSettings_UI : MonoBehaviour
         }
         else
         {
+            EventBus.MenuEvents.MenuItemSelected();
             Time.timeScale = 0;
             settingsWindow.SetActive(true);
         }
@@ -64,6 +66,7 @@ public class GameBalancingSettings_UI : MonoBehaviour
         }
         else
         {
+            EventBus.MenuEvents.MenuItemSelected();
             Time.timeScale = 0;
             pauseWindow.SetActive(true);
         }
