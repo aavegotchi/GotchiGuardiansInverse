@@ -12,11 +12,17 @@ namespace Gotchi.Events
         public delegate void TowerBuildFn(TowerBlueprint towerBlueprint);
         public delegate void EnemyBuildFn(EnemyBlueprint enemyBlueprint);
         
+        public static MenuEventsBlueprint MenuEvents = new MenuEventsBlueprint();
         public static PhaseEventsBlueprint PhaseEvents = new PhaseEventsBlueprint();
         public static TowerEventsBlueprint TowerEvents = new TowerEventsBlueprint();
         public static EnemyEventsBlueprint EnemyEvents = new EnemyEventsBlueprint();
         public static GotchiEventsBlueprint GotchiEvents = new GotchiEventsBlueprint();
         public static PoolEventsBlueprint PoolEvents = new PoolEventsBlueprint();
+    }
+
+    public class MenuEventsBlueprint
+    {
+        public EventBus.EmptyFn MenuItemSelected;
     }
 
     public class PhaseEventsBlueprint

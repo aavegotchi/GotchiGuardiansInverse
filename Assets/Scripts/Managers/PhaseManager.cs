@@ -73,16 +73,6 @@ public class PhaseManager : MonoBehaviour
         }
     }
 
-    void OnEnable()
-    {
-        EventBus.PoolEvents.AudioPoolReady += startNextPhase;
-    }
-
-    void OnDisable()
-    {
-        EventBus.PoolEvents.AudioPoolReady -= startNextPhase;
-    }
-
     void Update()
     {
         if (CurrentPhase == Phase.Transitioning || CurrentPhase == Phase.None) return;
@@ -99,7 +89,7 @@ public class PhaseManager : MonoBehaviour
     #endregion
 
     #region Private Functions
-    private void startNextPhase()
+    public void StartNextPhase()
     {
         if (CurrentPhase == Phase.None)
         {
@@ -203,7 +193,7 @@ public class PhaseManager : MonoBehaviour
     {
         if (EnemyManager.Instance.ActiveEnemies.Count == 0 && !GotchiManager.Instance.Player.IsDead)
         {
-           startNextPhase();
+           StartNextPhase();
         }
     }
 
@@ -211,7 +201,7 @@ public class PhaseManager : MonoBehaviour
     {
         if (countdownTracker <= 0f)
         {
-            startNextPhase();
+            StartNextPhase();
         }
 
         countdownTracker -= Time.deltaTime;
