@@ -116,7 +116,6 @@ public class Enemy : MonoBehaviour, IDamageable
     public void PlayDead(bool keepUpgrades = false)
     {
         EventBus.EnemyEvents.EnemyDied(enemyBlueprint.type);   
-        enemyBlueprint.node.SetOccupiedStatusToFalse();   
         ImpactManager.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
         
         gameObject.SetActive(false);

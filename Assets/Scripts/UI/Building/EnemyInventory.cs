@@ -104,6 +104,13 @@ public class EnemyInventory : MonoBehaviour
         disableButtonIfNoMoney(aerialLickquidator.cost, aerialLickquidatorButton, aerialLickquidatorCostCanvasGroup);
         disableButtonIfNoMoney(bossLickquidator.cost, bossLickquidatorButton, bossLickquidatorCostCanvasGroup);
     }
+
+    public void DisableOptions()
+    {
+        disableButton(pawnLickquidatorButton, pawnLickquidatorCostCanvasGroup);
+        disableButton(aerialLickquidatorButton, aerialLickquidatorCostCanvasGroup);
+        disableButton(bossLickquidatorButton, bossLickquidatorCostCanvasGroup);
+    }
     #endregion
 
     #region Private Functions
@@ -132,6 +139,12 @@ public class EnemyInventory : MonoBehaviour
         }
     }
 
+    private void disableButton(Button button, CanvasGroup canvasGroup)
+    {
+        canvasGroup.alpha = 0f;
+        button.enabled = false;
+    }
+
     private void buildSelectedEnemy(EnemyBlueprint enemyBlueprint)
     {
         BaseNode selectedNode = NodeManager.Instance.SelectedNode;
@@ -144,7 +157,5 @@ public class EnemyInventory : MonoBehaviour
         NodeManager.Instance.SelectedNode = null;
         nodeUI.Close();
     }
-
-    // LOGIC here to handle if the EnemyQueueUI is shown.
     #endregion
 }

@@ -100,7 +100,7 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     public void PlayDead(bool keepUpgrades = false)
     {
         EventBus.TowerEvents.TowerDied(towerBlueprint.type);
-        towerBlueprint.node.SetOccupiedStatusToFalse();
+        towerBlueprint.node.Occupied = keepUpgrades;
         ImpactManager.Instance.SpawnImpact(impactType, transform.position, transform.rotation);
         
         gameObject.SetActive(false);

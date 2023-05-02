@@ -57,14 +57,18 @@ public class ProgressBarManager : MonoBehaviour
         });
     }
 
-    public void GetAndShowProgressBar(EnemyBlueprint enemyBlueprint)
+    public void GetAndShowProgressBar(EnemyBlueprint enemyBlueprint, bool skipSpawn = false)
     {
         Transform nodeTransform = enemyBlueprint.node.transform;
         ProgressBar_UI progressBar = getProgressBar(nodeTransform, enemyBlueprint.buildTime);
         
         progressBar.ShowProgressBarAndSetDuration(enemyBlueprint, (EnemyBlueprint blueprint) =>
         {
-            EventBus.EnemyEvents.EnemyFinished(blueprint);
+            if (!skipSpawn)
+            {
+                EventBus.EnemyEvents.EnemyFinished(blueprint);
+            }
+
             progressBar.Reset();
         });
     }  

@@ -86,9 +86,7 @@ public class UpgradeInventory : MonoBehaviour
         TowerBlueprint towerBlueprint = tower.TowerBlueprint;
         StatsManager.Instance.Money += calculateSellReward(towerBlueprint.cost);
         tower.PlayDead();
-
         towerBlueprint.node.Occupied = false;
-        towerBlueprint.node.Renderer.material = towerBlueprint.node.UnoccupiedMaterial;
     }
 
     private void sellLickquidator()
@@ -97,9 +95,6 @@ public class UpgradeInventory : MonoBehaviour
         EnemyBlueprint enemyBlueprint = enemy.EnemyBlueprint;
         StatsManager.Instance.Money += calculateSellReward(enemyBlueprint.cost);
         enemy.PlayDead();
-
-        enemyBlueprint.node.Occupied = false;
-        enemyBlueprint.node.Renderer.material = enemyBlueprint.node.UnoccupiedMaterial;
     }
 
     public void Open(Transform towerTransform, BaseTower tower)

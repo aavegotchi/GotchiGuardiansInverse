@@ -2,77 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class EnemySlots_UI : MonoBehaviour
 {
     #region Fields
-    [SerializeField] Image[] enemySlots;
-
-    [SerializeField] Color maxOccupancyColor;
-    [SerializeField] Color withinMaxOccupancyColor;
-
+    [Header("Required Refs")]
+    [SerializeField] private GameObject buildSphereObj = null;
+    [SerializeField] private GameObject buildSphereBallObj = null;
+    [SerializeField] private TextMeshProUGUI numEnemiesText = null;
     #endregion
 
     #region Private Variables
-    private int activeSlots = 0;
-    #endregion
-
-    #region Unity Functions
-    private void Start()
-    {
-        DeactivateAllSlots();
-    }
+    private int numSlotsOccupied = 0;
     #endregion
 
     #region Public Functions
-    // Activate the next slot and change the color if all slots are active
-    public void ActivateNextSlot()
+    public void OccupyNextSlot(int maxEnemiesPerNode)
     {
-        if (activeSlots < enemySlots.Length)
-        {
-            enemySlots[activeSlots].gameObject.SetActive(true);
-            activeSlots++;
+        if (numSlotsOccupied >= maxEnemiesPerNode) return;
 
-            if (activeSlots == enemySlots.Length)
-            {
-                SetSlotsColor(maxOccupancyColor);
-            }
-            else
-            {
-                SetSlotsColor(withinMaxOccupancyColor);
-            }
+        if (numSlotsOccupied == 0)
+        {
+            buildSphereObj.SetActive(true);
+            numEnemiesText.gameObject.SetActive(true);
         }
+
+        numSlotsOccupied++;
+
+        numEnemiesText.text = $"{numSlotsOccupied}/{maxEnemiesPerNode}";
+
+        float newScale = 1f + 0.25f * numSlotsOccupied;
+        buildSphereBallObj.transform.localScale = new Vector3(newScale, newScale, newScale);
     }
 
     // Deactivate the last active slot and update the color
-    public void DeactivateLastSlot()
-    {
-        if (activeSlots > 0)
-        {
-            activeSlots--;
-            enemySlots[activeSlots].gameObject.SetActive(false);
-            SetSlotsColor(withinMaxOccupancyColor);
-        }
-    }
-    #endregion
-
-    #region Private Functions
-    // Deactivate all slots at the beginning
-    private void DeactivateAllSlots()
-    {
-        foreach (Image enemySlot in enemySlots)
-        {
-            enemySlot.gameObject.SetActive(false);
-        }
-    }
-
-    // Set the color of the enemySlots
-    private void SetSlotsColor(Color color)
-    {
-        foreach (Image enemySlot in enemySlots)
-        {
-            enemySlot.color = color;
-        }
-    }
+    // public void DeactivateLastSlot()
+    // {
+    //      if (activeSlots == 1)
+    //      { buildSphereObj.SetActive(false); }
+    //     if (activeSlots > 0)
+    //     {
+    //         activeSlots--;
+    //         enemySlots[activeSlots].gameObject.SetActive(false);
+    //         SetSlotsColor(withinMaxOccupancyColor);
+    //     }
+    // }
     #endregion
 }
