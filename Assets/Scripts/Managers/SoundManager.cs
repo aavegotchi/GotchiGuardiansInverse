@@ -37,7 +37,9 @@ namespace Gotchi.Audio
             IceTowerFired,
             IceTowerHit,
             BuildingFired,
-            BuildingStarted
+            BuildingStarted,
+            MenuItemSelectedLong,
+            MenuItemSelectedShort,
         }
         #endregion
 
@@ -80,6 +82,9 @@ namespace Gotchi.Audio
 
         void OnEnable()
         {
+            EventBus.MenuEvents.MenuItemSelectedLong += playMenuItemSelectedLong;
+            EventBus.MenuEvents.MenuItemSelectedShort += playMenuItemSelectedShort;
+
             EventBus.PhaseEvents.PrepPhaseStarted += playPrepPhaseMusic;
             EventBus.PhaseEvents.SurvivalPhaseStarted += playSurvivalPhaseMusic;
             EventBus.PhaseEvents.TransitionPhaseStarted += playPhaseTransition;
@@ -101,6 +106,9 @@ namespace Gotchi.Audio
 
         void OnDisable()
         {
+            EventBus.MenuEvents.MenuItemSelectedLong -= playMenuItemSelectedLong;
+            EventBus.MenuEvents.MenuItemSelectedShort -= playMenuItemSelectedShort;
+
             EventBus.PhaseEvents.PrepPhaseStarted -= playPrepPhaseMusic;
             EventBus.PhaseEvents.SurvivalPhaseStarted -= playSurvivalPhaseMusic;
             EventBus.PhaseEvents.TransitionPhaseStarted -= playPhaseTransition;
@@ -204,6 +212,16 @@ namespace Gotchi.Audio
                     return;
                 }
             }
+        }
+
+        private void playMenuItemSelectedLong()
+        {
+            playSound(SoundManager.SoundType.MenuItemSelectedLong);
+        }
+
+        private void playMenuItemSelectedShort()
+        {
+            playSound(SoundManager.SoundType.MenuItemSelectedShort);
         }
 
         private void playPrepPhaseMusic()
