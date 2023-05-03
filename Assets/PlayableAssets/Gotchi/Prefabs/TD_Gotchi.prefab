@@ -5288,6 +5288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b8a9799d6979143b8f706e178ec4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   gotchiObjectSO: {fileID: 11400000, guid: 681b30293c3efac4b9f1dad0e4bf4483, type: 2}
   swordAnim: {fileID: 7743941734871062196}
   spinAnim: {fileID: 2491246566271843120}
@@ -5375,6 +5376,7 @@ MonoBehaviour:
     RawGuidValue: 1baecf065ed39294897675d970cf4448
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 4161372482478654007}
   - {fileID: 4297088228064767030}
   - {fileID: 2777930016483656565}
   - {fileID: 3952053190403523680}

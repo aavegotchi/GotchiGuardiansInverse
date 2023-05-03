@@ -18,4 +18,4 @@ MonoBehaviour:
   TowerSellRewardMultipleByCost: 0.5
   EnemySellRewardMultipleByCost: 0.5
   GenericUpgradeMultipleByLevel: 2
-  PrepPhaseCountdown: 15
+  PrepPhaseCountdown: 120
