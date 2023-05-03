@@ -59,18 +59,17 @@ public abstract class BaseNode : NetworkBehaviour
 
     protected virtual void OnMouseEnter()
     {
-        Debug.Log("OnMouseEnter");
         if (isPointerOverUI()) return;
 
         if (occupied || PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep) return;
-
+        
         // Check if nodeUI is within a certain distance and active in the scene
         if (nodeUI.gameObject.activeInHierarchy &&
             Vector3.Distance(transform.position, nodeUI.transform.position) <= distanceToNodeUI)
         {
             return;
         }
-
+        
         visualRenderer.enabled = true;
     }
 

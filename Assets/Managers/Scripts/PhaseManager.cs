@@ -78,6 +78,8 @@ public class PhaseManager : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
+        if (!Object.HasStateAuthority) return;
+
         if (CurrentPhase == Phase.Transitioning || CurrentPhase == Phase.None) return;
 
         if (CurrentPhase == Phase.Prep)
@@ -91,13 +93,23 @@ public class PhaseManager : NetworkBehaviour
     }
     #endregion
 
-    #region Private Functions
+    #region RPC Functions
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void rpc_setCountdownTracker(float time)
+    {
+        countdownTimer.SetTimeLeft(time);
+    }
+    #endregion
+
+    #region Public Functions
     public void StartFirstPrepPhase()
     {
-        rpc_updatePhase(Phase.Prep.ToString());
+        updatePhase(Phase.Prep.ToString());
     }
+    #endregion
 
-    public void StartNextPhase()
+    #region Private Functions
+    private void startNextPhase()
     {
         Phase nextPhase = CurrentPhase == Phase.Prep ? Phase.Survival : Phase.Prep;
         CurrentPhase = Phase.Transitioning;
@@ -188,14 +200,14 @@ public class PhaseManager : NetworkBehaviour
 
         transitionScreenAnimator.SetTrigger("Close");
 
-        rpc_updatePhase(nextPhase.ToString());
+        updatePhase(nextPhase.ToString());
     }
 
     private void HandleEndSurvivalPhase()
     {
         if (EnemyManager.Instance.ActiveEnemies.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead)
         {
-           StartNextPhase();
+           startNextPhase();
         }
     }
 
@@ -203,7 +215,7 @@ public class PhaseManager : NetworkBehaviour
     {
         if (countdownTracker <= 0f)
         {
-            StartNextPhase();
+            startNextPhase();
         }
 
         countdownTracker -= Time.deltaTime;
@@ -211,15 +223,7 @@ public class PhaseManager : NetworkBehaviour
         rpc_setCountdownTracker(countdownTracker);
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void rpc_setCountdownTracker(float time)
-    {
-        countdownTimer.Show();
-        countdownTimer.SetTimeLeft(time);
-    }
-
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void rpc_updatePhase(string nextPhaseStr)
+    private void updatePhase(string nextPhaseStr)
     {
         Phase nextPhase = (Phase)Enum.Parse(typeof(Phase), nextPhaseStr);
         CurrentPhase = nextPhase;
