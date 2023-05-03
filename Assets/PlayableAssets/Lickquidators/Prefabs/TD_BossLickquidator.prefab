@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 752356915272699699}
   - component: {fileID: 6260969665172101865}
-  - component: {fileID: 54298468115301730}
-  - component: {fileID: 3459662070546464107}
   - component: {fileID: 5563519181929526525}
   - component: {fileID: 5188278783812393725}
+  - component: {fileID: 3459662070546464107}
   m_Layer: 6
   m_Name: TD_BossLickquidator
   m_TagString: Enemy
@@ -58,38 +57,6 @@ MonoBehaviour:
     type: 3}
   healthbarOffset: {fileID: 4733366673996628668}
   deathEffect: 5
---- !u!114 &54298468115301730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88726243156104585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3846a61efc82634ca4cad843f559848, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lickquidatorObjectSO: {fileID: 11400000, guid: 90974a00ac41e324aabef1265175efb0,
-    type: 2}
-  anim: {fileID: 0}
-  attackParticleEffectGO: {fileID: 0}
-  attackTrigger: Attack
-  towerTag: Tower
-  salivaEffect: {fileID: 8534630177084799919}
---- !u!65 &3459662070546464107
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88726243156104585}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 11.773264, z: 5}
-  m_Center: {x: 0, y: 5.386632, z: 0}
 --- !u!195 &5563519181929526525
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -128,6 +95,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &3459662070546464107
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88726243156104585}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 11.773264, z: 5}
+  m_Center: {x: 0, y: 5.386632, z: 0}
 --- !u!1 &166227737478132800
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,12 +3426,6 @@ PrefabInstance:
 --- !u!4 &8534630177084799912 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6150708850692270562, guid: b9baa670348b6b34f87e0852b0212209,
-    type: 3}
-  m_PrefabInstance: {fileID: 2534028994574733898}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8534630177084799919 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6150708850692270565, guid: b9baa670348b6b34f87e0852b0212209,
     type: 3}
   m_PrefabInstance: {fileID: 2534028994574733898}
   m_PrefabAsset: {fileID: 0}

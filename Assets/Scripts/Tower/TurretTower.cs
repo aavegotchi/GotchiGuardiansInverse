@@ -3,99 +3,53 @@ using UnityEngine;
 
 public class TurretTower : BaseTower
 {
-    #region Public Variables
-    [Header("Required Refs")]
-    [SerializeField] private Transform partToRotate = null;
-    [SerializeField] private Transform attackPoint = null;
-    #endregion
+    [SerializeField] private Transform partToRotate;
+    [SerializeField] private Transform attackPoint;
 
-    #region Private Variables
     private float attackCountdownTracker = 1f;
-    private Transform target = null;
-    private Projectile projectile = null;
-    private TurretTowerObjectSO turretTowerObjectSO = null;
-    #endregion
+    private Transform target;
+    private Projectile projectile;
+    private TurretTowerObjectSO turretTowerObjectSO;
 
-    #region Unity Functions
     protected override void Start()
     {
         base.Start();
         turretTowerObjectSO = towerObjectSO as TurretTowerObjectSO;
-        InvokeRepeating("updateTarget", 0f, 1f);
+        InvokeRepeating("UpdateTarget", 0f, 1f);
     }
 
     protected override void Update()
     {
         base.Update();
 
-        if (target == null) // Check if the target is not active in the hierarchy
-        {
-            if (projectile != null && isLaserAttack())
-            {
-                projectile.gameObject.SetActive(false);
-                projectile.ClearLaser();
-                projectile = null;
-            }
-            target = null;
-            return;
-        }
+        if (target == null) return;
 
         if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Survival) return;
 
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
-        if (distanceToTarget > turretTowerObjectSO.AttackRange) // Check if the target is still within the attack range
-        {
-            target = null;
 
-            if (isLaserAttack())
-            {
-                projectile.gameObject.SetActive(false);
-                projectile.ClearLaser();
-                projectile = null;
-            }
+        if (distanceToTarget > turretTowerObjectSO.AttackRange || !target.gameObject.activeInHierarchy)
+        {
+            ResetTarget();
             return;
         }
 
-        lockOntoTarget();
+        LockOntoTarget();
 
-        if (projectile != null && isLaserAttack()) return; // NOTE: lasers only should ever have one projectile that's in range of target
+        if (projectile != null && isLaserAttack()) return;
 
-        attack();
+        Attack();
     }
 
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, turretTowerObjectSO.AttackRange);
-    }
-
-    void OnDisable()
-    {
-        if (projectile == null) return;
-
-        projectile.gameObject.SetActive(false); // disable the aerial lickquidator's laser when lickquidator dies
-        projectile = null;
-        partToRotate.rotation = Quaternion.identity;
-    }
-    #endregion
-
-    #region Public Functions
-    public override void OnEnemyEnter(Collider collider)
-    {
-        // Implement your logic for when an enemy enters the collider
-    }
-    #endregion
-
-    #region Private Functions
     private bool isLaserAttack()
     {
         return turretTowerObjectSO.projectile.ProjectileType == ProjectileManager.ProjectileType.Laser;
     }
 
-    private void attack()
+    private void Attack()
     {
-        if (isLaserAttack()) // TODO: AerialLickquidator is using this class instead of LickquidatorAerialAttackLogic -> should generalize attacks to come from either towers or monsters
+        if (isLaserAttack())
         {
             projectile = ProjectileManager.Instance.SpawnProjectile(turretTowerObjectSO, attackPoint, target);
         }
@@ -111,7 +65,7 @@ public class TurretTower : BaseTower
         }
     }
 
-    private void lockOntoTarget()
+    private void LockOntoTarget()
     {
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
@@ -122,7 +76,7 @@ public class TurretTower : BaseTower
             : Quaternion.Euler(rotation.x, rotation.y, 0f);
     }
 
-    private void updateTarget()
+    private void UpdateTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
         GameObject nearestTarget = null;
@@ -142,11 +96,50 @@ public class TurretTower : BaseTower
         bool isClosestTarget = nearestTarget != null && shortestDistance <= turretTowerObjectSO.AttackRange;
         if (isClosestTarget)
         {
-            target = nearestTarget.transform;
-            return;
+            SetTarget(nearestTarget.transform);
+        }
+        else
+        {
+            ResetTarget();
+        }
+    }
+
+    private void SetTarget(Transform newTarget)
+    {
+        if (target != newTarget)
+        {
+            ResetTarget();
         }
 
-        target = null;
+        target = newTarget;
     }
-    #endregion
+
+    private void ResetTarget()
+    {
+        target = null;
+
+        if (isLaserAttack() && projectile != null)
+        {
+            projectile.gameObject.SetActive(false);
+            projectile.ClearLaser();
+            projectile = null;
+        }
+    }
+
+    private void OnDisable()
+    {
+        ResetTarget();
+        partToRotate.rotation = Quaternion.identity;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, turretTowerObjectSO.AttackRange);
+    }
+
+    public override void OnEnemyEnter(Collider collider)
+    {
+        // Implement your logic for when an enemy enters the collider
+    }
 }

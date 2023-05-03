@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
     #endregion
 
     #region Private Variables
-    private Transform target = null;
+    [SerializeField] private Transform target = null;
     private Transform attackPoint = null;
     private LineRenderer lineRenderer = null;
     private GameObject impact = null;
@@ -52,14 +52,14 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
-        if (target == null)
+        if (!target.gameObject.activeInHierarchy)
         {
             gameObject.SetActive(false);
 
             if (impact == null) return;
             impact.SetActive(false);
             impact = null;
-
+            target = null;
             return;
         }
 
