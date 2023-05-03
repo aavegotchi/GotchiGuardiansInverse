@@ -42,6 +42,8 @@ public class Player_Gotchi : MonoBehaviour, IDamageable
     void Start()
     {
         InvokeRepeating("updateTarget", 1f, 1f);
+
+        Invoke("assignHealthBar", 2f);
     }
 
     void Update()
@@ -59,15 +61,6 @@ public class Player_Gotchi : MonoBehaviour, IDamageable
         Gizmos.DrawWireSphere(transform.position, gotchiObjectSO.AttackRange);
     }
 
-    void OnEnable()
-    {
-        EventBus.PoolEvents.HealthBarPoolReady += assignHealthBar;
-    }
-
-    void OnDisable()
-    {
-        EventBus.PoolEvents.HealthBarPoolReady -= assignHealthBar;
-    }
     #endregion
 
     #region Public Functions
@@ -96,7 +89,6 @@ public class Player_Gotchi : MonoBehaviour, IDamageable
             }
         }
     }
-
 
     public void Damage(float damage)
     {
