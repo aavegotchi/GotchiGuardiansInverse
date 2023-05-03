@@ -16,7 +16,7 @@ MonoBehaviour:
   Type: 1
   Cost: 50
   buildTime: 2
-  Health: 200
+  Health: 60
   AttackRange: 30
   AttackCountdown: 2
   AttackDamageMultiplier: 1

@@ -3568,6 +3568,11 @@ PrefabInstance:
       propertyPath: eventSystem
       value: 
       objectReference: {fileID: 443031896}
+    - target: {fileID: 486780138132756560, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
+        type: 3}
+      propertyPath: distanceToNodeUI
+      value: 21
+      objectReference: {fileID: 0}
     - target: {fileID: 493123747255264166, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: eventSystem
