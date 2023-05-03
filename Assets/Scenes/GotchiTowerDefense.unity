@@ -1490,6 +1490,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 393715195, guid: 1d91093c2e1b5854096ceea184d7db3f, type: 3}
+      propertyPath: skipMainMenu
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2612610367726088326, guid: 1d91093c2e1b5854096ceea184d7db3f,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3564,6 +3568,11 @@ PrefabInstance:
       propertyPath: eventSystem
       value: 
       objectReference: {fileID: 443031896}
+    - target: {fileID: 486780138132756560, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
+        type: 3}
+      propertyPath: distanceToNodeUI
+      value: 21
+      objectReference: {fileID: 0}
     - target: {fileID: 493123747255264166, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: eventSystem

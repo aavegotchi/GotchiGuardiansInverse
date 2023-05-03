@@ -34,6 +34,8 @@ public abstract class BaseNode : MonoBehaviour
     [SerializeField] private Material occupiedMaterial = null;
     [SerializeField] private GraphicRaycaster graphicRaycaster = null;
     [SerializeField] private EventSystem eventSystem = null;
+    [SerializeField] private float distanceToNodeUI = 15;
+
     #endregion
 
     #region Private Variables
@@ -60,6 +62,13 @@ public abstract class BaseNode : MonoBehaviour
         if (isPointerOverUI()) return;
 
         if (occupied || PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep) return;
+
+        // Check if nodeUI is within a certain distance and active in the scene
+        if (nodeUI.gameObject.activeInHierarchy &&
+            Vector3.Distance(transform.position, nodeUI.transform.position) <= distanceToNodeUI)
+        {
+            return;
+        }
 
         visualRenderer.enabled = true;
     }

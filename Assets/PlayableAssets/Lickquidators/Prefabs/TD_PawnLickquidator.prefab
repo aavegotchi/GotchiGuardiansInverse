@@ -1892,10 +1892,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4778946459548760283}
   - component: {fileID: 2216259620588268801}
-  - component: {fileID: 1138862872636736841}
-  - component: {fileID: 8656449059519761027}
   - component: {fileID: 366838744082006805}
   - component: {fileID: -5422960735627624557}
+  - component: {fileID: 8656449059519761027}
   m_Layer: 6
   m_Name: TD_PawnLickquidator
   m_TagString: Enemy
@@ -1939,38 +1938,6 @@ MonoBehaviour:
     type: 3}
   healthbarOffset: {fileID: 4633385786108276291}
   deathEffect: 5
---- !u!114 &1138862872636736841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5267499421225181793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48a71884b05492548ae381c58103cbd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lickquidatorObjectSO: {fileID: 11400000, guid: dd8423788cd7a5a4eb94971b4ddeb3d7,
-    type: 2}
-  anim: {fileID: 0}
-  attackParticleEffectGO: {fileID: 0}
-  attackTrigger: Attack
-  towerTag: Tower
-  salivaEffect: {fileID: 0}
---- !u!65 &8656449059519761027
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5267499421225181793}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 11.773264, z: 5}
-  m_Center: {x: 0, y: 5.386632, z: 0}
 --- !u!195 &366838744082006805
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2009,6 +1976,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &8656449059519761027
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5267499421225181793}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 11.773264, z: 5}
+  m_Center: {x: 0, y: 5.386632, z: 0}
 --- !u!1 &5362764489606529960
 GameObject:
   m_ObjectHideFlags: 0
