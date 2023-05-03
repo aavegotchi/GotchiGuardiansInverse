@@ -15,10 +15,15 @@ MonoBehaviour:
   Name: Gotchi
   SpinAbilityDamage: 40
   SpinAbilityRange: 5
+  SpinAbilityKnockbackForce: 50
   AttackCountdown: 1
   AttackDamage: 20
   AttackRange: 15
   Health: 200
-  MovementSpeed: 10
+  MovementSpeed: 30
   MovementAcceleration: 10
+  AngularSpeed: 120
   AttackRotationSpeed: 10
+  NavMeshAgentHeight: 2
+  NavMeshAgentPriority: 50
+  NavMeshAgentRadius: 0.5

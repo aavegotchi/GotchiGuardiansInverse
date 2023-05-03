@@ -5,8 +5,9 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using Fusion;
 
-public class Gotchi_Input : MonoBehaviour
+public class NetworkGotchiInput : NetworkBehaviour
 {
     #region Fields
     [Header("Settings")]
@@ -28,6 +29,7 @@ public class Gotchi_Input : MonoBehaviour
     private InputAction rightClick = null;
     private NavMeshAgent agent = null;
     private Vector3 movementOffset = Vector3.zero;
+    private Vector3 movementDestination = Vector3.zero;
     #endregion
 
     #region Unity Functions
@@ -45,12 +47,48 @@ public class Gotchi_Input : MonoBehaviour
         setNavMeshAgentFields();
     }
 
-    void Update()
+    // void Update()
+    // {
+    //     if (PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Transitioning) return;
+    //     if (playerGotchi.IsDead) return;
+
+    //     handleMovement();
+    // }
+
+    public override void FixedUpdateNetwork()
     {
         if (PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Transitioning) return;
         if (playerGotchi.IsDead) return;
 
-        handleMovement();
+        if (GetInput(out NetworkInputData networkInputData))
+        {
+            // Right click movement
+            if (networkInputData.movementDestination != Vector3.zero)
+            {
+                movementDestination = Vector3.zero;
+                agent.SetDestination(networkInputData.movementDestination);
+                return;
+            }
+
+            // WASD movement
+            if (networkInputData.movementOffset != Vector3.zero)
+            {
+                agent.ResetPath(); // Clear the agent's path when new input is received
+                agent.velocity = Vector3.zero; // Stop the agent immediately 
+
+                networkInputData.movementOffset.Normalize();
+                playerGotchi.LockOntoTargetPos(transform.position + networkInputData.movementOffset);
+                agent.Move(networkInputData.movementOffset * gotchiObjectSO.MovementSpeed * Time.deltaTime);
+            }
+        }
+    }
+
+    public NetworkInputData GetNetworkInput()
+    {
+        NetworkInputData networkInputData = new NetworkInputData();
+        networkInputData.movementOffset = movementOffset;
+        networkInputData.movementDestination = movementDestination;
+        return networkInputData;
     }
 
     void OnEnable()
@@ -113,7 +151,7 @@ public class Gotchi_Input : MonoBehaviour
                 if (agent.CalculatePath(hit.point, path) && path.status == NavMeshPathStatus.PathComplete)
                 {
                     canMoveToTarget = true;
-                    agent.SetDestination(hit.point);
+                    movementDestination = hit.point; // agent.SetDestination(hit.point);
                 }
                 else
                 {
@@ -125,19 +163,19 @@ public class Gotchi_Input : MonoBehaviour
         }
     }
 
-    private void handleMovement()
-    {
-        if (movementOffset == Vector3.zero)
-        {
-            return;
-        }
+    // private void handleMovement()
+    // {
+    //     if (movementOffset == Vector3.zero)
+    //     {
+    //         return;
+    //     }
 
-        agent.ResetPath(); // Clear the agent's path when new input is received
-        agent.velocity = Vector3.zero; // Stop the agent immediately 
+    //     agent.ResetPath(); // Clear the agent's path when new input is received
+    //     agent.velocity = Vector3.zero; // Stop the agent immediately 
 
-        movementOffset.Normalize();
-        playerGotchi.LockOntoTargetPos(transform.position + movementOffset);
-        agent.Move(movementOffset * gotchiObjectSO.MovementSpeed * Time.deltaTime);
-    }
+    //     movementOffset.Normalize();
+    //     playerGotchi.LockOntoTargetPos(transform.position + movementOffset);
+    //     agent.Move(movementOffset * gotchiObjectSO.MovementSpeed * Time.deltaTime);
+    // }
     #endregion
 }
