@@ -15,7 +15,18 @@ public class GotchiManager : MonoBehaviour
 
     public Player_Gotchi Player
     {
+        set { playerGotchi = value; }
         get { return playerGotchi; }
+    }
+
+    public Transform Spawn
+    {
+        get { return spawn; }
+    }
+
+    public GameObject GotchiPrefab
+    {
+        get { return gotchiPrefab; }
     }
     #endregion
 
@@ -25,6 +36,10 @@ public class GotchiManager : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] private Transform spawn = null;
+    #endregion
+
+    #region Private Variables
+    private Player_Gotchi playerGotchi = null;
     #endregion
 
     #region Unity Functions
@@ -38,17 +53,6 @@ public class GotchiManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-    #endregion
-
-    #region Private Variables
-    private Player_Gotchi playerGotchi = null;
-    #endregion
-
-    #region Unity Functions
-    void Start()
-    {
-        playerGotchi = Instantiate(gotchiPrefab, spawn.position, spawn.rotation).GetComponent<Player_Gotchi>();
     }
     #endregion
 }

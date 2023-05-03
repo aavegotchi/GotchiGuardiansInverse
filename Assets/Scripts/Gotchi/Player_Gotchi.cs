@@ -97,7 +97,6 @@ public class Player_Gotchi : MonoBehaviour, IDamageable
         }
     }
 
-
     public void Damage(float damage)
     {
         if (isDead) return;

@@ -5217,6 +5217,9 @@ GameObject:
   - component: {fileID: 4161372482478654007}
   - component: {fileID: 4297088228064767030}
   - component: {fileID: 3248566665437993995}
+  - component: {fileID: 2777930016483656565}
+  - component: {fileID: 8798585370841287131}
+  - component: {fileID: 3952053190403523680}
   m_Layer: 10
   m_Name: TD_Gotchi
   m_TagString: Tower
@@ -5276,6 +5279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8563e0b2fec1874aa7e198f3fb0a0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   gotchiObjectSO: {fileID: 11400000, guid: 681b30293c3efac4b9f1dad0e4bf4483, type: 2}
   inputActions: {fileID: -944628639613478452, guid: ceabcba2e8569194c9d945050386e204,
     type: 3}
@@ -5304,6 +5308,73 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &2777930016483656565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6665416994352312182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee407c5fc2251c428d17ea4b7b77209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+--- !u!114 &8798585370841287131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6665416994352312182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 0
+  AoiPositionSource: {fileID: 0}
+  Flags: 2305
+  NetworkGuid:
+    RawGuidValue: 1baecf065ed39294897675d970cf4448
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 4297088228064767030}
+  - {fileID: 2777930016483656565}
+  - {fileID: 3952053190403523680}
+  SimulationBehaviours: []
+--- !u!114 &3952053190403523680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6665416994352312182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  InterpolationSpace: 0
+  InterpolationTarget: {fileID: 1133125184741782390}
+  InterpolateErrorCorrection: 1
+  InterpolatedErrorCorrectionSettings:
+    MinRate: 3.3
+    MaxRate: 10
+    PosBlendStart: 0.25
+    PosBlendEnd: 1
+    PosMinCorrection: 0.025
+    PosTeleportDistance: 2
+    RotBlendStart: 0.1
+    RotBlendEnd: 0.5
+    RotTeleportRadians: 1.5
+  UseLegacySharedModeInterpolation: 0
+  TargetInterpolationDelay: 0.03
 --- !u!1 &8987684962425492679
 GameObject:
   m_ObjectHideFlags: 0
