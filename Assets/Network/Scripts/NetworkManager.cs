@@ -15,14 +15,25 @@ namespace Gotchi.Network
         #region Public Variables
         public static NetworkManager Instance = null;
 
-        public Player_Gotchi LocalPlayerGotchi { get; set; } = null;
-        public NetworkGotchiInput LocalPlayerInput { get; set; } = null;
+        public Player_Gotchi LocalPlayerGotchi { get; set; }
+        public NetworkGotchiInput LocalPlayerInput { get; set; }
+        public NetworkRunner NetworkRunner
+        {
+            get { return networkRunner; }
+        }
+        public bool IsReady {
+            get { return LocalPlayerGotchi != null; }
+        }
 
-        public NetworkInputData NetworkTickData = new NetworkInputData();
+        public NetworkTickData NetworkTickData = new NetworkTickData();
         #endregion
 
         #region Fields
         [SerializeField] private NetworkRunner networkRunnerPrefab = null;
+        #endregion
+
+        #region Private Variables
+        private NetworkRunner networkRunner = null;
         #endregion
 
         #region Unity Functions
@@ -40,26 +51,26 @@ namespace Gotchi.Network
 
         void Start()
         {
-            NetworkRunner networkRunner = Instantiate(networkRunnerPrefab);
+            networkRunner = Instantiate(networkRunnerPrefab);
             networkRunner.name = "network_listener";
             networkRunner.ProvideInput = true;
 
-            initializeNetworkRunner(networkRunner, GameMode.AutoHostOrClient, NetAddress.Any(), SceneManager.GetActiveScene().buildIndex, null);
+            initializeNetworkRunner(GameMode.AutoHostOrClient, NetAddress.Any(), SceneManager.GetActiveScene().buildIndex, null);
 
             Debug.Log("Server started");
         }
         #endregion
 
         #region Private Functions
-        private Task initializeNetworkRunner(NetworkRunner runner, GameMode gameMode, NetAddress address, SceneRef scene, Action<NetworkRunner> initialized)
+        private Task initializeNetworkRunner(GameMode gameMode, NetAddress address, SceneRef scene, Action<NetworkRunner> initialized)
         {
-            var sceneManager = runner.GetComponents(typeof(MonoBehaviour)).OfType<INetworkSceneManager>().FirstOrDefault();
+            var sceneManager = networkRunner.GetComponents(typeof(MonoBehaviour)).OfType<INetworkSceneManager>().FirstOrDefault();
             if (sceneManager == null)
             {
-                sceneManager = runner.gameObject.AddComponent<NetworkSceneManagerDefault>();
+                sceneManager = networkRunner.gameObject.AddComponent<NetworkSceneManagerDefault>();
             }
 
-            return runner.StartGame(new StartGameArgs
+            return networkRunner.StartGame(new StartGameArgs
             {
                 GameMode = gameMode,
                 Address = address,

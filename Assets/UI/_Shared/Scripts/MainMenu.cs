@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gotchi.Events;
+using Gotchi.Network;
 
 public class MainMenu : MonoBehaviour
 {
@@ -21,14 +22,18 @@ public class MainMenu : MonoBehaviour
     public void StartFreePlay()
     {
         EventBus.MenuEvents.MenuItemSelectedLong();
-        mainMenuCanvasAnimator.SetTrigger(mainMenuCanvasAnimatorCloseTrigger);
         StartCoroutine(waitAndStart());
     }
 
     private IEnumerator waitAndStart()
     {
-        yield return new WaitForSeconds(1.1f);
+        while (!NetworkManager.Instance.IsReady)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        mainMenuCanvasAnimator.SetTrigger(mainMenuCanvasAnimatorCloseTrigger);
+        yield return new WaitForSeconds(1f);
         mainMenuCanvas.SetActive(false);
-        PhaseManager.Instance.StartNextPhase();
+        PhaseManager.Instance.StartFirstPrepPhase();
     }
 }

@@ -47,7 +47,7 @@ namespace Gotchi.Network
         public void OnInput(NetworkRunner runner, NetworkInput input)
         {
             // Debug.Log("OnInput");
-            if (NetworkManager.Instance.LocalPlayerGotchi == null) return;
+            if (!NetworkManager.Instance.IsReady) return;
             
             input.Set(NetworkManager.Instance.NetworkTickData);
         }

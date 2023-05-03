@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Fusion;
 
-public abstract class BaseNode : MonoBehaviour
+public abstract class BaseNode : NetworkBehaviour
 {
     #region Public Variables
     public bool Occupied

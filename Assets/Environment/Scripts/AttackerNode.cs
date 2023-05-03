@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Gotchi.Events;
+using Fusion;
 
 public class AttackerNode : BaseNode
 {
@@ -55,18 +57,33 @@ public class AttackerNode : BaseNode
     }
     #endregion
 
-    #region Public Functions
-    public void AddSpawnedEnemy(EnemyBlueprint enemyBlueprint)
+    #region RPC Functions
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void rpc_addSpawnedEnemy(string enemyTypeStr, int cost, float buildTime)
     {
+        EnemyBlueprint enemyBlueprint = new EnemyBlueprint();
+        enemyBlueprint.type = (EnemyManager.EnemyType)Enum.Parse(typeof(EnemyManager.EnemyType), enemyTypeStr);
+        enemyBlueprint.cost = cost;
+        enemyBlueprint.buildTime = buildTime;
+
         this.Occupied = true;
         enemyBlueprint.node = this;
-        StatsManager.Instance.Money -= enemyBlueprint.cost;
         EventBus.EnemyEvents.EnemyStarted();
         spawnedEnemyBlueprints.Add(enemyBlueprint);
         ProgressBarManager.Instance.GetAndShowProgressBar(enemyBlueprint, true);
         this.BuildEffect.SetActive(true);
         enemySlotsUI.OccupyNextSlot(maxEnemiesPerNode);
         NodeManager.Instance.SelectedNode = null;
+    }
+
+    #endregion
+
+    #region Public Functions
+    public void AddSpawnedEnemy(EnemyBlueprint enemyBlueprint)
+    {
+        rpc_addSpawnedEnemy(enemyBlueprint.type.ToString(), enemyBlueprint.cost, enemyBlueprint.buildTime);   
+
+        StatsManager.Instance.Money -= enemyBlueprint.cost;
     }
     #endregion
 

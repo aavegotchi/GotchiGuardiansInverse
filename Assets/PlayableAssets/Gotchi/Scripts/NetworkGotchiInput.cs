@@ -51,25 +51,25 @@ public class NetworkGotchiInput : NetworkBehaviour
         if (PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Transitioning) return;
         if (playerGotchi.IsDead) return;
 
-        if (GetInput(out NetworkInputData networkInputData))
+        if (GetInput(out NetworkTickData networkTickData))
         {
             // Right click movement
-            if (networkInputData.movementDestination != Vector3.zero)
+            if (networkTickData.movementDestination != Vector3.zero)
             {
                 agent.velocity = Vector3.zero;
-                agent.SetDestination(networkInputData.movementDestination);
+                agent.SetDestination(networkTickData.movementDestination);
                 return;
             }
 
             // WASD movement
-            if (networkInputData.movementOffset != Vector3.zero)
+            if (networkTickData.movementOffset != Vector3.zero)
             {
                 agent.ResetPath(); // Clear the agent's path when new input is received
                 agent.velocity = Vector3.zero; // Stop the agent immediately 
 
-                networkInputData.movementOffset.Normalize();
-                playerGotchi.LockOntoTargetPos(transform.position + networkInputData.movementOffset);
-                agent.Move(networkInputData.movementOffset * gotchiObjectSO.MovementSpeed * Runner.DeltaTime);
+                networkTickData.movementOffset.Normalize();
+                playerGotchi.LockOntoTargetPos(transform.position + networkTickData.movementOffset);
+                agent.Move(networkTickData.movementOffset * gotchiObjectSO.MovementSpeed * Runner.DeltaTime);
             }
         }
     }

@@ -1,11 +1,13 @@
 using System.Collections;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Gotchi.Events;
 using Gotchi.Network;
+using Fusion;
 
-public class PhaseManager : MonoBehaviour
+public class PhaseManager : NetworkBehaviour
 {
     #region Public Variables
     public static PhaseManager Instance = null;
@@ -74,7 +76,7 @@ public class PhaseManager : MonoBehaviour
         }
     }
 
-    void Update()
+    public override void FixedUpdateNetwork()
     {
         if (CurrentPhase == Phase.Transitioning || CurrentPhase == Phase.None) return;
 
@@ -90,14 +92,13 @@ public class PhaseManager : MonoBehaviour
     #endregion
 
     #region Private Functions
+    public void StartFirstPrepPhase()
+    {
+        rpc_updatePhase(Phase.Prep.ToString());
+    }
+
     public void StartNextPhase()
     {
-        if (CurrentPhase == Phase.None)
-        {
-            updatePhase(Phase.Prep);
-            return;
-        }
-
         Phase nextPhase = CurrentPhase == Phase.Prep ? Phase.Survival : Phase.Prep;
         CurrentPhase = Phase.Transitioning;
 
@@ -187,7 +188,7 @@ public class PhaseManager : MonoBehaviour
 
         transitionScreenAnimator.SetTrigger("Close");
 
-        updatePhase(nextPhase);
+        rpc_updatePhase(nextPhase.ToString());
     }
 
     private void HandleEndSurvivalPhase()
@@ -206,12 +207,21 @@ public class PhaseManager : MonoBehaviour
         }
 
         countdownTracker -= Time.deltaTime;
-        countdownTracker = Mathf.Clamp(countdownTracker, 0f, Mathf.Infinity);
-        countdownTimer.SetTimeLeft(countdownTracker);
+        Mathf.Clamp(countdownTracker, 0f, Mathf.Infinity);
+        rpc_setCountdownTracker(countdownTracker);
     }
 
-    private void updatePhase(Phase nextPhase)
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void rpc_setCountdownTracker(float time)
     {
+        countdownTimer.Show();
+        countdownTimer.SetTimeLeft(time);
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void rpc_updatePhase(string nextPhaseStr)
+    {
+        Phase nextPhase = (Phase)Enum.Parse(typeof(Phase), nextPhaseStr);
         CurrentPhase = nextPhase;
 
         if (CurrentPhase == Phase.Prep)

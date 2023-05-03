@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7905084056772720268}
   - component: {fileID: 8664476327331106589}
   - component: {fileID: 1725726141064650241}
+  - component: {fileID: 5422443523947851086}
   m_Layer: 0
   m_Name: SpawnNode
   m_TagString: Untagged
@@ -114,6 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1ea323494de34428017fc99d86cb12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   buildEffect: {fileID: 2558388283288250788}
   nodeUI: {fileID: 0}
   visualRenderer: {fileID: 8846664563488566334}
@@ -121,8 +123,33 @@ MonoBehaviour:
   occupiedMaterial: {fileID: 2100000, guid: 690f216a352093943993e1a29c201c2b, type: 2}
   graphicRaycaster: {fileID: 0}
   eventSystem: {fileID: 0}
+  distanceToNodeUI: 15
   enemySlotsUI: {fileID: 6392079079896706900}
   maxEnemiesPerNode: 8
+--- !u!114 &5422443523947851086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8553598348960274265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 0
+  AoiPositionSource: {fileID: 0}
+  Flags: 2305
+  NetworkGuid:
+    RawGuidValue: c58bd320186427b498cd11ed2751875a
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 1725726141064650241}
+  SimulationBehaviours: []
 --- !u!1001 &2388062653806346244
 PrefabInstance:
   m_ObjectHideFlags: 0
