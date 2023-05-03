@@ -19,7 +19,7 @@ public class GotchiObjectSO : ScriptableObject
     public int Health = 250;
 
     [Header("Movement")] // (Speed, acceleration, angular) are applied to NavMeshAgent
-    public float MovementSpeed = 30f;
+    public float MovementSpeed = 10f;
     public float MovementAcceleration = 10f; 
     public float AngularSpeed = 120f;
     public float AttackRotationSpeed = 2f;

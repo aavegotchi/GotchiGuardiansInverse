@@ -62,6 +62,37 @@ Transform:
   m_Father: {fileID: 4342691978493268027}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -105.00001, z: 0}
+--- !u!1 &2599659615032012658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3037848713741704089}
+  m_Layer: 10
+  m_Name: InterpolationTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3037848713741704089
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2599659615032012658}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 755836784205390960}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2719739610903325354
 GameObject:
   m_ObjectHideFlags: 0
@@ -5241,6 +5272,7 @@ Transform:
   m_Children:
   - {fileID: 1133125184741782390}
   - {fileID: 2027114214}
+  - {fileID: 3037848713741704089}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5256,6 +5288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b8a9799d6979143b8f706e178ec4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   gotchiObjectSO: {fileID: 11400000, guid: 681b30293c3efac4b9f1dad0e4bf4483, type: 2}
   swordAnim: {fileID: 7743941734871062196}
   spinAnim: {fileID: 2491246566271843120}
@@ -5343,6 +5376,7 @@ MonoBehaviour:
     RawGuidValue: 1baecf065ed39294897675d970cf4448
   NestedObjects: []
   NetworkedBehaviours:
+  - {fileID: 4161372482478654007}
   - {fileID: 4297088228064767030}
   - {fileID: 2777930016483656565}
   - {fileID: 3952053190403523680}
@@ -5361,7 +5395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   InterpolationSpace: 0
-  InterpolationTarget: {fileID: 1133125184741782390}
+  InterpolationTarget: {fileID: 3037848713741704089}
   InterpolateErrorCorrection: 1
   InterpolatedErrorCorrectionSettings:
     MinRate: 3.3
