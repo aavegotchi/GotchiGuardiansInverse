@@ -23,7 +23,7 @@ public class Projectile : MonoBehaviour
     #endregion
 
     #region Private Variables
-    [SerializeField] private Transform target = null;
+    private Transform target = null;
     private Transform attackPoint = null;
     private LineRenderer lineRenderer = null;
     private GameObject impact = null;

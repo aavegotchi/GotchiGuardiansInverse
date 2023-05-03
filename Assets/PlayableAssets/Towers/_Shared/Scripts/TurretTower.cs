@@ -3,14 +3,25 @@ using UnityEngine;
 
 public class TurretTower : BaseTower
 {
+    #region Events
+    #endregion
+
+    #region Public Variables
+    #endregion
+
+    #region Fields
     [SerializeField] private Transform partToRotate;
     [SerializeField] private Transform attackPoint;
+    #endregion
 
+    #region Private Variables
     private float attackCountdownTracker = 1f;
     private Transform target;
     private Projectile projectile;
     private TurretTowerObjectSO turretTowerObjectSO;
+    #endregion
 
+    #region Unity Functions
     protected override void Start()
     {
         base.Start();
@@ -30,24 +41,32 @@ public class TurretTower : BaseTower
 
         if (distanceToTarget > turretTowerObjectSO.AttackRange || !target.gameObject.activeInHierarchy)
         {
-            ResetTarget();
+            resetTarget();
             return;
         }
 
-        LockOntoTarget();
+        lockOntoTarget();
 
         if (projectile != null && isLaserAttack()) return;
 
-        Attack();
+        attack();
     }
+    #endregion
 
+    #region Public Functions
+    public override void OnEnemyEnter(Collider collider)
+    {
+        // Implement your logic for when an enemy enters the collider
+    }
+    #endregion
 
+    #region Private Functions
     private bool isLaserAttack()
     {
         return turretTowerObjectSO.projectile.ProjectileType == ProjectileManager.ProjectileType.Laser;
     }
 
-    private void Attack()
+    private void attack()
     {
         if (isLaserAttack())
         {
@@ -65,7 +84,7 @@ public class TurretTower : BaseTower
         }
     }
 
-    private void LockOntoTarget()
+    private void lockOntoTarget()
     {
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
@@ -76,7 +95,7 @@ public class TurretTower : BaseTower
             : Quaternion.Euler(rotation.x, rotation.y, 0f);
     }
 
-    private void UpdateTarget()
+    private void updateTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
         GameObject nearestTarget = null;
@@ -96,25 +115,25 @@ public class TurretTower : BaseTower
         bool isClosestTarget = nearestTarget != null && shortestDistance <= turretTowerObjectSO.AttackRange;
         if (isClosestTarget)
         {
-            SetTarget(nearestTarget.transform);
+            setTarget(nearestTarget.transform);
         }
         else
         {
-            ResetTarget();
+            resetTarget();
         }
     }
 
-    private void SetTarget(Transform newTarget)
+    private void setTarget(Transform newTarget)
     {
         if (target != newTarget)
         {
-            ResetTarget();
+            resetTarget();
         }
 
         target = newTarget;
     }
 
-    private void ResetTarget()
+    private void resetTarget()
     {
         target = null;
 
@@ -128,7 +147,7 @@ public class TurretTower : BaseTower
 
     private void OnDisable()
     {
-        ResetTarget();
+        resetTarget();
         partToRotate.rotation = Quaternion.identity;
     }
 
@@ -137,9 +156,6 @@ public class TurretTower : BaseTower
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, turretTowerObjectSO.AttackRange);
     }
-
-    public override void OnEnemyEnter(Collider collider)
-    {
-        // Implement your logic for when an enemy enters the collider
-    }
+    #endregion
 }
+
