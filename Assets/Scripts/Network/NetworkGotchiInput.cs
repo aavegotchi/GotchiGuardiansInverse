@@ -62,6 +62,13 @@ public class NetworkGotchiInput : NetworkBehaviour
 
         if (GetInput(out NetworkInputData networkInputData))
         {
+            // Spin attack
+            if (networkInputData.spinAttackTriggered)
+            {
+                playerGotchi.SpinAttackTriggered = false;
+                playerGotchi.SpinAttack();
+            }
+
             // Right click movement
             if (networkInputData.movementDestination != Vector3.zero)
             {
@@ -88,6 +95,7 @@ public class NetworkGotchiInput : NetworkBehaviour
         NetworkInputData networkInputData = new NetworkInputData();
         networkInputData.movementOffset = movementOffset;
         networkInputData.movementDestination = movementDestination;
+        networkInputData.spinAttackTriggered = playerGotchi.SpinAttackTriggered;
         return networkInputData;
     }
 

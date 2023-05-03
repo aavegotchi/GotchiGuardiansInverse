@@ -25,7 +25,8 @@ public class AbilityManager : MonoBehaviour
     #region Public Functions
     public void TriggerSpinAttack()
     {
-        GotchiManager.Instance.Player.SpinAttack();
+        GotchiManager.Instance.Player.SpinAttackTriggered = true;
+        // GotchiManager.Instance.Player.SpinAttack();
     }
     #endregion
 }
