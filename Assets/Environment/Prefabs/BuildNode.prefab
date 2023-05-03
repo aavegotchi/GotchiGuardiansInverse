@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4462844002189816146}
   - component: {fileID: 2910965524249774275}
   - component: {fileID: 543320096368638669}
+  - component: {fileID: 5803919581879881150}
   m_Layer: 0
   m_Name: BuildNode
   m_TagString: Untagged
@@ -112,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb530085e94145469d053f6b79971b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   buildEffect: {fileID: 8617297572671136899}
   nodeUI: {fileID: 0}
   visualRenderer: {fileID: 4423030374096682770}
@@ -119,6 +121,31 @@ MonoBehaviour:
   occupiedMaterial: {fileID: 2100000, guid: 690f216a352093943993e1a29c201c2b, type: 2}
   graphicRaycaster: {fileID: 0}
   eventSystem: {fileID: 0}
+  distanceToNodeUI: 15
+--- !u!114 &5803919581879881150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2805681586701209735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2305
+  NetworkGuid:
+    RawGuidValue: 7df3c737dfab62d40af9d890fe463a01
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 543320096368638669}
+  SimulationBehaviours: []
 --- !u!1001 &7386029182617064232
 PrefabInstance:
   m_ObjectHideFlags: 0

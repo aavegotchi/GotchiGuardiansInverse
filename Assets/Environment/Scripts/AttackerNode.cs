@@ -58,7 +58,7 @@ public class AttackerNode : BaseNode
     #endregion
 
     #region RPC Functions
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    [Rpc(RpcSources.All, RpcTargets.All)]
     private void rpc_addSpawnedEnemy(string enemyTypeStr, int cost, float buildTime)
     {
         EnemyBlueprint enemyBlueprint = new EnemyBlueprint();
@@ -73,9 +73,7 @@ public class AttackerNode : BaseNode
         ProgressBarManager.Instance.GetAndShowProgressBar(enemyBlueprint, true);
         this.BuildEffect.SetActive(true);
         enemySlotsUI.OccupyNextSlot(maxEnemiesPerNode);
-        NodeManager.Instance.SelectedNode = null;
     }
-
     #endregion
 
     #region Public Functions

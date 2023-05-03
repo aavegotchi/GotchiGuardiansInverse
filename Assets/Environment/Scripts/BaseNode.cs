@@ -36,7 +36,6 @@ public abstract class BaseNode : NetworkBehaviour
     [SerializeField] private GraphicRaycaster graphicRaycaster = null;
     [SerializeField] private EventSystem eventSystem = null;
     [SerializeField] private float distanceToNodeUI = 15;
-
     #endregion
 
     #region Private Variables
@@ -60,6 +59,7 @@ public abstract class BaseNode : NetworkBehaviour
 
     protected virtual void OnMouseEnter()
     {
+        Debug.Log("OnMouseEnter");
         if (isPointerOverUI()) return;
 
         if (occupied || PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep) return;
