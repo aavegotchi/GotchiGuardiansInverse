@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bf522f6e4a888418d17364548edf84, type: 3}
   m_Name: General
   m_EditorClassIdentifier: 
-  SpiritGems: 553380
+  SpiritGems: 542907
   EnemyKillRewardMultipleByCost: 0.5
   EnemySpawnRewardMultipleByCost: 0.25
   TowerSellRewardMultipleByCost: 0.5
   EnemySellRewardMultipleByCost: 0.5
+  GenericUpgradeMultipleByLevel: 2
   PrepPhaseCountdown: 15

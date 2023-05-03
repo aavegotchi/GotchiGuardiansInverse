@@ -8,6 +8,15 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject mainMenuCanvas = null;
     [SerializeField] private Animator mainMenuCanvasAnimator = null;
     [SerializeField] private string mainMenuCanvasAnimatorCloseTrigger = "Close";
+    [SerializeField] private bool skipMainMenu;
+
+    private void Start()
+    {
+        if(skipMainMenu)
+        {
+            StartFreePlay();
+        }
+    }
 
     public void StartFreePlay()
     {

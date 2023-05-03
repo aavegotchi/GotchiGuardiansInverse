@@ -147,8 +147,6 @@ namespace Gotchi.Audio
 
                 audioPool.Add(audioSource);
             }
-
-            EventBus.PoolEvents.AudioPoolReady();
         }
 
         private void playSound(SoundType soundType, bool loop = false, float volume = 0.7f)
