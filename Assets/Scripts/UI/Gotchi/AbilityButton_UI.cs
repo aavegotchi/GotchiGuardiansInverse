@@ -136,7 +136,7 @@ public class AbilityButton_UI : MonoBehaviour, IPointerClickHandler
 
     public void AbilityTriggered()
     {
-        AbilityManager.Instance.TriggerSpinAttack();
+        NetworkPlayer.LocalPlayerGotchi.SpinAttackTriggered = true;
         isCooldown = true;
         cooldownImage.fillAmount = 1;
     }

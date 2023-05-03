@@ -14,8 +14,7 @@ public class Player_Gotchi : MonoBehaviour, IDamageable
 
     public bool SpinAttackTriggered
     {
-        get { return spinAttackTriggered; }
-        set { spinAttackTriggered = value; }
+        get; set;
     }
     #endregion
 
@@ -42,7 +41,6 @@ public class Player_Gotchi : MonoBehaviour, IDamageable
     private Transform target = null;
     private Enemy targetEnemy = null;
     private bool isDead = false;
-    private bool spinAttackTriggered = false;
     #endregion
 
     #region Unity Functions

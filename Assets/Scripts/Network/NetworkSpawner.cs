@@ -31,12 +31,12 @@ public class NetworkSpawner : MonoBehaviour, INetworkRunnerCallbacks
         if (runner.IsServer)
         {
             Debug.Log("We are server, spawning player");
-            GotchiManager.Instance.Player = runner.Spawn(
+            runner.Spawn(
                 GotchiManager.Instance.GotchiPrefab.GetComponent<NetworkPlayer>(),
                 GotchiManager.Instance.Spawn.position,
                 GotchiManager.Instance.Spawn.rotation,
                 player
-            ).GetComponent<Player_Gotchi>();
+            );
         }
         else
         {

@@ -7,6 +7,11 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 {
     public static NetworkPlayer Local { get; set; }
 
+    public static Player_Gotchi LocalPlayerGotchi 
+    {
+        get { return Local.GetComponent<Player_Gotchi>(); }
+    }
+
     public override void Spawned()
     {
         if (Object.HasInputAuthority)

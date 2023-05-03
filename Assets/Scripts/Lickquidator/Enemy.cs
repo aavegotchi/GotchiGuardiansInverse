@@ -186,10 +186,11 @@ public class Enemy : MonoBehaviour, IDamageable
             if (!agent.enabled) agent.enabled = true;
         }
 
-        if (GotchiManager.Instance != null && GotchiManager.Instance.Player != null)
+        if (!NetworkPlayer.LocalPlayerGotchi.IsDead)
         {
-            agent.SetDestination(GotchiManager.Instance.Player.transform.position);
-        } else
+            agent.SetDestination(NetworkPlayer.LocalPlayerGotchi.transform.position);
+        } 
+        else
         {
             healthbar.Reset();
             healthbar = null;

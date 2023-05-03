@@ -15,7 +15,6 @@ public class NetworkGotchiInput : NetworkBehaviour
 
     [Header("Required Refs")]
     [SerializeField] private InputActionAsset inputActions = null;
-    private Player_Gotchi playerGotchi = null;
 
     [Header("Attributes")]
     [SerializeField] private string actionMapKey = "Player";
@@ -24,6 +23,7 @@ public class NetworkGotchiInput : NetworkBehaviour
     #endregion
 
     #region Private Variables
+    private Player_Gotchi playerGotchi = null;
     private InputActionMap playerActionMap = null;
     private InputAction movement = null;
     private InputAction rightClick = null;
@@ -65,14 +65,13 @@ public class NetworkGotchiInput : NetworkBehaviour
             // Spin attack
             if (networkInputData.spinAttackTriggered)
             {
-                playerGotchi.SpinAttackTriggered = false;
+                Debug.Log("spin attack triggered");
                 playerGotchi.SpinAttack();
             }
 
             // Right click movement
             if (networkInputData.movementDestination != Vector3.zero)
             {
-                movementDestination = Vector3.zero;
                 agent.SetDestination(networkInputData.movementDestination);
                 return;
             }
@@ -85,7 +84,7 @@ public class NetworkGotchiInput : NetworkBehaviour
 
                 networkInputData.movementOffset.Normalize();
                 playerGotchi.LockOntoTargetPos(transform.position + networkInputData.movementOffset);
-                agent.Move(networkInputData.movementOffset * gotchiObjectSO.MovementSpeed * Time.deltaTime);
+                agent.Move(networkInputData.movementOffset * gotchiObjectSO.MovementSpeed * Runner.DeltaTime);
             }
         }
     }
@@ -96,6 +95,8 @@ public class NetworkGotchiInput : NetworkBehaviour
         networkInputData.movementOffset = movementOffset;
         networkInputData.movementDestination = movementDestination;
         networkInputData.spinAttackTriggered = playerGotchi.SpinAttackTriggered;
+        movementDestination = Vector3.zero;
+        playerGotchi.SpinAttackTriggered = false;
         return networkInputData;
     }
 

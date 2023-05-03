@@ -191,7 +191,7 @@ public class PhaseManager : MonoBehaviour
 
     private void HandleEndSurvivalPhase()
     {
-        if (EnemyManager.Instance.ActiveEnemies.Count == 0 && !GotchiManager.Instance.Player.IsDead)
+        if (EnemyManager.Instance.ActiveEnemies.Count == 0 && !NetworkPlayer.LocalPlayerGotchi.IsDead)
         {
            StartNextPhase();
         }
