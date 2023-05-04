@@ -29,6 +29,8 @@ public class MainMenu : MonoBehaviour
     #region Unity Functions
     void Start()
     {
+        EventBus.PhaseEvents.MainMenuStarted();
+
         if (PlayerPrefs.HasKey("username"))
         {
             usernameText.text = PlayerPrefs.GetString("username");

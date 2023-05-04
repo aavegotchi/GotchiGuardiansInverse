@@ -48,9 +48,18 @@ public class Players_List_UI : MonoBehaviour
     #endregion
 
     #region Public Functions
-    public void AddPlayerEntry(string username)
+    public void AddPlayerEntry(string username, bool isMain = false)
     {
-        for (int i=0; i<playerElements.Count; i++)
+        if (isMain)
+        {
+            Player_ListEle_UI playerElement = playerElements[0];
+            playerElement.SetPlayerName(username);
+            playerElement.gameObject.SetActive(true);
+            usernameToPlayerElementsIndexDict[username] = 0;
+            return;
+        }
+
+        for (int i=1; i<playerElements.Count; i++)
         {
             Player_ListEle_UI playerElement = playerElements[i];
             if (!playerElement.gameObject.activeSelf)

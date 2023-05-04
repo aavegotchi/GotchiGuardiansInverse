@@ -28,6 +28,7 @@ namespace Gotchi.Events
 
     public class PhaseEventsBlueprint
     {
+        public EventBus.EmptyFn MainMenuStarted;
         public EventBus.EmptyFn PrepPhaseStarted;
         public EventBus.EmptyFn SurvivalPhaseStarted;
         public EventBus.TransitionPhaseFn TransitionPhaseStarted;

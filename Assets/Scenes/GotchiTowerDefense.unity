@@ -201,18 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &443031896 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4340525003861170913, guid: 0db00547c97d89641a099995fbf0b123,
-    type: 3}
-  m_PrefabInstance: {fileID: 4340525003975045554}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &447716964 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1993395575044101887, guid: 0db00547c97d89641a099995fbf0b123,
@@ -3960,7 +3948,7 @@ PrefabInstance:
     - target: {fileID: 8773791542949423789, guid: 0db00547c97d89641a099995fbf0b123,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8778657867065507777, guid: 0db00547c97d89641a099995fbf0b123,
         type: 3}
@@ -4240,7 +4228,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 434788797036229787, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4265,7 +4253,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 486780138132756560, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: distanceToNodeUI
@@ -4275,12 +4263,12 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 656134824223987130, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 884098407002136417, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4465,7 +4453,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 2177858379495474252, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4500,7 +4488,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 3145730274585543523, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4520,7 +4508,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 3288552189167167722, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4545,7 +4533,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 3406940245694540902, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4580,7 +4568,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 4184744853520488514, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4605,17 +4593,17 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 5034503939191867567, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 5276149533958468415, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 5415222564038559590, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4635,7 +4623,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 5896907132346160341, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4695,7 +4683,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 6517274475692206879, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4720,17 +4708,17 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 6576691922509342738, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 7175868899766141697, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 7754463504463470891, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4755,7 +4743,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 7862046989190084509, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4775,7 +4763,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 8198912962175805648, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4800,7 +4788,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 8500573630449118472, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4825,7 +4813,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     - target: {fileID: 8722677646505701182, guid: d3d7dd84f3338d7428b7bf4e169bcbc0,
         type: 3}
       propertyPath: Flags
@@ -4845,7 +4833,7 @@ PrefabInstance:
         type: 3}
       propertyPath: eventSystem
       value: 
-      objectReference: {fileID: 443031896}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3d7dd84f3338d7428b7bf4e169bcbc0, type: 3}
 --- !u!1001 &9086740995115970435

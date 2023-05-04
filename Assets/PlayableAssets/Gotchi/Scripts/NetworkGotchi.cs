@@ -7,7 +7,7 @@ namespace Gotchi.Network
 {
     public class NetworkGotchi : NetworkBehaviour, IPlayerLeft
     {
-        [Networked(OnChanged = nameof(OnUsernameSet))]
+        [Networked(OnChanged = nameof(OnSetUsername))] 
         public NetworkString<_16> Username { get; set; }
 
         public override void Spawned()
@@ -17,7 +17,6 @@ namespace Gotchi.Network
                 NetworkManager.Instance.LocalPlayerGotchi = GetComponent<Player_Gotchi>();
                 NetworkManager.Instance.LocalPlayerInput = GetComponent<NetworkGotchiInput>();
                 Debug.Log("Spawned local player");
-
                 rpc_setUsername(PlayerPrefs.GetString("username"));
             }
             else
@@ -32,8 +31,6 @@ namespace Gotchi.Network
         {
             if (player == Object.InputAuthority)
             {
-                rpc_setUsername("");
-
                 Debug.Log("Local player left, despawning");
                 Runner.Despawn(Object);
             }
@@ -41,31 +38,30 @@ namespace Gotchi.Network
             {
                 Debug.Log("Remote player left");
             }
+            UserInterfaceManager.Instance.PlayersListUI.RemovePlayerEntry(Username.ToString());
         }
 
-        public static void OnUsernameSet(Changed<NetworkGotchi> changed)
-        {
-            changed.Behaviour.OnUsernameSet();
-        }
-
-        private void OnUsernameSet()
-        {
-            if (Username.ToString() == string.Empty)
-            {
-                Debug.Log($"Removing player {gameObject.name} from player list");
-                UserInterfaceManager.Instance.PlayersListUI.RemovePlayerEntry(Username.ToString());
-            }
-            else
-            {
-                Debug.Log($"Adding player with {Username} for object {gameObject.name} to player list");
-                UserInterfaceManager.Instance.PlayersListUI.AddPlayerEntry(Username.ToString());
-            }
-        }
-
-        [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+        [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
         private void rpc_setUsername(string username, RpcInfo info = default)
         {
             Username = username;
+        }
+
+        public static void OnSetUsername(Changed<NetworkGotchi> changed)
+        {
+            changed.Behaviour.OnSetUsername();
+        }
+
+        private void OnSetUsername()
+        {
+            if (Object.HasInputAuthority)
+            {
+                UserInterfaceManager.Instance.PlayersListUI.AddPlayerEntry(Username.ToString(), true);
+            }
+            else
+            {
+                UserInterfaceManager.Instance.PlayersListUI.AddPlayerEntry(Username.ToString());
+            }
         }
     }
 }

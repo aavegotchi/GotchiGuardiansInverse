@@ -85,6 +85,7 @@ namespace Gotchi.Audio
             EventBus.MenuEvents.MenuItemSelectedLong += playMenuItemSelectedLong;
             EventBus.MenuEvents.MenuItemSelectedShort += playMenuItemSelectedShort;
 
+            EventBus.PhaseEvents.MainMenuStarted += playPrepPhaseMusic;
             EventBus.PhaseEvents.PrepPhaseStarted += playPrepPhaseMusic;
             EventBus.PhaseEvents.SurvivalPhaseStarted += playSurvivalPhaseMusic;
             EventBus.PhaseEvents.TransitionPhaseStarted += playPhaseTransition;
@@ -109,6 +110,7 @@ namespace Gotchi.Audio
             EventBus.MenuEvents.MenuItemSelectedLong -= playMenuItemSelectedLong;
             EventBus.MenuEvents.MenuItemSelectedShort -= playMenuItemSelectedShort;
 
+            EventBus.PhaseEvents.MainMenuStarted -= playPrepPhaseMusic;
             EventBus.PhaseEvents.PrepPhaseStarted -= playPrepPhaseMusic;
             EventBus.PhaseEvents.SurvivalPhaseStarted -= playSurvivalPhaseMusic;
             EventBus.PhaseEvents.TransitionPhaseStarted -= playPhaseTransition;
@@ -224,11 +226,13 @@ namespace Gotchi.Audio
 
         private void playPrepPhaseMusic()
         {
+            pauseSound(SoundManager.SoundType.PrepPhaseMusic);
             playSound(SoundManager.SoundType.PrepPhaseMusic, true);
         }
 
         private void playSurvivalPhaseMusic()
         {
+            pauseSound(SoundManager.SoundType.SurvivalPhaseMusic);
             playSound(SoundManager.SoundType.SurvivalPhaseMusic, true);
         }
 
