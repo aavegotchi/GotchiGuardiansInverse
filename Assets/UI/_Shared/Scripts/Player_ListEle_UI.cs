@@ -2,8 +2,10 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using Fusion;
+using System.Globalization;
 
-public class Player_ListEle_UI : MonoBehaviour
+public class Player_ListEle_UI : NetworkBehaviour
 {
     #region fields
     [Header("Sub Objects")]
@@ -53,11 +55,105 @@ public class Player_ListEle_UI : MonoBehaviour
     private Tween incomeTweener;
     #endregion
 
-    #region public properties
+    #region Properties
     // #JS this is a bit of a hack until proper player data is plugged in
     public int CurrentHP
     {
         get { return lastAppliedTargetHp; }
+    }
+    #endregion
+
+    #region Fusion RPCs
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    private void RPC_UpdateHP(int targetHP)
+    {
+        if (lastAppliedTargetHp == targetHP)
+        {
+            return;
+        }
+
+        lastAppliedTargetHp = targetHP;
+        editorTargetHP = targetHP;
+
+        if (HPTweener != null)
+        {
+            HPTweener.Pause();
+            HPTweener.Kill();
+            HPTweener = null;
+        }
+
+        if (parentList != null)
+        {
+            parentList.CheckAndUpdatePlayerOrder();
+        }
+
+        float duration = animTimePerHpAmount * Mathf.Abs(lastAppliedTargetHp - currentRenderedHP);
+        float ySize = healthBarMask.GetComponent<RectTransform>().sizeDelta.y;
+        HPTweener = DOTween.To(() => currentRenderedHP, (x) => {
+            currentRenderedHP = x;
+            hpLabel.SetText(currentRenderedHP.ToString());
+            healthBarMask.GetComponent<RectTransform>().sizeDelta = new Vector2(fullHPMaskWidth * currentRenderedHP / maxHP, ySize);
+        }, lastAppliedTargetHp, duration);
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    private void RPC_UpdateBank(int bankAmt)
+    {
+        if (lastAppliedBankAmt == bankAmt)
+        {
+            return;
+        }
+
+        if (bankAmt > lastAppliedBankAmt && gainBankAnimator != null)
+        {
+            gainBankAnimator.SetTrigger("FallingIn");
+        }
+        else if (bankAmt < lastAppliedBankAmt && loseBankAnimator != null)
+        {
+            loseBankAnimator.SetTrigger("FallingOut");
+        }
+
+        lastAppliedBankAmt = bankAmt;
+        editorBankAmt = bankAmt;
+
+        if (bankTweener != null)
+        {
+            bankTweener.Pause();
+            bankTweener.Kill();
+            bankTweener = null;
+        }
+
+        bankTweener = DOTween.To(() => currentBankAmt, (x) => { currentBankAmt = x; bankLabel.SetText(currentBankAmt.ToString()); }, lastAppliedBankAmt, 0.5f);
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    private void RPC_UpdateIncomeAmt(int incomeAmt)
+    {
+        if (lastAppliedIncomeAmt == incomeAmt)
+        {
+            return;
+        }
+
+        if (incomeAmt > lastAppliedIncomeAmt && gainBankAnimator != null)
+        {
+            gainIncomeAnimator.SetTrigger("FallingIn");
+        }
+        else if (incomeAmt < lastAppliedIncomeAmt && loseBankAnimator != null)
+        {
+            loseIncomeAnimator.SetTrigger("FallingOut");
+        }
+
+        lastAppliedIncomeAmt = incomeAmt;
+        editorIncomeAmt = incomeAmt;
+
+        if (incomeTweener != null)
+        {
+            incomeTweener.Pause();
+            incomeTweener.Kill();
+            incomeTweener = null;
+        }
+
+        incomeTweener = DOTween.To(() => currentIncomeAmt, (x) => { currentIncomeAmt = x; incomeLabel.SetText(currentIncomeAmt.ToString()); }, lastAppliedIncomeAmt, 0.5f);
     }
     #endregion
 
@@ -108,82 +204,15 @@ public class Player_ListEle_UI : MonoBehaviour
 
     public void UpdateHp(int targetHP)
     {
-        if (lastAppliedTargetHp == targetHP) {
-            return;
-        }
-
-        lastAppliedTargetHp = targetHP;
-        editorTargetHP = targetHP;
-
-        if (HPTweener != null) {
-            HPTweener.Pause();
-            HPTweener.Kill();
-            HPTweener = null;
-        }
-
-        if (parentList != null) {
-            parentList.CheckAndUpdatePlayerOrder();
-        }
-
-        float duration = animTimePerHpAmount * Mathf.Abs(lastAppliedTargetHp - currentRenderedHP);
-        float ySize = healthBarMask.GetComponent<RectTransform>().sizeDelta.y;
-        HPTweener = DOTween.To(() => currentRenderedHP, (x) => { 
-            currentRenderedHP = x;  
-            hpLabel.SetText(currentRenderedHP.ToString());
-            healthBarMask.GetComponent<RectTransform>().sizeDelta = new Vector2(fullHPMaskWidth * currentRenderedHP / maxHP, ySize);
-            }, lastAppliedTargetHp, duration);
+        RPC_UpdateHP(targetHP);
     }
 
     public void UpdateBank(int bankAmt) {
-        if (lastAppliedBankAmt == bankAmt) { 
-            return;
-        }
-
-        if (bankAmt > lastAppliedBankAmt && gainBankAnimator != null) {
-            gainBankAnimator.SetTrigger("FallingIn");
-        }
-        else if (bankAmt < lastAppliedBankAmt && loseBankAnimator != null) {
-            loseBankAnimator.SetTrigger("FallingOut");
-        }
-
-        lastAppliedBankAmt = bankAmt;
-        editorBankAmt = bankAmt;
-
-        if (bankTweener != null)
-        {
-            bankTweener.Pause();
-            bankTweener.Kill();
-            bankTweener = null;
-        }
-
-        bankTweener = DOTween.To(() => currentBankAmt, (x) => { currentBankAmt = x; bankLabel.SetText(currentBankAmt.ToString()); }, lastAppliedBankAmt, 0.5f);
+        RPC_UpdateBank(bankAmt);
     }
 
     public void UpdateIncomeAmt(int incomeAmt) {
-        if (lastAppliedIncomeAmt == incomeAmt) { 
-            return;
-        }
-
-        if (incomeAmt > lastAppliedIncomeAmt && gainBankAnimator != null)
-        {
-            gainIncomeAnimator.SetTrigger("FallingIn");
-        }
-        else if (incomeAmt < lastAppliedIncomeAmt && loseBankAnimator != null)
-        {
-            loseIncomeAnimator.SetTrigger("FallingOut");
-        }
-
-        lastAppliedIncomeAmt = incomeAmt;
-        editorIncomeAmt = incomeAmt;
-
-        if (incomeTweener != null)
-        {
-            incomeTweener.Pause();
-            incomeTweener.Kill();
-            incomeTweener = null;
-        }
-
-        incomeTweener = DOTween.To(() => currentIncomeAmt, (x) => { currentIncomeAmt = x; incomeLabel.SetText(currentIncomeAmt.ToString()); }, lastAppliedIncomeAmt, 0.5f);
+        RPC_UpdateBank(incomeAmt);
     }
     #endregion
 }
