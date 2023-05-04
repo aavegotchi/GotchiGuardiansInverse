@@ -49,10 +49,10 @@ namespace Gotchi.Network
 
         public static void OnSetUsername(Changed<NetworkGotchi> changed)
         {
-            changed.Behaviour.OnSetUsername();
+            changed.Behaviour.onSetUsername();
         }
 
-        private void OnSetUsername()
+        private void onSetUsername()
         {
             if (Object.HasInputAuthority)
             {
