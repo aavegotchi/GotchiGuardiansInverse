@@ -32,12 +32,16 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     [Header("Attributes")]
     [SerializeField] protected string enemyTag = "Enemy";
     [SerializeField] protected ImpactManager.ImpactType impactType = ImpactManager.ImpactType.BasicTower;
+
+    [SerializeField] private GameObject rangeCirclePrefab;
     #endregion
 
     #region Private Variables
     private HealthBar_UI healthbar = null;
     protected TowerBlueprint towerBlueprint = null;
     protected BaseTowerObjectSO towerObjectSO = null;
+    protected RangeCircle rangeCircle = null;
+    protected bool isNodeUIOpenOnThis = false;
     #endregion
 
     #region Unity Functions
@@ -59,7 +63,8 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     {
         if (enemyTag == "Tower") return; // TODO: messy atm as this is prevent tower's upgrade ui for the aerial lickquidator
 
-        SetupHealthBar();
+        setupHealthBar();
+        setupRangeCircle();
     }
 
     protected virtual void Update()
@@ -95,6 +100,27 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
         }
     }
 
+    public void OverrideRangeCircle(bool nextStatus)
+    {
+        if(nextStatus)
+        {
+            if (!isNodeUIOpenOnThis)
+            {
+                isNodeUIOpenOnThis = true;
+
+                if (rangeCircle != null)
+                {
+                    rangeCircle.ToggleActive(true);
+                }
+            }
+        }
+
+        else
+        {
+            isNodeUIOpenOnThis = false;
+        }
+    }
+
     public abstract void OnEnemyEnter(Collider collider);
 
     public void PlayDead(bool keepUpgrades = false)
@@ -125,12 +151,30 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     #endregion
 
     #region Private Functions
-    private void SetupHealthBar()
+    private void setupHealthBar()
     {
         healthbar = HealthBarManager.Instance.GetHealthbar(healthbarOffset);
         healthbar.CurrentHealth = towerObjectSO.Health;
         healthbar.MaxHealth = towerObjectSO.Health;
     }
+
+    private void setupRangeCircle()
+    {
+        GameObject rangeCircleInstance = Instantiate(rangeCirclePrefab, transform);
+        rangeCircleInstance.transform.localPosition = new Vector3(0f, .2f, 0f);
+
+        rangeCircle = rangeCircleInstance.GetComponent<RangeCircle>();
+
+        if (towerObjectSO is TurretTowerObjectSO)
+        {
+            rangeCircle.SetScale(((TurretTowerObjectSO)towerObjectSO).AttackRange);
+        }
+        else if (towerObjectSO is AreaOfEffectTowerObjectSO)
+        {
+            rangeCircle.SetScale(((AreaOfEffectTowerObjectSO)towerObjectSO).AreaOfEffectRange);
+        }
+    }
+
 
     private void resetScriptableObjectTurret()
     {

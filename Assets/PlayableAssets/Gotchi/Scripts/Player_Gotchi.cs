@@ -25,6 +25,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
     [SerializeField] private GameObject spinEffect = null;
     [SerializeField] private HealthBar_UI healthbar = null;
     [SerializeField] private Transform HealthbarOffset = null;
+    [SerializeField] private RangeCircle rangeCircle = null;
 
     [Header("Attributes")]
     [SerializeField] private string swordTrigger = "Swing";
@@ -45,6 +46,8 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
         InvokeRepeating("updateTarget", 1f, 1f);
 
         Invoke("assignHealthBar", 2f);
+
+        rangeCircle.SetScale(gotchiObjectSO.SpinAbilityRange);
     }
 
     void Update()
@@ -76,6 +79,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
     #region Public Functions
     public void SpinAttack()
     {
+        PlayerStoppedHoveringMouseOverAbility();
         rpc_animateSpinAttack();
 
         if (PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Prep) return;
@@ -113,6 +117,15 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * gotchiObjectSO.AttackRotationSpeed).eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+    }
+
+    public void PlayerHoveredMouseOverAbility() {
+        rangeCircle.ToggleActive(true);
+    }
+
+    public void PlayerStoppedHoveringMouseOverAbility()
+    {
+        rangeCircle.ToggleActive(false);
     }
     #endregion
 
