@@ -35,6 +35,7 @@ public abstract class BaseEnemy : MonoBehaviour
     protected virtual void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 1f);
+        InvokeRepeating("UpdateGotchiTarget", 0f, 1f);
     }
 
     protected virtual void Update()
@@ -83,19 +84,19 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected virtual void UpdateTarget()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(towerTag)
-            .Where(enemy => enemy.activeSelf).ToArray();
+        GameObject[] towers = GameObject.FindGameObjectsWithTag(towerTag)
+            .Where(tower => tower.activeSelf).ToArray();
         GameObject nearestTarget = null;
         float shortestDistance = Mathf.Infinity;
 
-        foreach (GameObject enemy in enemies)
+        foreach (GameObject tower in towers)
         {
-            float distanceToTarget = Vector3.Distance(transform.position, enemy.transform.position);
+            float distanceToTarget = Vector3.Distance(transform.position, tower.transform.position);
             bool isCloserTarget = distanceToTarget < shortestDistance;
             if (isCloserTarget)
             {
                 shortestDistance = distanceToTarget;
-                nearestTarget = enemy;
+                nearestTarget = tower;
             }
         }
 
@@ -111,7 +112,34 @@ public abstract class BaseEnemy : MonoBehaviour
         target = null;
         currentTarget = null;
 
-        if(agent.enabled && agent.isOnNavMesh) agent.isStopped = false;
+        if (agent.enabled && agent.isOnNavMesh) 
+        {
+            agent.isStopped = false;
+        }
+    }
+
+    protected virtual void UpdateGotchiTarget()
+    {
+        GameObject[] gotchis = GameObject.FindGameObjectsWithTag(towerTag)
+            .Where(gotchi => gotchi.activeSelf && gotchi.GetComponent<Player_Gotchi>() != null && !gotchi.GetComponent<Player_Gotchi>().IsDead).ToArray();
+        GameObject nearestTarget = null;
+        float shortestDistance = Mathf.Infinity;
+
+        foreach (GameObject gotchi in gotchis)
+        {
+            float distanceToTarget = Vector3.Distance(transform.position, gotchi.transform.position);
+            bool isCloserTarget = distanceToTarget < shortestDistance;
+            if (isCloserTarget)
+            {
+                shortestDistance = distanceToTarget;
+                nearestTarget = gotchi;
+            }
+        }
+
+        if (agent.enabled && agent.isOnNavMesh)
+        {
+            agent.SetDestination(nearestTarget.transform.position);
+        }
     }
 
     protected virtual void OnAttackSound() { }

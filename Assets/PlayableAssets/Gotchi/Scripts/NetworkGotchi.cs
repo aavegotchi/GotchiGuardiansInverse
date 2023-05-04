@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
+using UnityEngine.SceneManagement;
 
 namespace Gotchi.Network
 {
@@ -39,6 +40,7 @@ namespace Gotchi.Network
                 Debug.Log("Remote player left");
             }
             UserInterfaceManager.Instance.PlayersListUI.RemovePlayerEntry(Username.ToString());
+            SceneManager.LoadScene("GotchiTowerDefense");
         }
 
         [Rpc(RpcSources.InputAuthority, RpcTargets.All)]

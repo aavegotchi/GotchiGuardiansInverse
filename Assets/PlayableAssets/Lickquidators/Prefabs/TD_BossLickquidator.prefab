@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3459662070546464107}
   - component: {fileID: -4076550717055167930}
   - component: {fileID: 8437713351177238821}
+  - component: {fileID: 8399079175286323114}
   m_Layer: 6
   m_Name: TD_BossLickquidator
   m_TagString: Enemy
@@ -163,6 +164,23 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: -4076550717055167930}
   SimulationBehaviours: []
+--- !u!114 &8399079175286323114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88726243156104585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3846a61efc82634ca4cad843f559848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1007207478838612247}
+  attackParticleEffectGO: {fileID: 0}
+  attackTrigger: Attack
+  towerTag: Tower
+  salivaEffect: {fileID: 8534630177084799919}
 --- !u!1 &166227737478132800
 GameObject:
   m_ObjectHideFlags: 0
@@ -3430,6 +3448,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1550760772701685326}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1007207478838612247 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1765192703348594521, guid: 3049d585509f576479643e0580380b81,
+    type: 3}
+  m_PrefabInstance: {fileID: 1550760772701685326}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2534028994574733898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3512,6 +3536,12 @@ PrefabInstance:
 --- !u!4 &8534630177084799912 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6150708850692270562, guid: b9baa670348b6b34f87e0852b0212209,
+    type: 3}
+  m_PrefabInstance: {fileID: 2534028994574733898}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8534630177084799919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6150708850692270565, guid: b9baa670348b6b34f87e0852b0212209,
     type: 3}
   m_PrefabInstance: {fileID: 2534028994574733898}
   m_PrefabAsset: {fileID: 0}

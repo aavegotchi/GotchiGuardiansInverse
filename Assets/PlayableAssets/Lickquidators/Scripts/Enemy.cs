@@ -187,16 +187,16 @@ public class Enemy : MonoBehaviour, IDamageable
             if (!agent.enabled) agent.enabled = true;
         }
 
-        if (!NetworkManager.Instance.LocalPlayerGotchi.IsDead)
-        {
-            agent.SetDestination(NetworkManager.Instance.LocalPlayerGotchi.transform.position);
-        }
-        else
-        {
-            healthbar.Reset();
-            healthbar = null;
-            gameObject.SetActive(false);
-        }
+        // if (!NetworkManager.Instance.LocalPlayerGotchi.IsDead)
+        // {
+        //     agent.SetDestination(NetworkManager.Instance.LocalPlayerGotchi.transform.position);
+        // }
+        // else
+        // {
+        //     healthbar.Reset();
+        //     healthbar = null;
+        //     gameObject.SetActive(false);
+        // }
     }
 
     private void resetScriptableObject()

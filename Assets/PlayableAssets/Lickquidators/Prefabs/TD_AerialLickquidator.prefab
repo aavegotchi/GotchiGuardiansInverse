@@ -2302,6 +2302,7 @@ GameObject:
   - component: {fileID: 5171585481469437382}
   - component: {fileID: -1235232612037808684}
   - component: {fileID: 1273411064104580526}
+  - component: {fileID: 1694334658791513721}
   m_Layer: 6
   m_Name: TD_AerialLickquidator
   m_TagString: Enemy
@@ -2490,6 +2491,23 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: -1235232612037808684}
   SimulationBehaviours: []
+--- !u!114 &1694334658791513721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8574046402635549988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9babdb0c3d8a2045aa11c39bb7b590f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  attackParticleEffectGO: {fileID: 0}
+  attackTrigger: Attack
+  towerTag: Tower
+  salivaEffect: {fileID: 0}
 --- !u!1 &9014571768921774415
 GameObject:
   m_ObjectHideFlags: 0

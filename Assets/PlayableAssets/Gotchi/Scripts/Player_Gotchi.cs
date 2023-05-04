@@ -188,7 +188,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
         EventBus.GotchiEvents.GotchiDied();
         
         isDead = true;
-        UserInterfaceManager.Instance.ShowGameOverUI();
+        // UserInterfaceManager.Instance.ShowGameOverUI();
         gameObject.SetActive(false);
         healthbar.Reset();
         healthbar = null;
