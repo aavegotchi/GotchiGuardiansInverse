@@ -71,6 +71,7 @@ public class Enemy : NetworkBehaviour, IDamageable
     //     listenForRigidbodyClicks();
     // }
 
+
     void Start()
     {
         setNavMeshAgentFields();
