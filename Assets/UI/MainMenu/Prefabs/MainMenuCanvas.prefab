@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Version 20230502-0-dev
+  m_text: Version 20230504-0-dev
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 12e295b0e3d726e4bb1d600317a4c8bb, type: 2}
   m_sharedMaterial: {fileID: 8345230891783713064, guid: 12e295b0e3d726e4bb1d600317a4c8bb,
@@ -631,7 +631,7 @@ GameObject:
   - component: {fileID: 2612610368506012973}
   - component: {fileID: 2612610368506012972}
   m_Layer: 5
-  m_Name: OnlineCoopButton
+  m_Name: FreePlayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1359,7 +1359,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Online Co-op
+  m_text: Free Play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c13e58b4c4732204f842f8663ced9860, type: 2}
   m_sharedMaterial: {fileID: -6886867875586113683, guid: c13e58b4c4732204f842f8663ced9860,
