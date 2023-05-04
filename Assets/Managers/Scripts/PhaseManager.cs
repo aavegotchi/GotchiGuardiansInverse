@@ -46,9 +46,7 @@ public class PhaseManager : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI arrowTowerCostTextUI = null;
     [SerializeField] private TextMeshProUGUI fireTowerCostTextUI = null;
     [SerializeField] private TextMeshProUGUI iceTowerCostTextUI = null;
-
     [SerializeField] private TextMeshProUGUI enemiesSpawnBonusTextUI = null;
-
     [SerializeField] private TextMeshProUGUI netTextUI = null;
 
     [Header("Attributes")]

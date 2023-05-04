@@ -4,23 +4,21 @@ using UnityEngine;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine.SceneManagement;
-using System.Threading.Tasks;
 using System;
 using System.Linq;
 
 namespace Gotchi.Network
 {
-    public class NetworkManager : MonoBehaviour
+    public class NetworkManager : NetworkBehaviour
     {
         #region Public Variables
         public static NetworkManager Instance = null;
 
         public Player_Gotchi LocalPlayerGotchi { get; set; }
         public NetworkGotchiInput LocalPlayerInput { get; set; }
-        public NetworkRunner NetworkRunner
-        {
-            get { return networkRunner; }
-        }
+        public Player_Gotchi RemotePlayerGotchi { get; set; }
+        public NetworkGotchiInput RemotePlayerInput { get; set; }
+
         public bool IsReady {
             get { return LocalPlayerGotchi != null; }
         }
@@ -30,10 +28,9 @@ namespace Gotchi.Network
 
         #region Fields
         [SerializeField] private NetworkRunner networkRunnerPrefab = null;
-        #endregion
-
-        #region Private Variables
-        private NetworkRunner networkRunner = null;
+        [SerializeField] private int maxPlayerCount = 8;
+        // [SerializeField] private string sceneName = "GotchiTowerDefense";
+        // [SerializeField] private GameObject mainMenuCanvas = null;
         #endregion
 
         #region Unity Functions
@@ -48,37 +45,41 @@ namespace Gotchi.Network
                 Destroy(gameObject);
             }
         }
+        #endregion
 
-        void Start()
+        #region Public Functions
+        public void InitializeNetworkRunner(string lobbyId)
         {
-            networkRunner = Instantiate(networkRunnerPrefab);
+            var networkRunner = Instantiate(networkRunnerPrefab);
             networkRunner.name = "network_listener";
             networkRunner.ProvideInput = true;
 
-            initializeNetworkRunner(GameMode.AutoHostOrClient, NetAddress.Any(), SceneManager.GetActiveScene().buildIndex, null);
+            var sceneManager = getSceneManager(networkRunner);
 
             Debug.Log("Server started");
+
+            networkRunner.StartGame(new StartGameArgs
+            {
+                GameMode = GameMode.AutoHostOrClient,
+                Address = NetAddress.Any(),
+                Scene = SceneManager.GetActiveScene().buildIndex,
+                SessionName = lobbyId,
+                Initialized = null,
+                SceneManager = sceneManager,
+                PlayerCount = maxPlayerCount
+            });
         }
         #endregion
-
+        
         #region Private Functions
-        private Task initializeNetworkRunner(GameMode gameMode, NetAddress address, SceneRef scene, Action<NetworkRunner> initialized)
+        private INetworkSceneManager getSceneManager(NetworkRunner runner)
         {
-            var sceneManager = networkRunner.GetComponents(typeof(MonoBehaviour)).OfType<INetworkSceneManager>().FirstOrDefault();
+            var sceneManager = runner.GetComponents(typeof(MonoBehaviour)).OfType<INetworkSceneManager>().FirstOrDefault();
             if (sceneManager == null)
             {
-                sceneManager = networkRunner.gameObject.AddComponent<NetworkSceneManagerDefault>();
+                sceneManager = runner.gameObject.AddComponent<NetworkSceneManagerDefault>();
             }
-
-            return networkRunner.StartGame(new StartGameArgs
-            {
-                GameMode = gameMode,
-                Address = address,
-                Scene = scene,
-                SessionName = "test_room",
-                Initialized = initialized,
-                SceneManager = sceneManager
-            });
+            return sceneManager;
         }
         #endregion
     }

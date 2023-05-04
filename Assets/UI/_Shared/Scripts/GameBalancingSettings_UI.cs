@@ -30,10 +30,6 @@ public class GameBalancingSettings_UI : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current.oKey.wasPressedThisFrame)
-        {
-            ToggleSettingsWindow();
-        }
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             TogglePausedWindow();

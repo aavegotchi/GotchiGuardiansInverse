@@ -13,11 +13,6 @@ public class GotchiManager : MonoBehaviour
         Spin,
     }
 
-    public List<Player_Gotchi> Players
-    {
-        get { return playerGotchis; }
-    }
-
     public Transform Spawn
     {
         get { return spawn; }
@@ -35,10 +30,6 @@ public class GotchiManager : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] private Transform spawn = null;
-    #endregion
-
-    #region Private Variables
-    private List<Player_Gotchi> playerGotchis = new List<Player_Gotchi>();
     #endregion
 
     #region Unity Functions

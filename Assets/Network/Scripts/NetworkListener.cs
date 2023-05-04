@@ -4,6 +4,7 @@ using UnityEngine;
 using Fusion;
 using Fusion.Sockets;
 using System;
+using UnityEngine.SceneManagement;
 
 namespace Gotchi.Network
 {
@@ -87,9 +88,13 @@ namespace Gotchi.Network
             Debug.Log("OnCustomAuthenticationResponse");
         }
 
-        public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
+        public async void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
         {
             Debug.Log("OnHostMigration");
+
+            await runner.Shutdown();
+
+            SceneManager.LoadScene("GotchiTowerDefense");
         }
 
         public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data)

@@ -7,6 +7,9 @@ namespace Gotchi.Network
 {
     public class NetworkGotchi : NetworkBehaviour, IPlayerLeft
     {
+        [Networked(OnChanged = nameof(OnSetUsername))] 
+        public NetworkString<_16> Username { get; set; }
+
         public override void Spawned()
         {
             if (Object.HasInputAuthority)
@@ -14,9 +17,12 @@ namespace Gotchi.Network
                 NetworkManager.Instance.LocalPlayerGotchi = GetComponent<Player_Gotchi>();
                 NetworkManager.Instance.LocalPlayerInput = GetComponent<NetworkGotchiInput>();
                 Debug.Log("Spawned local player");
+                rpc_setUsername(PlayerPrefs.GetString("username"));
             }
             else
             {
+                NetworkManager.Instance.RemotePlayerGotchi = GetComponent<Player_Gotchi>();
+                NetworkManager.Instance.RemotePlayerInput = GetComponent<NetworkGotchiInput>();
                 Debug.Log("Spawned remote player");
             }
         }
@@ -31,6 +37,30 @@ namespace Gotchi.Network
             else
             {
                 Debug.Log("Remote player left");
+            }
+            UserInterfaceManager.Instance.PlayersListUI.RemovePlayerEntry(Username.ToString());
+        }
+
+        [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+        private void rpc_setUsername(string username, RpcInfo info = default)
+        {
+            Username = username;
+        }
+
+        public static void OnSetUsername(Changed<NetworkGotchi> changed)
+        {
+            changed.Behaviour.OnSetUsername();
+        }
+
+        private void OnSetUsername()
+        {
+            if (Object.HasInputAuthority)
+            {
+                UserInterfaceManager.Instance.PlayersListUI.AddPlayerEntry(Username.ToString(), true);
+            }
+            else
+            {
+                UserInterfaceManager.Instance.PlayersListUI.AddPlayerEntry(Username.ToString());
             }
         }
     }

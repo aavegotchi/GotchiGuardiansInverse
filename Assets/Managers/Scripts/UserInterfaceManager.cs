@@ -6,10 +6,16 @@ public class UserInterfaceManager : MonoBehaviour
 {
     #region Public Variables
     public static UserInterfaceManager Instance = null;
+
+    public Players_List_UI PlayersListUI
+    {
+        get { return playersListUI; }
+    }
     #endregion
 
     #region Fields
-    [SerializeField] private GameObject GameOverUI = null;
+    [SerializeField] private GameObject gameOverUI = null;
+    [SerializeField] private Players_List_UI playersListUI = null;
     #endregion
 
     #region Unity Functions
@@ -29,7 +35,7 @@ public class UserInterfaceManager : MonoBehaviour
     #region Public Functions
     public void ShowGameOverUI()
     {
-        if (!GameOverUI.activeInHierarchy) GameOverUI.SetActive(true);
+        if (!gameOverUI.activeInHierarchy) gameOverUI.SetActive(true);
     }
     #endregion
 }
