@@ -188,10 +188,17 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
         EventBus.GotchiEvents.GotchiDied();
         
         isDead = true;
-        UserInterfaceManager.Instance.ShowGameOverUI();
         gameObject.SetActive(false);
         healthbar.Reset();
         healthbar = null;
+
+        GameObject[] gotchis = GameObject.FindGameObjectsWithTag("Tower")
+            .Where(gotchi => gotchi.activeSelf && gotchi.GetComponent<Player_Gotchi>() != null && !gotchi.GetComponent<Player_Gotchi>().IsDead).ToArray();
+        
+        if (gotchis.Length <= 0)
+        {
+            UserInterfaceManager.Instance.ShowGameOverUI();
+        }
     }
     #endregion
 }

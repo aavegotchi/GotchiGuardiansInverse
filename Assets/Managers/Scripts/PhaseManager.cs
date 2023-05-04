@@ -58,7 +58,8 @@ public class PhaseManager : NetworkBehaviour
     #endregion
 
     #region Private Variables
-    private float countdownTracker = 0f;
+    [Networked(OnChanged = nameof(OnSetCountdown))] 
+    public float CountdownTracker { get; set; } = 0f;
     #endregion
 
     #region Unity Functions
@@ -91,13 +92,13 @@ public class PhaseManager : NetworkBehaviour
     }
     #endregion
 
-    #region RPC Functions
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void rpc_setCountdownTracker(float time)
-    {
-        countdownTimer.SetTimeLeft(time);
-    }
-    #endregion
+    // #region RPC Functions
+    // [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    // private void rpc_setCountdownTracker(float time)
+    // {
+    //     countdownTimer.SetTimeLeft(time);
+    // }
+    // #endregion
 
     #region Public Functions
     public void StartFirstPrepPhase()
@@ -107,7 +108,8 @@ public class PhaseManager : NetworkBehaviour
     #endregion
 
     #region Private Functions
-    private void startNextPhase()
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void rpc_startNextPhase()
     {
         Phase nextPhase = CurrentPhase == Phase.Prep ? Phase.Survival : Phase.Prep;
         CurrentPhase = Phase.Transitioning;
@@ -205,19 +207,13 @@ public class PhaseManager : NetworkBehaviour
     {
         if (EnemyManager.Instance.ActiveEnemies.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead)
         {
-           startNextPhase();
+           rpc_startNextPhase();
         }
     }
 
     private void TrackPhaseCountdown()
     {
-        if (countdownTracker <= 0f)
-        {
-            startNextPhase();
-        }
-
-        countdownTracker -= Time.deltaTime;
-        Mathf.Clamp(countdownTracker, 0f, Mathf.Infinity);
+        float countdownTracker = Mathf.Clamp(CountdownTracker - Runner.DeltaTime, 0f, Mathf.Infinity);
         rpc_setCountdownTracker(countdownTracker);
     }
 
@@ -228,7 +224,7 @@ public class PhaseManager : NetworkBehaviour
 
         if (CurrentPhase == Phase.Prep)
         {
-            countdownTracker = generalSO.PrepPhaseCountdown;
+            CountdownTracker = generalSO.PrepPhaseCountdown;
             countdownTimer.Show();
 
             EventBus.PhaseEvents.PrepPhaseStarted();
@@ -238,6 +234,29 @@ public class PhaseManager : NetworkBehaviour
             countdownTimer.Hide();
 
             EventBus.PhaseEvents.SurvivalPhaseStarted();
+        }
+    }
+    #endregion
+
+    #region Network Functions
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void rpc_setCountdownTracker(float countdownTracker, RpcInfo info = default)
+    {
+        CountdownTracker = countdownTracker;
+    }
+
+    public static void OnSetCountdown(Changed<PhaseManager> changed)
+    {
+        changed.Behaviour.onSetCountdown();
+    }
+
+    private void onSetCountdown()
+    {
+        countdownTimer.SetTimeLeft(CountdownTracker);
+
+        if (CountdownTracker <= 0f)
+        {
+            rpc_startNextPhase();
         }
     }
     #endregion

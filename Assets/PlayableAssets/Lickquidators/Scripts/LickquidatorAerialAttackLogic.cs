@@ -4,10 +4,10 @@ using Gotchi.Events;
 
 public class LickquidatorAerialAttackLogic : BaseEnemy
 {
-    #region Fields
-    [Header("Tongue Swipe Specific")]
-    [SerializeField] private GameObject salivaEffect = null;
-    #endregion
+    // #region Fields
+    // [Header("Tongue Swipe Specific")]
+    // [SerializeField] private GameObject salivaEffect = null;
+    // #endregion
 
     #region Unity Functions
     protected override void Awake()
@@ -18,20 +18,22 @@ public class LickquidatorAerialAttackLogic : BaseEnemy
     protected override void Start()
     {
         base.Start();
-        attackParticleEffectGO = salivaEffect;
-        attackTrigger = "Swipe";
+        // attackParticleEffectGO = salivaEffect;
+        // attackTrigger = "Swipe";
     }
     #endregion
 
     #region Protected Functions
     protected override IEnumerator Attack()
     {
-        return base.Attack();
+        yield break;
+        // return base.Attack();
     }
 
     protected override void OnAttackSound()
     {
-        EventBus.EnemyEvents.EnemyAttacked(EnemyManager.EnemyType.AerialLickquidator);
+        return;
+        // EventBus.EnemyEvents.EnemyAttacked(EnemyManager.EnemyType.AerialLickquidator);
     }
     #endregion
 }

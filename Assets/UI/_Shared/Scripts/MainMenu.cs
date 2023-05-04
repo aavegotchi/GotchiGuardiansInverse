@@ -46,7 +46,7 @@ public class MainMenu : MonoBehaviour
         usernameMenuCanvasAnimator.SetTrigger(usernameMenuCanvasAnimatorOpenTrigger);
     }
 
-    public void StartOnlineCoop()
+    public void StartFreePlay()
     {
         EventBus.MenuEvents.MenuItemSelectedLong();
         StartCoroutine(waitAndStart());
