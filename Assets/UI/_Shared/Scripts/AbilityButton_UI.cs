@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Gotchi.Network;
 
-public class AbilityButton_UI : MonoBehaviour, IPointerClickHandler
+public class AbilityButton_UI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     #region Public Variables
     public enum AbilityType
@@ -54,6 +54,16 @@ public class AbilityButton_UI : MonoBehaviour, IPointerClickHandler
         {
             DehighlightButton();
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        OnHover();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        OnExit();
     }
     #endregion
 
@@ -113,5 +123,19 @@ public class AbilityButton_UI : MonoBehaviour, IPointerClickHandler
         isCooldown = true;
         cooldownImage.fillAmount = 1;
     }
+
+    private void OnHover()
+    {
+        if(!isCooldown)
+        {
+            NetworkManager.Instance.LocalPlayerGotchi.PlayerHoveredMouseOverAbility();
+        }
+    }
+
+    private void OnExit()
+    {
+        NetworkManager.Instance.LocalPlayerGotchi.PlayerStoppedHoveringMouseOverAbility();
+    }
+
     #endregion
 }

@@ -3248,6 +3248,8 @@ MonoBehaviour:
   healthbarOffset: {fileID: 843826873597034515}
   enemyTag: Enemy
   impactType: 5
+  rangeCirclePrefab: {fileID: 7109758073829887693, guid: e7b8261b9186246449b598181aa96afe,
+    type: 3}
   areaOfEffectFieldPrefab: {fileID: 3481122300049024714, guid: 248e205dc3520c94f9888571abd01da2,
     type: 3}
 --- !u!65 &6737892854781693932

@@ -49,6 +49,7 @@ public class AttackerNode : BaseNode
         towerInventory.gameObject.SetActive(false);
         enemyInventory.gameObject.SetActive(true);
         upgradeInventory.gameObject.SetActive(false);
+
         enemyInventory.UpdateOptionsBasedOnMoney();
         if (spawnedEnemyBlueprints.Count >= maxEnemiesPerNode)
         {

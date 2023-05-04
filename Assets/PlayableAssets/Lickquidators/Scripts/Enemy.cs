@@ -34,11 +34,11 @@ public class Enemy : MonoBehaviour, IDamageable
     [Header("Required Refs")]
     [SerializeField] private HealthBar_UI healthbar = null;
     [SerializeField] private Transform healthbarOffset = null;
-   
+
     [Header("Attributes")]
     [SerializeField] private ImpactManager.ImpactType deathEffect = ImpactManager.ImpactType.BasicTower;
     #endregion
-    
+
     #region Private Variables
     private NavMeshAgent agent = null;
     private EnemyBlueprint enemyBlueprint = null;
@@ -86,7 +86,7 @@ public class Enemy : MonoBehaviour, IDamageable
     #region Public Functions
     public void AdjustEnemySpeed(float speed)
     {
-        agent.speed = speed;      
+        agent.speed = speed;
     }
 
     public void SetHealthbarAndResetHealth(HealthBar_UI _healthbar)
@@ -95,14 +95,14 @@ public class Enemy : MonoBehaviour, IDamageable
         healthbar.SetHealthbarMaxHealth(lickquidatorObjectSO.Health);
     }
 
-    public void Damage(float damage) 
+    public void Damage(float damage)
     {
         if (healthbar == null) return;
 
         healthbar.CurrentHealth -= damage;
         healthbar.ShowDamagePopUpAndColorDifferentlyIfEnemy(damage, true);
 
-        if (healthbar.CurrentHealth <= 0) 
+        if (healthbar.CurrentHealth <= 0)
         {
             PlayDead(true);
             StatsManager.Instance.TrackKillEnemy(enemyBlueprint);
@@ -116,11 +116,11 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void PlayDead(bool keepUpgrades = false)
     {
-        EventBus.EnemyEvents.EnemyDied(enemyBlueprint.type);   
+        EventBus.EnemyEvents.EnemyDied(enemyBlueprint.type);
         ImpactManager.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
-        
+
         gameObject.SetActive(false);
-        if (healthbar != null) 
+        if (healthbar != null)
         {
             healthbar.Reset();
             healthbar = null;
@@ -154,7 +154,7 @@ public class Enemy : MonoBehaviour, IDamageable
     // {
     //     int layerToHit = 1 << 6; // only register clicks for "Lickquidator" layer (#6)
     //     // NOTE: to register clicks for everything other than a specific layer, invert using "layerToHit = ~layerToHit;"
-        
+
     //     RaycastHit hit;
 
     //     if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerToHit))
@@ -190,7 +190,7 @@ public class Enemy : MonoBehaviour, IDamageable
         if (!NetworkManager.Instance.LocalPlayerGotchi.IsDead)
         {
             agent.SetDestination(NetworkManager.Instance.LocalPlayerGotchi.transform.position);
-        } 
+        }
         else
         {
             healthbar.Reset();

@@ -1,4 +1,5 @@
 using Gotchi.Audio;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 
 public class TurretTower : BaseTower
@@ -45,9 +46,30 @@ public class TurretTower : BaseTower
 
         attack();
     }
+
+    private void OnMouseEnter()
+    {
+        if(!isNodeUIOpenOnThis && PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Prep)
+        {
+            if (rangeCircle != null)
+            {
+                rangeCircle.ToggleActive(true);
+            }
+        }
+    }
+
+    // Add this new function to handle mouse hover exit event
+    private void OnMouseExit()
+    {
+        if (rangeCircle != null && !isNodeUIOpenOnThis)
+        {
+            rangeCircle.ToggleActive(false);
+        }
+    }
     #endregion
 
     #region Public Functions
+
     public override void OnEnemyEnter(Collider collider)
     {
         // Implement your logic for when an enemy enters the collider

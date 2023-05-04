@@ -9894,6 +9894,8 @@ MonoBehaviour:
   healthbarOffset: {fileID: 5241392766996302582}
   enemyTag: Enemy
   impactType: 5
+  rangeCirclePrefab: {fileID: 7109758073829887693, guid: e7b8261b9186246449b598181aa96afe,
+    type: 3}
   partToRotate: {fileID: 2688085524510530822}
   attackPoint: {fileID: 2729978558732242275}
 --- !u!65 &4309850686533653117

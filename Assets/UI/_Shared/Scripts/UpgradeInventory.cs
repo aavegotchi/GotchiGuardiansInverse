@@ -54,6 +54,7 @@ public class UpgradeInventory : MonoBehaviour
     {    
         if (towerHolder != null)
         {
+            towerHolder.OverrideRangeCircle(false);
             upgradeTower();
         }
         else if (enemyHolder != null)
