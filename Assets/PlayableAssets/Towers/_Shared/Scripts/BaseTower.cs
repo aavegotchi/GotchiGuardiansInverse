@@ -1,7 +1,8 @@
 using UnityEngine;
 using Gotchi.Events;
+using Fusion;
 
-public abstract class BaseTower : MonoBehaviour, IDamageable
+public abstract class BaseTower : NetworkBehaviour, IDamageable
 {
     #region Public Variables
     public Transform HealthbarOffset
@@ -81,7 +82,7 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     #endregion
 
     #region Public Functions
-    public void Damage(float damage)
+    public void TakeDamage(float damage)
     {
         if (healthbar == null) return;
 

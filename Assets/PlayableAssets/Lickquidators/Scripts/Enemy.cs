@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 using Gotchi.Events;
 using Gotchi.Network;
+using Fusion;
 
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : NetworkBehaviour, IDamageable
 {
     #region Public Variables
     public Transform HealthbarOffset
@@ -83,6 +84,31 @@ public class Enemy : MonoBehaviour, IDamageable
     }
     #endregion
 
+    #region RPC Functions
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    private void rpc_takeDamage(float damage)
+    {
+        if (healthbar == null) return;
+
+        healthbar.CurrentHealth -= damage;
+        healthbar.ShowDamagePopUpAndColorDifferentlyIfEnemy(damage, true);
+
+        if (healthbar.CurrentHealth <= 0)
+        {
+            PlayDead(true);
+            StatsManager.Instance.TrackKillEnemy(enemyBlueprint);
+        }
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    private void rpc_knockback(Vector3 force)
+    {
+        body.AddForce(force, ForceMode.Impulse);
+    }
+    #endregion
+
+
+
     #region Public Functions
     public void AdjustEnemySpeed(float speed)
     {
@@ -95,23 +121,14 @@ public class Enemy : MonoBehaviour, IDamageable
         healthbar.SetHealthbarMaxHealth(lickquidatorObjectSO.Health);
     }
 
-    public void Damage(float damage) 
+    public void TakeDamage(float damage) 
     {
-        if (healthbar == null) return;
-
-        healthbar.CurrentHealth -= damage;
-        healthbar.ShowDamagePopUpAndColorDifferentlyIfEnemy(damage, true);
-
-        if (healthbar.CurrentHealth <= 0) 
-        {
-            PlayDead(true);
-            StatsManager.Instance.TrackKillEnemy(enemyBlueprint);
-        }
+        rpc_takeDamage(damage);
     }
 
     public void Knockback(Vector3 force)
     {
-        body.AddForce(force, ForceMode.Impulse);
+        rpc_knockback(force);
     }
 
     public void PlayDead(bool keepUpgrades = false)

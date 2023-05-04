@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -379,7 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -591,7 +591,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -727,7 +727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -863,7 +863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -939,7 +939,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1123,7 +1123,6 @@ MonoBehaviour:
   loseBankAnimator: {fileID: 4232977597204500126}
   gainIncomeAnimator: {fileID: 7200068704203462360}
   loseIncomeAnimator: {fileID: 5443492242980637425}
-  transferIncomeToBankAnimator: {fileID: 0}
 --- !u!1001 &1034539206750245202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1131,10 +1130,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3015969476344522048}
     m_Modifications:
+    - target: {fileID: 1090105547073610249, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1931879817934559175, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993485496308595302, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651652258629849140, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105784541263384650, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6986072790630517120, guid: f31c04740a5fdef4dae5e40828848202,
         type: 3}
       propertyPath: m_Name
       value: CoinAnimator_IncomeOut
+      objectReference: {fileID: 0}
+    - target: {fileID: 7271773236955545093, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8034720989264333482, guid: f31c04740a5fdef4dae5e40828848202,
         type: 3}
@@ -1241,6 +1270,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8987558981712461014, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f31c04740a5fdef4dae5e40828848202, type: 3}
 --- !u!95 &5443492242980637425 stripped
@@ -1262,10 +1296,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3015969476344522048}
     m_Modifications:
+    - target: {fileID: 1090105547073610249, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1931879817934559175, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993485496308595302, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651652258629849140, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105784541263384650, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6986072790630517120, guid: f31c04740a5fdef4dae5e40828848202,
         type: 3}
       propertyPath: m_Name
       value: CoinAnimator_IncomeIn
+      objectReference: {fileID: 0}
+    - target: {fileID: 7271773236955545093, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8034720989264333482, guid: f31c04740a5fdef4dae5e40828848202,
         type: 3}
@@ -1372,6 +1436,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8987558981712461014, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f31c04740a5fdef4dae5e40828848202, type: 3}
 --- !u!224 &5312726706185373649 stripped
@@ -1393,10 +1462,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3015969476344522048}
     m_Modifications:
+    - target: {fileID: 1090105547073610249, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1931879817934559175, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993485496308595302, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651652258629849140, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105784541263384650, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6986072790630517120, guid: f31c04740a5fdef4dae5e40828848202,
         type: 3}
       propertyPath: m_Name
       value: CoinAnimator_BankIn
+      objectReference: {fileID: 0}
+    - target: {fileID: 7271773236955545093, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8034720989264333482, guid: f31c04740a5fdef4dae5e40828848202,
         type: 3}
@@ -1503,6 +1602,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8987558981712461014, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f31c04740a5fdef4dae5e40828848202, type: 3}
 --- !u!224 &1747307328380170388 stripped
@@ -1524,10 +1628,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3015969476344522048}
     m_Modifications:
+    - target: {fileID: 1090105547073610249, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1931879817934559175, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993485496308595302, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651652258629849140, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105784541263384650, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6986072790630517120, guid: f31c04740a5fdef4dae5e40828848202,
         type: 3}
       propertyPath: m_Name
       value: CoinAnimator_BankOut
+      objectReference: {fileID: 0}
+    - target: {fileID: 7271773236955545093, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8034720989264333482, guid: f31c04740a5fdef4dae5e40828848202,
         type: 3}
@@ -1632,6 +1766,11 @@ PrefabInstance:
     - target: {fileID: 8034720989264333482, guid: f31c04740a5fdef4dae5e40828848202,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987558981712461014, guid: f31c04740a5fdef4dae5e40828848202,
+        type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

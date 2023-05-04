@@ -68,7 +68,7 @@ public abstract class BaseEnemy : MonoBehaviour
         if(anim != null) anim.SetTrigger(attackTrigger);
         if(attackParticleEffectGO != null) attackParticleEffectGO.SetActive(true);
         OnAttackSound();
-        currentTarget.Damage(enemy.ObjectSO.AttackDamage);
+        currentTarget.TakeDamage(enemy.ObjectSO.AttackDamage);
     }
 
     protected virtual void LockOntoTarget()

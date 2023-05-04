@@ -70,7 +70,18 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
         spinAnim.SetTrigger(spinTrigger);
         spinEffect.SetActive(true);
         EventBus.GotchiEvents.GotchiAttacked(GotchiManager.AttackType.Spin);
-    } 
+    }
+
+    [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
+    private void rpc_takeDamage(float damage)
+    {
+        if (isDead) return;
+
+        healthbar.CurrentHealth -= damage;
+        healthbar.ShowDamagePopUpAndColorDifferentlyIfEnemy(damage, false);
+
+        if (healthbar.CurrentHealth <= 0) playDead();
+    }
     #endregion
 
     #region Public Functions
@@ -89,7 +100,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
             bool isInRange = distanceToTarget < (gotchiObjectSO.SpinAbilityRange * 2);
             if (isInRange)
             {
-                enemy.Damage(gotchiObjectSO.SpinAbilityDamage);
+                enemy.TakeDamage(gotchiObjectSO.SpinAbilityDamage);
 
                 Vector3 direction = (enemy.transform.position - transform.position).normalized;
                 enemy.Knockback(direction * gotchiObjectSO.SpinAbilityKnockbackForce);
@@ -97,14 +108,9 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
         }
     }
 
-    public void Damage(float damage)
+    public void TakeDamage(float damage)
     {
-        if (isDead) return;
-
-        healthbar.CurrentHealth -= damage;
-        healthbar.ShowDamagePopUpAndColorDifferentlyIfEnemy(damage, false);
-
-        if (healthbar.CurrentHealth <= 0) playDead();
+        rpc_takeDamage(damage);
     }
 
     public void LockOntoTargetPos(Vector3 targetPos)
@@ -137,7 +143,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
 
         EventBus.GotchiEvents.GotchiAttacked(GotchiManager.AttackType.Basic);
 
-        targetEnemy.Damage(gotchiObjectSO.AttackDamage);
+        targetEnemy.TakeDamage(gotchiObjectSO.AttackDamage);
 
         attackCountdownTracker = gotchiObjectSO.AttackCountdown;
     }

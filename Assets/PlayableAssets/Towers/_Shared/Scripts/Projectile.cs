@@ -169,7 +169,7 @@ public class Projectile : MonoBehaviour
         {
             Enemy enemy = EnemyManager.Instance.GetEnemyByObject(enemyObj);
             if (enemy == null) return;
-            enemy.Damage(attackDamage);
+            enemy.TakeDamage(attackDamage);
         }
         else if (enemyObj.tag == "Tower")
         {
@@ -177,11 +177,11 @@ public class Projectile : MonoBehaviour
             var playerGotchi = enemyObj.GetComponent<Player_Gotchi>();
             if (baseTower != null) 
             {
-                baseTower.Damage(attackDamage);
+                baseTower.TakeDamage(attackDamage);
             }
             else if (playerGotchi != null)
             {
-                playerGotchi.Damage(attackDamage);
+                playerGotchi.TakeDamage(attackDamage);
             }
             // TODO: this can probably be refactored + we have to assume projectiles can also be fired by enemies/monsters e.g. Aerial Lickquidator
         }

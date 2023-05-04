@@ -114,6 +114,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &297375402989666695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3711762278470354299}
+  m_Layer: 10
+  m_Name: InterpolationTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3711762278470354299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297375402989666695}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -60.96154, y: 0, z: 17.015385}
+  m_LocalScale: {x: 0.7692308, y: 0.7692308, z: 0.7692308}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9058693139119642526}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &378602065594362644
 GameObject:
   m_ObjectHideFlags: 0
@@ -2265,6 +2296,8 @@ GameObject:
   - component: {fileID: 9058693139119642526}
   - component: {fileID: 2388446534187975236}
   - component: {fileID: 922941150835799122}
+  - component: {fileID: 8951390676961363703}
+  - component: {fileID: 2117889975314519567}
   - component: {fileID: 4247896047644765264}
   - component: {fileID: 8656449059945063059}
   - component: {fileID: 1772166786773167060}
@@ -2291,6 +2324,7 @@ Transform:
   - {fileID: 5751381056867329877}
   - {fileID: 6308958348193739739}
   - {fileID: 6177874959328656165}
+  - {fileID: 3711762278470354299}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2306,6 +2340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68ddde112ea267f47854735a0da27f8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   lickquidatorObjectSOOriginal: {fileID: 11400000, guid: 8eeca3ce5c676454fb231d8af4893727,
     type: 2}
   generalSO: {fileID: 11400000, guid: 185dd8ec98cbab1408d76c8295922571, type: 2}
@@ -2325,6 +2360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e7202824830a84aa8755d986402ce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   towerObjectSOOriginal: {fileID: 11400000, guid: 57372b414878509489950dc817b84aea,
     type: 2}
   healthbarOffset: {fileID: 6177874959328656165}
@@ -2332,7 +2368,60 @@ MonoBehaviour:
   impactType: 5
   partToRotate: {fileID: 6308958348193739739}
   attackPoint: {fileID: 895852044441267717}
-  target: {fileID: 0}
+--- !u!114 &8951390676961363703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8574046402635549988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 133377
+  NetworkGuid:
+    RawGuidValue: 732f5e8ea8557dd4db8f5f2aa870be56
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 2388446534187975236}
+  - {fileID: 922941150835799122}
+  - {fileID: 2117889975314519567}
+  SimulationBehaviours: []
+--- !u!114 &2117889975314519567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8574046402635549988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1710889294, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  InterpolationSpace: 0
+  InterpolationTarget: {fileID: 3711762278470354299}
+  InterpolateErrorCorrection: 1
+  InterpolatedErrorCorrectionSettings:
+    MinRate: 3.3
+    MaxRate: 10
+    PosBlendStart: 0.25
+    PosBlendEnd: 1
+    PosMinCorrection: 0.025
+    PosTeleportDistance: 2
+    RotBlendStart: 0.1
+    RotBlendEnd: 0.5
+    RotTeleportRadians: 1.5
+  UseLegacySharedModeInterpolation: 0
+  TargetInterpolationDelay: 0.03
 --- !u!195 &4247896047644765264
 NavMeshAgent:
   m_ObjectHideFlags: 0

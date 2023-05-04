@@ -47,6 +47,28 @@ public class TurretTower : BaseTower
     }
     #endregion
 
+    #region RPC Functions
+    [RPC]
+    private void SetTargetRpc(NetworkId targetNetworkId)
+    {
+        var targetObject = FusionNetwork.FindObjectById(targetNetworkId);
+        if (targetObject != null)
+        {
+            setTarget(targetObject.transform);
+        }
+    }
+
+    [RPC]
+    private void FireProjectileRpc(NetworkId targetNetworkId, Vector3 attackPoint)
+    {
+        var targetObject = FusionNetwork.FindObjectById(targetNetworkId);
+        if (targetObject != null)
+        {
+            ProjectileManager.Instance.SpawnProjectile(turretTowerObjectSO, attackPoint, targetObject.transform);
+        }
+    }
+    #endregion
+
     #region Public Functions
     public override void OnEnemyEnter(Collider collider)
     {
