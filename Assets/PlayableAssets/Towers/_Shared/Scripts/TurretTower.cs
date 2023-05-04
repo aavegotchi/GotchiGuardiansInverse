@@ -3,12 +3,6 @@ using UnityEngine;
 
 public class TurretTower : BaseTower
 {
-    #region Events
-    #endregion
-
-    #region Public Variables
-    #endregion
-
     #region Fields
     [SerializeField] private Transform partToRotate;
     [SerializeField] private Transform attackPoint;
@@ -26,7 +20,7 @@ public class TurretTower : BaseTower
     {
         base.Start();
         turretTowerObjectSO = towerObjectSO as TurretTowerObjectSO;
-        InvokeRepeating("UpdateTarget", 0f, 1f);
+        InvokeRepeating("updateTarget", 0f, 1f);
     }
 
     protected override void Update()

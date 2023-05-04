@@ -1,11 +1,13 @@
 using System.Collections;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Gotchi.Events;
 using Gotchi.Network;
+using Fusion;
 
-public class PhaseManager : MonoBehaviour
+public class PhaseManager : NetworkBehaviour
 {
     #region Public Variables
     public static PhaseManager Instance = null;
@@ -74,8 +76,10 @@ public class PhaseManager : MonoBehaviour
         }
     }
 
-    void Update()
+    public override void FixedUpdateNetwork()
     {
+        if (!Object.HasStateAuthority) return;
+
         if (CurrentPhase == Phase.Transitioning || CurrentPhase == Phase.None) return;
 
         if (CurrentPhase == Phase.Prep)
@@ -89,15 +93,24 @@ public class PhaseManager : MonoBehaviour
     }
     #endregion
 
-    #region Private Functions
-    public void StartNextPhase()
+    #region RPC Functions
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void rpc_setCountdownTracker(float time)
     {
-        if (CurrentPhase == Phase.None)
-        {
-            updatePhase(Phase.Prep);
-            return;
-        }
+        countdownTimer.SetTimeLeft(time);
+    }
+    #endregion
 
+    #region Public Functions
+    public void StartFirstPrepPhase()
+    {
+        updatePhase(Phase.Prep.ToString());
+    }
+    #endregion
+
+    #region Private Functions
+    private void startNextPhase()
+    {
         Phase nextPhase = CurrentPhase == Phase.Prep ? Phase.Survival : Phase.Prep;
         CurrentPhase = Phase.Transitioning;
 
@@ -187,14 +200,14 @@ public class PhaseManager : MonoBehaviour
 
         transitionScreenAnimator.SetTrigger("Close");
 
-        updatePhase(nextPhase);
+        updatePhase(nextPhase.ToString());
     }
 
     private void HandleEndSurvivalPhase()
     {
         if (EnemyManager.Instance.ActiveEnemies.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead)
         {
-           StartNextPhase();
+           startNextPhase();
         }
     }
 
@@ -202,16 +215,17 @@ public class PhaseManager : MonoBehaviour
     {
         if (countdownTracker <= 0f)
         {
-            StartNextPhase();
+            startNextPhase();
         }
 
         countdownTracker -= Time.deltaTime;
-        countdownTracker = Mathf.Clamp(countdownTracker, 0f, Mathf.Infinity);
-        countdownTimer.SetTimeLeft(countdownTracker);
+        Mathf.Clamp(countdownTracker, 0f, Mathf.Infinity);
+        rpc_setCountdownTracker(countdownTracker);
     }
 
-    private void updatePhase(Phase nextPhase)
+    private void updatePhase(string nextPhaseStr)
     {
+        Phase nextPhase = (Phase)Enum.Parse(typeof(Phase), nextPhaseStr);
         CurrentPhase = nextPhase;
 
         if (CurrentPhase == Phase.Prep)

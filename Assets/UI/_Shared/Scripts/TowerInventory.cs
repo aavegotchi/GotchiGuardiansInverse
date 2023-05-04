@@ -159,14 +159,14 @@ public class TowerInventory : MonoBehaviour
     private void buildSelectedTower(TowerBlueprint towerBlueprint)
     {
         BaseNode selectedNode = NodeManager.Instance.SelectedNode;
-        selectedNode.Occupied = true;
-        StatsManager.Instance.Money -= towerBlueprint.cost;
-        towerBlueprint.node = selectedNode;
-        ProgressBarManager.Instance.GetAndShowProgressBar(towerBlueprint);
-        selectedNode.BuildEffect.SetActive(true);
-        EventBus.TowerEvents.TowerStarted();
-        nodeUI.Close();
+
+        if (selectedNode is DefenderNode defenderNode)
+        {
+            defenderNode.BuildTower(towerBlueprint);
+        }
+
         NodeManager.Instance.SelectedNode = null;
+        nodeUI.Close();
     }
     #endregion
 }
