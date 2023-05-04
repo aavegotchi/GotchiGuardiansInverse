@@ -19,10 +19,6 @@ namespace Gotchi.Network
         public Player_Gotchi RemotePlayerGotchi { get; set; }
         public NetworkGotchiInput RemotePlayerInput { get; set; }
 
-        public NetworkRunner NetworkRunner
-        {
-            get { return networkRunner; }
-        }
         public bool IsReady {
             get { return LocalPlayerGotchi != null; }
         }
@@ -33,10 +29,8 @@ namespace Gotchi.Network
         #region Fields
         [SerializeField] private NetworkRunner networkRunnerPrefab = null;
         [SerializeField] private int maxPlayerCount = 8;
-        #endregion
-
-        #region Private Variables
-        private NetworkRunner networkRunner = null;
+        // [SerializeField] private string sceneName = "GotchiTowerDefense";
+        // [SerializeField] private GameObject mainMenuCanvas = null;
         #endregion
 
         #region Unity Functions
@@ -56,18 +50,11 @@ namespace Gotchi.Network
         #region Public Functions
         public void InitializeNetworkRunner(string lobbyId)
         {
-            if (networkRunner == null)
-            {
-                networkRunner = Instantiate(networkRunnerPrefab);
-                networkRunner.name = "network_listener";
-                networkRunner.ProvideInput = true;
-            }
+            var networkRunner = Instantiate(networkRunnerPrefab);
+            networkRunner.name = "network_listener";
+            networkRunner.ProvideInput = true;
 
-            var sceneManager = networkRunner.GetComponents(typeof(MonoBehaviour)).OfType<INetworkSceneManager>().FirstOrDefault();
-            if (sceneManager == null)
-            {
-                sceneManager = networkRunner.gameObject.AddComponent<NetworkSceneManagerDefault>();
-            }
+            var sceneManager = getSceneManager(networkRunner);
 
             Debug.Log("Server started");
 
@@ -81,6 +68,18 @@ namespace Gotchi.Network
                 SceneManager = sceneManager,
                 PlayerCount = maxPlayerCount
             });
+        }
+        #endregion
+        
+        #region Private Functions
+        private INetworkSceneManager getSceneManager(NetworkRunner runner)
+        {
+            var sceneManager = runner.GetComponents(typeof(MonoBehaviour)).OfType<INetworkSceneManager>().FirstOrDefault();
+            if (sceneManager == null)
+            {
+                sceneManager = runner.gameObject.AddComponent<NetworkSceneManagerDefault>();
+            }
+            return sceneManager;
         }
         #endregion
     }
