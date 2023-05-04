@@ -6,27 +6,21 @@ using UnityEngine;
 
 public class Players_List_UI : MonoBehaviour
 {
-    #region fields
-    [SerializeField]
-    private List<Player_ListEle_UI> playerElements;
-    [SerializeField]
-    private Player_ListEle_UI player;
-    [SerializeField]
-    private int padding = 10;
-    [SerializeField]
-    private bool show = false;
-    [SerializeField]
-    private float reorderAnimSpeedPerPixel = 0.001f;
+    #region Fields
+    [SerializeField] private List<Player_ListEle_UI> playerElements = new List<Player_ListEle_UI>();
+    [SerializeField] private int padding = 10;
+    [SerializeField] private bool isShow = false;
+    [SerializeField] private float reorderAnimSpeedPerPixel = 0.001f;
     #endregion
 
-    #region private variables
-    bool isVisible = false;
-    Sequence visibilityTweener = null;
-    Sequence reorderTweeners = null;
+    #region Private Variables
+    private bool isVisible = false;
+    private Sequence visibilityTweener = null;
+    private Sequence reorderTweeners = null;
+    private Dictionary<string, int> usernameToPlayerElementsIndexDict = new Dictionary<string, int>();
     #endregion
 
-    #region unity functions
-    // Start is called before the first frame update
+    #region Unity Functions
     void Start()
     {
         foreach(Player_ListEle_UI ele in playerElements)
@@ -37,74 +31,49 @@ public class Players_List_UI : MonoBehaviour
             }
         }
 
-        Show();
+        show();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (show != isVisible)
-        {
-            if (show) {
-                Show();
-            }
-            else { 
-                Hide();
-            }
+        if (isShow == isVisible) return;
+
+        if (isShow) {
+            show();
+        }
+        else { 
+            hide();
         }
     }
     #endregion
 
-    #region public functions
-    public void Show()
+    #region Public Functions
+    public void AddPlayerEntry(string username)
     {
-        if (!isVisible) {
-            show = true;
-            isVisible = true;
-
-            if (visibilityTweener != null)
+        for (int i=0; i<playerElements.Count; i++)
+        {
+            Player_ListEle_UI playerElement = playerElements[i];
+            if (!playerElement.gameObject.activeSelf)
             {
-                visibilityTweener.Pause();
-                visibilityTweener.Kill();
-                visibilityTweener = null;
-            }
-
-            visibilityTweener = DOTween.Sequence();
-            visibilityTweener.AppendCallback(() => visibilityTweener = null);
-
-            float offset = 0.0f;
-
-            foreach (Player_ListEle_UI ele in playerElements)
-            {
-                RectTransform rt = ele.GetComponent<RectTransform>();
-                visibilityTweener.Insert(offset, DOTween.To(() => rt.localPosition.x, (x) => rt.localPosition = new Vector3(x, rt.localPosition.y, rt.localPosition.z), 0, 0.4f));
-                offset += 0.1f;
+                playerElement.SetPlayerName(username);
+                playerElement.gameObject.SetActive(true);
+                usernameToPlayerElementsIndexDict[username] = i;
+                return;
             }
         }
     }
 
-    public void Hide()
+    public void RemovePlayerEntry(string username)
     {
-        if (isVisible) {
-            show = false;
-            isVisible = false;
+        int i = usernameToPlayerElementsIndexDict[username];
+        playerElements[i].gameObject.SetActive(false);
+        usernameToPlayerElementsIndexDict.Remove(username);
+    }
 
-            if (visibilityTweener != null)
-            {
-                visibilityTweener.Pause();
-                visibilityTweener.Kill();
-                visibilityTweener = null;
-            }
-
-            visibilityTweener = DOTween.Sequence();
-            visibilityTweener.AppendCallback(() => visibilityTweener = null);
-
-            foreach (Player_ListEle_UI ele in playerElements)
-            {
-                RectTransform rt = ele.GetComponent<RectTransform>();
-                visibilityTweener.Insert(0.0f, DOTween.To(() => rt.localPosition.x, (x) => rt.localPosition = new Vector3(x, rt.localPosition.y, rt.localPosition.z), rt.localScale.x * rt.sizeDelta.x, 0.4f));
-            }
-        }
+    public Player_ListEle_UI GetPlayerEntry(string username)
+    {
+        int i = usernameToPlayerElementsIndexDict[username];
+        return playerElements[i];
     }
 
     public void CheckAndUpdatePlayerOrder()
@@ -147,5 +116,58 @@ public class Players_List_UI : MonoBehaviour
             --currentIndex;
         }
     }
-        #endregion
+    #endregion
+
+    #region Private Functions
+    private void show()
+    {
+        if (!isVisible) {
+            isShow = true;
+            isVisible = true;
+
+            if (visibilityTweener != null)
+            {
+                visibilityTweener.Pause();
+                visibilityTweener.Kill();
+                visibilityTweener = null;
+            }
+
+            visibilityTweener = DOTween.Sequence();
+            visibilityTweener.AppendCallback(() => visibilityTweener = null);
+
+            float offset = 0.0f;
+
+            foreach (Player_ListEle_UI ele in playerElements)
+            {
+                RectTransform rt = ele.GetComponent<RectTransform>();
+                visibilityTweener.Insert(offset, DOTween.To(() => rt.localPosition.x, (x) => rt.localPosition = new Vector3(x, rt.localPosition.y, rt.localPosition.z), 0, 0.4f));
+                offset += 0.1f;
+            }
+        }
+    }
+
+    private void hide()
+    {
+        if (isVisible) {
+            isShow = false;
+            isVisible = false;
+
+            if (visibilityTweener != null)
+            {
+                visibilityTweener.Pause();
+                visibilityTweener.Kill();
+                visibilityTweener = null;
+            }
+
+            visibilityTweener = DOTween.Sequence();
+            visibilityTweener.AppendCallback(() => visibilityTweener = null);
+
+            foreach (Player_ListEle_UI ele in playerElements)
+            {
+                RectTransform rt = ele.GetComponent<RectTransform>();
+                visibilityTweener.Insert(0.0f, DOTween.To(() => rt.localPosition.x, (x) => rt.localPosition = new Vector3(x, rt.localPosition.y, rt.localPosition.z), rt.localScale.x * rt.sizeDelta.x, 0.4f));
+            }
+        }
+    }
+    #endregion
 }

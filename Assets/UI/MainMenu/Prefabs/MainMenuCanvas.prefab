@@ -366,8 +366,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 82
-  m_fontSizeBase: 82
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 72
@@ -742,7 +742,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 393715195}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: StartOnlineCoop
+        m_MethodName: ShowUsernameMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1250,8 +1250,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuCanvas: {fileID: 2612610369548806185}
   mainMenuCanvasAnimator: {fileID: 393715197}
+  loadingMenuCanvas: {fileID: 0}
+  loadingMenuCanvasAnimator: {fileID: 0}
+  usernameMenuCanvas: {fileID: 0}
+  usernameMenuCanvasAnimator: {fileID: 0}
+  usernameText: {fileID: 0}
+  lobbyIdText: {fileID: 0}
   mainMenuCanvasAnimatorCloseTrigger: Close
-  skipMainMenu: 1
+  loadingMenuCanvasAnimatorOpenTrigger: Open
+  loadingMenuCanvasAnimatorCloseTrigger: Close
+  usernameMenuCanvasAnimatorOpenTrigger: Open
+  usernameMenuCanvasAnimatorCloseTrigger: Close
 --- !u!225 &393715196
 CanvasGroup:
   m_ObjectHideFlags: 0
