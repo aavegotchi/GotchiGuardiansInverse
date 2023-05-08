@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Gotchi.Events;
 
-public class TowerManager : MonoBehaviour
+public class TowerPool : MonoBehaviour
 {
     #region Public Variables
-    public static TowerManager Instance = null;
+    public static TowerPool Instance = null;
 
     public enum TowerType
     {
@@ -105,7 +105,68 @@ public class TowerManager : MonoBehaviour
     }
     #endregion
 
+
     #region Private Functions
+    private GameObject CreateNewTower(TowerType type)
+    {
+        GameObject towerPrefab = null;
+
+        switch (type)
+        {
+            case TowerType.BasicTower:
+                towerPrefab = basicTowerPrefab;
+                break;
+            case TowerType.BombTower:
+                towerPrefab = bombTowerPrefab;
+                break;
+            case TowerType.SlowTower:
+                towerPrefab = slowTowerPrefab;
+                break;
+            case TowerType.ArrowTower1:
+                towerPrefab = arrowTower1Prefab;
+                break;
+            case TowerType.ArrowTower2:
+                towerPrefab = arrowTower2Prefab;
+                break;
+            case TowerType.ArrowTower3:
+                towerPrefab = arrowTower3Prefab;
+                break;
+            case TowerType.FireTower1:
+                towerPrefab = fireTower1Prefab;
+                break;
+            case TowerType.FireTower2:
+                towerPrefab = fireTower2Prefab;
+                break;
+            case TowerType.FireTower3:
+                towerPrefab = fireTower3Prefab;
+                break;
+            case TowerType.IceTower1:
+                towerPrefab = iceTower1Prefab;
+                break;
+            case TowerType.IceTower2:
+                towerPrefab = iceTower2Prefab;
+                break;
+            case TowerType.IceTower3:
+                towerPrefab = iceTower3Prefab;
+                break;
+        }
+
+        GameObject towerObj = Instantiate(towerPrefab, Vector3.zero, Quaternion.identity, transform);
+        return towerObj;
+    }
+
+    private GameObject GetAvailableTower(List<GameObject> towerPool)
+    {
+        foreach (GameObject tower in towerPool)
+        {
+            if (!tower.activeSelf)
+            {
+                return tower;
+            }
+        }
+        return null;
+    }
+
     private void spawnTower(TowerBlueprint towerBlueprint)
     {
         Transform nodeTransform = towerBlueprint.node.transform;
@@ -115,19 +176,18 @@ public class TowerManager : MonoBehaviour
         StatsManager.Instance.TrackCreateTower(towerBlueprint);
 
         List<GameObject> towerPool = getTowerPool(towerBlueprint.type);
+        GameObject availableTower = GetAvailableTower(towerPool);
 
-        foreach (GameObject tower in towerPool)
+        if (availableTower == null)
         {
-            bool isTowerNotAvailable = tower.activeSelf;
-            if (isTowerNotAvailable) continue;
-
-            tower.GetComponent<BaseTower>().TowerBlueprint = towerBlueprint;
-            tower.transform.position = position;
-            tower.transform.rotation = rotation;
-            tower.SetActive(true);
-            
-            return;
+            availableTower = CreateNewTower(towerBlueprint.type);
+            towerPool.Add(availableTower);
         }
+
+        availableTower.GetComponent<BaseTower>().TowerBlueprint = towerBlueprint;
+        availableTower.transform.position = position;
+        availableTower.transform.rotation = rotation;
+        availableTower.SetActive(true);
     }
 
     private List<GameObject> createTowerPool(GameObject towerPrefab, int poolSize)

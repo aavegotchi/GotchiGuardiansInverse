@@ -1,14 +1,12 @@
 using UnityEngine;
-using System;
 using System.Collections.Generic;
 using UnityEngine.Assertions;
-using UnityEngine.UI;
 using Gotchi.Events;
 
-public class ProgressBarManager : MonoBehaviour
+public class BuildProgressPool_UI : MonoBehaviour
 {
     #region Public Variables
-    public static ProgressBarManager Instance = null;
+    public static BuildProgressPool_UI Instance = null;
     #endregion
 
     #region Fields
@@ -71,10 +69,17 @@ public class ProgressBarManager : MonoBehaviour
 
             progressBar.Reset();
         });
-    }  
+    }
     #endregion
 
     #region Private Functions
+    private ProgressBar_UI CreateNewProgressBar()
+    {
+        GameObject progressBarObj = Instantiate(progressBarPrefab, Vector3.zero, Quaternion.identity, transform);
+        ProgressBar_UI progressBar = progressBarObj.GetComponent<ProgressBar_UI>();
+        return progressBar;
+    }
+
     private ProgressBar_UI getProgressBar(Transform nodeTransform, float duration)
     {
         foreach (ProgressBar_UI progressBar in progressBarPool)
@@ -88,7 +93,14 @@ public class ProgressBarManager : MonoBehaviour
             return progressBar;
         }
 
-        return null;
+        // If the code reaches this point, no available progress bars were found in the pool.
+        // Instantiate a new progress bar and add it to the pool.
+        ProgressBar_UI newProgressBar = CreateNewProgressBar();
+        progressBarPool.Add(newProgressBar);
+        newProgressBar.transform.SetParent(nodeTransform, true);
+        newProgressBar.transform.localPosition = new Vector3(0f, 25f, 0f);
+        newProgressBar.gameObject.SetActive(true);
+        return newProgressBar;
     }
 
     private void CreateProgressBarPool(GameObject progressBarPrefab, int maxPoolSize)

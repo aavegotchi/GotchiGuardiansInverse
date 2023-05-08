@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Gotchi.Events;
 
-public class ProjectileManager : MonoBehaviour
+public class ProjectilePool_FX : MonoBehaviour
 {
     #region Public Variables
-    public static ProjectileManager Instance = null;
+    public static ProjectilePool_FX Instance = null;
 
     public enum ProjectileType
     {
@@ -88,7 +88,7 @@ public class ProjectileManager : MonoBehaviour
 
             if (projectileType == ProjectileType.Laser)
             {
-                EventBus.EnemyEvents.EnemyAttacked(EnemyManager.EnemyType.AerialLickquidator);
+                EventBus.EnemyEvents.EnemyAttacked(EnemyPool.EnemyType.AerialLickquidator);
             }
             else
             {

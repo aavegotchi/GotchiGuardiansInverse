@@ -35,14 +35,14 @@ public class NodeUI : MonoBehaviour
     #region Private Variables
     private NodeManager nodeManager = null;
     private PhaseManager phaseManager = null;
-    private ProgressBarManager progressBarManager = null;
+    private BuildProgressPool_UI progressBarManager = null;
     #endregion
 
     #region Unity Functions
     void Awake()
     {
         nodeManager = NodeManager.Instance;
-        progressBarManager = ProgressBarManager.Instance;
+        progressBarManager = BuildProgressPool_UI.Instance;
         phaseManager = PhaseManager.Instance;
     }
 

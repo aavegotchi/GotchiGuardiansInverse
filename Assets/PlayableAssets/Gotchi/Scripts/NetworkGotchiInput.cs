@@ -142,7 +142,7 @@ public class NetworkGotchiInput : NetworkBehaviour
                     canMoveToTarget = false;
                 }
 
-                CanMovePopUpManager.Instance.ShowCanMovePopUp(hit.point, canMoveToTarget);
+                GotchiWaypointsPool_UI.Instance.ShowCanMovePopUp(hit.point, canMoveToTarget);
             }
         }
     }

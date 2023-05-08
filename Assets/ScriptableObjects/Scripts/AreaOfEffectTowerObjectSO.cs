@@ -9,6 +9,6 @@ public class AreaOfEffectTowerObjectSO : BaseTowerObjectSO
     public float SlowStrength = 1.5f;
 
     [Header("Death Effect Type")]
-    public ImpactManager.ImpactType deathEffectType;
-    public override ImpactManager.ImpactType DeathEffectType => deathEffectType;
+    public ImpactPool_FX.ImpactType deathEffectType;
+    public override ImpactPool_FX.ImpactType DeathEffectType => deathEffectType;
 }

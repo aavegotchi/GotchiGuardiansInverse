@@ -9,6 +9,6 @@ public class ProjectileObjectSO : ScriptableObject
     public float ProjectileDamage = 2.5f;
 
     [Header ("Type")]
-    public ProjectileManager.ProjectileType ProjectileType = ProjectileManager.ProjectileType.Fireball;
-    public ImpactManager.ImpactType ProjectileImpactType = ImpactManager.ImpactType.Fireball;
+    public ProjectilePool_FX.ProjectileType ProjectileType = ProjectilePool_FX.ProjectileType.Fireball;
+    public ImpactPool_FX.ImpactType ProjectileImpactType = ImpactPool_FX.ImpactType.Fireball;
 }

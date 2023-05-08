@@ -60,7 +60,7 @@ public class StatsManager : MonoBehaviour
         towerBlueprintsKill.Add(towerBlueprint);
     }
 
-    public int GetEnemyCreateCosts(EnemyManager.EnemyType enemyType)
+    public int GetEnemyCreateCosts(EnemyPool.EnemyType enemyType)
     {
         int sumCosts = 0;
         foreach (EnemyBlueprint enemyBlueprint in enemyBlueprintsCreate)
@@ -73,7 +73,7 @@ public class StatsManager : MonoBehaviour
         return sumCosts;
     }
 
-    public int GetTowerCreateCosts(TowerManager.TowerType towerType)
+    public int GetTowerCreateCosts(TowerPool.TowerType towerType)
     {
         int sumCosts = 0;
         foreach (TowerBlueprint towerBlueprint in towerBlueprintsCreate)
@@ -86,7 +86,7 @@ public class StatsManager : MonoBehaviour
         return sumCosts;
     }
 
-    public int GetEnemyKillCosts(EnemyManager.EnemyType enemyType)
+    public int GetEnemyKillCosts(EnemyPool.EnemyType enemyType)
     {
         int sumCosts = 0;
         foreach (EnemyBlueprint enemyBlueprint in enemyBlueprintsKill)
@@ -99,7 +99,7 @@ public class StatsManager : MonoBehaviour
         return sumCosts;
     }
 
-    public int GetTowerKillCosts(TowerManager.TowerType towerType)
+    public int GetTowerKillCosts(TowerPool.TowerType towerType)
     {
         int sumCosts = 0;
         foreach (TowerBlueprint towerBlueprint in towerBlueprintsKill)

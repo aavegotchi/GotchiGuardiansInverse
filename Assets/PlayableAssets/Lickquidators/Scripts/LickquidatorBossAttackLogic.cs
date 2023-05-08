@@ -32,7 +32,7 @@ public class LickquidatorBossAttackLogic : BaseEnemy
 
     protected override void OnAttackSound()
     {
-        EventBus.EnemyEvents.EnemyAttacked(EnemyManager.EnemyType.BossLickquidator);
+        EventBus.EnemyEvents.EnemyAttacked(EnemyPool.EnemyType.BossLickquidator);
     }
     #endregion
 }

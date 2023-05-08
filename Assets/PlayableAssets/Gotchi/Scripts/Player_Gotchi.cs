@@ -84,8 +84,8 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
 
         if (PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Prep) return;
 
-        List<GameObject> enemyObjects = EnemyManager.Instance.ActiveEnemies;
-        Enemy[] enemies = EnemyManager.Instance.GetEnemiesByObjects(enemyObjects.ToArray());
+        List<GameObject> enemyObjects = EnemyPool.Instance.ActiveEnemies;
+        Enemy[] enemies = EnemyPool.Instance.GetEnemiesByObjects(enemyObjects.ToArray());
 
         foreach (Enemy enemy in enemies)
         {
@@ -132,7 +132,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
     #region Private Functions
     private void assignHealthBar()
     {
-        healthbar = HealthBarManager.Instance.GetHealthbar(HealthbarOffset);
+        healthbar = HealthBarPool_UI.Instance.GetHealthbar(HealthbarOffset);
         healthbar.SetHealthbarMaxHealth(gotchiObjectSO.Health);
     }
     
