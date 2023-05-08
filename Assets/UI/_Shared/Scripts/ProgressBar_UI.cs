@@ -60,7 +60,7 @@ public class ProgressBar_UI : MonoBehaviour
     public void Reset()
     {
         gameObject.SetActive(false);
-        gameObject.transform.SetParent(ProgressBarManager.Instance.gameObject.transform, true);
+        gameObject.transform.SetParent(BuildProgressPool_UI.Instance.gameObject.transform, true);
         progressBar.fillAmount = 0f;
         towerBlueprintHolder = null;
         enemyBlueprintHolder = null;

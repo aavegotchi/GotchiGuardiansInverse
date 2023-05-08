@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ImpactManager : MonoBehaviour
+public class ImpactPool_FX : MonoBehaviour
 {
     #region Public Variables
-    public static ImpactManager Instance = null;
+    public static ImpactPool_FX Instance = null;
 
     public enum ImpactType
     {
@@ -36,15 +36,15 @@ public class ImpactManager : MonoBehaviour
     [SerializeField] private GameObject laserImpactPrefab = null;
 
     [Header("Attributes")]
-    [SerializeField] private int cannonballImpactPoolSize = 30;
-    [SerializeField] private int missileImpactPoolSize = 20;
-    [SerializeField] private int arrowImpactPoolSize = 20;
-    [SerializeField] private int fireballImpactPoolSize = 20;
-    [SerializeField] private int iceballImpactPoolSize = 20;
-    [SerializeField] private int basicTowerExplosionPoolSize = 10;
-    [SerializeField] private int bombTowerExplosionPoolSize = 10;
-    [SerializeField] private int slowTowerExplosionPoolSize = 10;
-    [SerializeField] private int laserImpactPoolSize = 10;
+    [SerializeField] private int cannonballImpactPoolSize = 8;
+    [SerializeField] private int missileImpactPoolSize = 8;
+    [SerializeField] private int arrowImpactPoolSize = 8;
+    [SerializeField] private int fireballImpactPoolSize = 8;
+    [SerializeField] private int iceballImpactPoolSize = 8;
+    [SerializeField] private int basicTowerExplosionPoolSize = 2;
+    [SerializeField] private int bombTowerExplosionPoolSize = 2;
+    [SerializeField] private int slowTowerExplosionPoolSize = 2;
+    [SerializeField] private int laserImpactPoolSize = 5;
     #endregion
 
     #region Private Variables
@@ -95,7 +95,7 @@ public class ImpactManager : MonoBehaviour
         {
             bool isImpactNotAvailable = impact.gameObject.activeSelf;
             if (isImpactNotAvailable) continue;
-            
+
             impact.transform.position = position;
             impact.transform.rotation = rotation;
             impact.SetActive(true);
@@ -103,11 +103,26 @@ public class ImpactManager : MonoBehaviour
             return impact;
         }
 
-        return null;
+        // Create a new impact if none are available
+        GameObject impactPrefab = getImpactPrefab(type);
+        GameObject newImpact = createImpact(impactPrefab);
+        newImpact.transform.position = position;
+        newImpact.transform.rotation = rotation;
+        newImpact.SetActive(true);
+        impactPool.Add(newImpact);
+
+        return newImpact;
     }
     #endregion
 
     #region Private Functions
+    private GameObject createImpact(GameObject impactPrefab)
+    {
+        impactPrefab.SetActive(false);
+        GameObject impactObj = Instantiate(impactPrefab, Vector3.zero, Quaternion.identity, transform);
+        return impactObj;
+    }
+
     private List<GameObject> createImpactPool(GameObject impactPrefab, int poolSize)
     {
         impactPrefab.SetActive(false);
@@ -156,6 +171,42 @@ public class ImpactManager : MonoBehaviour
                 break;
         }
         return impactPool;
+    }
+
+    private GameObject getImpactPrefab(ImpactType type)
+    {
+        GameObject impactPrefab = null;
+        switch (type)
+        {
+            case ImpactType.Cannonball:
+                impactPrefab = cannonballImpactPrefab;
+                break;
+            case ImpactType.Missile:
+                impactPrefab = missileImpactPrefab;
+                break;
+            case ImpactType.Arrow:
+                impactPrefab = arrowImpactPrefab;
+                break;
+            case ImpactType.Fireball:
+                impactPrefab = fireballImpactPrefab;
+                break;
+            case ImpactType.Iceball:
+                impactPrefab = iceballImpactPrefab;
+                break;
+            case ImpactType.BasicTower:
+                impactPrefab = basicTowerExplosionPrefab;
+                break;
+            case ImpactType.BombTower:
+                impactPrefab = bombTowerExplosionPrefab;
+                break;
+            case ImpactType.SlowTower:
+                impactPrefab = slowTowerExplosionPrefab;
+                break;
+            case ImpactType.Laser:
+                impactPrefab = laserImpactPrefab;
+                break;
+        }
+        return impactPrefab;
     }
     #endregion
 }

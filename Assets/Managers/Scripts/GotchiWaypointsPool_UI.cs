@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class CanMovePopUpManager : MonoBehaviour
+public class GotchiWaypointsPool_UI : MonoBehaviour
 {
     #region Public Variables
-    public static CanMovePopUpManager Instance = null;
+    public static GotchiWaypointsPool_UI Instance = null;
     #endregion
 
     #region Fields
@@ -42,21 +42,38 @@ public class CanMovePopUpManager : MonoBehaviour
     #region Public Functions
     public void ShowCanMovePopUp(Vector3 position, bool canMoveToTarget)
     {
+        CanMovePopUp availablePopUp = null;
+
         foreach (CanMovePopUp popUp in canMovePopUpPool)
         {
             bool isPopUpNotAvailable = popUp.gameObject.activeInHierarchy;
             if (isPopUpNotAvailable) continue;
 
-            popUp.transform.position = position + popUpHeightOffset;
-            popUp.gameObject.SetActive(true);
-
-            popUp.ShowCanMovePopUp(canMoveToTarget);
-            return;
+            availablePopUp = popUp;
+            break;
         }
+
+        // If no available pop-up is found, create a new one and add it to the pool.
+        if (availablePopUp == null)
+        {
+            availablePopUp = CreateNewCanMovePopUp();
+            canMovePopUpPool.Add(availablePopUp);
+        }
+
+        availablePopUp.transform.position = position + popUpHeightOffset;
+        availablePopUp.gameObject.SetActive(true);
+        availablePopUp.ShowCanMovePopUp(canMoveToTarget);
     }
     #endregion
 
     #region Private Functions
+    private CanMovePopUp CreateNewCanMovePopUp()
+    {
+        GameObject popUpObj = Instantiate(canMovePopUpPrefab, Vector3.zero, canMovePopUpPrefab.transform.rotation, transform);
+        CanMovePopUp popUp = popUpObj.GetComponent<CanMovePopUp>();
+        return popUp;
+    }
+
     private List<CanMovePopUp> CreateCanMovePopUpPool(GameObject canMovePopUpPrefab, int maxPoolSize)
     {
         canMovePopUpPrefab.SetActive(false);

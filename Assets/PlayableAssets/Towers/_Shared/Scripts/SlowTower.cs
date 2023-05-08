@@ -37,7 +37,7 @@ public class SlowTower : MonoBehaviour
         var obj = collider.transform.gameObject;
         if (obj.tag != "Enemy") return;
          
-        Enemy enemy = EnemyManager.Instance.GetEnemyByObject(obj);
+        Enemy enemy = EnemyPool.Instance.GetEnemyByObject(obj);
         enemy.AdjustEnemySpeed(enemy.ObjectSO.MovementSpeed / slowStrength);
         numEnemyColliders++;
 
@@ -46,7 +46,7 @@ public class SlowTower : MonoBehaviour
         {
             activatedSlowField = Instantiate(slowField, transform.position, transform.rotation);
             
-            EventBus.TowerEvents.TowerAttacked(TowerManager.TowerType.SlowTower);
+            EventBus.TowerEvents.TowerAttacked(TowerPool.TowerType.SlowTower);
         }
     }
     #endregion

@@ -4,7 +4,7 @@ using UnityEngine;
 public class LickquidatorObjectSO : ScriptableObject
 {
     public string Name;
-    public EnemyManager.EnemyType Type;
+    public EnemyPool.EnemyType Type;
     public int Level = 1;
 
     [Header("Attack")]

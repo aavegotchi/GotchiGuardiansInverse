@@ -20,14 +20,14 @@ public class DefenderNode : BaseNode
     private void rpc_buildTower(string towerTypeStr, int cost, float buildTime)
     {
         TowerBlueprint towerBlueprint = new TowerBlueprint();
-        towerBlueprint.type = (TowerManager.TowerType)Enum.Parse(typeof(TowerManager.TowerType), towerTypeStr);
+        towerBlueprint.type = (TowerPool.TowerType)Enum.Parse(typeof(TowerPool.TowerType), towerTypeStr);
         towerBlueprint.cost = cost;
         towerBlueprint.buildTime = buildTime;
 
         this.Occupied = true;
         towerBlueprint.node = this;
         EventBus.TowerEvents.TowerStarted();
-        ProgressBarManager.Instance.GetAndShowProgressBar(towerBlueprint);
+        BuildProgressPool_UI.Instance.GetAndShowProgressBar(towerBlueprint);
         this.BuildEffect.SetActive(true);
     }
     #endregion

@@ -72,13 +72,13 @@ public class HealthBar_UI : MonoBehaviour
 
     public void ShowDamagePopUpAndColorDifferentlyIfEnemy(float damage, bool isEnemy)
     {
-        DamagePopUpManager.Instance.ShowDamagePopUpAndColorDifferentlyIfEnemy(transform, damage, isEnemy);
+        DamagePool_UI.Instance.ShowDamagePopUpAndColorDifferentlyIfEnemy(transform, damage, isEnemy);
     }
 
     public void Reset()
     {
         gameObject.SetActive(false);
-        gameObject.transform.SetParent(HealthBarManager.Instance.gameObject.transform, true);
+        gameObject.transform.SetParent(HealthBarPool_UI.Instance.gameObject.transform, true);
         front.fillAmount = 1f;
         back.fillAmount = 1f;
     }

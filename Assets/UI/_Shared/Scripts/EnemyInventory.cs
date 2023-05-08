@@ -52,9 +52,9 @@ public class EnemyInventory : MonoBehaviour
 
     void Start()
     {
-        pawnLickquidator.type = EnemyManager.EnemyType.PawnLickquidator;
-        aerialLickquidator.type = EnemyManager.EnemyType.AerialLickquidator;
-        bossLickquidator.type = EnemyManager.EnemyType.BossLickquidator;
+        pawnLickquidator.type = EnemyPool.EnemyType.PawnLickquidator;
+        aerialLickquidator.type = EnemyPool.EnemyType.AerialLickquidator;
+        bossLickquidator.type = EnemyPool.EnemyType.BossLickquidator;
 
         pawnLickquidator.buildTime = pawnLickquidatorSO.buildTime;
         aerialLickquidator.buildTime = aerialLickquidatorSO.buildTime;
@@ -68,7 +68,7 @@ public class EnemyInventory : MonoBehaviour
     {
         EnemyBlueprint enemyBlueprint = new EnemyBlueprint
         {
-            type = EnemyManager.EnemyType.PawnLickquidator,
+            type = EnemyPool.EnemyType.PawnLickquidator,
             buildTime = pawnLickquidatorSO.buildTime,
             cost = pawnLickquidatorSO.Cost
         };
@@ -79,7 +79,7 @@ public class EnemyInventory : MonoBehaviour
     {
         EnemyBlueprint enemyBlueprint = new EnemyBlueprint
         {
-            type = EnemyManager.EnemyType.AerialLickquidator,
+            type = EnemyPool.EnemyType.AerialLickquidator,
             buildTime = aerialLickquidatorSO.buildTime,
             cost = aerialLickquidatorSO.Cost
         };
@@ -90,7 +90,7 @@ public class EnemyInventory : MonoBehaviour
     {
         EnemyBlueprint enemyBlueprint = new EnemyBlueprint
         {
-            type = EnemyManager.EnemyType.BossLickquidator,
+            type = EnemyPool.EnemyType.BossLickquidator,
             buildTime = bossLickquidatorSO.buildTime,
             cost = bossLickquidatorSO.Cost
         };

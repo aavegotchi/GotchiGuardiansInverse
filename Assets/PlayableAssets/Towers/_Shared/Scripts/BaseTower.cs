@@ -31,7 +31,7 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
 
     [Header("Attributes")]
     [SerializeField] protected string enemyTag = "Enemy";
-    [SerializeField] protected ImpactManager.ImpactType impactType = ImpactManager.ImpactType.BasicTower;
+    [SerializeField] protected ImpactPool_FX.ImpactType impactType = ImpactPool_FX.ImpactType.BasicTower;
 
     [SerializeField] private GameObject rangeCirclePrefab;
     #endregion
@@ -127,7 +127,7 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     {
         EventBus.TowerEvents.TowerDied(towerBlueprint.type);
         towerBlueprint.node.Occupied = keepUpgrades;
-        ImpactManager.Instance.SpawnImpact(impactType, transform.position, transform.rotation);
+        ImpactPool_FX.Instance.SpawnImpact(impactType, transform.position, transform.rotation);
         
         gameObject.SetActive(false);
         if (healthbar != null) 
@@ -153,7 +153,7 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     #region Private Functions
     private void setupHealthBar()
     {
-        healthbar = HealthBarManager.Instance.GetHealthbar(healthbarOffset);
+        healthbar = HealthBarPool_UI.Instance.GetHealthbar(healthbarOffset);
         healthbar.CurrentHealth = towerObjectSO.Health;
         healthbar.MaxHealth = towerObjectSO.Health;
     }

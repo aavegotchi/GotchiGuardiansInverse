@@ -137,25 +137,25 @@ public class PhaseManager : NetworkBehaviour
         {
             rewardsScreenUI.SetActive(true);
 
-            int pawnLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyManager.EnemyType.PawnLickquidator);
-            int aerialLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyManager.EnemyType.AerialLickquidator);
-            int bossLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyManager.EnemyType.BossLickquidator);
+            int pawnLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyPool.EnemyType.PawnLickquidator);
+            int aerialLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyPool.EnemyType.AerialLickquidator);
+            int bossLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyPool.EnemyType.BossLickquidator);
 
             // TODO: account for upgraded towers
-            int basicTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerManager.TowerType.BasicTower);
-            int arrowTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerManager.TowerType.ArrowTower1);
-            int fireTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerManager.TowerType.FireTower1);
-            int iceTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerManager.TowerType.IceTower1);
+            int basicTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.BasicTower);
+            int arrowTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.ArrowTower1);
+            int fireTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.FireTower1);
+            int iceTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.IceTower1);
 
-            int pawnLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(EnemyManager.EnemyType.PawnLickquidator);
-            int aerialLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(EnemyManager.EnemyType.AerialLickquidator);
-            int bossLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(EnemyManager.EnemyType.BossLickquidator);
+            int pawnLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(EnemyPool.EnemyType.PawnLickquidator);
+            int aerialLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(EnemyPool.EnemyType.AerialLickquidator);
+            int bossLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(EnemyPool.EnemyType.BossLickquidator);
 
             // TODO: account for upgraded towers
-            int basicTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerManager.TowerType.BasicTower);
-            int arrowTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerManager.TowerType.ArrowTower1);
-            int fireTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerManager.TowerType.FireTower1);
-            int iceTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerManager.TowerType.IceTower1);
+            int basicTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerPool.TowerType.BasicTower);
+            int arrowTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerPool.TowerType.ArrowTower1);
+            int fireTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerPool.TowerType.FireTower1);
+            int iceTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerPool.TowerType.IceTower1);
 
             int enemiesSpawnReward = StatsManager.Instance.GetEnemiesSpawnBonus();
 
@@ -205,7 +205,7 @@ public class PhaseManager : NetworkBehaviour
 
     private void HandleEndSurvivalPhase()
     {
-        if (EnemyManager.Instance.ActiveEnemies.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead)
+        if (EnemyPool.Instance.ActiveEnemies.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead)
         {
            rpc_startNextPhase();
         }

@@ -102,17 +102,17 @@ public class EnemyQueue_UI : MonoBehaviour
         button8Btn.enabled = false;
     }
 
-    private void setButton(Image buttonImage, Button buttonBtn, EnemyManager.EnemyType type)
+    private void setButton(Image buttonImage, Button buttonBtn, EnemyPool.EnemyType type)
     {
-        if (type == EnemyManager.EnemyType.PawnLickquidator)
+        if (type == EnemyPool.EnemyType.PawnLickquidator)
         {
             buttonImage.sprite = pawnLickquidatorSprite;
         }
-        else if (type == EnemyManager.EnemyType.AerialLickquidator)
+        else if (type == EnemyPool.EnemyType.AerialLickquidator)
         {
             buttonImage.sprite = aerialLickquidatorSprite;
         }
-        else if (type == EnemyManager.EnemyType.BossLickquidator)
+        else if (type == EnemyPool.EnemyType.BossLickquidator)
         {
             buttonImage.sprite = bossLickquidatorSprite;
         }

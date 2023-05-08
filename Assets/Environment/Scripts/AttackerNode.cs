@@ -63,7 +63,7 @@ public class AttackerNode : BaseNode
     private void rpc_addSpawnedEnemy(string enemyTypeStr, int cost, float buildTime)
     {
         EnemyBlueprint enemyBlueprint = new EnemyBlueprint();
-        enemyBlueprint.type = (EnemyManager.EnemyType)Enum.Parse(typeof(EnemyManager.EnemyType), enemyTypeStr);
+        enemyBlueprint.type = (EnemyPool.EnemyType)Enum.Parse(typeof(EnemyPool.EnemyType), enemyTypeStr);
         enemyBlueprint.cost = cost;
         enemyBlueprint.buildTime = buildTime;
 
@@ -71,7 +71,7 @@ public class AttackerNode : BaseNode
         enemyBlueprint.node = this;
         EventBus.EnemyEvents.EnemyStarted();
         spawnedEnemyBlueprints.Add(enemyBlueprint);
-        ProgressBarManager.Instance.GetAndShowProgressBar(enemyBlueprint, true);
+        BuildProgressPool_UI.Instance.GetAndShowProgressBar(enemyBlueprint, true);
         this.BuildEffect.SetActive(true);
         enemySlotsUI.OccupyNextSlot(maxEnemiesPerNode);
     }

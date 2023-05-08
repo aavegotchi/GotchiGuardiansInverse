@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private Transform healthbarOffset = null;
 
     [Header("Attributes")]
-    [SerializeField] private ImpactManager.ImpactType deathEffect = ImpactManager.ImpactType.BasicTower;
+    [SerializeField] private ImpactPool_FX.ImpactType deathEffect = ImpactPool_FX.ImpactType.BasicTower;
     #endregion
 
     #region Private Variables
@@ -117,7 +117,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public void PlayDead(bool keepUpgrades = false)
     {
         EventBus.EnemyEvents.EnemyDied(enemyBlueprint.type);
-        ImpactManager.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
+        ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
 
         gameObject.SetActive(false);
         if (healthbar != null)
