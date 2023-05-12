@@ -4,7 +4,7 @@ using UnityEngine;
 public class TowerObjectSO : ScriptableObject
 {
     public string Name;
-    public TowerManager.TowerType Type;
+    public TowerPool.TowerType Type;
 
     [Header("Attack")]
     public float AttackDamage = 20f;

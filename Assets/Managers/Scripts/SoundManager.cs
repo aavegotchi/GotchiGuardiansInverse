@@ -270,23 +270,23 @@ namespace Gotchi.Audio
             playSound(SoundManager.SoundType.BuildingFired);
         }
 
-        private void playEnemyAttacked(EnemyManager.EnemyType enemyType)
+        private void playEnemyAttacked(EnemyPool.EnemyType enemyType)
         {
-            if (enemyType == EnemyManager.EnemyType.PawnLickquidator)
+            if (enemyType == EnemyPool.EnemyType.PawnLickquidator)
             {
                 playSound(SoundManager.SoundType.PawnFired);
             }
-            else if (enemyType == EnemyManager.EnemyType.AerialLickquidator)
+            else if (enemyType == EnemyPool.EnemyType.AerialLickquidator)
             {
                 playSound(SoundManager.SoundType.AerialFired);
             }
-            else if (enemyType == EnemyManager.EnemyType.BossLickquidator)
+            else if (enemyType == EnemyPool.EnemyType.BossLickquidator)
             {
                 playSound(SoundManager.SoundType.TongueFired);
             }
         }
 
-        private void playEnemyDied(EnemyManager.EnemyType enemyType)
+        private void playEnemyDied(EnemyPool.EnemyType enemyType)
         {
             playSound(SoundManager.SoundType.BasicTowerDied);
         }
@@ -301,59 +301,59 @@ namespace Gotchi.Audio
             playSound(SoundManager.SoundType.BuildingFired);
         }
 
-        private void playTowerAttacked(TowerManager.TowerType towerType)
+        private void playTowerAttacked(TowerPool.TowerType towerType)
         {
-            if (towerType == TowerManager.TowerType.BasicTower)
+            if (towerType == TowerPool.TowerType.BasicTower)
             {
                 playSound(SoundManager.SoundType.BasicTowerFired);
             }
-            else if (towerType == TowerManager.TowerType.BombTower)
+            else if (towerType == TowerPool.TowerType.BombTower)
             {
                 playSound(SoundManager.SoundType.BombTowerFired);
             }
-            else if (towerType == TowerManager.TowerType.SlowTower)
+            else if (towerType == TowerPool.TowerType.SlowTower)
             {
                 playSound(SoundManager.SoundType.SlowTowerFired);
             }
-            else if (towerType == TowerManager.TowerType.ArrowTower1 || towerType == TowerManager.TowerType.ArrowTower2 || towerType == TowerManager.TowerType.ArrowTower3)
+            else if (towerType == TowerPool.TowerType.ArrowTower1 || towerType == TowerPool.TowerType.ArrowTower2 || towerType == TowerPool.TowerType.ArrowTower3)
             {
                 playSound(SoundManager.SoundType.ArrowTowerFired);
             }
-            else if (towerType == TowerManager.TowerType.FireTower1 || towerType == TowerManager.TowerType.FireTower2 || towerType == TowerManager.TowerType.FireTower3)
+            else if (towerType == TowerPool.TowerType.FireTower1 || towerType == TowerPool.TowerType.FireTower2 || towerType == TowerPool.TowerType.FireTower3)
             {
                 playSound(SoundManager.SoundType.FireTowerFired);
             }
-            else if (towerType == TowerManager.TowerType.IceTower1 || towerType == TowerManager.TowerType.IceTower2 || towerType == TowerManager.TowerType.IceTower3)
+            else if (towerType == TowerPool.TowerType.IceTower1 || towerType == TowerPool.TowerType.IceTower2 || towerType == TowerPool.TowerType.IceTower3)
             {
                 playSound(SoundManager.SoundType.IceTowerFired);
             }
         }
 
-        private void playTowerHit(TowerManager.TowerType towerType)
+        private void playTowerHit(TowerPool.TowerType towerType)
         {
-           if (towerType == TowerManager.TowerType.BasicTower)
+           if (towerType == TowerPool.TowerType.BasicTower)
             {
                 playSound(SoundManager.SoundType.BasicTowerHit);
             }
-            else if (towerType == TowerManager.TowerType.BombTower)
+            else if (towerType == TowerPool.TowerType.BombTower)
             {
                 playSound(SoundManager.SoundType.BombTowerHit);
             }
-            else if (towerType == TowerManager.TowerType.ArrowTower1 || towerType == TowerManager.TowerType.ArrowTower2 || towerType == TowerManager.TowerType.ArrowTower3)
+            else if (towerType == TowerPool.TowerType.ArrowTower1 || towerType == TowerPool.TowerType.ArrowTower2 || towerType == TowerPool.TowerType.ArrowTower3)
             {
                 playSound(SoundManager.SoundType.ArrowTowerHit);
             }
-            else if (towerType == TowerManager.TowerType.FireTower1 || towerType == TowerManager.TowerType.FireTower2 || towerType == TowerManager.TowerType.FireTower3)
+            else if (towerType == TowerPool.TowerType.FireTower1 || towerType == TowerPool.TowerType.FireTower2 || towerType == TowerPool.TowerType.FireTower3)
             {
                 playSound(SoundManager.SoundType.FireTowerHit);
             }
-            else if (towerType == TowerManager.TowerType.IceTower1 || towerType == TowerManager.TowerType.IceTower2 || towerType == TowerManager.TowerType.IceTower3)
+            else if (towerType == TowerPool.TowerType.IceTower1 || towerType == TowerPool.TowerType.IceTower2 || towerType == TowerPool.TowerType.IceTower3)
             {
                 playSound(SoundManager.SoundType.IceTowerHit);
             }
         }
 
-        private void playTowerDied(TowerManager.TowerType towerType)
+        private void playTowerDied(TowerPool.TowerType towerType)
         {
             playSound(SoundManager.SoundType.BasicTowerDied);
         }

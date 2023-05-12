@@ -79,20 +79,20 @@ public class TurretTower : BaseTower
     #region Private Functions
     private bool isLaserAttack()
     {
-        return turretTowerObjectSO.projectile.ProjectileType == ProjectileManager.ProjectileType.Laser;
+        return turretTowerObjectSO.projectile.ProjectileType == ProjectilePool_FX.ProjectileType.Laser;
     }
 
     private void attack()
     {
         if (isLaserAttack())
         {
-            projectile = ProjectileManager.Instance.SpawnProjectile(turretTowerObjectSO, attackPoint, target);
+            projectile = ProjectilePool_FX.Instance.SpawnProjectile(turretTowerObjectSO, attackPoint, target);
         }
         else
         {
             if (attackCountdownTracker <= 0f)
             {
-                ProjectileManager.Instance.SpawnProjectile(turretTowerObjectSO, attackPoint, target);
+                ProjectilePool_FX.Instance.SpawnProjectile(turretTowerObjectSO, attackPoint, target);
                 attackCountdownTracker = turretTowerObjectSO.AttackCountdown;
             }
 

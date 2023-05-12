@@ -33,7 +33,7 @@ public class LickquidatorPawnAttackLogic : BaseEnemy
 
     protected override void OnAttackSound()
     {
-        EventBus.EnemyEvents.EnemyAttacked(EnemyManager.EnemyType.PawnLickquidator);
+        EventBus.EnemyEvents.EnemyAttacked(EnemyPool.EnemyType.PawnLickquidator);
     }
     #endregion
 }

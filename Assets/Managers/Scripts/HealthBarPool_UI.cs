@@ -3,10 +3,10 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using Gotchi.Events;
 
-public class HealthBarManager : MonoBehaviour
+public class HealthBarPool_UI : MonoBehaviour
 {
     #region Public Variables
-    public static HealthBarManager Instance = null;
+    public static HealthBarPool_UI Instance = null;
     #endregion
 
     #region Fields
@@ -14,7 +14,7 @@ public class HealthBarManager : MonoBehaviour
     [SerializeField] private GameObject healthbarPrefab = null;
 
     [Header("Attributes")]
-    [SerializeField] private int healthbarPoolSize = 50;
+    [SerializeField] private int healthbarPoolSize = 15;
     #endregion
 
     #region Private Variables
@@ -54,12 +54,28 @@ public class HealthBarManager : MonoBehaviour
 
             return healthbar;
         }
-        
-        return null;
+
+        // Create a new healthbar if none are available
+        HealthBar_UI newHealthbar = createHealthbar(healthbarPrefab);
+        newHealthbar.transform.SetParent(healthbarOffset, true);
+        newHealthbar.transform.localPosition = Vector3.zero;
+        newHealthbar.gameObject.SetActive(true);
+        healthbarPool.Add(newHealthbar);
+
+        return newHealthbar;
     }
     #endregion
 
     #region Private Functions
+    private HealthBar_UI createHealthbar(GameObject healthbarPrefab)
+    {
+        healthbarPrefab.SetActive(false);
+        GameObject healthbarObj = Instantiate(healthbarPrefab, Vector3.zero, Quaternion.identity, transform);
+        HealthBar_UI healthbar = healthbarObj.GetComponent<HealthBar_UI>();
+        return healthbar;
+    }
+
+
     private void createHealthbarPool(GameObject healthbarPrefab, int maxPoolSize)
     {
         healthbarPrefab.SetActive(false);

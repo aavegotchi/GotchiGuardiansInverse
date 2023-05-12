@@ -43,7 +43,7 @@ public class AreaOfEffectTower : BaseTower
         var obj = collider.transform.gameObject;
         if (obj.tag != enemyTag) return;
 
-        Enemy enemy = EnemyManager.Instance.GetEnemyByObject(obj);
+        Enemy enemy = EnemyPool.Instance.GetEnemyByObject(obj);
 
         if (aoeTowerObjectSO != null)
         {
@@ -64,7 +64,7 @@ public class AreaOfEffectTower : BaseTower
                 return;
             }
 
-            EventBus.TowerEvents.TowerAttacked(TowerManager.TowerType.SlowTower);
+            EventBus.TowerEvents.TowerAttacked(TowerPool.TowerType.SlowTower);
         }
     }
 
@@ -76,7 +76,7 @@ public class AreaOfEffectTower : BaseTower
         var obj = collider.transform.gameObject;
         if (obj.tag != enemyTag) return;
 
-        Enemy enemy = EnemyManager.Instance.GetEnemyByObject(obj);
+        Enemy enemy = EnemyPool.Instance.GetEnemyByObject(obj);
 
         if (aoeTowerObjectSO != null)
         {

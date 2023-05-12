@@ -17,7 +17,7 @@ public class DamagePopUp_UI : MonoBehaviour
     #endregion
 
     #region Private Variables
-    private DamagePopUpManager damagePopUpManager;
+    private DamagePool_UI damagePopUpManager;
     private Transform followTransform;
     private Transform textTransform;
     #endregion
@@ -39,7 +39,7 @@ public class DamagePopUp_UI : MonoBehaviour
     #endregion
 
     #region Public Functions
-    public void SetDamagePopUpManager(DamagePopUpManager manager)
+    public void SetDamagePopUpManager(DamagePool_UI manager)
     {
         damagePopUpManager = manager;
     }

@@ -1,10 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class DamagePopUpManager : MonoBehaviour
+public class DamagePool_UI : MonoBehaviour
 {
     #region Public Variables
-    public static DamagePopUpManager Instance = null;
+    public static DamagePool_UI Instance = null;
     #endregion
 
     #region Fields
@@ -42,22 +42,43 @@ public class DamagePopUpManager : MonoBehaviour
     #region Public Functions
     public void ShowDamagePopUpAndColorDifferentlyIfEnemy(Transform healthbarTransform, float damage, bool isEnemy)
     {
-        foreach (DamagePopUp_UI popUp in damagePopUpPool)
+        DamagePopUp_UI availablePopUp = GetAvailableDamagePopUp();
+
+        if (availablePopUp == null)
         {
-            bool isPopUpNotAvailable = popUp.gameObject.activeInHierarchy;
-            if (isPopUpNotAvailable) continue;
-
-            popUp.SetFollowTransform(healthbarTransform);
-            if(popUp.transform.position != this.transform.position) popUp.transform.position = healthbarTransform.position + damagePopUpOffset;
-            popUp.gameObject.SetActive(true);
-
-            popUp.ShowAndHide(damage, isEnemy);
-            return;
+            availablePopUp = CreateNewDamagePopUp(damagePopUpPrefab);
+            damagePopUpPool.Add(availablePopUp);
         }
+
+        availablePopUp.SetFollowTransform(healthbarTransform);
+        if (availablePopUp.transform.position != this.transform.position) availablePopUp.transform.position = healthbarTransform.position + damagePopUpOffset;
+        availablePopUp.gameObject.SetActive(true);
+
+        availablePopUp.ShowAndHide(damage, isEnemy);
     }
     #endregion
 
     #region Private Functions
+    private DamagePopUp_UI CreateNewDamagePopUp(GameObject damagePopUpPrefab)
+    {
+        GameObject popUpObj = Instantiate(damagePopUpPrefab, Vector3.zero, Quaternion.identity, transform);
+        DamagePopUp_UI popUp = popUpObj.GetComponent<DamagePopUp_UI>();
+        popUp.SetDamagePopUpManager(this);
+        return popUp;
+    }
+
+    private DamagePopUp_UI GetAvailableDamagePopUp()
+    {
+        foreach (DamagePopUp_UI popUp in damagePopUpPool)
+        {
+            if (!popUp.gameObject.activeInHierarchy)
+            {
+                return popUp;
+            }
+        }
+        return null;
+    }
+
     private List<DamagePopUp_UI> CreateDamagePopUpPool(GameObject damagePopUpPrefab, int maxPoolSize)
     {
         damagePopUpPrefab.SetActive(false);

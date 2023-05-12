@@ -108,7 +108,7 @@ public class Projectile : MonoBehaviour
     #region Private Functions
     private bool isLaserAttack()
     {
-        return turretTowerObjectSO.projectile.ProjectileType == ProjectileManager.ProjectileType.Laser;
+        return turretTowerObjectSO.projectile.ProjectileType == ProjectilePool_FX.ProjectileType.Laser;
     }
 
     private void hitTarget()
@@ -125,12 +125,12 @@ public class Projectile : MonoBehaviour
             }
             else
             {
-                impact = ImpactManager.Instance.SpawnImpact(turretTowerObjectSO.projectile.ProjectileImpactType, target.position, rotation);
+                impact = ImpactPool_FX.Instance.SpawnImpact(turretTowerObjectSO.projectile.ProjectileImpactType, target.position, rotation);
             }
         }
         else
         {
-            ImpactManager.Instance.SpawnImpact(turretTowerObjectSO.projectile.ProjectileImpactType, transform.position, transform.rotation);
+            ImpactPool_FX.Instance.SpawnImpact(turretTowerObjectSO.projectile.ProjectileImpactType, transform.position, transform.rotation);
         }
 
         if (turretTowerObjectSO.projectile.ProjectileExplosiveRadius > 0f)
@@ -167,7 +167,7 @@ public class Projectile : MonoBehaviour
 
         if (enemyObj.tag == "Enemy") 
         {
-            Enemy enemy = EnemyManager.Instance.GetEnemyByObject(enemyObj);
+            Enemy enemy = EnemyPool.Instance.GetEnemyByObject(enemyObj);
             if (enemy == null) return;
             enemy.Damage(attackDamage);
         }
