@@ -119,8 +119,8 @@ MonoBehaviour:
   isKeyboardMovementEnabled: 1
   keyboardMovementSpeed: 25
   isEdgeScrollMovementEnabled: 1
-  edgeScrollBuffer: 20
-  edgeScrollMovementSpeed: 2
+  edgeScrollBuffer: 50
+  edgeScrollMovementSpeed: 20
   boundsBuffer: 2.5
 --- !u!1 &6748771466008556044
 GameObject:
