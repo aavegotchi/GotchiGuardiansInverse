@@ -95,4 +95,8 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 8926b2dc0e7be7c448ec099d15bd18e7, type: 3}
   - soundType: 23
     audioClip: {fileID: 8300000, guid: 5eabf54098a044a4ebc1bb1a204a7a49, type: 3}
+  - soundType: 25
+    audioClip: {fileID: 8300000, guid: d1153acce8918494bab6b37f6a6254f9, type: 3}
+  - soundType: 26
+    audioClip: {fileID: 8300000, guid: e429fbaee1b01e6448d3cdd3a7b2c433, type: 3}
   audioPoolSize: 20

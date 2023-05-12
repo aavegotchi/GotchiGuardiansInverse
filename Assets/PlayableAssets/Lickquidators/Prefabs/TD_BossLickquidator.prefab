@@ -10,10 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 752356915272699699}
   - component: {fileID: 6260969665172101865}
-  - component: {fileID: 54298468115301730}
-  - component: {fileID: 3459662070546464107}
   - component: {fileID: 5563519181929526525}
   - component: {fileID: 5188278783812393725}
+  - component: {fileID: 3459662070546464107}
+  - component: {fileID: -4076550717055167930}
+  - component: {fileID: 8437713351177238821}
+  - component: {fileID: 8399079175286323114}
   m_Layer: 6
   m_Name: TD_BossLickquidator
   m_TagString: Enemy
@@ -36,6 +38,7 @@ Transform:
   - {fileID: 8079684814608287779}
   - {fileID: 1394280254954931164}
   - {fileID: 4733366673996628668}
+  - {fileID: 3650104856501347662}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -58,38 +61,6 @@ MonoBehaviour:
     type: 3}
   healthbarOffset: {fileID: 4733366673996628668}
   deathEffect: 5
---- !u!114 &54298468115301730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88726243156104585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3846a61efc82634ca4cad843f559848, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lickquidatorObjectSO: {fileID: 11400000, guid: 90974a00ac41e324aabef1265175efb0,
-    type: 2}
-  anim: {fileID: 0}
-  attackParticleEffectGO: {fileID: 0}
-  attackTrigger: Attack
-  towerTag: Tower
-  salivaEffect: {fileID: 8534630177084799919}
---- !u!65 &3459662070546464107
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88726243156104585}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 11.773264, z: 5}
-  m_Center: {x: 0, y: 5.386632, z: 0}
 --- !u!195 &5563519181929526525
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -128,6 +99,88 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &3459662070546464107
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88726243156104585}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 11.773264, z: 5}
+  m_Center: {x: 0, y: 5.386632, z: 0}
+--- !u!114 &-4076550717055167930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88726243156104585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  InterpolationSpace: 0
+  InterpolationTarget: {fileID: 3650104856501347662}
+  InterpolateErrorCorrection: 1
+  InterpolatedErrorCorrectionSettings:
+    MinRate: 3.3
+    MaxRate: 10
+    PosBlendStart: 0.25
+    PosBlendEnd: 1
+    PosMinCorrection: 0.025
+    PosTeleportDistance: 2
+    RotBlendStart: 0.1
+    RotBlendEnd: 0.5
+    RotTeleportRadians: 1.5
+  UseLegacySharedModeInterpolation: 0
+  TargetInterpolationDelay: 0.03
+--- !u!114 &8437713351177238821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88726243156104585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 133377
+  NetworkGuid:
+    RawGuidValue: 2e3982ed5cd15d54788cdee36f5901bf
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: -4076550717055167930}
+  SimulationBehaviours: []
+--- !u!114 &8399079175286323114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88726243156104585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3846a61efc82634ca4cad843f559848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1007207478838612247}
+  attackParticleEffectGO: {fileID: 0}
+  attackTrigger: Attack
+  towerTag: Tower
+  salivaEffect: {fileID: 8534630177084799919}
 --- !u!1 &166227737478132800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,6 +1451,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3547706169849956743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3650104856501347662}
+  m_Layer: 0
+  m_Name: InterpolationTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3650104856501347662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547706169849956743}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 752356915272699699}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4213139168941571769
 GameObject:
   m_ObjectHideFlags: 0
@@ -3361,6 +3445,12 @@ PrefabInstance:
 --- !u!4 &1007207478838612240 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1765192703348594526, guid: 3049d585509f576479643e0580380b81,
+    type: 3}
+  m_PrefabInstance: {fileID: 1550760772701685326}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1007207478838612247 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1765192703348594521, guid: 3049d585509f576479643e0580380b81,
     type: 3}
   m_PrefabInstance: {fileID: 1550760772701685326}
   m_PrefabAsset: {fileID: 0}
