@@ -76,10 +76,10 @@ public class NetworkGotchiInput : NetworkBehaviour
 
     void OnEnable()
     {
-        movement.started += handleMovementAction;
-        movement.canceled += handleMovementAction;
-        movement.performed += handleMovementAction;
-        movement.Enable();
+        // movement.started += handleMovementAction;
+        // movement.canceled += handleMovementAction;
+        // movement.performed += handleMovementAction;
+        // movement.Enable();
 
         rightClick.performed += handleRightClickAction;
         rightClick.Enable();
@@ -90,10 +90,10 @@ public class NetworkGotchiInput : NetworkBehaviour
 
     void OnDisable()
     {
-        movement.started -= handleMovementAction;
-        movement.canceled -= handleMovementAction;
-        movement.performed -= handleMovementAction;
-        movement.Disable();
+        // movement.started -= handleMovementAction;
+        // movement.canceled -= handleMovementAction;
+        // movement.performed -= handleMovementAction;
+        // movement.Disable();
 
         rightClick.performed -= handleRightClickAction;
         rightClick.Disable();
