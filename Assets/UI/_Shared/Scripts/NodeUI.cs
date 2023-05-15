@@ -99,5 +99,19 @@ public class NodeUI : MonoBehaviour
         upgradeInventory.Open(transformHolder, enemy);
         Open();
     }  
+
+    // TODO: temp for refactor
+    public void OpenNodeUpgradeUI(Transform transformHolder, Gotchi.New.Enemy enemy)
+    {
+        Vector3 nodeUIPosition = transformHolder.position;
+        nodeUIPosition.y = 25f;
+        nodeUIPosition.z -= 8f;
+
+        transform.position = nodeUIPosition;
+
+        Close();
+        upgradeInventory.Open(transformHolder, enemy);
+        Open();
+    }  
     #endregion
 }
