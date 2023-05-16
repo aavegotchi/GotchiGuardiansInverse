@@ -1,8 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using Gotchi.Lickquidators;
 
 public class EnemyQueue_UI : MonoBehaviour
 {
@@ -30,10 +29,6 @@ public class EnemyQueue_UI : MonoBehaviour
     [SerializeField] private Sprite aerialLickquidatorSprite = null;
     [SerializeField] private Sprite bossLickquidatorSprite = null;
     [SerializeField] private Sprite noneSprite = null;
-    #endregion
-
-    #region Private Variables
-    private int numSlotsOccupied = 0;
     #endregion
 
     #region Public Functions
@@ -102,17 +97,17 @@ public class EnemyQueue_UI : MonoBehaviour
         button8Btn.enabled = false;
     }
 
-    private void setButton(Image buttonImage, Button buttonBtn, EnemyPool.EnemyType type)
+    private void setButton(Image buttonImage, Button buttonBtn, LickquidatorManager.LickquidatorType type)
     {
-        if (type == EnemyPool.EnemyType.PawnLickquidator)
+        if (type == LickquidatorManager.LickquidatorType.PawnLickquidator)
         {
             buttonImage.sprite = pawnLickquidatorSprite;
         }
-        else if (type == EnemyPool.EnemyType.AerialLickquidator)
+        else if (type == LickquidatorManager.LickquidatorType.AerialLickquidator)
         {
             buttonImage.sprite = aerialLickquidatorSprite;
         }
-        else if (type == EnemyPool.EnemyType.BossLickquidator)
+        else if (type == LickquidatorManager.LickquidatorType.BossLickquidator)
         {
             buttonImage.sprite = bossLickquidatorSprite;
         }

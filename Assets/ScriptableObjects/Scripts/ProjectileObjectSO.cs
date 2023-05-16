@@ -6,7 +6,7 @@ public class ProjectileObjectSO : ScriptableObject
     [Header("Attack")]
     public float ProjectileSpeed = 20f;
     public float ProjectileExplosiveRadius = 2f;
-    public float ProjectileDamage = 2.5f;
+    public int ProjectileDamage = 3;
 
     [Header ("Type")]
     public ProjectilePool_FX.ProjectileType ProjectileType = ProjectilePool_FX.ProjectileType.Fireball;
