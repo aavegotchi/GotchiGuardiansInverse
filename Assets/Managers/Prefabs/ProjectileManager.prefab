@@ -56,9 +56,9 @@ MonoBehaviour:
     type: 3}
   laserPrefab: {fileID: 2027012378011062820, guid: 7987c6f6582a8e949a7a7879936da908,
     type: 3}
-  cannonballPoolSize: 40
-  missilePoolSize: 10
-  arrowPoolSize: 10
-  fireballPoolSize: 10
-  iceballPoolSize: 10
-  laserPoolSize: 10
+  cannonballPoolSize: 8
+  missilePoolSize: 8
+  arrowPoolSize: 8
+  fireballPoolSize: 8
+  iceballPoolSize: 8
+  laserPoolSize: 8
