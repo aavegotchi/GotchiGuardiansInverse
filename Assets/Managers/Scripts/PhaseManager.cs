@@ -26,28 +26,7 @@ public class PhaseManager : NetworkBehaviour
 
     #region Fields
     [Header("Required Refs")]
-    [SerializeField] private Animator transitionScreenAnimator = null;
     [SerializeField] private TextMeshProUGUI transitionCountdownTextUI = null;
-    [SerializeField] private CountdownTimer_UI countdownTimer = null;
-    [SerializeField] private GameObject rewardsScreenUI = null;
-
-    [SerializeField] private TextMeshProUGUI pawnLickquidatorRewardTextUI = null;
-    [SerializeField] private TextMeshProUGUI aerialLickquidatorRewardTextUI = null;
-    [SerializeField] private TextMeshProUGUI bossLickquidatorRewardTextUI = null;
-    [SerializeField] private TextMeshProUGUI basicTowerRewardTextUI = null;
-    [SerializeField] private TextMeshProUGUI arrowTowerRewardTextUI = null;
-    [SerializeField] private TextMeshProUGUI fireTowerRewardTextUI = null;
-    [SerializeField] private TextMeshProUGUI iceTowerRewardTextUI = null;
-
-    [SerializeField] private TextMeshProUGUI pawnLickquidatorCostTextUI = null;
-    [SerializeField] private TextMeshProUGUI aerialLickquidatorCostTextUI = null;
-    [SerializeField] private TextMeshProUGUI bossLickquidatorCostTextUI = null;
-    [SerializeField] private TextMeshProUGUI basicTowerCostTextUI = null;
-    [SerializeField] private TextMeshProUGUI arrowTowerCostTextUI = null;
-    [SerializeField] private TextMeshProUGUI fireTowerCostTextUI = null;
-    [SerializeField] private TextMeshProUGUI iceTowerCostTextUI = null;
-    [SerializeField] private TextMeshProUGUI enemiesSpawnBonusTextUI = null;
-    [SerializeField] private TextMeshProUGUI netTextUI = null;
 
     [Header("Attributes")]
     [SerializeField] private GeneralSO generalSO = null;
@@ -60,6 +39,18 @@ public class PhaseManager : NetworkBehaviour
     #region Private Variables
     [Networked(OnChanged = nameof(OnSetCountdown))] 
     public float CountdownTracker { get; set; } = 0f;
+    #endregion
+
+    #region Events
+    public delegate void OnUpdateIsRewardsUIOpenDel(bool isOpen);
+    public event OnUpdateIsRewardsUIOpenDel OnUpdateIsRewardsUIOpen;
+    public delegate void OnUpdateShowCountdownDel(bool isOpen);
+    public event OnUpdateShowCountdownDel OnUpdateShowCountdown;
+
+    public delegate void OnUpdateCountdownValueDel(float countdownTime);
+    public event OnUpdateCountdownValueDel OnUpdateCountdownValue;
+
+    
     #endregion
 
     #region Unity Functions
@@ -92,14 +83,6 @@ public class PhaseManager : NetworkBehaviour
     }
     #endregion
 
-    // #region RPC Functions
-    // [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    // private void rpc_setCountdownTracker(float time)
-    // {
-    //     countdownTimer.SetTimeLeft(time);
-    // }
-    // #endregion
-
     #region Public Functions
     public void StartFirstPrepPhase()
     {
@@ -131,74 +114,21 @@ public class PhaseManager : NetworkBehaviour
 
     private IEnumerator showTransition(Phase nextPhase)
     {
-        transitionScreenAnimator.SetTrigger("Open");
-
         if (nextPhase == Phase.Prep)
         {
-            rewardsScreenUI.SetActive(true);
-
-            int pawnLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyPool.EnemyType.PawnLickquidator);
-            int aerialLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyPool.EnemyType.AerialLickquidator);
-            int bossLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyPool.EnemyType.BossLickquidator);
-
-            // TODO: account for upgraded towers
-            int basicTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.BasicTower);
-            int arrowTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.ArrowTower1);
-            int fireTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.FireTower1);
-            int iceTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.IceTower1);
-
-            int pawnLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(EnemyPool.EnemyType.PawnLickquidator);
-            int aerialLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(EnemyPool.EnemyType.AerialLickquidator);
-            int bossLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(EnemyPool.EnemyType.BossLickquidator);
-
-            // TODO: account for upgraded towers
-            int basicTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerPool.TowerType.BasicTower);
-            int arrowTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerPool.TowerType.ArrowTower1);
-            int fireTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerPool.TowerType.FireTower1);
-            int iceTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerPool.TowerType.IceTower1);
-
-            int enemiesSpawnReward = StatsManager.Instance.GetEnemiesSpawnBonus();
-
-            pawnLickquidatorRewardTextUI.text = $"${pawnLickquidatorKillCosts}";
-            aerialLickquidatorRewardTextUI.text = $"${aerialLickquidatorKillCosts}";
-            bossLickquidatorRewardTextUI.text = $"${bossLickquidatorKillCosts}";
-
-            basicTowerRewardTextUI.text = $"${basicTowerKillCosts}";
-            arrowTowerRewardTextUI.text = $"${arrowTowerKillCosts}";
-            fireTowerRewardTextUI.text = $"${fireTowerKillCosts}";
-            iceTowerRewardTextUI.text = $"${iceTowerKillCosts}";
-
-            pawnLickquidatorCostTextUI.text = $"${pawnLickquidatorCreateCosts}";
-            aerialLickquidatorCostTextUI.text = $"${aerialLickquidatorCreateCosts}";
-            bossLickquidatorCostTextUI.text = $"${bossLickquidatorCreateCosts}";
-
-            basicTowerCostTextUI.text = $"${basicTowerCreateCosts}";
-            arrowTowerCostTextUI.text = $"${arrowTowerCreateCosts}";
-            fireTowerCostTextUI.text = $"${fireTowerCreateCosts}";
-            iceTowerCostTextUI.text = $"${iceTowerCreateCosts}";
-
-            enemiesSpawnBonusTextUI.text = $"${enemiesSpawnReward}";
-
-            int net = pawnLickquidatorKillCosts + aerialLickquidatorKillCosts + bossLickquidatorKillCosts
-                + basicTowerKillCosts + arrowTowerKillCosts + fireTowerKillCosts + iceTowerKillCosts
-                - pawnLickquidatorCreateCosts - aerialLickquidatorCreateCosts - bossLickquidatorCreateCosts
-                - basicTowerCreateCosts - arrowTowerCreateCosts - fireTowerCreateCosts - iceTowerCreateCosts
-                + enemiesSpawnReward;
-
-            netTextUI.text = $"{net}";
+            OnUpdateIsRewardsUIOpen?.Invoke(true);
 
             yield return new WaitForSeconds(numSecondsOnRewardsScreen);
 
-            StatsManager.Instance.ClearCreateAndKillStats();
+            OnUpdateIsRewardsUIOpen?.Invoke(false);
+
         }
         else
         {
-            rewardsScreenUI.SetActive(false);
+            OnUpdateIsRewardsUIOpen?.Invoke(false);
 
             yield return new WaitForSeconds(numSecondsOnNonRewardsScreen);
         }
-
-        transitionScreenAnimator.SetTrigger("Close");
 
         updatePhase(nextPhase.ToString());
     }
@@ -225,13 +155,13 @@ public class PhaseManager : NetworkBehaviour
         if (CurrentPhase == Phase.Prep)
         {
             CountdownTracker = generalSO.PrepPhaseCountdown;
-            countdownTimer.Show();
+            OnUpdateShowCountdown?.Invoke(true);
 
             EventBus.PhaseEvents.PrepPhaseStarted();
         }
         else if (CurrentPhase == Phase.Survival)
         {
-            countdownTimer.Hide();
+            OnUpdateShowCountdown?.Invoke(false);
 
             EventBus.PhaseEvents.SurvivalPhaseStarted();
         }
@@ -252,7 +182,7 @@ public class PhaseManager : NetworkBehaviour
 
     private void onSetCountdown()
     {
-        countdownTimer.SetTimeLeft(CountdownTracker);
+        OnUpdateCountdownValue?.Invoke(CountdownTracker);
 
         if (CountdownTracker <= 0f)
         {

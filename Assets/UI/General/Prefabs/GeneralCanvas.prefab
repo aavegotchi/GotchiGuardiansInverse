@@ -2659,6 +2659,7 @@ GameObject:
   - component: {fileID: 5321878073563977091}
   - component: {fileID: 1236799865758186439}
   - component: {fileID: 3929179483705299294}
+  - component: {fileID: 6159256130293980613}
   m_Layer: 5
   m_Name: TransitionScreen
   m_TagString: Untagged
@@ -2721,6 +2722,36 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &6159256130293980613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106148963985333141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb5309f7d71dbd51a6397d1705b144e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionCountdownTextUI: {fileID: 544988506191289314}
+  rewardsScreenUI: {fileID: 7038574437151253812}
+  pawnLickquidatorRewardTextUI: {fileID: 2688421970550902044}
+  aerialLickquidatorRewardTextUI: {fileID: 7026381198927510072}
+  bossLickquidatorRewardTextUI: {fileID: 2994328275690149138}
+  basicTowerRewardTextUI: {fileID: 7566477160544631934}
+  arrowTowerRewardTextUI: {fileID: 307845963354806901}
+  fireTowerRewardTextUI: {fileID: 7561063250372855605}
+  iceTowerRewardTextUI: {fileID: 1993395575044101887}
+  pawnLickquidatorCostTextUI: {fileID: 6872936215617912665}
+  aerialLickquidatorCostTextUI: {fileID: 7394822862627845288}
+  bossLickquidatorCostTextUI: {fileID: 1517740296842828477}
+  basicTowerCostTextUI: {fileID: 2151282321685964529}
+  arrowTowerCostTextUI: {fileID: 2990126701369096676}
+  fireTowerCostTextUI: {fileID: 5524524416807832565}
+  iceTowerCostTextUI: {fileID: 7357423711524522807}
+  enemiesSpawnBonusTextUI: {fileID: 1416344658380213912}
+  netTextUI: {fileID: 6496359645344049216}
 --- !u!1 &3145299509065122782
 GameObject:
   m_ObjectHideFlags: 0

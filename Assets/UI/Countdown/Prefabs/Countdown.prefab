@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 6400914632255559014}
   - component: {fileID: 90221403077133393}
   - component: {fileID: 7812104035468579812}
-  - component: {fileID: 8650882344773217186}
+  - component: {fileID: 638238563200671765}
   m_Layer: 5
   m_Name: Countdown
   m_TagString: Untagged
@@ -286,7 +286,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &8650882344773217186
+--- !u!114 &638238563200671765
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -295,68 +295,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 3625360682472357709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97c47af5807c271479551a2d35471271, type: 3}
+  m_Script: {fileID: 11500000, guid: cc0e877261d216657ae3bdb20d8751fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 7812104035468579812}
   countdownLabel: {fileID: 9220962951087131637}
   hourglassRT: {fileID: 3678213736378664849}
+  loopDuration: 2
   hourglassAnimCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
       value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.1
-      value: 1
-      inSlope: Infinity
-      outSlope: -0.019590383
-      tangentMode: 7
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.7130206
-    - serializedVersion: 3
-      time: 0.4
-      value: 0.5
-      inSlope: -0.006497058
-      outSlope: Infinity
-      tangentMode: 97
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.6
-      value: 0.5
-      inSlope: Infinity
-      outSlope: -0.0104227215
-      tangentMode: 7
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.37802663
-    - serializedVersion: 3
-      time: 0.9
-      value: 0
-      inSlope: -0.039292738
-      outSlope: Infinity
-      tangentMode: 97
-      weightedMode: 0
-      inWeight: 0.35382077
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -0.06905933
-      outSlope: -0.06905933
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.23585068
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
