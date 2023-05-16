@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gotchi.Events;
+using Gotchi.Lickquidators;
 
 public class ProjectilePool_FX : MonoBehaviour
 {
@@ -88,7 +88,7 @@ public class ProjectilePool_FX : MonoBehaviour
 
             if (projectileType == ProjectileType.Laser)
             {
-                EventBus.EnemyEvents.EnemyAttacked(EnemyPool.EnemyType.AerialLickquidator);
+                EventBus.EnemyEvents.EnemyAttacked(LickquidatorManager.LickquidatorType.AerialLickquidator);
             }
             else
             {

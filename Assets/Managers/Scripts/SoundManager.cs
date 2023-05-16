@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 using Gotchi.Events;
+using Gotchi.Lickquidators;
 
 namespace Gotchi.Audio
 {
@@ -270,23 +271,23 @@ namespace Gotchi.Audio
             playSound(SoundManager.SoundType.BuildingFired);
         }
 
-        private void playEnemyAttacked(EnemyPool.EnemyType enemyType)
+        private void playEnemyAttacked(LickquidatorManager.LickquidatorType enemyType)
         {
-            if (enemyType == EnemyPool.EnemyType.PawnLickquidator)
+            if (enemyType == LickquidatorManager.LickquidatorType.PawnLickquidator)
             {
                 playSound(SoundManager.SoundType.PawnFired);
             }
-            else if (enemyType == EnemyPool.EnemyType.AerialLickquidator)
+            else if (enemyType == LickquidatorManager.LickquidatorType.AerialLickquidator)
             {
                 playSound(SoundManager.SoundType.AerialFired);
             }
-            else if (enemyType == EnemyPool.EnemyType.BossLickquidator)
+            else if (enemyType == LickquidatorManager.LickquidatorType.BossLickquidator)
             {
                 playSound(SoundManager.SoundType.TongueFired);
             }
         }
 
-        private void playEnemyDied(EnemyPool.EnemyType enemyType)
+        private void playEnemyDied(LickquidatorManager.LickquidatorType enemyType)
         {
             playSound(SoundManager.SoundType.BasicTowerDied);
         }
