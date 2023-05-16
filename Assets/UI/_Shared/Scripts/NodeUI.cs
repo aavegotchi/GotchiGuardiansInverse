@@ -101,7 +101,7 @@ public class NodeUI : MonoBehaviour
     }  
 
     // TODO: temp for refactor
-    public void OpenNodeUpgradeUI(Transform transformHolder, Gotchi.New.Enemy enemy)
+    public void OpenNodeUpgradeUI(Transform transformHolder, Gotchi.New.LickquidatorModel enemy)
     {
         Vector3 nodeUIPosition = transformHolder.position;
         nodeUIPosition.y = 25f;

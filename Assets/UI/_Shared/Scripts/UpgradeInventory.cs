@@ -47,7 +47,7 @@ public class UpgradeInventory : MonoBehaviour
     private Image sellButtonImage = null;
     private BaseTower towerHolder = null;
     private Enemy enemyHolder = null;
-    private Gotchi.New.Enemy enemyHolderNew = null; // TODO: temp for refactor
+    private Gotchi.New.LickquidatorModel enemyHolderNew = null; // TODO: temp for refactor
     #endregion
 
     #region Public Functions
@@ -286,13 +286,13 @@ public class UpgradeInventory : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void Open(Transform lickquidatorTransform, Gotchi.New.Enemy enemy)
+    public void Open(Transform lickquidatorTransform, Gotchi.New.LickquidatorModel enemy)
     {
         reset();
 
         enemyHolderNew = enemy;
         transformHolder = lickquidatorTransform;
-        sellRewardText.text = $"{calculateSellReward(enemyHolderNew.ObjectSO.Cost)}";
+        sellRewardText.text = $"{calculateSellReward(enemyHolderNew.Config.Cost)}";
 
         if (upgradeButtonImage == null || sellButtonImage == null)
         {
@@ -302,26 +302,26 @@ public class UpgradeInventory : MonoBehaviour
 
         int upgradeCost = calculateNewLickquidatorCost();
         upgradeCostText.text = $"{upgradeCost}";
-        upgradeText.text = $"Upgrade to {convertToRomanNumeral(enemyHolderNew.ObjectSO.Level + 1)}";
+        upgradeText.text = $"Upgrade to {convertToRomanNumeral(enemyHolderNew.Config.Level + 1)}";
         disableUpgradeButtonIfNoMoney(upgradeCost);
         
-        if (enemyHolderNew.ObjectSO.Type == EnemyPool.EnemyType.PawnLickquidator)
+        if (enemyHolderNew.Config.Type == EnemyPool.EnemyType.PawnLickquidator)
         {
             upgradeButtonImage.sprite = pawnLickquidatorSprite;
             sellButtonImage.sprite = pawnLickquidatorSprite;
         }
-        else if (enemyHolderNew.ObjectSO.Type == EnemyPool.EnemyType.AerialLickquidator)
+        else if (enemyHolderNew.Config.Type == EnemyPool.EnemyType.AerialLickquidator)
         {
             upgradeButtonImage.sprite = aerialLickquidatorSprite;
             sellButtonImage.sprite = aerialLickquidatorSprite;
         }
-        else if (enemyHolderNew.ObjectSO.Type == EnemyPool.EnemyType.BossLickquidator)
+        else if (enemyHolderNew.Config.Type == EnemyPool.EnemyType.BossLickquidator)
         {
             upgradeButtonImage.sprite = bossLickquidatorSprite;
             sellButtonImage.sprite = bossLickquidatorSprite;
         }
 
-        if (enemyHolderNew.ObjectSO.Level == 10) // max level
+        if (enemyHolderNew.Config.Level == 10) // max level
         {
             upgradeCanvasGroup.alpha = 0f;
             upgradeButton.enabled = false;
