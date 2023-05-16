@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Gotchi.Events;
+using Gotchi.New;
 
 public class SlowTower : MonoBehaviour
 {
@@ -37,8 +38,8 @@ public class SlowTower : MonoBehaviour
         var obj = collider.transform.gameObject;
         if (obj.tag != "Enemy") return;
          
-        Enemy enemy = EnemyPool.Instance.GetEnemyByObject(obj);
-        enemy.AdjustEnemySpeed(enemy.ObjectSO.MovementSpeed / slowStrength);
+        LickquidatorPresenter enemy = LickquidatorManager.Instance.GetByObject(obj);
+        enemy.Model.UpdateMovementSpeed(enemy.Model.MovementSpeed / slowStrength);
         numEnemyColliders++;
 
         bool isFirstEnemy = numEnemyColliders == 1;

@@ -7,7 +7,7 @@ public class TurretTowerObjectSO : BaseTowerObjectSO
     [Header("Attack")]
     public float AttackRange = 2f;
     public float AttackCountdown = 2.5f;
-    public float AttackDamageMultiplier = 1f;
+    public int AttackDamageMultiplier = 1;
 
     [Header("Movement")]
     public float AttackRotationSpeed = 2f;

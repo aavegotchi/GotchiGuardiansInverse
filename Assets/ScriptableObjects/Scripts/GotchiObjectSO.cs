@@ -6,13 +6,13 @@ public class GotchiObjectSO : ScriptableObject
     public string Name;
 
     [Header("Abilities")]
-    public float SpinAbilityDamage = 40f;
+    public int SpinAbilityDamage = 40;
     public float SpinAbilityRange = 5f;
     public float SpinAbilityKnockbackForce = 50f;
 
     [Header("Attack")]
     public float AttackCountdown = 2.5f;
-    public float AttackDamage = 20f;
+    public int AttackDamage = 20;
     public float AttackRange = 2f;
 
     [Header("Health")]

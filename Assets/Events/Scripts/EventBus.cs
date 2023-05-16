@@ -7,7 +7,7 @@ namespace Gotchi.Events
         public delegate void EmptyFn();
         public delegate void TransitionPhaseFn(PhaseManager.Phase nextPhase);
         public delegate void TowerFn(TowerPool.TowerType towerType);
-        public delegate void EnemyFn(EnemyPool.EnemyType enemyType);
+        public delegate void EnemyFn(LickquidatorManager.LickquidatorType enemyType);
         public delegate void GotchiFn(GotchiManager.AttackType attackType);
         public delegate void TowerBuildFn(TowerBlueprint towerBlueprint);
         public delegate void EnemyBuildFn(EnemyBlueprint enemyBlueprint);

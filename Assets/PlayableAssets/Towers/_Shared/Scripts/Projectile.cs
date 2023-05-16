@@ -1,7 +1,6 @@
 using UnityEngine;
-using System;
-using System.Collections.Generic;
 using Gotchi.Events;
+using Gotchi.New;
 
 public class Projectile : MonoBehaviour
 {
@@ -163,11 +162,11 @@ public class Projectile : MonoBehaviour
 
     private void damage(GameObject enemyObj)
     {
-        float attackDamage = turretTowerObjectSO.projectile.ProjectileDamage * turretTowerObjectSO.AttackDamageMultiplier;
+        int attackDamage = turretTowerObjectSO.projectile.ProjectileDamage * turretTowerObjectSO.AttackDamageMultiplier;
 
         if (enemyObj.tag == "Enemy") 
         {
-            Enemy enemy = EnemyPool.Instance.GetEnemyByObject(enemyObj);
+            LickquidatorPresenter enemy = LickquidatorManager.Instance.GetByObject(enemyObj);
             if (enemy == null) return;
             enemy.Damage(attackDamage);
         }
@@ -183,7 +182,6 @@ public class Projectile : MonoBehaviour
             {
                 playerGotchi.Damage(attackDamage);
             }
-            // TODO: this can probably be refactored + we have to assume projectiles can also be fired by enemies/monsters e.g. Aerial Lickquidator
         }
     }
     #endregion

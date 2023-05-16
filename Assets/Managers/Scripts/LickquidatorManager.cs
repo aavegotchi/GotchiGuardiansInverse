@@ -18,8 +18,6 @@ namespace Gotchi.New
             BossLickquidator
         }
 
-        // TODO: refactor Player_Gotchi to not use GetEnemiesByObjects()
-        // TODO: refactor PhaseManager to not use .ActiveEnemies
         public List<LickquidatorPresenter> ActiveLickquidators
         {
             get 
@@ -91,13 +89,11 @@ namespace Gotchi.New
             EventBus.PhaseEvents.PrepPhaseStarted -= freezeLickquidators;
             EventBus.PhaseEvents.SurvivalPhaseStarted -= unfreezeLickquidators;
             EventBus.EnemyEvents.EnemyFinished -= spawnLickquidator;
-            // TODO: replace EventBus.EnemyEvents.EnemyFinished with EventBus.EnemyEvents.LickquidatorBuildFinished
         }
         #endregion
 
         #region Public Functions
-        // TODO: refactor AreaOfEffectTower, Projectile, SlowTower to not use GetEnemyByObject()
-        private LickquidatorPresenter GetByObject(GameObject lickquidatorObj)
+        public LickquidatorPresenter GetByObject(GameObject lickquidatorObj)
         {
             lickquidatorLookup.TryGetValue(lickquidatorObj, out LickquidatorPresenter lickquidator);
             return lickquidator;
@@ -112,7 +108,6 @@ namespace Gotchi.New
             return lickquidatorObj;
         }
 
-        // TODO: refactor EnemyBlueprint's usage
         private void spawnLickquidator(EnemyBlueprint enemyBlueprint)
         {
             Transform nodeTransform = enemyBlueprint.node.transform;
@@ -122,7 +117,6 @@ namespace Gotchi.New
             StatsManager.Instance.Money -= enemyBlueprint.cost;
             StatsManager.Instance.TrackCreateEnemy(enemyBlueprint);
 
-            // TODO
             List<GameObject> pool = getPool((LickquidatorType)enemyBlueprint.type);
 
             foreach (GameObject lickquidatorObj in pool)

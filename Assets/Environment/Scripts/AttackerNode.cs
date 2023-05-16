@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using Gotchi.Events;
 using Fusion;
+using Gotchi.New;
 
 public class AttackerNode : BaseNode
 {
@@ -63,7 +64,7 @@ public class AttackerNode : BaseNode
     private void rpc_addSpawnedEnemy(string enemyTypeStr, int cost, float buildTime)
     {
         EnemyBlueprint enemyBlueprint = new EnemyBlueprint();
-        enemyBlueprint.type = (EnemyPool.EnemyType)Enum.Parse(typeof(EnemyPool.EnemyType), enemyTypeStr);
+        enemyBlueprint.type = (LickquidatorManager.LickquidatorType)Enum.Parse(typeof(LickquidatorManager.LickquidatorType), enemyTypeStr);
         enemyBlueprint.cost = cost;
         enemyBlueprint.buildTime = buildTime;
 

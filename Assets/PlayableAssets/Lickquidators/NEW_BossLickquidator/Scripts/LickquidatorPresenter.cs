@@ -7,12 +7,14 @@ namespace Gotchi.New
 {
     public class LickquidatorPresenter : MonoBehaviour
     {
+        public LickquidatorModel Model { get { return model; } }
+
         [Header("Model")]
         [SerializeField] private LickquidatorModel model = null;
 
         [Header("View")]
         [SerializeField] private ImpactPool_FX.ImpactType deathEffect = ImpactPool_FX.ImpactType.BasicTower;
-        [SerializeField] private Animator anim = null;
+        [SerializeField] private Animator attackAnimation = null;
         [SerializeField] private GameObject attackParticleEffect = null;
 
         [Header("Gameplay")]
@@ -79,6 +81,11 @@ namespace Gotchi.New
         #endregion
 
         #region Public Functions
+        public void Damage(int damage)
+        {
+            model.UpdateHealth(model.Health - damage);
+        }
+
         public void AssignHealthBar(HealthBar_UI healthBar)
         {
             this.healthBar = healthBar;
@@ -232,7 +239,7 @@ namespace Gotchi.New
 
             attackCountdownTracker = model.Config.AttackCountdown;
 
-            if(anim != null) anim.SetTrigger(model.AttackAnimTriggerHash);
+            if(attackAnimation != null) attackAnimation.SetTrigger(model.AttackAnimTriggerHash);
             if(attackParticleEffect != null) attackParticleEffect.SetActive(true);
             EventBus.EnemyEvents.EnemyAttacked(model.Config.Type);
             inRangeTarget.Damage(model.Config.AttackDamage);

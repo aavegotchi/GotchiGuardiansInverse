@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Gotchi.Events;
+using Gotchi.New;
 
 public class LickquidatorBossAttackLogic : BaseEnemy
 {
@@ -32,7 +33,7 @@ public class LickquidatorBossAttackLogic : BaseEnemy
 
     protected override void OnAttackSound()
     {
-        EventBus.EnemyEvents.EnemyAttacked(EnemyPool.EnemyType.BossLickquidator);
+        EventBus.EnemyEvents.EnemyAttacked(LickquidatorManager.LickquidatorType.BossLickquidator);
     }
     #endregion
 }

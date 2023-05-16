@@ -1,5 +1,6 @@
 using UnityEngine;
 using Gotchi.Events;
+using Gotchi.New;
 
 public class AreaOfEffectTower : BaseTower
 {
@@ -43,11 +44,11 @@ public class AreaOfEffectTower : BaseTower
         var obj = collider.transform.gameObject;
         if (obj.tag != enemyTag) return;
 
-        Enemy enemy = EnemyPool.Instance.GetEnemyByObject(obj);
+        LickquidatorPresenter lickquidator = LickquidatorManager.Instance.GetByObject(obj);
 
         if (aoeTowerObjectSO != null)
         {
-            enemy.AdjustEnemySpeed(enemy.ObjectSO.MovementSpeed / aoeTowerObjectSO.SlowStrength);
+            lickquidator.Model.UpdateMovementSpeed(lickquidator.Model.MovementSpeed / aoeTowerObjectSO.SlowStrength);
         }
 
         numEnemyColliders++;
@@ -76,11 +77,11 @@ public class AreaOfEffectTower : BaseTower
         var obj = collider.transform.gameObject;
         if (obj.tag != enemyTag) return;
 
-        Enemy enemy = EnemyPool.Instance.GetEnemyByObject(obj);
+        LickquidatorPresenter lickquidator = LickquidatorManager.Instance.GetByObject(obj);
 
         if (aoeTowerObjectSO != null)
         {
-            enemy.AdjustEnemySpeed(enemy.ObjectSO.MovementSpeed * aoeTowerObjectSO.SlowStrength);
+            lickquidator.Model.UpdateMovementSpeed(lickquidator.Model.MovementSpeed * aoeTowerObjectSO.SlowStrength);
         }
 
         numEnemyColliders--;

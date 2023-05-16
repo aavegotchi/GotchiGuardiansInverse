@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Assertions;
-using Gotchi.Events;
+using Gotchi.New;
 
 public class EnemyInventory : MonoBehaviour
 {
@@ -52,9 +52,9 @@ public class EnemyInventory : MonoBehaviour
 
     void Start()
     {
-        pawnLickquidator.type = EnemyPool.EnemyType.PawnLickquidator;
-        aerialLickquidator.type = EnemyPool.EnemyType.AerialLickquidator;
-        bossLickquidator.type = EnemyPool.EnemyType.BossLickquidator;
+        pawnLickquidator.type = LickquidatorManager.LickquidatorType.PawnLickquidator;
+        aerialLickquidator.type = LickquidatorManager.LickquidatorType.AerialLickquidator;
+        bossLickquidator.type = LickquidatorManager.LickquidatorType.BossLickquidator;
 
         pawnLickquidator.buildTime = pawnLickquidatorSO.buildTime;
         aerialLickquidator.buildTime = aerialLickquidatorSO.buildTime;
@@ -68,7 +68,7 @@ public class EnemyInventory : MonoBehaviour
     {
         EnemyBlueprint enemyBlueprint = new EnemyBlueprint
         {
-            type = EnemyPool.EnemyType.PawnLickquidator,
+            type = LickquidatorManager.LickquidatorType.PawnLickquidator,
             buildTime = pawnLickquidatorSO.buildTime,
             cost = pawnLickquidatorSO.Cost
         };
@@ -79,7 +79,7 @@ public class EnemyInventory : MonoBehaviour
     {
         EnemyBlueprint enemyBlueprint = new EnemyBlueprint
         {
-            type = EnemyPool.EnemyType.AerialLickquidator,
+            type = LickquidatorManager.LickquidatorType.AerialLickquidator,
             buildTime = aerialLickquidatorSO.buildTime,
             cost = aerialLickquidatorSO.Cost
         };
@@ -90,7 +90,7 @@ public class EnemyInventory : MonoBehaviour
     {
         EnemyBlueprint enemyBlueprint = new EnemyBlueprint
         {
-            type = EnemyPool.EnemyType.BossLickquidator,
+            type = LickquidatorManager.LickquidatorType.BossLickquidator,
             buildTime = bossLickquidatorSO.buildTime,
             cost = bossLickquidatorSO.Cost
         };

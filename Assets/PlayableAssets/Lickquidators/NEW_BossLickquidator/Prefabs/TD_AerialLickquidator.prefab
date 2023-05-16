@@ -2294,7 +2294,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9058693139119642526}
-  - component: {fileID: 2388446534187975236}
   - component: {fileID: 922941150835799122}
   - component: {fileID: 4247896047644765264}
   - component: {fileID: 8656449059945063059}
@@ -2302,7 +2301,8 @@ GameObject:
   - component: {fileID: 5171585481469437382}
   - component: {fileID: -1235232612037808684}
   - component: {fileID: 1273411064104580526}
-  - component: {fileID: 1694334658791513721}
+  - component: {fileID: 5850241732421747145}
+  - component: {fileID: 856960917487756346}
   m_Layer: 6
   m_Name: TD_AerialLickquidator
   m_TagString: Enemy
@@ -2329,25 +2329,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2388446534187975236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8574046402635549988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ddde112ea267f47854735a0da27f8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lickquidatorObjectSOOriginal: {fileID: 11400000, guid: 8eeca3ce5c676454fb231d8af4893727,
-    type: 2}
-  generalSO: {fileID: 11400000, guid: 185dd8ec98cbab1408d76c8295922571, type: 2}
-  healthbar: {fileID: 9208720214513312327, guid: 076327f8421e28a4ab3ad5e7068e5119,
-    type: 3}
-  healthbarOffset: {fileID: 6177874959328656165}
-  deathEffect: 5
 --- !u!114 &922941150835799122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2491,7 +2472,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: -1235232612037808684}
   SimulationBehaviours: []
---- !u!114 &1694334658791513721
+--- !u!114 &5850241732421747145
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2500,13 +2481,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 8574046402635549988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9babdb0c3d8a2045aa11c39bb7b590f, type: 3}
+  m_Script: {fileID: 11500000, guid: b3a0d12df23fb91469d28843cf38c2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  origConfig: {fileID: 11400000, guid: 8eeca3ce5c676454fb231d8af4893727, type: 2}
+  generalConfig: {fileID: 11400000, guid: 185dd8ec98cbab1408d76c8295922571, type: 2}
+  targetTag: Tower
+  attackAnimTrigger: Attack
+  rangeIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
+  healthBarOffset: {fileID: 6177874959328656165}
+  isPassive: 1
+--- !u!114 &856960917487756346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8574046402635549988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20b85495e1b92b246b53b95bc7aef95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 5850241732421747145}
+  deathEffect: 5
   anim: {fileID: 0}
-  attackParticleEffectGO: {fileID: 0}
-  attackTrigger: Attack
-  towerTag: Tower
+  attackParticleEffect: {fileID: 0}
+  frameReadyInterval: 10
 --- !u!1 &9014571768921774415
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Gotchi.New;
 
 public class UpgradeInventory : MonoBehaviour
 {
@@ -260,17 +261,17 @@ public class UpgradeInventory : MonoBehaviour
         upgradeText.text = $"Upgrade to {convertToRomanNumeral(enemyHolder.ObjectSO.Level + 1)}";
         disableUpgradeButtonIfNoMoney(upgradeCost);
         
-        if (enemyHolder.ObjectSO.Type == EnemyPool.EnemyType.PawnLickquidator)
+        if (enemyHolder.ObjectSO.Type == LickquidatorManager.LickquidatorType.PawnLickquidator)
         {
             upgradeButtonImage.sprite = pawnLickquidatorSprite;
             sellButtonImage.sprite = pawnLickquidatorSprite;
         }
-        else if (enemyHolder.ObjectSO.Type == EnemyPool.EnemyType.AerialLickquidator)
+        else if (enemyHolder.ObjectSO.Type == LickquidatorManager.LickquidatorType.AerialLickquidator)
         {
             upgradeButtonImage.sprite = aerialLickquidatorSprite;
             sellButtonImage.sprite = aerialLickquidatorSprite;
         }
-        else if (enemyHolder.ObjectSO.Type == EnemyPool.EnemyType.BossLickquidator)
+        else if (enemyHolder.ObjectSO.Type == LickquidatorManager.LickquidatorType.BossLickquidator)
         {
             upgradeButtonImage.sprite = bossLickquidatorSprite;
             sellButtonImage.sprite = bossLickquidatorSprite;
@@ -305,17 +306,17 @@ public class UpgradeInventory : MonoBehaviour
         upgradeText.text = $"Upgrade to {convertToRomanNumeral(enemyHolderNew.Config.Level + 1)}";
         disableUpgradeButtonIfNoMoney(upgradeCost);
         
-        if (enemyHolderNew.Config.Type == EnemyPool.EnemyType.PawnLickquidator)
+        if (enemyHolderNew.Config.Type == LickquidatorManager.LickquidatorType.PawnLickquidator)
         {
             upgradeButtonImage.sprite = pawnLickquidatorSprite;
             sellButtonImage.sprite = pawnLickquidatorSprite;
         }
-        else if (enemyHolderNew.Config.Type == EnemyPool.EnemyType.AerialLickquidator)
+        else if (enemyHolderNew.Config.Type == LickquidatorManager.LickquidatorType.AerialLickquidator)
         {
             upgradeButtonImage.sprite = aerialLickquidatorSprite;
             sellButtonImage.sprite = aerialLickquidatorSprite;
         }
-        else if (enemyHolderNew.Config.Type == EnemyPool.EnemyType.BossLickquidator)
+        else if (enemyHolderNew.Config.Type == LickquidatorManager.LickquidatorType.BossLickquidator)
         {
             upgradeButtonImage.sprite = bossLickquidatorSprite;
             sellButtonImage.sprite = bossLickquidatorSprite;
@@ -406,7 +407,7 @@ public class UpgradeInventory : MonoBehaviour
         float levelBasedUpgradeValue = enemyHolder.ObjectSO.Level * generalSO.GenericUpgradeMultipleByLevel;
         float levelBasedUpgradeValueInverse = enemyHolder.ObjectSO.Level / generalSO.GenericUpgradeMultipleByLevel;
         enemyHolder.ObjectSO.buildTime += levelBasedUpgradeValueInverse;
-        enemyHolder.ObjectSO.AttackDamage += levelBasedUpgradeValue;
+        enemyHolder.ObjectSO.AttackDamage += (int)levelBasedUpgradeValue;
         enemyHolder.ObjectSO.AttackCountdown = Mathf.Max(1f, enemyHolder.ObjectSO.AttackCountdown - enemyHolder.ObjectSO.AttackCountdown * enemyHolder.ObjectSO.Level * 0.1f);
         enemyHolder.ObjectSO.Health += Mathf.RoundToInt(levelBasedUpgradeValue);
         enemyHolder.ObjectSO.MovementSpeed += levelBasedUpgradeValue;

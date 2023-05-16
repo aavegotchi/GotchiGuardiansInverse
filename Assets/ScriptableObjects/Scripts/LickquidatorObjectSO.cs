@@ -1,15 +1,15 @@
 using UnityEngine;
-using System;
+using Gotchi.New;
 
 [CreateAssetMenu(fileName = "GameSettings", menuName = "ScriptableObjects/Games/GotchiTowerDefense/GameSettings/Lickquidator")]
 public class LickquidatorObjectSO : ScriptableObject
 {
     public string Name;
-    public EnemyPool.EnemyType Type;
+    public LickquidatorManager.LickquidatorType Type;
     public int Level = 1;
 
     [Header("Attack")]
-    public float AttackDamage = 20f;
+    public int AttackDamage = 20;
     public float AttackRange = 2f;
     public float AttackCountdown = 2.5f;
 

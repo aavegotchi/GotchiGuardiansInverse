@@ -1924,13 +1924,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4778946459548760283}
-  - component: {fileID: 2216259620588268801}
   - component: {fileID: 366838744082006805}
   - component: {fileID: -5422960735627624557}
   - component: {fileID: 8656449059519761027}
   - component: {fileID: 7441098956512017919}
   - component: {fileID: 6218813092167360824}
-  - component: {fileID: 5821865345618940540}
+  - component: {fileID: 6230549427817787185}
+  - component: {fileID: 5127329876687719683}
   m_Layer: 6
   m_Name: TD_PawnLickquidator
   m_TagString: Enemy
@@ -1957,25 +1957,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2216259620588268801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5267499421225181793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ddde112ea267f47854735a0da27f8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lickquidatorObjectSOOriginal: {fileID: 11400000, guid: dd8423788cd7a5a4eb94971b4ddeb3d7,
-    type: 2}
-  generalSO: {fileID: 11400000, guid: 185dd8ec98cbab1408d76c8295922571, type: 2}
-  healthbar: {fileID: 9208720214513312327, guid: 076327f8421e28a4ab3ad5e7068e5119,
-    type: 3}
-  healthbarOffset: {fileID: 4633385786108276291}
-  deathEffect: 5
 --- !u!195 &366838744082006805
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2079,7 +2060,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 7441098956512017919}
   SimulationBehaviours: []
---- !u!114 &5821865345618940540
+--- !u!114 &6230549427817787185
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2088,14 +2069,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 5267499421225181793}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48a71884b05492548ae381c58103cbd2, type: 3}
+  m_Script: {fileID: 11500000, guid: b3a0d12df23fb91469d28843cf38c2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 4227699084084786852}
-  attackParticleEffectGO: {fileID: 0}
-  attackTrigger: Attack
-  towerTag: Tower
-  salivaEffect: {fileID: 5110517186924075716}
+  origConfig: {fileID: 11400000, guid: dd8423788cd7a5a4eb94971b4ddeb3d7, type: 2}
+  generalConfig: {fileID: 11400000, guid: 185dd8ec98cbab1408d76c8295922571, type: 2}
+  targetTag: Tower
+  attackAnimTrigger: Swipe
+  rangeIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
+  healthBarOffset: {fileID: 4633385786108276291}
+  isPassive: 0
+--- !u!114 &5127329876687719683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5267499421225181793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20b85495e1b92b246b53b95bc7aef95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 6230549427817787185}
+  deathEffect: 5
+  attackAnimation: {fileID: 4227699084084786852}
+  attackParticleEffect: {fileID: 5110517186924075716}
+  frameReadyInterval: 10
 --- !u!1 &5362764489606529960
 GameObject:
   m_ObjectHideFlags: 0

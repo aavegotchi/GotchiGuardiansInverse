@@ -1,9 +1,9 @@
-using UnityEngine;
+using Gotchi.New;
 
 [System.Serializable]
 public class EnemyBlueprint
 {
-    public EnemyPool.EnemyType type;
+    public LickquidatorManager.LickquidatorType type;
     public int cost;
     public float buildTime;
     public BaseNode node;
