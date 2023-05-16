@@ -4,11 +4,16 @@ namespace TransitionUI.Model {
         public delegate void ShowRewardsUIUpdatedDel(bool isOpen);
         public event ShowRewardsUIUpdatedDel ShowRewardsUIUpdated;
 
+        public delegate void UpdateTransitionTextDel(string transitionText);
+        public event UpdateTransitionTextDel UpdateTransitionText;
+
         private bool IsRewardsUIOpen = false;
+        private string TransitionText;
 
         public TransitionUIModel()
         {
             PhaseManager.Instance.OnUpdateIsRewardsUIOpen += SetIsRewardsUIOpen;
+            PhaseManager.Instance.OnUpdateTransitionUIText += SetTransitionText;
         }
 
         private void SetIsRewardsUIOpen(bool isRewardsUIOpen)
@@ -20,6 +25,17 @@ namespace TransitionUI.Model {
         public bool GetIsRewardsUIOpen()
         {
             return IsRewardsUIOpen;
+        }
+
+        private void SetTransitionText(string transitionText)
+        {
+            TransitionText = transitionText;
+            UpdateTransitionText?.Invoke(transitionText);
+        }
+
+        public string GetTransitionText()
+        {
+            return TransitionText;
         }
     }
 }

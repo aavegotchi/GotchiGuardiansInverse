@@ -45,6 +45,7 @@ namespace TransitionUI.Presenter {
         {
             TransitionUIModel = new TransitionUIModel();
             TransitionUIModel.ShowRewardsUIUpdated += HandleShowRewardsUIUpdate;
+            TransitionUIModel.UpdateTransitionText += HandleUpdateTransitionCountdownText;
             _transitionScreenAnimator = GetComponent<Animator>();
         }
 
@@ -64,9 +65,13 @@ namespace TransitionUI.Presenter {
             }
         }
 
+        private void HandleUpdateTransitionCountdownText(string text)
+        {
+            transitionCountdownTextUI.text = text;
+        }
+
         private void ShowRewardsUI() 
         {
-            print("Show Rewards UI");
             _transitionScreenAnimator.SetTrigger("Open");
 
             rewardsScreenUI.SetActive(true);
@@ -124,7 +129,6 @@ namespace TransitionUI.Presenter {
 
         private void HideRewardsUI()
         {
-            print("Hide Rewards UI");
             _transitionScreenAnimator.SetTrigger("Close");
 
             StatsManager.Instance.ClearCreateAndKillStats();

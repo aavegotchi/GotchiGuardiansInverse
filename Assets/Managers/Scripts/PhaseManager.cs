@@ -25,9 +25,6 @@ public class PhaseManager : NetworkBehaviour
     #endregion
 
     #region Fields
-    [Header("Required Refs")]
-    [SerializeField] private TextMeshProUGUI transitionCountdownTextUI = null;
-
     [Header("Attributes")]
     [SerializeField] private GeneralSO generalSO = null;
     [SerializeField] private string prepPhaseText = "Prep Phase Starting...";
@@ -46,9 +43,10 @@ public class PhaseManager : NetworkBehaviour
     public event OnUpdateIsRewardsUIOpenDel OnUpdateIsRewardsUIOpen;
     public delegate void OnUpdateShowCountdownDel(bool isOpen);
     public event OnUpdateShowCountdownDel OnUpdateShowCountdown;
-
     public delegate void OnUpdateCountdownValueDel(float countdownTime);
     public event OnUpdateCountdownValueDel OnUpdateCountdownValue;
+    public delegate void OnUpdateTransitionUITextDel(string text);
+    public event OnUpdateTransitionUITextDel OnUpdateTransitionUIText;
 
     
     #endregion
@@ -101,12 +99,13 @@ public class PhaseManager : NetworkBehaviour
 
         if (nextPhase == Phase.Prep)
         {
-            transitionCountdownTextUI.text = prepPhaseText;
+            OnUpdateTransitionUIText?.Invoke(prepPhaseText);
             StatsManager.Instance.Money += StatsManager.Instance.GetEnemiesSpawnBonus();
         }
         else if (nextPhase == Phase.Survival)
         {
-            transitionCountdownTextUI.text = survivalPhaseText;
+            OnUpdateTransitionUIText?.Invoke(survivalPhaseText);
+
         }
 
         StartCoroutine(showTransition(nextPhase));
@@ -125,8 +124,6 @@ public class PhaseManager : NetworkBehaviour
         }
         else
         {
-            OnUpdateIsRewardsUIOpen?.Invoke(false);
-
             yield return new WaitForSeconds(numSecondsOnNonRewardsScreen);
         }
 
