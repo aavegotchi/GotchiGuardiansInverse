@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Gotchi.Events;
+using Gotchi.Lickquidators;
 
 public class NodeUI : MonoBehaviour
 {
@@ -87,7 +85,7 @@ public class NodeUI : MonoBehaviour
         Open();
     }  
 
-    public void OpenNodeUpgradeUI(Transform transformHolder, Enemy enemy)
+    public void OpenNodeUpgradeUI(Transform transformHolder, LickquidatorModel enemy)
     {
         Vector3 nodeUIPosition = transformHolder.position;
         nodeUIPosition.y = 25f;

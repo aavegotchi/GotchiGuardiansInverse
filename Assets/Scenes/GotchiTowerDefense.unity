@@ -639,6 +639,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 462755330639786132, guid: 5e07df5628a177d4ab67ea3174725eda,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 462755330639786132, guid: 5e07df5628a177d4ab67ea3174725eda,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -827,36 +832,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
-    - target: {fileID: 3323485617309916409, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: arrowPoolSize
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3323485617309916409, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: laserPoolSize
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3323485617309916409, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: iceballPoolSize
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3323485617309916409, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: missilePoolSize
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3323485617309916409, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: fireballPoolSize
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3323485617309916409, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: cannonballPoolSize
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 3747013970140880415, guid: 5e07df5628a177d4ab67ea3174725eda,
         type: 3}
       propertyPath: canMovePopUpPrefab
@@ -922,51 +897,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170394862535617122, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: arrowImpactPoolSize
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170394862535617122, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: laserImpactPoolSize
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170394862535617122, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: iceballImpactPoolSize
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170394862535617122, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: missileImpactPoolSize
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170394862535617122, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: fireballImpactPoolSize
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170394862535617122, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: cannonballImpactPoolSize
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170394862535617122, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: bombTowerExplosionPoolSize
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170394862535617122, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: slowTowerExplosionPoolSize
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7170394862535617122, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: basicTowerExplosionPoolSize
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7170394862535617148, guid: 5e07df5628a177d4ab67ea3174725eda,
         type: 3}
@@ -1696,28 +1626,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 318473331893251839, guid: 5e07df5628a177d4ab67ea3174725eda, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5e07df5628a177d4ab67ea3174725eda, type: 3}
---- !u!1 &462755330232994020 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7788822814754856660, guid: 5e07df5628a177d4ab67ea3174725eda,
-    type: 3}
-  m_PrefabInstance: {fileID: 462755330232994019}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &462755330232994021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 462755330232994020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4ca56b674b0de4d95e5103e1b0060c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damagePopUpPrefab: {fileID: 3324692310049602278, guid: b345713eb3b160145b4b000d0adb25a1,
-    type: 3}
-  damagePopUpOffset: {x: 0, y: 2, z: 2}
-  damagePopUpPoolSize: 10
 --- !u!1001 &1049339343211861204
 PrefabInstance:
   m_ObjectHideFlags: 0
