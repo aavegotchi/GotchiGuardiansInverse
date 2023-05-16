@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using Gotchi.New;
+using Gotchi.Lickquidators;
 
 public class StatsManager : MonoBehaviour
 {

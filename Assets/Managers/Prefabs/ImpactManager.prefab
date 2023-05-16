@@ -60,14 +60,14 @@ MonoBehaviour:
     type: 3}
   slowTowerExplosionPrefab: {fileID: 456723035866326931, guid: caadbf992648c8641bcfc97acc1c437c,
     type: 3}
-  laserImpactPrefab: {fileID: 5880440780311507398, guid: 094212b9c2679ce45bc1879a6f2667c1,
+  laserImpactPrefab: {fileID: 5880440780311507398, guid: da1ec8f5fb595f34cb623900681db5b7,
     type: 3}
-  cannonballImpactPoolSize: 30
-  missileImpactPoolSize: 20
-  arrowImpactPoolSize: 20
-  fireballImpactPoolSize: 20
-  iceballImpactPoolSize: 20
-  basicTowerExplosionPoolSize: 10
-  bombTowerExplosionPoolSize: 10
-  slowTowerExplosionPoolSize: 10
-  laserImpactPoolSize: 10
+  cannonballImpactPoolSize: 6
+  missileImpactPoolSize: 6
+  arrowImpactPoolSize: 6
+  fireballImpactPoolSize: 6
+  iceballImpactPoolSize: 6
+  basicTowerExplosionPoolSize: 2
+  bombTowerExplosionPoolSize: 2
+  slowTowerExplosionPoolSize: 2
+  laserImpactPoolSize: 6

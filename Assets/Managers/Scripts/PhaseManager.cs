@@ -5,7 +5,7 @@ using TMPro;
 using Gotchi.Events;
 using Gotchi.Network;
 using Fusion;
-using Gotchi.New;
+using Gotchi.Lickquidators;
 
 public class PhaseManager : NetworkBehaviour
 {

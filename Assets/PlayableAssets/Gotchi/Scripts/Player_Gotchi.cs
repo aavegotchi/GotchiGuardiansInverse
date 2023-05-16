@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Gotchi.Events;
 using Fusion;
-using Gotchi.New;
+using Gotchi.Lickquidators;
 
 public class Player_Gotchi : NetworkBehaviour, IDamageable
 {
@@ -37,7 +36,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
     #region Private Variables
     private float attackCountdownTracker = 1f;
     private Transform target = null;
-    private Enemy targetEnemy = null;
+    private LickquidatorPresenter targetEnemy = null;
     private bool isDead = false;
     #endregion
 
@@ -176,7 +175,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
         if (isClosestTarget)
         {
             target = nearestTarget.transform;
-            targetEnemy = target.GetComponent<Enemy>();
+            targetEnemy = target.GetComponent<LickquidatorPresenter>();
             return;
         }
 

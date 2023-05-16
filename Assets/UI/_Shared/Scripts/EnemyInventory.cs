@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Assertions;
-using Gotchi.New;
+using Gotchi.Lickquidators;
 
 public class EnemyInventory : MonoBehaviour
 {

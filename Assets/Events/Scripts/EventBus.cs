@@ -1,4 +1,4 @@
-using Gotchi.New;
+using Gotchi.Lickquidators;
 
 namespace Gotchi.Events
 {

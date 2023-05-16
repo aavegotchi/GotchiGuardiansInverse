@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Gotchi.New;
+using Gotchi.Lickquidators;
 
 public class EnemyQueue_UI : MonoBehaviour
 {

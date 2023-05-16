@@ -1,6 +1,6 @@
 using UnityEngine;
 using Gotchi.Events;
-using Gotchi.New;
+using Gotchi.Lickquidators;
 
 public class AreaOfEffectTower : BaseTower
 {

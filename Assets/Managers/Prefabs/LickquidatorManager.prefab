@@ -44,11 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f8ef9f7a5684184f95457a8ae677169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawnLickquidatorPrefab: {fileID: 5267499421225181793, guid: 147caa3efdbe3ab4c91700104038746d,
+  pawnLickquidatorPrefab: {fileID: 5267499421225181793, guid: c8daa7ab3a6040a42923dd6fc37b0e85,
     type: 3}
-  aerialLickquidatorPrefab: {fileID: 8574046402635549988, guid: 7f36beeed6d6d2d41be6ef02d0a2f661,
+  aerialLickquidatorPrefab: {fileID: 8574046402635549988, guid: 732f5e8ea8557dd4db8f5f2aa870be56,
     type: 3}
-  bossLickquidatorPrefab: {fileID: 88726243156104585, guid: 8c5e72e557c869d41a0e9a5781d6905c,
+  bossLickquidatorPrefab: {fileID: 88726243156104585, guid: 2e3982ed5cd15d54788cdee36f5901bf,
     type: 3}
   pawnLickquidatorPoolSize: 5
   aerialLickquidatorPoolSize: 5

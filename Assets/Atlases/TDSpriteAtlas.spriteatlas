@@ -50,9 +50,6 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 399ea3fe29e05214dafe0b15cb763755, type: 3}
     - {fileID: 2800000, guid: eb0182561362f704aa3fbd61a1743fdf, type: 3}
     - {fileID: 2800000, guid: 93e45b43e469be84caefd64f65e136a3, type: 3}
-    - {fileID: 2800000, guid: fcad6569d27dbb94e964514de4d74fd1, type: 3}
-    - {fileID: 2800000, guid: ad6e81b3c9eb61841bafce7f2fa96439, type: 3}
-    - {fileID: 2800000, guid: 6ed97b62ea3263a4399c8980260578b3, type: 3}
     - {fileID: 2800000, guid: bbe9d9ab335f7d24c9a75df4d6931ee6, type: 3}
     - {fileID: 2800000, guid: 5287a51607268f846b5f97df96f6b256, type: 3}
     - {fileID: 2800000, guid: cf7500ac36bb1dd4d8c213c020471724, type: 3}
@@ -67,16 +64,13 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: 095afc2001c483744be2c092d4245913, type: 3}
   - {fileID: 21300000, guid: b6f0e990373c5c540a185e8b895efb7d, type: 3}
-  - {fileID: 21300000, guid: 6ed97b62ea3263a4399c8980260578b3, type: 3}
   - {fileID: 21300000, guid: 93e45b43e469be84caefd64f65e136a3, type: 3}
-  - {fileID: 21300000, guid: ad6e81b3c9eb61841bafce7f2fa96439, type: 3}
   - {fileID: 21300000, guid: 16ed41a407434ba4fb511d433973c11c, type: 3}
   - {fileID: 21300000, guid: 5287a51607268f846b5f97df96f6b256, type: 3}
   - {fileID: 21300000, guid: eb0182561362f704aa3fbd61a1743fdf, type: 3}
   - {fileID: 21300000, guid: e1651eb8548f69a47a29ab4ee7cdbf85, type: 3}
   - {fileID: 21300000, guid: 0f173fe8e4c23be42b973236103316ff, type: 3}
   - {fileID: 21300000, guid: b45b12495f0dff84285b231af84e020e, type: 3}
-  - {fileID: 21300000, guid: fcad6569d27dbb94e964514de4d74fd1, type: 3}
   - {fileID: 21300000, guid: bbe9d9ab335f7d24c9a75df4d6931ee6, type: 3}
   - {fileID: 21300000, guid: cf7500ac36bb1dd4d8c213c020471724, type: 3}
   - {fileID: 21300000, guid: 15420bfd70a4bda459f2006c6df40538, type: 3}
@@ -84,16 +78,13 @@ SpriteAtlas:
   m_PackedSpriteNamesToIndex:
   - TD_SlowTower
   - TD_BombTower
-  - TD_BossLickquidator
   - TD_IceTower_1
-  - TD_AerialLickquidator
   - TD_IceTower_3
   - TD_ArrowTower_3
   - TD_FireTower_1
   - TD_FireTower_3
   - TD_BasicTower
   - TD_SpiritGem
-  - TD_PawnLickquidator
   - TD_ArrowTower_2
   - TD_FireTower_2
   - TD_IceTower_2

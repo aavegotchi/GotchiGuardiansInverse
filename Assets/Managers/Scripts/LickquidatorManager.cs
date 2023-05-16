@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using Gotchi.Events;
 
-namespace Gotchi.New
+namespace Gotchi.Lickquidators
 {
     public class LickquidatorManager : MonoBehaviour
     {

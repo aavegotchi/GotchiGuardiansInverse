@@ -1,5 +1,5 @@
 using UnityEngine;
-using Gotchi.New;
+using Gotchi.Lickquidators;
 
 [CreateAssetMenu(fileName = "GameSettings", menuName = "ScriptableObjects/Games/GotchiTowerDefense/GameSettings/Lickquidator")]
 public class LickquidatorObjectSO : ScriptableObject
