@@ -23,6 +23,7 @@ namespace Gotchi.Player.Model
         public Transform HealthBarOffset { get { return healthBarOffset; } }
         #endregion
 
+        // NOTE: other properties e.g. Health is not yet networked
         #region Networked Properties
         [Networked(OnChanged = nameof(Network_HandleOnDestinationUpdated))]
         public Vector3 Destination { get; set; }
