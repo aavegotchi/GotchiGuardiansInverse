@@ -3,7 +3,7 @@ using Fusion;
 using Fusion.Sockets;
 using UnityEngine.SceneManagement;
 using System.Linq;
-using Gotchi.Player;
+using Gotchi.Player.Presenter;
 
 namespace Gotchi.Network
 {

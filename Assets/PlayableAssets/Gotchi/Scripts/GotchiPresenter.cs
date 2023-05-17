@@ -89,7 +89,7 @@ namespace Gotchi.Player.Presenter
 
             updateInRangeTarget();
 
-            if (!inRangeTargetTransform) return;
+            if (inRangeTargetTransform == null || inRangeTarget == null) return;
 
             rotateTowardInRangeTarget();
             StartCoroutine(attackInRangeTarget());
@@ -293,11 +293,14 @@ namespace Gotchi.Player.Presenter
                 }
             }
 
+            if (nearestTarget.GetInstanceID() == inRangeTargetTransform.gameObject.GetInstanceID()) return;
+            
             bool isClosestTarget = nearestTarget != null && shortestDistance <= model.Config.AttackRange;
             if (isClosestTarget)
             {
                 inRangeTargetTransform = nearestTarget.transform;
                 inRangeTarget = inRangeTargetTransform.GetComponent<LickquidatorPresenter>();
+                attackCountdownTracker = model.Config.AttackCountdown;
                 return;
             }
 

@@ -70,7 +70,7 @@ namespace Gotchi.Lickquidator.Presenter
             updateInRangeTarget();
             updateUltimateTarget();
 
-            if (model.IsPassive || !inRangeTargetTransform) return;
+            if (model.IsPassive || inRangeTargetTransform == null || inRangeTarget == null) return;
 
             rotateTowardInRangeTarget();
             StartCoroutine(attackInRangeTarget());
@@ -207,11 +207,14 @@ namespace Gotchi.Lickquidator.Presenter
                 }
             }
 
+            if (nearestTarget.GetInstanceID() == inRangeTargetTransform.gameObject.GetInstanceID()) return;
+
             bool isClosestTarget = nearestTarget != null && shortestDistance <= model.Config.AttackRange;
             if (isClosestTarget)
             {
                 inRangeTargetTransform = nearestTarget.transform;
                 inRangeTarget = inRangeTargetTransform.GetComponent<IDamageable>();
+                attackCountdownTracker = model.Config.AttackCountdown;
                 return;
             }
 

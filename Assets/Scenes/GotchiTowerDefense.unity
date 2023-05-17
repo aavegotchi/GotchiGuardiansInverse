@@ -267,48 +267,6 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 4340525003975045554}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &764892627 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1885259775240720430, guid: 5e07df5628a177d4ab67ea3174725eda,
-    type: 3}
-  m_PrefabInstance: {fileID: 462755330232994019}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &764892629 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3801501196359693983, guid: 5e07df5628a177d4ab67ea3174725eda,
-    type: 3}
-  m_PrefabInstance: {fileID: 462755330232994019}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764892627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cf18493e2b32894c9f95dd51d77636b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &764892630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764892627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectInterest: 1
-  DefaultInterestGroups: []
-  DestroyWhenStateAuthorityLeaves: 0
-  AllowStateAuthorityOverride: 1
-  AoiPositionSource: {fileID: 0}
-  Flags: 2561
-  NetworkGuid:
-    RawGuidValue: efb9117d106c42dd8d53a5ba134f3ff1
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 764892629}
-  SimulationBehaviours: []
 --- !u!114 &900580649 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2990126701369096676, guid: 0db00547c97d89641a099995fbf0b123,
@@ -526,6 +484,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 23558881270010516, guid: 5e07df5628a177d4ab67ea3174725eda,
+        type: 3}
+      propertyPath: Flags
+      value: 2561
+      objectReference: {fileID: 0}
+    - target: {fileID: 23558881270010516, guid: 5e07df5628a177d4ab67ea3174725eda,
+        type: 3}
+      propertyPath: NetworkGuid.RawGuidValue.Array.data[0]
+      value: -4086234852312159322
+      objectReference: {fileID: 0}
+    - target: {fileID: 23558881270010516, guid: 5e07df5628a177d4ab67ea3174725eda,
+        type: 3}
+      propertyPath: NetworkGuid.RawGuidValue.Array.data[1]
+      value: -8575535350998050168
+      objectReference: {fileID: 0}
     - target: {fileID: 457044624346859114, guid: 5e07df5628a177d4ab67ea3174725eda,
         type: 3}
       propertyPath: gameSettings
@@ -1633,6 +1606,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1049339342449649492, guid: 781c39547c41b944db7fc24c3235a5fb,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.00000002093782
+      objectReference: {fileID: 0}
+    - target: {fileID: 1049339342449649492, guid: 781c39547c41b944db7fc24c3235a5fb,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000015091127
+      objectReference: {fileID: 0}
     - target: {fileID: 1049339342503957891, guid: 781c39547c41b944db7fc24c3235a5fb,
         type: 3}
       propertyPath: m_Name
@@ -4723,6 +4706,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 894798471323771724, guid: 7025f0c24531dea49a63b29185245106,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.00000002093782
+      objectReference: {fileID: 0}
+    - target: {fileID: 894798471323771724, guid: 7025f0c24531dea49a63b29185245106,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000015091127
+      objectReference: {fileID: 0}
     - target: {fileID: 9086740994662656747, guid: 7025f0c24531dea49a63b29185245106,
         type: 3}
       propertyPath: m_IsActive

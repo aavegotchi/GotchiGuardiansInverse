@@ -4,11 +4,11 @@ using Fusion;
 using Fusion.Sockets;
 using System;
 using UnityEngine.SceneManagement;
-using Gotchi.Player;
+using Gotchi.Player.Presenter;
 
 namespace Gotchi.Network
 {
-    public class NetworkListener : MonoBehaviour //, INetworkRunnerCallbacks
+    public class NetworkListener : MonoBehaviour, INetworkRunnerCallbacks
     {
         public void OnConnectedToServer(NetworkRunner runner)
         {
@@ -45,12 +45,12 @@ namespace Gotchi.Network
             Debug.Log("OnPlayerLeft");
         }
 
-        // public void OnInput(NetworkRunner runner, NetworkInput input)
-        // {
-        //     if (!NetworkManager.Instance.IsReady) return;
+        public void OnInput(NetworkRunner runner, NetworkInput input)
+        {
+            // if (!NetworkManager.Instance.IsReady) return;
             
-        //     input.Set(NetworkManager.Instance.NetworkTickData);
-        // }
+            // input.Set(NetworkManager.Instance.NetworkTickData);
+        }
 
         public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
         {
