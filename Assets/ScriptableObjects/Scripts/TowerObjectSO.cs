@@ -7,7 +7,7 @@ public class TowerObjectSO : ScriptableObject
     public TowerPool.TowerType Type;
 
     [Header("Attack")]
-    public float AttackDamage = 20f;
+    public int AttackDamage = 20;
     public float AttackRange = 2f;
     public float AttackCountdown = 2.5f;
 

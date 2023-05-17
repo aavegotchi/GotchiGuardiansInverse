@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1805435417177374865}
-  - component: {fileID: 5654030952964573495}
+  - component: {fileID: 782801296496647688}
   m_Layer: 0
   m_Name: DamagePopUpManager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5654030952964573495
+--- !u!114 &782801296496647688
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,10 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2741324284478699804}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8c10b6e313bd6c4f9c59be867d0ff50, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a4ca56b674b0de4d95e5103e1b0060c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damagePopUpPrefab: {fileID: 3324692310049602278, guid: b345713eb3b160145b4b000d0adb25a1,
     type: 3}
   damagePopUpOffset: {x: 0, y: 2, z: 2}
-  damagePopUpPoolSize: 50
+  damagePopUpPoolSize: 10
