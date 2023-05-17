@@ -1,0 +1,25 @@
+{
+    "version": "0.0.1",
+    "startingGold": 100,
+    "startingIncome": 10,
+    "towerTemplates": [
+        {
+            "name": "BruteForce",
+            "tooltipText": "THis is a cool Tower",
+            "type": 1,
+            "tier": 0,
+            "buildCost": 0,
+            "buildTime": 0.0,
+            "range": 0.0
+        },
+        {
+            "name": "ROFL",
+            "tooltipText": "",
+            "type": 2,
+            "tier": 0,
+            "buildCost": 0,
+            "buildTime": 0.0,
+            "range": 0.0
+        }
+    ]
+}
