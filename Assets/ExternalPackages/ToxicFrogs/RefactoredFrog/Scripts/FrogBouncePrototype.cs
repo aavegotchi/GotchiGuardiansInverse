@@ -10,16 +10,28 @@ public class FrogBouncePrototype : MonoBehaviour
     [SerializeField] private float rotationSpeed = 50f;
     [SerializeField] private float pauseDuration = 1f;
     [SerializeField] private float standbyDuration = 2f;  // delay between targets
+    [SerializeField] private float maxHeight = 5f;  // max height in units
 
     [SerializeField] private Vector3 targetOffset; // target offset
 
     private Animator animator; // animator
+
+    // Serialized for Debugging
+    [SerializeField] private bool shouldLookAtNextTarget = false;
+    [SerializeField] private bool isPausing = false;
+    [SerializeField] private bool hasReachedTarget = false;
+    [SerializeField] private bool isLockedToTarget = false;
+
+
     private Vector3 targetPositionWithOffset; // holds the target position plus the offset
     private static readonly int JumpStartHash = Animator.StringToHash("jumpStart");
     private static readonly int JumpFinishHash = Animator.StringToHash("jumpFinish");
 
+
+
     [SerializeField] private Transform nextTarget = null;
-    [SerializeField] private List<GameObject> bouncedObjects = new List<GameObject>();
+    [SerializeField] private Transform futureTarget = null; // for storing the future target
+    private List<GameObject> bouncedObjects = new List<GameObject>();
 
     private bool isMoving = false;
 
@@ -28,23 +40,38 @@ public class FrogBouncePrototype : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+
     private void Update()
     {
-        if (nextTarget != null && isMoving)
+        if (nextTarget != null)
         {
-            MoveTowardsTarget();
+            if (isMoving)
+            {
+                MoveTowardsTarget();
+            }
+            else if (shouldLookAtNextTarget)
+            {
+                LookAtTarget(futureTarget);
+            }
+            else if (isLockedToTarget)
+            {
+                transform.position = nextTarget.position + targetOffset;
+                if (futureTarget != null)
+                {
+                    LookAtTarget(futureTarget);
+                }
+            }
         }
     }
+
 
     public void SetNextTarget(Transform target)
     {
         nextTarget = target;
         targetPositionWithOffset = nextTarget.position + targetOffset; // calculate and store the target position plus the offset
         animator.SetTrigger(JumpStartHash); // start jump animation
-        if (!isMoving) // only start moving if currently not moving
-        {
-            isMoving = true;
-        }
+        isMoving = true; // start moving
+        shouldLookAtNextTarget = false; // stop looking at the next target
     }
 
     private void MoveTowardsTarget()
@@ -60,9 +87,10 @@ public class FrogBouncePrototype : MonoBehaviour
         if (horizontalDistance > 0.1f) // Still moving towards the target
         {
             // Add vertical sinusoidal offset
-            float verticalOffset = Mathf.Sin(horizontalDistance * Mathf.PI / maxBounceDistance) * flightSpeed;
+            float verticalOffset = Mathf.Sin(horizontalDistance * Mathf.PI / maxBounceDistance) * maxHeight; // Use maxHeight instead of flightSpeed
             targetPositionWithVerticalOffset.y += verticalOffset;
         }
+
 
         transform.position = Vector3.MoveTowards(transform.position, targetPositionWithVerticalOffset, step);
 
@@ -73,28 +101,73 @@ public class FrogBouncePrototype : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(newDirection);
 
         // Check if reached the target
-        if (Vector3.Distance(transform.position, targetPositionWithOffset) < 0.001f) // Use the actual target position with the offset here
+        if (Vector3.Distance(transform.position, targetPositionWithOffset) < 0.001f)
         {
-            animator.SetTrigger(JumpFinishHash); // finish jump animation
-            StartCoroutine(PauseAtTarget());
+            if (!hasReachedTarget && !isPausing)
+            {
+                animator.SetTrigger(JumpFinishHash); // finish jump animation
+                StartCoroutine(PauseAtTarget());
+                hasReachedTarget = true;
+
+                // Lock the frog to the target
+                isLockedToTarget = true;
+            }
+        }
+        else
+        {
+            hasReachedTarget = false; // reset the flag if the frog has moved away from the target
+            isLockedToTarget = false; // unlock the frog from the target
         }
     }
 
     private IEnumerator PauseAtTarget()
     {
+        // Start of the coroutine: Set isPausing to true and isMoving to false
+        isPausing = true;
         isMoving = false;
+
+        // Pause at the target for the duration of pauseDuration
         yield return new WaitForSeconds(pauseDuration);
+
+        // Decide the next target and set shouldLookAtNextTarget to true
         DecideNextTarget();
-        LookAtNextTarget();  // look at the next target
-        yield return new WaitForSeconds(standbyDuration);  // wait for standbyDuration before moving to the next target
-        isMoving = false;  // set isMoving to false at the end
+        shouldLookAtNextTarget = true;
+
+        // If there's a future target, immediately call LookAtNextTarget
+        if (futureTarget != null)
+        {
+            LookAtTarget(futureTarget);
+        }
+
+        // Wait for standbyDuration before moving to the next target
+        yield return new WaitForSeconds(standbyDuration);
+
+        // If shouldLookAtNextTarget is true, set it to false
+        if (shouldLookAtNextTarget)
+        {
+            shouldLookAtNextTarget = false;
+        }
+
+        // If a future target exists, unlock the frog from the target and set the next target
+        if (futureTarget != null)
+        {
+            isLockedToTarget = false;
+            SetNextTarget(futureTarget);
+        }
+
+        // Clear future target and set hasReachedTarget and isPausing to false
+        futureTarget = null;
+        hasReachedTarget = false;
+        isPausing = false;
     }
 
 
-    private void LookAtNextTarget()
+    private void LookAtTarget(Transform target)
     {
-        Vector3 targetDirection = nextTarget.position - transform.position;
-        transform.rotation = Quaternion.LookRotation(targetDirection);
+        Vector3 targetDirection = target.position - transform.position;
+        targetDirection.y = 0;  // zero out the y-component of the direction vector to only rotate around Y-axis
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
     private void DecideNextTarget()
@@ -120,7 +193,7 @@ public class FrogBouncePrototype : MonoBehaviour
         if (closestEnemy != null)
         {
             bouncedObjects.Add(closestEnemy);
-            SetNextTarget(closestEnemy.transform);
+            futureTarget = closestEnemy.transform; // store the future target instead of setting it immediately
         }
         else
         {
