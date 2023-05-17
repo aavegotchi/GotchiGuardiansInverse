@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using TransitionUI.Model;
+using Gotchi.Lickquidators;
 
 namespace TransitionUI {
     namespace Presenter
@@ -82,9 +83,9 @@ namespace TransitionUI {
             {
                 rewardsScreenUI.SetActive(true);
 
-                int pawnLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyPool.EnemyType.PawnLickquidator);
-                int aerialLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyPool.EnemyType.AerialLickquidator);
-                int bossLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyPool.EnemyType.BossLickquidator);
+                int pawnLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(LickquidatorManager.LickquidatorType.PawnLickquidator);
+                int aerialLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(LickquidatorManager.LickquidatorType.AerialLickquidator);
+                int bossLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(LickquidatorManager.LickquidatorType.BossLickquidator);
 
                 // TODO: account for upgraded towers
                 int basicTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.BasicTower);
@@ -92,9 +93,9 @@ namespace TransitionUI {
                 int fireTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.FireTower1);
                 int iceTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.IceTower1);
 
-                int pawnLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(EnemyPool.EnemyType.PawnLickquidator);
-                int aerialLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(EnemyPool.EnemyType.AerialLickquidator);
-                int bossLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(EnemyPool.EnemyType.BossLickquidator);
+                int pawnLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(LickquidatorManager.LickquidatorType.PawnLickquidator);
+                int aerialLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(LickquidatorManager.LickquidatorType.AerialLickquidator);
+                int bossLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(LickquidatorManager.LickquidatorType.BossLickquidator);
 
                 // TODO: account for upgraded towers
                 int basicTowerCreateCosts = StatsManager.Instance.GetTowerCreateCosts(TowerPool.TowerType.BasicTower);

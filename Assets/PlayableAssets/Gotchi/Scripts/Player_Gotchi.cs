@@ -55,7 +55,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
     void Update()
     {
         if (target == null) return;
-        if (PhasePresenter.Instance.GetCurrentPhase() != PhaseManager.Phase.Survival) return;
+        if (PhasePresenter.Instance.GetCurrentPhase() != Phase.Survival) return;
         
         LockOntoTargetPos(target.position);
         attack();

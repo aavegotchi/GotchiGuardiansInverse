@@ -62,7 +62,7 @@ public class Node : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (occupied || PhasePresenter.Instance.GetCurrentPhase() != PhaseManager.Phase.Prep) return;
+        if (occupied || PhasePresenter.Instance.GetCurrentPhase() != Phase.Prep) return;
 
         render.enabled = true;
     }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Gotchi.Events;
 using Gotchi.Network;
+using Gotchi.Lickquidators;
 using Fusion;
 using PhaseManager.Model;
 
@@ -178,7 +179,7 @@ namespace PhaseManager {
 
             private void HandleEndSurvivalPhase()
             {
-                if (EnemyPool.Instance.ActiveEnemies.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead)
+                if (LickquidatorManager.Instance.ActiveLickquidators.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead)
                 {
                     rpc_startNextPhase();
                 }

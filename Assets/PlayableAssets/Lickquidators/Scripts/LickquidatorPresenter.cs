@@ -3,6 +3,8 @@ using UnityEngine.AI;
 using System.Linq;
 using Gotchi.Events;
 using System.Collections;
+using PhaseManager;
+using PhaseManager.Presenter;
 
 namespace Gotchi.Lickquidators
 {
@@ -135,12 +137,12 @@ namespace Gotchi.Lickquidators
         #region Private Functions
         private bool isSurvivalPhase()
         {
-            return PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Survival;
+            return PhasePresenter.Instance.GetCurrentPhase() == Phase.Survival;
         }
 
         private bool isPrepPhase()
         {
-            return PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Prep;
+            return PhasePresenter.Instance.GetCurrentPhase() == Phase.Prep;
         }
 
         private void configureAgent()

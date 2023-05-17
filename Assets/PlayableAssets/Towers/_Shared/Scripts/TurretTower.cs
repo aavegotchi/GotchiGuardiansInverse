@@ -51,7 +51,7 @@ public class TurretTower : BaseTower
 
     private void OnMouseEnter()
     {
-        if(!isNodeUIOpenOnThis && PhasePresenter.Instance.GetCurrentPhase() == PhaseManager.Phase.Prep)
+        if(!isNodeUIOpenOnThis && PhasePresenter.Instance.GetCurrentPhase() == Phase.Prep)
         {
             if (rangeCircle != null)
             {
