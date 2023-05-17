@@ -20,7 +20,6 @@ namespace Gotchi.Player.Model
         public int AttackAnimTriggerHash { get { return attackAnimTriggerHash; } }
         public int AbilityAnimTriggerHash { get { return abilityAnimTriggerHash; } }
         public Color RangeIndicatorColor { get { return rangeIndicatorColor; } }
-
         public Transform HealthBarOffset { get { return healthBarOffset; } }
         #endregion
 
