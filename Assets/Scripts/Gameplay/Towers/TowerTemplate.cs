@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public enum TowerTypeID
@@ -17,7 +19,7 @@ public enum TowerTiers
 
 
 [System.Serializable]
-public class TowerTemplate
+public class TowerTemplate : IDataTemplate
 {
     public string name;
     public string tooltipText;
@@ -30,5 +32,29 @@ public class TowerTemplate
     public override string ToString()
     {
         return name;
+    }
+
+    public static void EnsureAllTowers(GameplayData data)
+    {
+        foreach (TowerTypeID id in Enum.GetValues(typeof(TowerTypeID)))
+        {
+            if (data.GetTemplateFromType(id) == null) {
+                TowerTemplate newTemplate = new TowerTemplate();
+                newTemplate.name = id.ToString();
+                newTemplate.type = id;
+                data.towerTemplates.Add(newTemplate);
+            }
+        }
+    }
+
+    public override void DrawDataInspectors()
+    {
+        name = EditorGUILayout.TextField("Tower Name", name);
+        tooltipText = EditorGUILayout.TextField("Tooltip Text", tooltipText);
+        type = (TowerTypeID)EditorGUILayout.EnumPopup("Tower Type", type);
+        tier = (TowerTiers)EditorGUILayout.EnumPopup("Tower Tier", tier);
+        buildCost = EditorGUILayout.IntField("Build Cost", buildCost);
+        buildTime = EditorGUILayout.FloatField("Build Time", buildTime);
+        range = EditorGUILayout.FloatField("Range", range);
     }
 }

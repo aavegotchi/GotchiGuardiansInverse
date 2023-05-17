@@ -25,12 +25,15 @@ public class GameplayData
         if (File.Exists(saveFilePath))
         {
             string jsonData = File.ReadAllText(saveFilePath);
-            return JsonUtility.FromJson<GameplayData>(jsonData);
+            GameplayData data = JsonUtility.FromJson<GameplayData>(jsonData);
+            TowerTemplate.EnsureAllTowers(data);
+            return data;
         }
         else
         {
             Debug.LogWarning("No GameplayData found. Creating a new file with default values.");
             GameplayData newData = new GameplayData();
+            TowerTemplate.EnsureAllTowers(newData);
             newData.SaveData();
             return newData;
         }
@@ -44,42 +47,16 @@ public class GameplayData
         Debug.Log("GameplayData saved successfully.");
     }
 
-    public TowerTemplate GetTemplateFromName(string name)
+    public TowerTemplate GetTemplateFromType(TowerTypeID type)
     {
         foreach (TowerTemplate template in towerTemplates)
         {
-            if (template.name == name)
+            if (template.type == type)
             {
                 return template;
             }
         }
 
         return null;
-    }
-
-    public void AddTowerTemplate(string name)
-    {
-        if (string.IsNullOrEmpty(name))
-        {
-            name = "Default";
-        }
-
-        string safeNewTowerName = name;
-
-        int counter = 1;
-        while (GetTemplateFromName(safeNewTowerName) != null)
-        {
-            safeNewTowerName = name + counter;
-            ++counter;
-        }
-
-        TowerTemplate newTower = new TowerTemplate();
-        newTower.name = safeNewTowerName;
-        towerTemplates.Add(newTower);
-    }
-
-    public void RemoveTowerTemplate(TowerTemplate template)
-    {
-        towerTemplates.Remove(template);
     }
 }
