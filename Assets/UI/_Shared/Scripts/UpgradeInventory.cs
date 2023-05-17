@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Gotchi.Lickquidators;
 
 public class UpgradeInventory : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class UpgradeInventory : MonoBehaviour
     private Image upgradeButtonImage = null;
     private Image sellButtonImage = null;
     private BaseTower towerHolder = null;
-    private Enemy enemyHolder = null;
+    private LickquidatorModel enemyHolder = null;
     #endregion
 
     #region Public Functions
@@ -92,8 +93,8 @@ public class UpgradeInventory : MonoBehaviour
 
     private void sellLickquidator()
     {
-        Enemy enemy = transformHolder.GetComponent<Enemy>();
-        EnemyBlueprint enemyBlueprint = enemy.EnemyBlueprint;
+        LickquidatorPresenter enemy = transformHolder.GetComponent<LickquidatorPresenter>();
+        EnemyBlueprint enemyBlueprint = enemy.Model.EnemyBlueprint;
         StatsManager.Instance.Money += calculateSellReward(enemyBlueprint.cost);
         enemy.PlayDead();
     }
@@ -232,13 +233,13 @@ public class UpgradeInventory : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void Open(Transform lickquidatorTransform, Enemy enemy)
+    public void Open(Transform lickquidatorTransform, LickquidatorModel enemy)
     {
         reset();
 
         enemyHolder = enemy;
         transformHolder = lickquidatorTransform;
-        sellRewardText.text = $"{calculateSellReward(enemyHolder.ObjectSO.Cost)}";
+        sellRewardText.text = $"{calculateSellReward(enemyHolder.Config.Cost)}";
 
         if (upgradeButtonImage == null || sellButtonImage == null)
         {
@@ -248,26 +249,26 @@ public class UpgradeInventory : MonoBehaviour
 
         int upgradeCost = calculateNewLickquidatorCost();
         upgradeCostText.text = $"{upgradeCost}";
-        upgradeText.text = $"Upgrade to {convertToRomanNumeral(enemyHolder.ObjectSO.Level + 1)}";
+        upgradeText.text = $"Upgrade to {convertToRomanNumeral(enemyHolder.Config.Level + 1)}";
         disableUpgradeButtonIfNoMoney(upgradeCost);
         
-        if (enemyHolder.ObjectSO.Type == EnemyPool.EnemyType.PawnLickquidator)
+        if (enemyHolder.Config.Type == LickquidatorManager.LickquidatorType.PawnLickquidator)
         {
             upgradeButtonImage.sprite = pawnLickquidatorSprite;
             sellButtonImage.sprite = pawnLickquidatorSprite;
         }
-        else if (enemyHolder.ObjectSO.Type == EnemyPool.EnemyType.AerialLickquidator)
+        else if (enemyHolder.Config.Type == LickquidatorManager.LickquidatorType.AerialLickquidator)
         {
             upgradeButtonImage.sprite = aerialLickquidatorSprite;
             sellButtonImage.sprite = aerialLickquidatorSprite;
         }
-        else if (enemyHolder.ObjectSO.Type == EnemyPool.EnemyType.BossLickquidator)
+        else if (enemyHolder.Config.Type == LickquidatorManager.LickquidatorType.BossLickquidator)
         {
             upgradeButtonImage.sprite = bossLickquidatorSprite;
             sellButtonImage.sprite = bossLickquidatorSprite;
         }
 
-        if (enemyHolder.ObjectSO.Level == 10) // max level
+        if (enemyHolder.Config.Level == 10) // max level
         {
             upgradeCanvasGroup.alpha = 0f;
             upgradeButton.enabled = false;
@@ -347,24 +348,24 @@ public class UpgradeInventory : MonoBehaviour
 
     private void upgradeLickquidator()
     {
-        enemyHolder.ObjectSO.Cost = calculateNewLickquidatorCost();
-        enemyHolder.ObjectSO.Level += 1;
-        float levelBasedUpgradeValue = enemyHolder.ObjectSO.Level * generalSO.GenericUpgradeMultipleByLevel;
-        float levelBasedUpgradeValueInverse = enemyHolder.ObjectSO.Level / generalSO.GenericUpgradeMultipleByLevel;
-        enemyHolder.ObjectSO.buildTime += levelBasedUpgradeValueInverse;
-        enemyHolder.ObjectSO.AttackDamage += levelBasedUpgradeValue;
-        enemyHolder.ObjectSO.AttackCountdown = Mathf.Max(1f, enemyHolder.ObjectSO.AttackCountdown - enemyHolder.ObjectSO.AttackCountdown * enemyHolder.ObjectSO.Level * 0.1f);
-        enemyHolder.ObjectSO.Health += Mathf.RoundToInt(levelBasedUpgradeValue);
-        enemyHolder.ObjectSO.MovementSpeed += levelBasedUpgradeValue;
+        enemyHolder.Config.Cost = calculateNewLickquidatorCost();
+        enemyHolder.Config.Level += 1;
+        float levelBasedUpgradeValue = enemyHolder.Config.Level * generalSO.GenericUpgradeMultipleByLevel;
+        float levelBasedUpgradeValueInverse = enemyHolder.Config.Level / generalSO.GenericUpgradeMultipleByLevel;
+        enemyHolder.Config.buildTime += levelBasedUpgradeValueInverse;
+        enemyHolder.Config.AttackDamage += (int)levelBasedUpgradeValue;
+        enemyHolder.Config.AttackCountdown = Mathf.Max(1f, enemyHolder.Config.AttackCountdown - enemyHolder.Config.AttackCountdown * enemyHolder.Config.Level * 0.1f);
+        enemyHolder.Config.Health += Mathf.RoundToInt(levelBasedUpgradeValue);
+        enemyHolder.Config.MovementSpeed += levelBasedUpgradeValue;
 
-        StatsManager.Instance.Money -= enemyHolder.ObjectSO.Cost;
+        StatsManager.Instance.Money -= enemyHolder.Config.Cost;
         EnemyBlueprint enemyBlueprint = new EnemyBlueprint();
-        enemyBlueprint.type = enemyHolder.ObjectSO.Type;
-        enemyBlueprint.cost = enemyHolder.ObjectSO.Cost;
-        enemyBlueprint.buildTime = enemyHolder.ObjectSO.buildTime;
+        enemyBlueprint.type = enemyHolder.Config.Type;
+        enemyBlueprint.cost = enemyHolder.Config.Cost;
+        enemyBlueprint.buildTime = enemyHolder.Config.buildTime;
 
-        Enemy enemy = transformHolder.GetComponent<Enemy>();
-        enemyBlueprint.node = enemy.EnemyBlueprint.node;
+        LickquidatorPresenter enemy = transformHolder.GetComponent<LickquidatorPresenter>();
+        enemyBlueprint.node = enemy.Model.EnemyBlueprint.node;
         enemy.PlayDead(true);
 
         BuildProgressPool_UI.Instance.GetAndShowProgressBar(enemyBlueprint);
@@ -372,8 +373,8 @@ public class UpgradeInventory : MonoBehaviour
 
     private int calculateNewLickquidatorCost()
     {
-        float levelBasedUpgradeValueInverse = (enemyHolder.ObjectSO.Level + 1) / generalSO.GenericUpgradeMultipleByLevel;
-        return enemyHolder.ObjectSO.Cost * Mathf.RoundToInt(Mathf.Max(1f, levelBasedUpgradeValueInverse));
+        float levelBasedUpgradeValueInverse = (enemyHolder.Config.Level + 1) / generalSO.GenericUpgradeMultipleByLevel;
+        return enemyHolder.Config.Cost * Mathf.RoundToInt(Mathf.Max(1f, levelBasedUpgradeValueInverse));
     }
 
     private int calculateSellReward(int cost)

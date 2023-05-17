@@ -2294,15 +2294,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9058693139119642526}
-  - component: {fileID: 2388446534187975236}
   - component: {fileID: 922941150835799122}
   - component: {fileID: 4247896047644765264}
   - component: {fileID: 8656449059945063059}
   - component: {fileID: 1772166786773167060}
   - component: {fileID: 5171585481469437382}
-  - component: {fileID: -1235232612037808684}
-  - component: {fileID: 1273411064104580526}
-  - component: {fileID: 1694334658791513721}
+  - component: {fileID: 4082963699084868600}
+  - component: {fileID: 9173183138442507803}
   m_Layer: 6
   m_Name: TD_AerialLickquidator
   m_TagString: Enemy
@@ -2329,25 +2327,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2388446534187975236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8574046402635549988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ddde112ea267f47854735a0da27f8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lickquidatorObjectSOOriginal: {fileID: 11400000, guid: 8eeca3ce5c676454fb231d8af4893727,
-    type: 2}
-  generalSO: {fileID: 11400000, guid: 185dd8ec98cbab1408d76c8295922571, type: 2}
-  healthbar: {fileID: 9208720214513312327, guid: 076327f8421e28a4ab3ad5e7068e5119,
-    type: 3}
-  healthbarOffset: {fileID: 6177874959328656165}
-  deathEffect: 5
 --- !u!114 &922941150835799122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2400,7 +2379,7 @@ Animator:
   m_GameObject: {fileID: 8574046402635549988}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c9ae52eec26d1d94cae4263336578591, type: 2}
+  m_Controller: {fileID: 9100000, guid: de2c362d4c95f4c409e60bb93e0a32aa, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2439,7 +2418,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9, y: 5.5, z: 9}
   m_Center: {x: 0, y: 8.433175, z: 0}
---- !u!114 &-1235232612037808684
+--- !u!114 &4082963699084868600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2448,26 +2427,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 8574046402635549988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: 11500000, guid: b3a0d12df23fb91469d28843cf38c2d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  InterpolationSpace: 0
-  InterpolationTarget: {fileID: 5181215097113556722}
-  InterpolateErrorCorrection: 1
-  InterpolatedErrorCorrectionSettings:
-    MinRate: 3.3
-    MaxRate: 10
-    PosBlendStart: 0.25
-    PosBlendEnd: 1
-    PosMinCorrection: 0.025
-    PosTeleportDistance: 2
-    RotBlendStart: 0.1
-    RotBlendEnd: 0.5
-    RotTeleportRadians: 1.5
-  UseLegacySharedModeInterpolation: 0
-  TargetInterpolationDelay: 0.03
---- !u!114 &1273411064104580526
+  origConfig: {fileID: 11400000, guid: 8eeca3ce5c676454fb231d8af4893727, type: 2}
+  generalConfig: {fileID: 11400000, guid: 185dd8ec98cbab1408d76c8295922571, type: 2}
+  targetTag: Tower
+  attackAnimTrigger: Attack
+  rangeIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
+  healthBarOffset: {fileID: 6177874959328656165}
+  isPassive: 1
+--- !u!114 &9173183138442507803
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2476,37 +2446,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 8574046402635549988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Script: {fileID: 11500000, guid: 20b85495e1b92b246b53b95bc7aef95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectInterest: 1
-  DefaultInterestGroups: []
-  DestroyWhenStateAuthorityLeaves: 0
-  AllowStateAuthorityOverride: 1
-  AoiPositionSource: {fileID: 0}
-  Flags: 133377
-  NetworkGuid:
-    RawGuidValue: 732f5e8ea8557dd4db8f5f2aa870be56
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: -1235232612037808684}
-  SimulationBehaviours: []
---- !u!114 &1694334658791513721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8574046402635549988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9babdb0c3d8a2045aa11c39bb7b590f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  attackParticleEffectGO: {fileID: 0}
-  attackTrigger: Attack
-  towerTag: Tower
+  model: {fileID: 4082963699084868600}
+  deathEffect: 5
+  attackAnimation: {fileID: 0}
+  attackParticleEffect: {fileID: 0}
+  frameReadyInterval: 10
 --- !u!1 &9014571768921774415
 GameObject:
   m_ObjectHideFlags: 0

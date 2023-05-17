@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using Gotchi.Lickquidators;
 
 public class StatsManager : MonoBehaviour
 {
@@ -60,7 +61,7 @@ public class StatsManager : MonoBehaviour
         towerBlueprintsKill.Add(towerBlueprint);
     }
 
-    public int GetEnemyCreateCosts(EnemyPool.EnemyType enemyType)
+    public int GetEnemyCreateCosts(LickquidatorManager.LickquidatorType enemyType)
     {
         int sumCosts = 0;
         foreach (EnemyBlueprint enemyBlueprint in enemyBlueprintsCreate)
@@ -86,7 +87,7 @@ public class StatsManager : MonoBehaviour
         return sumCosts;
     }
 
-    public int GetEnemyKillCosts(EnemyPool.EnemyType enemyType)
+    public int GetEnemyKillCosts(LickquidatorManager.LickquidatorType enemyType)
     {
         int sumCosts = 0;
         foreach (EnemyBlueprint enemyBlueprint in enemyBlueprintsKill)

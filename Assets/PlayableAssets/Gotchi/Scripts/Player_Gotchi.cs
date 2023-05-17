@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,6 +5,7 @@ using Gotchi.Events;
 using Fusion;
 using PhaseManager;
 using PhaseManager.Presenter;
+using Gotchi.Lickquidators;
 
 public class Player_Gotchi : NetworkBehaviour, IDamageable
 {
@@ -38,7 +38,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
     #region Private Variables
     private float attackCountdownTracker = 1f;
     private Transform target = null;
-    private Enemy targetEnemy = null;
+    private LickquidatorPresenter targetEnemy = null;
     private bool isDead = false;
     #endregion
 
@@ -86,19 +86,18 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
 
         if (PhasePresenter.Instance.GetCurrentPhase() == Phase.Prep) return;
 
-        List<GameObject> enemyObjects = EnemyPool.Instance.ActiveEnemies;
-        Enemy[] enemies = EnemyPool.Instance.GetEnemiesByObjects(enemyObjects.ToArray());
+        List<LickquidatorPresenter> lickquidators = LickquidatorManager.Instance.ActiveLickquidators;
 
-        foreach (Enemy enemy in enemies)
+        foreach (LickquidatorPresenter lickquidator in lickquidators)
         {
-            float distanceToTarget = Vector3.Distance(transform.position, enemy.transform.position);
+            float distanceToTarget = Vector3.Distance(transform.position, lickquidator.transform.position);
             bool isInRange = distanceToTarget < (gotchiObjectSO.SpinAbilityRange * 2);
             if (isInRange)
             {
-                enemy.Damage(gotchiObjectSO.SpinAbilityDamage);
+                lickquidator.Damage(gotchiObjectSO.SpinAbilityDamage);
 
-                Vector3 direction = (enemy.transform.position - transform.position).normalized;
-                enemy.Knockback(direction * gotchiObjectSO.SpinAbilityKnockbackForce);
+                Vector3 direction = (lickquidator.transform.position - transform.position).normalized;
+                lickquidator.Knockback(direction * gotchiObjectSO.SpinAbilityKnockbackForce);
             }
         }
     }
@@ -178,7 +177,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
         if (isClosestTarget)
         {
             target = nearestTarget.transform;
-            targetEnemy = target.GetComponent<Enemy>();
+            targetEnemy = target.GetComponent<LickquidatorPresenter>();
             return;
         }
 
