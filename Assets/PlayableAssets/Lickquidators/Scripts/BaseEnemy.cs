@@ -3,6 +3,8 @@ using UnityEngine.AI;
 using Gotchi.Audio;
 using System.Collections;
 using System.Linq;
+using PhaseManager;
+using PhaseManager.Presenter;
 
 public abstract class BaseEnemy : MonoBehaviour
 {
@@ -41,7 +43,7 @@ public abstract class BaseEnemy : MonoBehaviour
     protected virtual void Update()
     {
         if (target == null) return;
-        if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Survival) return;
+        if (PhasePresenter.Instance.GetCurrentPhase() != Phase.Survival) return;
 
         LockOntoTarget();
         StartCoroutine(Attack());

@@ -7,6 +7,8 @@ using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using Fusion;
 using Gotchi.Network;
+using PhaseManager;
+using PhaseManager.Presenter;
 
 public class NetworkGotchiInput : NetworkBehaviour
 {
@@ -48,7 +50,7 @@ public class NetworkGotchiInput : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Transitioning) return;
+        if (PhasePresenter.Instance.GetCurrentPhase() == Phase.Transitioning) return;
         if (playerGotchi.IsDead) return;
 
         if (GetInput(out NetworkTickData networkTickData))

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using Gotchi.Events;
 using Gotchi.Network;
+using PhaseManager;
+using PhaseManager.Presenter;
 
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -60,7 +62,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void Update()
     {
-        if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Survival) return;
+        if (PhasePresenter.Instance.GetCurrentPhase() != Phase.Survival) return;
 
         goAfterGotchi();
     }
@@ -77,7 +79,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void OnMouseDown()
     {
-        if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep) return;
+        if (PhasePresenter.Instance.GetCurrentPhase() != Phase.Prep) return;
 
         NodeManager.Instance.NodeUI.OpenNodeUpgradeUI(transform, this);
     }
@@ -182,7 +184,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void goAfterGotchi()
     {
-        if (PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Survival)
+        if (PhasePresenter.Instance.GetCurrentPhase() == Phase.Survival)
         {
             if (!agent.enabled) agent.enabled = true;
         }

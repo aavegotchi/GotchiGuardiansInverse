@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 using Gotchi.Events;
 using Fusion;
+using PhaseManager;
+using PhaseManager.Presenter;
 
 public class Player_Gotchi : NetworkBehaviour, IDamageable
 {
@@ -53,7 +55,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
     void Update()
     {
         if (target == null) return;
-        if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Survival) return;
+        if (PhasePresenter.Instance.GetCurrentPhase() != PhaseManager.Phase.Survival) return;
         
         LockOntoTargetPos(target.position);
         attack();
@@ -82,7 +84,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
         PlayerStoppedHoveringMouseOverAbility();
         rpc_animateSpinAttack();
 
-        if (PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Prep) return;
+        if (PhasePresenter.Instance.GetCurrentPhase() == Phase.Prep) return;
 
         List<GameObject> enemyObjects = EnemyPool.Instance.ActiveEnemies;
         Enemy[] enemies = EnemyPool.Instance.GetEnemiesByObjects(enemyObjects.ToArray());
@@ -197,7 +199,7 @@ public class Player_Gotchi : NetworkBehaviour, IDamageable
         
         if (gotchis.Length <= 0)
         {
-            UserInterfaceManager.Instance.ShowGameOverUI();
+            EventBus.GotchiEvents.GotchisAllDead();
         }
     }
     #endregion

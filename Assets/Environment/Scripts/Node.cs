@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using PhaseManager;
+using PhaseManager.Presenter;
 
 public class Node : MonoBehaviour
 {
@@ -52,7 +54,7 @@ public class Node : MonoBehaviour
     void Update()
     {
         // TODO: potentially move this logic so that it's based on an event listener rather than running it in Update()
-        if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep && occupied)
+        if (PhasePresenter.Instance.GetCurrentPhase() != Phase.Prep && occupied)
         {
             occupied = false;
         }
@@ -60,7 +62,7 @@ public class Node : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (occupied || PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep) return;
+        if (occupied || PhasePresenter.Instance.GetCurrentPhase() != PhaseManager.Phase.Prep) return;
 
         render.enabled = true;
     }

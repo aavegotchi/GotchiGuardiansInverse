@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using Gotchi.Events;
+using PhaseManager;
+using PhaseManager.Presenter;
 
 public class SlowTower : MonoBehaviour
 {
@@ -32,7 +34,7 @@ public class SlowTower : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Survival) return;
+        if (PhasePresenter.Instance.GetCurrentPhase() != Phase.Survival) return;
         
         var obj = collider.transform.gameObject;
         if (obj.tag != "Enemy") return;

@@ -1,3 +1,5 @@
+using PhaseManager.Presenter;
+
 namespace CountdownTimer_UI.Model {
     public class CountdownTimer_UI_Model
     {
@@ -12,8 +14,8 @@ namespace CountdownTimer_UI.Model {
 
         public CountdownTimer_UI_Model()
         {
-            PhaseManager.Instance.OnUpdateShowCountdown += SetShowCountdownUI;
-            PhaseManager.Instance.OnUpdateCountdownValue += SetCountdownValue;
+            PhasePresenter.Instance.OnUpdateShowCountdown += SetShowCountdownUI;
+            PhasePresenter.Instance.OnUpdateCountdownValue += SetCountdownValue;
         }
 
         private void SetShowCountdownUI(bool isOpen)

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Gotchi.Events;
+using PhaseManager.Presenter;
 
 public class NodeUI : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class NodeUI : MonoBehaviour
 
     #region Private Variables
     private NodeManager nodeManager = null;
-    private PhaseManager phaseManager = null;
+    private PhasePresenter phasePresenter = null;
     private BuildProgressPool_UI progressBarManager = null;
     #endregion
 
@@ -43,7 +44,7 @@ public class NodeUI : MonoBehaviour
     {
         nodeManager = NodeManager.Instance;
         progressBarManager = BuildProgressPool_UI.Instance;
-        phaseManager = PhaseManager.Instance;
+        phasePresenter = PhasePresenter.Instance;
     }
 
     void OnEnable()

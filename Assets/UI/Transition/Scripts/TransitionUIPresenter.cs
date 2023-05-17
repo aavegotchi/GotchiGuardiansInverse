@@ -46,13 +46,10 @@ namespace TransitionUI.Presenter {
             TransitionUIModel = new TransitionUIModel();
             TransitionUIModel.ShowRewardsUIUpdated += HandleShowRewardsUIUpdate;
             TransitionUIModel.UpdateTransitionText += HandleUpdateTransitionCountdownText;
+            TransitionUIModel.UpdateShowTransitionUI += HandleShowTransitionUIUpdate;
             _transitionScreenAnimator = GetComponent<Animator>();
         }
 
-        #endregion
-
-        #region Public Functions
-        
         #endregion
 
         #region Private Functions
@@ -65,6 +62,15 @@ namespace TransitionUI.Presenter {
             }
         }
 
+        private void HandleShowTransitionUIUpdate(bool isOpen) 
+        {
+            if (isOpen) {
+                _transitionScreenAnimator.SetTrigger("Open");
+            } else {
+                _transitionScreenAnimator.SetTrigger("Close");
+            }
+        }
+
         private void HandleUpdateTransitionCountdownText(string text)
         {
             transitionCountdownTextUI.text = text;
@@ -72,8 +78,6 @@ namespace TransitionUI.Presenter {
 
         private void ShowRewardsUI() 
         {
-            _transitionScreenAnimator.SetTrigger("Open");
-
             rewardsScreenUI.SetActive(true);
 
             int pawnLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(EnemyPool.EnemyType.PawnLickquidator);
@@ -129,9 +133,6 @@ namespace TransitionUI.Presenter {
 
         private void HideRewardsUI()
         {
-            _transitionScreenAnimator.SetTrigger("Close");
-
-            StatsManager.Instance.ClearCreateAndKillStats();
 
             rewardsScreenUI.SetActive(false);
         }
