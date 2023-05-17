@@ -3,13 +3,18 @@ using UnityEngine.AI;
 using System.Linq;
 using Gotchi.Events;
 using System.Collections;
+using Gotchi.Lickquidator.Model;
+using Gotchi.Player.Presenter;
 
-namespace Gotchi.Lickquidators
+namespace Gotchi.Lickquidator.Presenter
 {
     public class LickquidatorPresenter : MonoBehaviour
     {
+        #region Properties
         public LickquidatorModel Model { get { return model; } }
+        #endregion
 
+        #region Fields
         [Header("Model")]
         [SerializeField] private LickquidatorModel model = null;
 
@@ -20,13 +25,16 @@ namespace Gotchi.Lickquidators
 
         [Header("Gameplay")]
         [SerializeField] private int frameReadyInterval = 10;
+        #endregion
 
+        #region Private Variables
         private HealthBar_UI healthBar = null;
         private NavMeshAgent agent = null;
         private Transform inRangeTargetTransform = null;
         private IDamageable inRangeTarget = null;
         private float attackCountdownTracker = 0f;
         private Rigidbody rigidBody = null;
+        #endregion
 
         #region Unity Functions
         void Awake()
@@ -88,10 +96,10 @@ namespace Gotchi.Lickquidators
             model.UpdateHealth(model.Health - damage);
         }
 
-        public void AssignHealthBar(HealthBar_UI healthBar)
+        public void AssignHealthBar()
         {
-            this.healthBar = healthBar;
-            this.healthBar.SetHealthbarMaxHealth(model.Health);
+            healthBar = HealthBarPool_UI.Instance.GetHealthbar(model.HealthBarOffset);
+            healthBar.SetHealthbarMaxHealth(model.Health);
         }
 
         public void PlayDead(bool keepUpgrades = false)
@@ -111,9 +119,7 @@ namespace Gotchi.Lickquidators
                 model.ResetConfig();
             }
 
-            float value = model.Config.Cost / model.GeneralConfig.EnemyKillRewardMultipleByCost;
-            int roundedValue = Mathf.RoundToInt(value / 5.0f) * 5;
-            StatsManager.Instance.Money += roundedValue;
+            rewardDeath();
         }
 
         public void Freeze()
@@ -132,6 +138,31 @@ namespace Gotchi.Lickquidators
         }
         #endregion
 
+        #region Event Handlers
+        private void handleOnMovementSpeedUpdated()
+        {
+            agent.speed = model.MovementSpeed;
+        }
+
+        private void handleOnHealthUpdated()
+        {
+            if (healthBar.CurrentHealth <= 0) return;
+
+            float damage = healthBar.CurrentHealth - model.Health;
+            healthBar.ShowDamagePopUpAndColorDifferentlyIfEnemy(damage, true);
+            healthBar.CurrentHealth = model.Health;
+
+            if (model.Health > 0) return;
+
+            PlayDead(true);
+        }
+
+        private void handleIsMovingUpdated()
+        {
+            agent.isStopped = !model.IsMoving;
+        }
+        #endregion
+        
         #region Private Functions
         private bool isSurvivalPhase()
         {
@@ -180,10 +211,7 @@ namespace Gotchi.Lickquidators
             if (isClosestTarget)
             {
                 inRangeTargetTransform = nearestTarget.transform;
-                if (inRangeTarget == null)
-                {
-                    inRangeTarget = inRangeTargetTransform.GetComponent<IDamageable>();
-                }
+                inRangeTarget = inRangeTargetTransform.GetComponent<IDamageable>();
                 return;
             }
 
@@ -199,7 +227,7 @@ namespace Gotchi.Lickquidators
         private void updateUltimateTarget()
         {
             GameObject[] gotchis = GameObject.FindGameObjectsWithTag(model.TargetTag)
-                .Where(gotchi => gotchi.activeSelf && gotchi.GetComponent<Player_Gotchi>() != null && !gotchi.GetComponent<Player_Gotchi>().IsDead).ToArray();
+                .Where(gotchi => gotchi.activeSelf && gotchi.GetComponent<GotchiPresenter>() != null && !gotchi.GetComponent<GotchiPresenter>().IsDead()).ToArray();
             GameObject nearestTarget = null;
             float shortestDistance = Mathf.Infinity;
 
@@ -241,33 +269,20 @@ namespace Gotchi.Lickquidators
 
             attackCountdownTracker = model.Config.AttackCountdown;
 
-            if(attackAnimation != null) attackAnimation.SetTrigger(model.AttackAnimTriggerHash);
-            if(attackParticleEffect != null) attackParticleEffect.SetActive(true);
+            if (attackAnimation != null) attackAnimation.SetTrigger(model.AttackAnimTriggerHash);
+            if (attackParticleEffect != null) attackParticleEffect.SetActive(true);
+            
             EventBus.EnemyEvents.EnemyAttacked(model.Config.Type);
             inRangeTarget.Damage(model.Config.AttackDamage);
         }
 
-        private void handleOnMovementSpeedUpdated()
+        private void rewardDeath()
         {
-            agent.speed = model.MovementSpeed;
-        }
-
-        private void handleOnHealthUpdated()
-        {
-            float damage = healthBar.CurrentHealth - model.Health;
-            healthBar.ShowDamagePopUpAndColorDifferentlyIfEnemy(damage, true);
-            healthBar.CurrentHealth = model.Health;
-
-            if (model.Health <= 0)
-            {
-                PlayDead(true);
-                StatsManager.Instance.TrackKillEnemy(model.EnemyBlueprint);
-            }
-        }
-
-        private void handleIsMovingUpdated()
-        {
-            agent.isStopped = !model.IsMoving;
+            StatsManager.Instance.TrackKillEnemy(model.EnemyBlueprint);
+            
+            float value = model.Config.Cost / model.GeneralConfig.EnemyKillRewardMultipleByCost;
+            int roundedValue = Mathf.RoundToInt(value / 5.0f) * 5;
+            StatsManager.Instance.Money += roundedValue;
         }
         #endregion
     }

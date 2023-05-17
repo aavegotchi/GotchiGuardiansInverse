@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using Gotchi.Events;
 using Fusion;
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Manager;
 
 public class AttackerNode : BaseNode
 {

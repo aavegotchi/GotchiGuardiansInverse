@@ -5247,8 +5247,8 @@ GameObject:
   - component: {fileID: 755836784205390960}
   - component: {fileID: 4161372482478654007}
   - component: {fileID: 4297088228064767030}
-  - component: {fileID: 3248566665437993995}
   - component: {fileID: 2777930016483656565}
+  - component: {fileID: 3248566665437993995}
   - component: {fileID: 8798585370841287131}
   - component: {fileID: 3952053190403523680}
   m_Layer: 10
@@ -5321,6 +5321,23 @@ MonoBehaviour:
   actionMapKey: Player
   actionKey: Move
   rightClickActionKey: RightClick
+--- !u!114 &2777930016483656565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6665416994352312182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee407c5fc2251c428d17ea4b7b77209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  _Username:
+    _length: 0
+    _data:
+      Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!195 &3248566665437993995
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5343,23 +5360,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2777930016483656565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6665416994352312182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dee407c5fc2251c428d17ea4b7b77209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  _Username:
-    _length: 0
-    _data:
-      Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &8798585370841287131
 MonoBehaviour:
   m_ObjectHideFlags: 0

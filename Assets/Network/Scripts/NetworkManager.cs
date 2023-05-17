@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 using Fusion.Sockets;
 using UnityEngine.SceneManagement;
-using System;
 using System.Linq;
+using Gotchi.Player;
 
 namespace Gotchi.Network
 {
@@ -14,23 +12,17 @@ namespace Gotchi.Network
         #region Public Variables
         public static NetworkManager Instance = null;
 
-        public Player_Gotchi LocalPlayerGotchi { get; set; }
-        public NetworkGotchiInput LocalPlayerInput { get; set; }
-        public Player_Gotchi RemotePlayerGotchi { get; set; }
-        public NetworkGotchiInput RemotePlayerInput { get; set; }
+        public GotchiPresenter LocalPlayerGotchi { get; set; }
 
-        public bool IsReady {
+        public bool IsReady 
+        {
             get { return LocalPlayerGotchi != null; }
         }
-
-        public NetworkTickData NetworkTickData = new NetworkTickData();
         #endregion
 
         #region Fields
         [SerializeField] private NetworkRunner networkRunnerPrefab = null;
         [SerializeField] private int maxPlayerCount = 8;
-        // [SerializeField] private string sceneName = "GotchiTowerDefense";
-        // [SerializeField] private GameObject mainMenuCanvas = null;
         #endregion
 
         #region Unity Functions
