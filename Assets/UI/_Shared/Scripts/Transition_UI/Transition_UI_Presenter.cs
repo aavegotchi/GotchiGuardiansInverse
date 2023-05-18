@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Transition_UI.Model;
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Manager;
 
 namespace Transition_UI.Presenter {
     public class Transition_UI_Presenter : MonoBehaviour

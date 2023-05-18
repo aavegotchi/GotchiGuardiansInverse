@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Gotchi.Network;
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Manager;
 using Fusion;
 
 namespace PhaseManager
@@ -109,7 +109,7 @@ namespace PhaseManager
 
             public void HandleEndSurvivalPhase()
             {
-                if (LickquidatorManager.Instance.ActiveLickquidators.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead)
+                if (LickquidatorManager.Instance.ActiveLickquidators.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead())
                 {
                     rpc_startNextPhase();
                 }

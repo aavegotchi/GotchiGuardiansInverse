@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Gotchi.Events;
 using Gotchi.Network;
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Manager;
 using PhaseManager.Model;
 
 namespace PhaseManager {
