@@ -11,10 +11,11 @@ on:
 jobs:
   test:
     uses: ./.github/workflows/test.yml
+    secrets: inherit
 
   build:
     name: Build (${{ matrix.targetPlatform }})
-    # requires: test
+    requires: test
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
