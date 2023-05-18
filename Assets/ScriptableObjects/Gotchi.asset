@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Gotchi
   SpinAbilityDamage: 40
-  SpinAbilityRange: 5
+  SpinAbilityRange: 10
   SpinAbilityKnockbackForce: 50
   AttackCountdown: 1
   AttackDamage: 20

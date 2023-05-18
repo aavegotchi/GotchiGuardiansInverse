@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1649619772824487283}
   - component: {fileID: 356128342594272953}
+  - component: {fileID: 3486682523363039922}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -44,5 +45,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf18493e2b32894c9f95dd51d77636b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
   networkRunnerPrefab: {fileID: 1344459345935986691, guid: 08f1484178bb90b458441055ad091a26,
     type: 3}
+  maxPlayerCount: 8
+--- !u!114 &3486682523363039922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3033548336271726600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2305
+  NetworkGuid:
+    RawGuidValue: 1be163641f6cbb74988abbf4cd9a1a0a
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 356128342594272953}
+  SimulationBehaviours: []

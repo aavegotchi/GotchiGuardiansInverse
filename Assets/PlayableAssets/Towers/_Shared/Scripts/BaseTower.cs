@@ -86,7 +86,7 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
     #endregion
 
     #region Public Functions
-    public void Damage(float damage)
+    public void Damage(int damage)
     {
         if (healthbar == null) return;
 

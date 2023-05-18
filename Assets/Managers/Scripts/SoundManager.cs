@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 using Gotchi.Events;
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Manager;
 
 namespace Gotchi.Audio
 {

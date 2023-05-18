@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Gotchi.Events;
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Manager;
 
 public class ProjectilePool_FX : MonoBehaviour
 {
