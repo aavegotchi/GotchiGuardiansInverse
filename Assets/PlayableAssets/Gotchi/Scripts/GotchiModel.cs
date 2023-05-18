@@ -39,7 +39,6 @@ namespace Gotchi.Player.Model
         [SerializeField] private string attackAnimTrigger = "Swing";
         [SerializeField] private string abilityAnimTrigger = "Spin";
         [SerializeField] private Color rangeIndicatorColor = Color.red;
-
         [SerializeField] private Transform healthBarOffset = null;
         #endregion
 
