@@ -40,7 +40,6 @@ public class FrogBouncePrototype : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-
     private void Update()
     {
         if (nextTarget != null)
@@ -55,7 +54,9 @@ public class FrogBouncePrototype : MonoBehaviour
             }
             else if (isLockedToTarget)
             {
-                transform.position = nextTarget.position + targetOffset;
+                // Recalculate the target position with offset every frame
+                targetPositionWithOffset = nextTarget.position + targetOffset;
+                transform.position = targetPositionWithOffset;
                 if (futureTarget != null)
                 {
                     LookAtTarget(futureTarget);
@@ -63,7 +64,6 @@ public class FrogBouncePrototype : MonoBehaviour
             }
         }
     }
-
 
     public void SetNextTarget(Transform target)
     {
@@ -76,6 +76,9 @@ public class FrogBouncePrototype : MonoBehaviour
 
     private void MoveTowardsTarget()
     {
+        // Update targetPositionWithOffset in case the target moved
+        targetPositionWithOffset = nextTarget.position + targetOffset;
+
         // Calculate horizontal distance to target
         Vector3 horizontalPosition = new Vector3(transform.position.x, targetPositionWithOffset.y, transform.position.z);
         float horizontalDistance = Vector3.Distance(horizontalPosition, targetPositionWithOffset);
@@ -90,7 +93,6 @@ public class FrogBouncePrototype : MonoBehaviour
             float verticalOffset = Mathf.Sin(horizontalDistance * Mathf.PI / maxBounceDistance) * maxHeight; // Use maxHeight instead of flightSpeed
             targetPositionWithVerticalOffset.y += verticalOffset;
         }
-
 
         transform.position = Vector3.MoveTowards(transform.position, targetPositionWithVerticalOffset, step);
 

@@ -278,7 +278,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &522667827
 MonoBehaviour:
@@ -457,8 +457,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {x: 0, y: 0, z: 0}
-  endPoint: {x: 4, y: 0, z: 6}
-  speed: 1
+  endPoint: {x: 255, y: 0, z: 6}
+  speed: 10
 --- !u!1 &1332211371
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,6 +723,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetObj: {fileID: 1747530366}
+--- !u!1 &1544228301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1544228302}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1544228302
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544228301}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 21.09283, y: 15.457061, z: 34.31263}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1582333324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1500,7 +1531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4691832418928178, guid: 0187bdd962557471faee34c9b592135c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4691832418928178, guid: 0187bdd962557471faee34c9b592135c, type: 3}
       propertyPath: m_LocalScale.x
@@ -1982,7 +2013,7 @@ MonoBehaviour:
   flightSpeed: 35
   rotationSpeed: 160
   pauseDuration: 0.025
-  standbyDuration: 0.15
+  standbyDuration: 0.05
   maxHeight: 50
   targetOffset: {x: 0, y: 2, z: 0}
   shouldLookAtNextTarget: 0
@@ -2102,8 +2133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {x: 0, y: 0, z: 0}
-  endPoint: {x: 3, y: 0, z: 0}
-  speed: 1
+  endPoint: {x: 255, y: 0, z: 0}
+  speed: 10
 --- !u!1 &2081424553
 GameObject:
   m_ObjectHideFlags: 0
@@ -2215,5 +2246,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {x: 0, y: 0, z: 0}
-  endPoint: {x: 6, y: 0, z: 0}
-  speed: 1
+  endPoint: {x: 255, y: 0, z: 0}
+  speed: 10
