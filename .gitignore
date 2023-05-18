@@ -67,6 +67,10 @@ crashlytics-build.properties
 # Packed Addressables
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
-# Temporary auto-generated Android Assets
+# Temporary auto-generated Android assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Temporary auto-generated GameCI assets
+/[Aa]rtifacts/
+/[Cc]odeCoverage/
