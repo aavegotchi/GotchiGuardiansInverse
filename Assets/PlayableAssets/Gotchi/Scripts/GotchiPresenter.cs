@@ -153,21 +153,17 @@ namespace Gotchi.Player.Presenter
             model.UpdateHealth(model.Health - damage);
         }
 
-        // TODO: refactor AbilityBUtton_UI to its own MVP component 
-        // + listen to AbilityButtonModel.OnHover
+        // TODO: refactor AbilityButton_UI to its own MVP component 
         public void HandleOnHoverAbilityButton()
         {
             rangeCircle.ToggleActive(true);
         }
 
-        // TODO: refactor AbilityBUtton_UI to its own MVP component 
-        // + listen to AbilityButtonModel.OnExit
         public void HandleOnExitAbilityButton()
         {
             rangeCircle.ToggleActive(false);
         }
 
-        // TODO: refactor this function into PlayableAssetHelpers.cs
         public bool IsDead()
         {
             return model.Health <= 0;
@@ -233,7 +229,6 @@ namespace Gotchi.Player.Presenter
             model.IsSpinAttacking = false;
         }
 
-        // TODO: refactor this function into PlayableAssetHelpers.cs
         private void handleOnHealthUpdated()
         {
             if (healthBar.CurrentHealth <= 0) return;
@@ -249,20 +244,18 @@ namespace Gotchi.Player.Presenter
         #endregion
 
         #region Private Functions
-        // TODO: refactor this function into PlayableAssetHelpers.cs
+        // TODO: these can probably go into the phase manager or as helpers
         private bool isTransitionPhase()
         {
             return PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep
                 && PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Survival;
         }
 
-        // TODO: refactor this function into PlayableAssetHelpers.cs
         private bool isPrepPhase()
         {
             return PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Prep;
         }
 
-        // TODO: refactor this function into PlayableAssetHelpers.cs
         private void configureAgent()
         {
             agent.speed = model.Config.MovementSpeed;
@@ -273,14 +266,12 @@ namespace Gotchi.Player.Presenter
             agent.avoidancePriority = model.Config.NavMeshAgentPriority;
         }
 
-        // TODO: refactor this function into PlayableAssetHelpers.cs
         private void assignHealthBar()
         {
             healthBar = HealthBarPool_UI.Instance.GetHealthbar(model.HealthBarOffset);
             healthBar.SetHealthbarMaxHealth(model.Health);
         }
 
-        // TODO: refactor this function into PlayableAssetHelpers.cs
         private void updateInRangeTarget()
         {
             GameObject[] lickquidators = GameObject.FindGameObjectsWithTag(model.TargetTag)
@@ -317,7 +308,6 @@ namespace Gotchi.Player.Presenter
             inRangeTarget = null;
         }
 
-        // TODO: refactor this function into PlayableAssetHelpers.cs
         private void rotateTowardInRangeTarget()
         {
             Vector3 dir = inRangeTargetTransform.position - transform.position;
@@ -326,7 +316,6 @@ namespace Gotchi.Player.Presenter
             transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
         }
 
-        // TODO: refactor this function into PlayableAssetHelpers.cs
         private void attackInRangeTarget()
         {
             if (attackCountdownTracker > 0f)
@@ -344,7 +333,6 @@ namespace Gotchi.Player.Presenter
             inRangeTarget.Damage(model.Config.AttackDamage);
         }
 
-        // TODO: refactor this function into PlayableAssetHelpers.cs
         private void playDead()
         {
             EventBus.GotchiEvents.GotchiDied();
@@ -371,7 +359,6 @@ namespace Gotchi.Player.Presenter
             UserInterfaceManager.Instance.ShowGameOverUI();
         }
 
-        // TODO: refactor this function into PlayableAssetHelpers.cs
         private bool isFrameReady()
         {
             return Time.frameCount % frameReadyInterval == 0;

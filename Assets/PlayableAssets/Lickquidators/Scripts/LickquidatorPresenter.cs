@@ -272,8 +272,6 @@ namespace Gotchi.Lickquidator.Presenter
 
         private void attackInRangeTarget()
         {
-            Debug.Log(attackCountdownTracker);
-
             if (attackCountdownTracker > 0f)
             {
                 attackCountdownTracker -= Time.deltaTime;
