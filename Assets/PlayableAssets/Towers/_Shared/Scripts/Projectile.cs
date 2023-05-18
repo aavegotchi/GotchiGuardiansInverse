@@ -1,6 +1,8 @@
 using UnityEngine;
 using Gotchi.Events;
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Manager;
+using Gotchi.Lickquidator.Presenter;
+using Gotchi.Player.Presenter;
 
 public class Projectile : MonoBehaviour
 {
@@ -173,7 +175,7 @@ public class Projectile : MonoBehaviour
         else if (enemyObj.tag == "Tower")
         {
             var baseTower = enemyObj.GetComponent<BaseTower>();
-            var playerGotchi = enemyObj.GetComponent<Player_Gotchi>();
+            var playerGotchi = enemyObj.GetComponent<GotchiPresenter>();
             if (baseTower != null) 
             {
                 baseTower.Damage(attackDamage);

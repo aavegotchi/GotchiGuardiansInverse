@@ -2,7 +2,8 @@ using UnityEngine;
 using Gotchi.Events;
 using PhaseManager;
 using PhaseManager.Presenter;
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Manager;
+using Gotchi.Lickquidator.Presenter;
 
 public class AreaOfEffectTower : BaseTower
 {

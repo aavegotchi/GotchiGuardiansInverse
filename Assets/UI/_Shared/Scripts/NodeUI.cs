@@ -1,7 +1,7 @@
 using UnityEngine;
 using Gotchi.Events;
 using PhaseManager.Presenter;
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Model;
 
 public class NodeUI : MonoBehaviour
 {
