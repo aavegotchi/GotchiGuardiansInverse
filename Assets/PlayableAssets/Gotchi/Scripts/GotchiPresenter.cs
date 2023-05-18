@@ -67,6 +67,7 @@ namespace Gotchi.Player.Presenter
         void OnEnable()
         {
             model.OnDestinationUpdated += handleOnDestinationUpdated;
+            model.OnHealthUpdated += handleOnHealthUpdated;
             model.OnUsernameUpdated += handleOnUsernameUpdated;
             model.OnIsSpinAttackingUpdated += handleOnIsSpinAttackingUpdated;
 
@@ -77,6 +78,7 @@ namespace Gotchi.Player.Presenter
         void OnDisable()
         {
             model.OnDestinationUpdated -= handleOnDestinationUpdated;
+            model.OnHealthUpdated -= handleOnHealthUpdated;
             model.OnUsernameUpdated -= handleOnUsernameUpdated;
             model.OnIsSpinAttackingUpdated += handleOnIsSpinAttackingUpdated;
 

@@ -1,7 +1,5 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
-using Gotchi.Events;
 
 public class HealthBarPool_UI : MonoBehaviour
 {
