@@ -10,12 +10,24 @@ public class GameplayData
     public int startingIncome;
     public List<TowerTemplate> towerTemplates;
 
+    private static GameplayData loadedData = null;
+
     public GameplayData()
     {
         version = "0.0.1";
         startingGold = 100;
         startingIncome = 10;
         towerTemplates = new List<TowerTemplate>();
+    }
+
+    public static GameplayData GetCurrentData()
+    {
+        if (loadedData == null)
+        {
+            loadedData = LoadData();
+        }
+
+        return loadedData;
     }
 
     public static GameplayData LoadData()

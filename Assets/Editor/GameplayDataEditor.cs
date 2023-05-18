@@ -182,25 +182,5 @@ public class GameplayDataEditor : EditorWindow
         EditorGUILayout.EndScrollView();
     }
 
-    //private bool ValidateCurrentTowerTemplate()
-    //{
-    //    if (currentEditingTemplate == null)
-    //    {
-    //        return false;
-    //    }
-    //    if (gameplayData == null)
-    //    {
-    //        return false;
-    //    }
-    //    if (!gameplayData.towerTemplates.Contains(currentEditingTemplate))
-    //    {
-    //        currentTowerTemplate = null;
-    //
-    //        return false;
-    //    }
-    //
-    //    return true;
-    //}
-
     #endregion
 }
