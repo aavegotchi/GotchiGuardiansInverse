@@ -1,7 +1,7 @@
-using System.Collections;
 using UnityEngine;
 using Gotchi.Events;
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Manager;
+using Gotchi.Lickquidator.Presenter;
 
 public class SlowTower : MonoBehaviour
 {

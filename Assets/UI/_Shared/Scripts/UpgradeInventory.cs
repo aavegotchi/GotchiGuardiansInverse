@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Manager;
+using Gotchi.Lickquidator.Presenter;
+using Gotchi.Lickquidator.Model;
 
 public class UpgradeInventory : MonoBehaviour
 {

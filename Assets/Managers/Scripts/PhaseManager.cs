@@ -5,7 +5,7 @@ using TMPro;
 using Gotchi.Events;
 using Gotchi.Network;
 using Fusion;
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Manager;
 
 public class PhaseManager : NetworkBehaviour
 {
@@ -205,7 +205,7 @@ public class PhaseManager : NetworkBehaviour
 
     private void HandleEndSurvivalPhase()
     {
-        if (LickquidatorManager.Instance.ActiveLickquidators.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead)
+        if (LickquidatorManager.Instance.ActiveLickquidators.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead())
         {
            rpc_startNextPhase();
         }

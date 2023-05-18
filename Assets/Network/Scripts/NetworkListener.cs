@@ -1,10 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 using Fusion.Sockets;
 using System;
 using UnityEngine.SceneManagement;
+using Gotchi.Player.Presenter;
 
 namespace Gotchi.Network
 {
@@ -28,7 +28,7 @@ namespace Gotchi.Network
             {
                 Debug.Log("We are server, spawning player");
                 runner.Spawn(
-                    GotchiManager.Instance.GotchiPrefab.GetComponent<NetworkGotchi>(),
+                    GotchiManager.Instance.GotchiPrefab.GetComponent<GotchiPresenter>(),
                     GotchiManager.Instance.Spawn.position,
                     GotchiManager.Instance.Spawn.rotation,
                     player
@@ -47,10 +47,9 @@ namespace Gotchi.Network
 
         public void OnInput(NetworkRunner runner, NetworkInput input)
         {
-            // Debug.Log("OnInput");
-            if (!NetworkManager.Instance.IsReady) return;
+            // if (!NetworkManager.Instance.IsReady) return;
             
-            input.Set(NetworkManager.Instance.NetworkTickData);
+            // input.Set(NetworkManager.Instance.NetworkTickData);
         }
 
         public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)

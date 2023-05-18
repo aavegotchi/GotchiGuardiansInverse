@@ -1,14 +1,17 @@
 using UnityEngine;
 using System;
 
-namespace Gotchi.Lickquidators
+namespace Gotchi.Lickquidator.Model
 {
     public class LickquidatorModel : MonoBehaviour
     {
+        #region Events
         public event Action OnMovementSpeedUpdated = delegate {};
         public event Action OnHealthUpdated = delegate {};
         public event Action OnIsMovingUpdated = delegate {};
+        #endregion
 
+        #region Properties
         public EnemyBlueprint EnemyBlueprint { get; set; }
         public LickquidatorObjectSO Config { get { return config; } }
         public GeneralSO GeneralConfig { get { return generalConfig; } }
@@ -20,7 +23,9 @@ namespace Gotchi.Lickquidators
         public Color RangeIndicatorColor { get { return rangeIndicatorColor; } }
         public Transform HealthBarOffset { get { return healthBarOffset; } }
         public bool IsPassive { get { return isPassive; } }
+        #endregion
         
+        #region Fields
         [SerializeField] private LickquidatorObjectSO origConfig = null;
         [SerializeField] private GeneralSO generalConfig = null;
         [SerializeField] private string targetTag = "Tower";
@@ -28,13 +33,17 @@ namespace Gotchi.Lickquidators
         [SerializeField] private Color rangeIndicatorColor = Color.red;
         [SerializeField] private Transform healthBarOffset = null;
         [SerializeField] private bool isPassive = false;
+        #endregion
         
-        private int attackAnimTriggerHash = 0;
+        #region Private Variables
         private LickquidatorObjectSO config = null;
         private float movementSpeed = 0f;
         private int health = 0;
         private bool isMoving = false;
+        private int attackAnimTriggerHash = 0;
+        #endregion
 
+        #region Unity Functions
         void Awake()
         {
             movementSpeed = origConfig.MovementSpeed;
@@ -43,7 +52,9 @@ namespace Gotchi.Lickquidators
             ResetConfig();
             attackAnimTriggerHash = Animator.StringToHash(attackAnimTrigger);
         }
+        #endregion
 
+        #region Public Functions
         public void UpdateMovementSpeed(float movementSpeed)
         {
             this.movementSpeed = movementSpeed; 
@@ -83,5 +94,6 @@ namespace Gotchi.Lickquidators
             config.NavMeshAgentRadius = origConfig.NavMeshAgentRadius;
             config.NavMeshAgentStoppingDistance = origConfig.NavMeshAgentStoppingDistance;
         }
+        #endregion
     }
 }

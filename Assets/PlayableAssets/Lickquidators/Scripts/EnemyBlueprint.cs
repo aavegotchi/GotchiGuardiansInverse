@@ -1,4 +1,4 @@
-using Gotchi.Lickquidators;
+using Gotchi.Lickquidator.Manager;
 
 [System.Serializable]
 public class EnemyBlueprint
