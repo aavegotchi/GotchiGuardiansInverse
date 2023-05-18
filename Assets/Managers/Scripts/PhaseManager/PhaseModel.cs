@@ -1,3 +1,11 @@
+using System.Collections;
+using System;
+using UnityEngine;
+using UnityEngine.UI;
+using Gotchi.Network;
+using Gotchi.Lickquidators;
+using Fusion;
+
 namespace PhaseManager
 {    public enum Phase
     {
@@ -10,20 +18,64 @@ namespace PhaseManager
     };
     namespace Model
     {
-        public class PhaseModel
+        public class PhaseModel: NetworkBehaviour
         {
-            #region Events
-            public delegate void UpdateCurrentPhaseDel(Phase phase);
-            public event UpdateCurrentPhaseDel UpdateCurrentPhase;
+            #region Fields
+            [Header("Attributes")]
+            [SerializeField] private GeneralSO generalSO = null;
+            public GeneralSO GeneralSO { get { return generalSO; } }
 
-            public delegate void UpdateIsTransitioningDel(bool IsTransitioning);
-            public event UpdateIsTransitioningDel UpdateIsTransitioning;
+            [SerializeField] private string prepPhaseText = "Prep Phase Starting...";
+            public string PrepPhaseText { get { return prepPhaseText; } }
+
+            [SerializeField] private string survivalPhaseText = "Survival Phase Starting...";
+            public string SurvivalPhaseText { get { return survivalPhaseText; } }
+
+            [SerializeField] private string defeatPhaseText = "Your Gotchi Has Died...";
+            public string DefeatPhaseText { get { return defeatPhaseText; } }
+
+            [SerializeField] private string victoryPhaseText = "You Won!";
+            public string VictoryPhaseText { get { return victoryPhaseText; } }
+
+            [SerializeField] private int numSecondsOnRewardsScreen = 8;
+            public int NumSecondsOnRewardsScreen { get { return numSecondsOnRewardsScreen; } }
+
+            [SerializeField] private int numSecondsOnNonRewardsScreen = 2;
+            public int NumSecondsOnNonRewardsScreen { get { return numSecondsOnNonRewardsScreen; } }
+            #endregion
+
+            #region Events
+            public event Action OnCurrentPhaseUpdated = delegate {};
+            public event Action OnIsTransitioningUpdated = delegate {};
+            public event Action OnCountdownValueUpdated = delegate {};
             #endregion
 
             #region Private Variables
-            private Phase CurrentPhase = Phase.None;
+            private Phase currentPhase = Phase.None;
+            public Phase CurrentPhase { get { return currentPhase; } }
+            private bool isTransitioning = false;
+            public bool IsTransitioning { get { return isTransitioning; } }
 
-            private bool IsTransitioning = false;
+            [Networked(OnChanged = nameof(OnSetCountdown))] 
+            public float CountdownTracker { get; set; } = 0f;
+            #endregion
+
+            #region Unity Functions
+            public override void FixedUpdateNetwork()
+            {
+                if (!Object.HasStateAuthority) return;
+
+                if (isTransitioning || currentPhase == Phase.Transitioning || currentPhase == Phase.None) return;
+
+                if (currentPhase == Phase.Prep)
+                {
+                    TrackPhaseCountdown();
+                }
+                else if (currentPhase == Phase.Survival)
+                {
+                    HandleEndSurvivalPhase();
+                }
+            }
             #endregion
 
             #region Public Functions
@@ -31,28 +83,66 @@ namespace PhaseManager
 
             public void SetCurrentPhase(Phase phase)
             {
-                CurrentPhase = phase;
+                currentPhase = phase;
 
-                UpdateCurrentPhase?.Invoke(phase);
+                OnCurrentPhaseUpdated();
             }
 
-            public Phase GetCurrentPhase()
-            {
-                return CurrentPhase;
-            }
 
             public void SetIsTransitioning(bool isTransitioning)
             {
-                IsTransitioning = isTransitioning;
+                this.isTransitioning = isTransitioning;
 
-                UpdateIsTransitioning?.Invoke(isTransitioning);
+                OnIsTransitioningUpdated();
             }
 
-            public bool GetIsTransitioning()
+            public void TrackPhaseCountdown()
             {
-                return IsTransitioning;
+                float countdownTracker = Mathf.Clamp(CountdownTracker - Runner.DeltaTime, 0f, Mathf.Infinity);
+                rpc_setCountdownTracker(countdownTracker);
             }
 
+            public void StartCountdown()
+            {
+                CountdownTracker = generalSO.PrepPhaseCountdown;
+            }
+
+            public void HandleEndSurvivalPhase()
+            {
+                if (LickquidatorManager.Instance.ActiveLickquidators.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead)
+                {
+                    rpc_startNextPhase();
+                }
+            }
+            #endregion
+
+            #region Network Functions
+            [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+            private void rpc_startNextPhase()
+            {
+                print("Next Phase RPC called");
+                SetIsTransitioning(true);
+            }
+
+            [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+            public void rpc_setCountdownTracker(float countdownTracker, RpcInfo info = default)
+            {
+                CountdownTracker = countdownTracker;
+            }
+
+            private void onCountdownUpdated()
+            {
+                OnCountdownValueUpdated();
+                if (CountdownTracker <= 0f)
+                {
+                    rpc_startNextPhase();
+                }
+            }
+
+            public static void OnSetCountdown(Changed<PhaseModel> changed)
+            {
+                changed.Behaviour.onCountdownUpdated();
+            }
             #endregion
         }
     }

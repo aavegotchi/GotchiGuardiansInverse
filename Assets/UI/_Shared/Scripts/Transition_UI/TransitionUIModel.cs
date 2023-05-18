@@ -1,59 +1,50 @@
+using System;
 using PhaseManager.Presenter;
 
 namespace TransitionUI {
     namespace Model {
         public class TransitionUIModel
         {
-            public delegate void UpdateShowTransitionUIDel(bool isOpen);
-            public event UpdateShowTransitionUIDel UpdateShowTransitionUI;
-            public delegate void ShowRewardsUIUpdatedDel(bool isOpen);
-            public event ShowRewardsUIUpdatedDel ShowRewardsUIUpdated;
+            public event Action<bool> OnShowTransitionUIUpdated = delegate {};
+            public event Action<string> OnTransitionUITextUpdated = delegate {};
+            public event Action<bool> OnIsRewardsUIOpenUpdated = delegate {};
 
-            public delegate void UpdateTransitionTextDel(string transitionText);
-            public event UpdateTransitionTextDel UpdateTransitionText;
+            #region Private Variables
+            public bool IsTransitionUIOpen { get { return isTransitionUIOpen; } }
+            public bool IsRewardsUIOpen { get { return isRewardsUIOpen; } }
+            public string TransitionText { get { return transitionText; } }
+            #endregion
 
-            private bool IsTransitionUIOpen = false;
-            private bool IsRewardsUIOpen = false;
-            private string TransitionText;
+            #region Private Variables
+            private bool isTransitionUIOpen = false;
+            private bool isRewardsUIOpen = false;
+            private string transitionText;
+            #endregion
+
 
             public TransitionUIModel()
             {
-                PhasePresenter.Instance.OnUpdateIsRewardsUIOpen += SetIsRewardsUIOpen;
-                PhasePresenter.Instance.OnUpdateTransitionUIText += SetTransitionText;
-                PhasePresenter.Instance.OnUpdateShowTransitionUI += SetIsTransitionUIOpen;
+                PhasePresenter.Instance.OnShowTransitionUIUpdated += SetIsTransitionUIOpen;
+                PhasePresenter.Instance.OnTransitionUITextUpdated += SetTransitionText;
+                PhasePresenter.Instance.OnIsRewardsUIOpenUpdated += SetIsRewardsUIOpen;
             }
 
             private void SetIsTransitionUIOpen(bool isOpen)
             {
-                IsTransitionUIOpen = isOpen;
-                UpdateShowTransitionUI?.Invoke(isOpen);
+                isTransitionUIOpen = isOpen;
+                OnShowTransitionUIUpdated(isOpen);
             }
 
-            public bool GetIsTransitionUIOpen()
+            private void SetTransitionText(string text)
             {
-                return IsTransitionUIOpen;
+                transitionText = text;
+                OnTransitionUITextUpdated(transitionText);
             }
 
-            private void SetIsRewardsUIOpen(bool isRewardsUIOpen)
+            private void SetIsRewardsUIOpen(bool isOpen)
             {
-                IsRewardsUIOpen = isRewardsUIOpen;
-                ShowRewardsUIUpdated?.Invoke(isRewardsUIOpen);
-            }
-
-            public bool GetIsRewardsUIOpen()
-            {
-                return IsRewardsUIOpen;
-            }
-
-            private void SetTransitionText(string transitionText)
-            {
-                TransitionText = transitionText;
-                UpdateTransitionText?.Invoke(transitionText);
-            }
-
-            public string GetTransitionText()
-            {
-                return TransitionText;
+                isRewardsUIOpen = isOpen;
+                OnIsRewardsUIOpenUpdated(isRewardsUIOpen);
             }
         }
     }

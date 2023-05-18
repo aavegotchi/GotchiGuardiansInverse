@@ -11,9 +11,6 @@ namespace TransitionUI {
     {
         public class TransitionUIPresenter : MonoBehaviour
         {
-            #region Public Variables
-            #endregion
-
             #region Fields
             [Header("Required Refs")]
             [SerializeField] private TextMeshProUGUI transitionCountdownTextUI = null;
@@ -47,9 +44,9 @@ namespace TransitionUI {
             private void Start()
             {
                 TransitionUIModel = new TransitionUIModel();
-                TransitionUIModel.ShowRewardsUIUpdated += HandleShowRewardsUIUpdate;
-                TransitionUIModel.UpdateTransitionText += HandleUpdateTransitionCountdownText;
-                TransitionUIModel.UpdateShowTransitionUI += HandleShowTransitionUIUpdate;
+                TransitionUIModel.OnShowTransitionUIUpdated += HandleShowTransitionUIUpdate;
+                TransitionUIModel.OnTransitionUITextUpdated += HandleUpdateTransitionCountdownText;
+                TransitionUIModel.OnShowTransitionUIUpdated += HandleShowRewardsUIUpdate;
                 _transitionScreenAnimator = GetComponent<Animator>();
             }
 
@@ -136,7 +133,6 @@ namespace TransitionUI {
 
             private void HideRewardsUI()
             {
-
                 rewardsScreenUI.SetActive(false);
             }
             #endregion

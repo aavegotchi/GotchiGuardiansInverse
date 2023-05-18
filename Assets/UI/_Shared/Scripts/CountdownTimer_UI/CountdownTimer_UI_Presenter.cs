@@ -39,7 +39,6 @@ namespace CountdownTimer_UI {
             #endregion
 
             #region Unity Methods
-            // Start is called before the first frame update
             void Start()
             {
                 if (show) {
@@ -48,12 +47,11 @@ namespace CountdownTimer_UI {
                     canvasGroup.alpha = 0;
                 }
                 CountdownTimer_UI_Model = new CountdownTimer_UI_Model();
-                CountdownTimer_UI_Model.UpdateShowCoundownUI += HandleUpdateShowCountdownUI;
-                CountdownTimer_UI_Model.UpdateCountdownValue += SetTimeLeft;
+                CountdownTimer_UI_Model.OnShowCountdownUIUpdated += HandleUpdateShowCountdownUI;
+                CountdownTimer_UI_Model.OnCountdownValueUpdated += SetTimeLeft;
 
             }
 
-            // Update is called once per frame
             void Update()
             {
                 if (show != isVisible)

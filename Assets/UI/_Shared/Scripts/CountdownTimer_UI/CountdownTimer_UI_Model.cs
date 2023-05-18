@@ -1,3 +1,4 @@
+using System;
 using PhaseManager.Presenter;
 
 namespace CountdownTimer_UI {
@@ -5,41 +6,37 @@ namespace CountdownTimer_UI {
     {
         public class CountdownTimer_UI_Model
         {
-            public delegate void UpdateShowCoundownUIDel(bool isOpen);
-            public event UpdateShowCoundownUIDel UpdateShowCoundownUI;
+            #region Events
+            public event Action<bool> OnShowCountdownUIUpdated = delegate {};
+            public event Action<float> OnCountdownValueUpdated = delegate {};
+            #endregion
 
-            public delegate void UpdateCountdownValueDel(float countdownValue);
-            public event UpdateCountdownValueDel UpdateCountdownValue;
+            #region Public Variables
+            public bool ShowCountdownUI { get { return showCountdownUI; } }
+            public float CountdownValue { get { return countdownValue; } }
+            #endregion
 
-            private bool ShowCountdownUI = false;
-            private float CountdownValue = 0f;
+            #region Private Variables
+            private bool showCountdownUI = false;
+            private float countdownValue = 0f;
+            #endregion
 
             public CountdownTimer_UI_Model()
             {
-                PhasePresenter.Instance.OnUpdateShowCountdown += SetShowCountdownUI;
-                PhasePresenter.Instance.OnUpdateCountdownValue += SetCountdownValue;
+                PhasePresenter.Instance.OnShowCoundownUpdated += SetShowCountdownUI;
+                PhasePresenter.Instance.OnCountdownValueUpdated += SetCountdownValue;
             }
 
             private void SetShowCountdownUI(bool isOpen)
             {
-                ShowCountdownUI = isOpen;
-                UpdateShowCoundownUI?.Invoke(isOpen);
+                showCountdownUI = isOpen;
+                OnShowCountdownUIUpdated(isOpen);
             }
 
-            public bool GetIsCountdownUIOpen()
+            private void SetCountdownValue(float value)
             {
-                return ShowCountdownUI;
-            }
-
-            private void SetCountdownValue(float countdownValue)
-            {
-                CountdownValue = countdownValue;
-                UpdateCountdownValue?.Invoke(countdownValue);
-            }
-
-            public float GetCoundownValue()
-            {
-                return CountdownValue;
+                countdownValue = value;
+                OnCountdownValueUpdated(countdownValue);
             }
         }
     }
