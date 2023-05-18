@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PhaseManager;
+using PhaseManager.Presenter;
 
 public class BuildSphere : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class BuildSphere : MonoBehaviour
     #region Unity Functions
     private void OnMouseDown()
     {
-        if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep) return;
+        if (PhasePresenter.Instance.GetCurrentPhase() != Phase.Prep) return;
 
         node.OpenNodeUI();
         enemyQueueUI.gameObject.SetActive(true);

@@ -1,5 +1,7 @@
 using UnityEngine;
 using Gotchi.Events;
+using PhaseManager;
+using PhaseManager.Presenter;
 using Gotchi.Lickquidator.Manager;
 using Gotchi.Lickquidator.Presenter;
 
@@ -40,7 +42,7 @@ public class AreaOfEffectTower : BaseTower
 
     public override void OnEnemyEnter(Collider collider)
     {
-        if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Survival) return;
+        if (PhasePresenter.Instance.GetCurrentPhase() != Phase.Survival) return;
 
         var obj = collider.transform.gameObject;
         if (obj.tag != enemyTag) return;
