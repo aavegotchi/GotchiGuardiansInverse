@@ -25,15 +25,18 @@ namespace Gotchi.Player.Presenter
         [SerializeField] private GotchiModel model = null;
 
         [Header("View")]
-        [SerializeField] private InputActionAsset inputActions = null;
-        [SerializeField] private string actionMapKey = "Player";
-        [SerializeField] private string rightClickKey = "RightClick";
         [SerializeField] private RangeCircle rangeCircle = null;
         [SerializeField] private ImpactPool_FX.ImpactType deathEffect = ImpactPool_FX.ImpactType.BasicTower;
         [SerializeField] private Animator attackAnimation = null;
         [SerializeField] private GameObject attackParticleEffect = null;
         [SerializeField] private Animator spinAttackAnimation = null;
         [SerializeField] private GameObject spinAttackParticleEffect = null;
+
+        [Header("Gameplay")]
+        [SerializeField] private InputActionAsset inputActions = null;
+        [SerializeField] private string actionMapKey = "Player";
+        [SerializeField] private string rightClickKey = "RightClick";
+        [SerializeField] private int frameReadyInterval = 10;
         #endregion
 
         #region Private Variables
@@ -87,12 +90,15 @@ namespace Gotchi.Player.Presenter
         {
             if (isTransitionPhase()) return;
 
-            updateInRangeTarget();
+            if (isFrameReady())
+            {
+                updateInRangeTarget();
+            }
 
-            if (inRangeTargetTransform == null || inRangeTarget == null) return;
+            if (inRangeTarget == null) return;
 
             rotateTowardInRangeTarget();
-            StartCoroutine(attackInRangeTarget());
+            attackInRangeTarget();
         }
 
         void OnDrawGizmosSelected()
@@ -292,12 +298,15 @@ namespace Gotchi.Player.Presenter
                     nearestTarget = lickquidator;
                 }
             }
-
-            if (nearestTarget.GetInstanceID() == inRangeTargetTransform.gameObject.GetInstanceID()) return;
             
             bool isClosestTarget = nearestTarget != null && shortestDistance <= model.Config.AttackRange;
             if (isClosestTarget)
             {
+                if (nearestTarget != null && inRangeTargetTransform != null && GameObject.ReferenceEquals(nearestTarget, inRangeTargetTransform.gameObject))
+                {
+                    return;
+                }
+
                 inRangeTargetTransform = nearestTarget.transform;
                 inRangeTarget = inRangeTargetTransform.GetComponent<LickquidatorPresenter>();
                 attackCountdownTracker = model.Config.AttackCountdown;
@@ -318,13 +327,12 @@ namespace Gotchi.Player.Presenter
         }
 
         // TODO: refactor this function into PlayableAssetHelpers.cs
-        private IEnumerator attackInRangeTarget()
+        private void attackInRangeTarget()
         {
-            bool isAttacking = attackCountdownTracker > 0f;
-            if (isAttacking)
+            if (attackCountdownTracker > 0f)
             {
                 attackCountdownTracker -= Time.deltaTime;
-                yield return null;
+                return;
             }
 
             attackCountdownTracker = model.Config.AttackCountdown;
@@ -361,6 +369,12 @@ namespace Gotchi.Player.Presenter
             if (gotchis.Length > 0) return;
             
             UserInterfaceManager.Instance.ShowGameOverUI();
+        }
+
+        // TODO: refactor this function into PlayableAssetHelpers.cs
+        private bool isFrameReady()
+        {
+            return Time.frameCount % frameReadyInterval == 0;
         }
         #endregion
     }

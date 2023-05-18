@@ -65,15 +65,18 @@ namespace Gotchi.Lickquidator.Presenter
 
         void Update()
         {
-            if (!isSurvivalPhase() || !isFrameReady()) return;
+            if (!isSurvivalPhase()) return;
 
-            updateInRangeTarget();
-            updateUltimateTarget();
+            if (isFrameReady())
+            {
+                updateInRangeTarget();
+                updateUltimateTarget();
+            }
 
-            if (model.IsPassive || inRangeTargetTransform == null || inRangeTarget == null) return;
+            if (model.IsPassive || inRangeTarget == null) return;
 
             rotateTowardInRangeTarget();
-            StartCoroutine(attackInRangeTarget());
+            attackInRangeTarget();
         }
 
         void OnMouseDown()
@@ -207,11 +210,14 @@ namespace Gotchi.Lickquidator.Presenter
                 }
             }
 
-            if (nearestTarget.GetInstanceID() == inRangeTargetTransform.gameObject.GetInstanceID()) return;
-
             bool isClosestTarget = nearestTarget != null && shortestDistance <= model.Config.AttackRange;
             if (isClosestTarget)
             {
+                if (nearestTarget != null && inRangeTargetTransform != null && GameObject.ReferenceEquals(nearestTarget, inRangeTargetTransform.gameObject))
+                {
+                    return;
+                }
+
                 inRangeTargetTransform = nearestTarget.transform;
                 inRangeTarget = inRangeTargetTransform.GetComponent<IDamageable>();
                 attackCountdownTracker = model.Config.AttackCountdown;
@@ -245,6 +251,11 @@ namespace Gotchi.Lickquidator.Presenter
                 }
             }
 
+            if (nearestTarget != null && inRangeTargetTransform != null && GameObject.ReferenceEquals(nearestTarget, inRangeTargetTransform.gameObject))
+            {
+                return;
+            }
+
             if (agent.enabled && agent.isOnNavMesh && nearestTarget != null)
             {
                 agent.SetDestination(nearestTarget.transform.position);
@@ -261,13 +272,12 @@ namespace Gotchi.Lickquidator.Presenter
             transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
         }
 
-        private IEnumerator attackInRangeTarget()
+        private void attackInRangeTarget()
         {
-            bool isAttacking = attackCountdownTracker > 0f;
-            if (isAttacking)
+            if (attackCountdownTracker > 0f)
             {
                 attackCountdownTracker -= Time.deltaTime;
-                yield return null;
+                return;
             }
 
             attackCountdownTracker = model.Config.AttackCountdown;
