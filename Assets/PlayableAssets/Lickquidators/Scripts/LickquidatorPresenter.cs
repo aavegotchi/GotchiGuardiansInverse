@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
 using Gotchi.Events;
-using System.Collections;
 using Gotchi.Lickquidator.Model;
 using Gotchi.Player.Presenter;
 
@@ -32,8 +31,8 @@ namespace Gotchi.Lickquidator.Presenter
         private NavMeshAgent agent = null;
         private Transform inRangeTargetTransform = null;
         private IDamageable inRangeTarget = null;
-        private float attackCountdownTracker = 0f;
         private Rigidbody rigidBody = null;
+        private float attackCountdownTracker = 0.5f;
         #endregion
 
         #region Unity Functions
@@ -41,7 +40,6 @@ namespace Gotchi.Lickquidator.Presenter
         {
             agent = GetComponent<NavMeshAgent>();
             rigidBody = GetComponent<Rigidbody>();
-            attackCountdownTracker = model.Config.AttackCountdown;
         }
 
         void Start()
@@ -274,6 +272,8 @@ namespace Gotchi.Lickquidator.Presenter
 
         private void attackInRangeTarget()
         {
+            Debug.Log(attackCountdownTracker);
+
             if (attackCountdownTracker > 0f)
             {
                 attackCountdownTracker -= Time.deltaTime;

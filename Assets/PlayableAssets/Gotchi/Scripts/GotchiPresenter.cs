@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Fusion;
@@ -14,7 +13,7 @@ using UnityEngine.SceneManagement;
 
 namespace Gotchi.Player.Presenter
 {
-    public class GotchiPresenter : NetworkBehaviour, IPlayerLeft
+    public class GotchiPresenter : NetworkBehaviour, IPlayerLeft, IDamageable
     {
         #region Properties
         public GotchiModel Model { get { return model; } }
@@ -47,7 +46,7 @@ namespace Gotchi.Player.Presenter
         private HealthBar_UI healthBar = null;
         private Transform inRangeTargetTransform = null;
         private LickquidatorPresenter inRangeTarget = null;
-        private float attackCountdownTracker = 0f;
+        private float attackCountdownTracker = 0.5f;
         #endregion
 
         #region Unity Functions
@@ -58,7 +57,6 @@ namespace Gotchi.Player.Presenter
             actionMap = inputActions.FindActionMap(actionMapKey);
             rightClick = actionMap.FindAction(rightClickKey);
             rangeCircle.SetScale(model.Config.SpinAbilityRange);
-            attackCountdownTracker = model.Config.AttackCountdown;
         }
 
         void Start()
