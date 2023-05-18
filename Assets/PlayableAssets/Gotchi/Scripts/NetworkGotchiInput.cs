@@ -131,6 +131,7 @@ public class NetworkGotchiInput : NetworkBehaviour
             {
                 NavMeshPath path = new NavMeshPath();
                 bool canMoveToTarget;
+                Debug.Log($"~~path: {path}");
 
                 if (agent.CalculatePath(hit.point, path) && path.status == NavMeshPathStatus.PathComplete)
                 {

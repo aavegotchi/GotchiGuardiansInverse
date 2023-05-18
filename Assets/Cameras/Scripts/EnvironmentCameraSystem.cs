@@ -1,4 +1,5 @@
 using Cinemachine;
+using UnityEditor;
 using UnityEngine;
 
 public class EnvironmentCameraSystem : MonoBehaviour {
@@ -12,7 +13,7 @@ public class EnvironmentCameraSystem : MonoBehaviour {
   
   [SerializeField] private bool isEdgeScrollMovementEnabled = true;
   [SerializeField] private float edgeScrollBuffer = 50f;
-  [SerializeField] private float edgeScrollMovementSpeed = 20f;
+  [SerializeField] private float edgeScrollMovementSpeed = 100f;
   
   [SerializeField] private float boundsBuffer = 2.5f;
   #endregion
@@ -77,17 +78,27 @@ public class EnvironmentCameraSystem : MonoBehaviour {
     }
 
     if (isEdgeScrollMovementEnabled) {
-      if (Input.mousePosition.x <= edgeScrollBuffer) {
-        movementInputDirection.x -= edgeScrollMovementSpeed;
-      }
-      if (Input.mousePosition.y <= edgeScrollBuffer) {
-        movementInputDirection.z -= edgeScrollMovementSpeed;
-      }
-      if (Input.mousePosition.x >= Screen.width - edgeScrollBuffer) {
-        movementInputDirection.x += edgeScrollMovementSpeed;
-      }
-      if (Input.mousePosition.y >= Screen.height - edgeScrollBuffer) {
-        movementInputDirection.z += edgeScrollMovementSpeed;
+      Vector3 mouseViewportPoint = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+      bool isMouseOnScreen = !(
+        mouseViewportPoint.x < 0 ||
+        mouseViewportPoint.x > 1 ||
+        mouseViewportPoint.y < 0 ||
+        mouseViewportPoint.y > 1
+      );
+      
+      if (isMouseOnScreen) {
+        if (Input.mousePosition.x <= edgeScrollBuffer) {
+          movementInputDirection.x -= edgeScrollMovementSpeed;
+        }
+        if (Input.mousePosition.y <= edgeScrollBuffer) {
+          movementInputDirection.z -= edgeScrollMovementSpeed;
+        }
+        if (Input.mousePosition.x >= Screen.width - edgeScrollBuffer) {
+          movementInputDirection.x += edgeScrollMovementSpeed;
+        }
+        if (Input.mousePosition.y >= Screen.height - edgeScrollBuffer) {
+          movementInputDirection.z += edgeScrollMovementSpeed;
+        }
       }
     }
 

@@ -11,7 +11,7 @@ public abstract class BaseNode : NetworkBehaviour
     {
         set { 
             occupied = value; 
-            render.material = occupied ? occupiedMaterial : unoccupiedMaterial;
+            // render.material = occupied ? occupiedMaterial : unoccupiedMaterial;
         }
     }
 
@@ -106,11 +106,12 @@ public abstract class BaseNode : NetworkBehaviour
 
     public void OpenNodeUI()
     {
+        Debug.Log($"~~OpenNodeUI: {transform.position}");
         NodeManager.Instance.SelectedNode = this;
 
         Vector3 nodeUIPosition = transform.position;
-        nodeUIPosition.y = 10f;
-        nodeUIPosition.z -= 8f;
+        nodeUIPosition.y += 10f;
+        nodeUIPosition.z += 68f;
         nodeUI.transform.position = nodeUIPosition;
 
         nodeUI.Close();
