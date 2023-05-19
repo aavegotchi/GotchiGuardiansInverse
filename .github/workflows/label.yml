@@ -1,14 +1,13 @@
-name: Labeler
+name: Label
 
-on:
-  pull_request:
+on: [pull_request_target]
 
 jobs:
   label:
     name: Set labels
     runs-on: ubuntu-latest
     steps:
-      - name: Label
+      - name: Set labels
         uses: actions/labeler@main
         with:
-          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
