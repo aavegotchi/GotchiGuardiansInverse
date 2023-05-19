@@ -12,7 +12,7 @@ jobs:
         uses: game-ci/unity-request-activation-file@v2
 
       - name: Upload license artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@main
         with:
           name: ${{ steps.createLicense.outputs.filePath }}
           path: ${{ steps.createLicense.outputs.filePath }}

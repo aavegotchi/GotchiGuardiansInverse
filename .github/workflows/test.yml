@@ -19,12 +19,12 @@ jobs:
     steps:
       # Checkout repository
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@main
         with:
           lfs: true
       # Restore cache
       - name: Restore cache
-        uses: actions/cache@v2
+        uses: actions/cache@main
         with:
           path: Library
           key: Library-test
@@ -42,7 +42,7 @@ jobs:
           testMode: ${{ matrix.testMode }}
       # Upload test artifacts
       - name: Upload test artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@main
         with:
           name: Test results (${{ matrix.testMode }})
           path: ${{ steps.runTests.outputs.artifactsPath }}
