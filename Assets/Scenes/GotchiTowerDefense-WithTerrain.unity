@@ -1421,18 +1421,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 462755330232994019}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &764892629 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3801501196359693983, guid: 5e07df5628a177d4ab67ea3174725eda,
-    type: 3}
-  m_PrefabInstance: {fileID: 462755330232994019}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 764892627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cf18493e2b32894c9f95dd51d77636b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &764892630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1454,8 +1442,7 @@ MonoBehaviour:
   NetworkGuid:
     RawGuidValue: efb9117d106c42dd8d53a5ba134f3ff1
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 764892629}
+  NetworkedBehaviours: []
   SimulationBehaviours: []
 --- !u!43 &777366838
 Mesh:
@@ -7711,6 +7698,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 23558881270010516, guid: 5e07df5628a177d4ab67ea3174725eda,
+        type: 3}
+      propertyPath: Flags
+      value: 2561
+      objectReference: {fileID: 0}
+    - target: {fileID: 23558881270010516, guid: 5e07df5628a177d4ab67ea3174725eda,
+        type: 3}
+      propertyPath: NetworkGuid.RawGuidValue.Array.data[0]
+      value: 667295826982097644
+      objectReference: {fileID: 0}
+    - target: {fileID: 23558881270010516, guid: 5e07df5628a177d4ab67ea3174725eda,
+        type: 3}
+      propertyPath: NetworkGuid.RawGuidValue.Array.data[1]
+      value: 8819485652469809547
+      objectReference: {fileID: 0}
     - target: {fileID: 457044624346859114, guid: 5e07df5628a177d4ab67ea3174725eda,
         type: 3}
       propertyPath: gameSettings

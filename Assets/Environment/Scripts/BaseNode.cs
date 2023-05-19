@@ -106,7 +106,6 @@ public abstract class BaseNode : NetworkBehaviour
 
     public void OpenNodeUI()
     {
-        Debug.Log($"~~OpenNodeUI: {transform.position}");
         NodeManager.Instance.SelectedNode = this;
 
         Vector3 nodeUIPosition = transform.position;

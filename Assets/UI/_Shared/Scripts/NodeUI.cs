@@ -70,12 +70,10 @@ public class NodeUI : MonoBehaviour
         EventBus.MenuEvents.MenuItemSelectedShort();
         gameObject.SetActive(true);
         uiAnimator.SetTrigger("Open");
-        Debug.Log($"~~Open");
     }
 
     public void OpenNodeUpgradeUI(Transform transformHolder, BaseTower tower)
     {
-        Debug.Log($"~~OpenNodeUpgradeUI__1");
         Vector3 nodeUIPosition = transformHolder.position;
         nodeUIPosition.y = 25f;
         nodeUIPosition.z -= 8f;
@@ -89,7 +87,6 @@ public class NodeUI : MonoBehaviour
 
     public void OpenNodeUpgradeUI(Transform transformHolder, LickquidatorModel enemy)
     {
-        Debug.Log($"~~OpenNodeUpgradeUI__2");
         Vector3 nodeUIPosition = transformHolder.position;
         nodeUIPosition.y = 25f;
         nodeUIPosition.z -= 8f;

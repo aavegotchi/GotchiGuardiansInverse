@@ -44,6 +44,8 @@ public class NetworkGotchiInput : NetworkBehaviour
     private void Start()
     {
         setNavMeshAgentFields();
+
+        agent.Warp(GotchiManager.Instance.Spawn.position);
     }
 
     public override void FixedUpdateNetwork()
@@ -131,7 +133,6 @@ public class NetworkGotchiInput : NetworkBehaviour
             {
                 NavMeshPath path = new NavMeshPath();
                 bool canMoveToTarget;
-                Debug.Log($"~~path: {path}");
 
                 if (agent.CalculatePath(hit.point, path) && path.status == NavMeshPathStatus.PathComplete)
                 {
