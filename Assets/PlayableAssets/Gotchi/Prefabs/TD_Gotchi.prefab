@@ -5266,7 +5266,7 @@ Transform:
   m_GameObject: {fileID: 6665416994352312182}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1133125184741782390}
@@ -5388,16 +5388,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   model: {fileID: 8726538126639483675}
-  inputActions: {fileID: -944628639613478452, guid: ceabcba2e8569194c9d945050386e204,
-    type: 3}
-  actionMapKey: Player
-  rightClickKey: RightClick
   rangeCircle: {fileID: 4615668477892764075}
   deathEffect: 5
   attackAnimation: {fileID: 7743941734871062196}
   attackParticleEffect: {fileID: 2842565001994265541}
   spinAttackAnimation: {fileID: 2491246566271843120}
   spinAttackParticleEffect: {fileID: 8018159057271575860}
+  inputActions: {fileID: -944628639613478452, guid: ceabcba2e8569194c9d945050386e204,
+    type: 3}
+  actionMapKey: Player
+  rightClickKey: RightClick
+  frameReadyInterval: 10
 --- !u!1 &8987684962425492679
 GameObject:
   m_ObjectHideFlags: 0
@@ -5730,6 +5731,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263587942913489349, guid: e7b8261b9186246449b598181aa96afe,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263587942913489349, guid: e7b8261b9186246449b598181aa96afe,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7109758073829887693, guid: e7b8261b9186246449b598181aa96afe,
         type: 3}

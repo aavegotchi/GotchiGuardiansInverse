@@ -50,7 +50,7 @@ MonoBehaviour:
     type: 3}
   canMoveHereColor: {r: 0.1882353, g: 0.60784316, b: 0.9490196, a: 1}
   cannotMoveHereColor: {r: 0.9529412, g: 0.19215687, b: 0.19215687, a: 1}
-  extraScale: 4
+  extraScale: 12
   animationDuration: 0.15
   waitDuration: 0.3
   closeAnimationDuration: 0.15

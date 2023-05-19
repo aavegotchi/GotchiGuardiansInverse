@@ -1119,6 +1119,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 462755329372116384}
     m_Modifications:
+    - target: {fileID: 5172441279832803132, guid: ba35fa4b3a2be2e4dabaa1e1d47a8d96,
+        type: 3}
+      propertyPath: gotchiPrefab
+      value: 
+      objectReference: {fileID: 6665416994352312182, guid: 02cd7c0bff2ad43cbb73bd7738b7ca4f,
+        type: 3}
     - target: {fileID: 5657520700067688740, guid: ba35fa4b3a2be2e4dabaa1e1d47a8d96,
         type: 3}
       propertyPath: m_Name
@@ -1194,6 +1200,57 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 462755329372116384}
     m_Modifications:
+    - target: {fileID: 3805818175144359565, guid: 633cfa4d306394943b4660e5e85cb623,
+        type: 3}
+      propertyPath: laserImpactPrefab
+      value: 
+      objectReference: {fileID: 5880440780311507398, guid: da1ec8f5fb595f34cb623900681db5b7,
+        type: 3}
+    - target: {fileID: 3805818175144359565, guid: 633cfa4d306394943b4660e5e85cb623,
+        type: 3}
+      propertyPath: arrowImpactPoolSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805818175144359565, guid: 633cfa4d306394943b4660e5e85cb623,
+        type: 3}
+      propertyPath: laserImpactPoolSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805818175144359565, guid: 633cfa4d306394943b4660e5e85cb623,
+        type: 3}
+      propertyPath: iceballImpactPoolSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805818175144359565, guid: 633cfa4d306394943b4660e5e85cb623,
+        type: 3}
+      propertyPath: missileImpactPoolSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805818175144359565, guid: 633cfa4d306394943b4660e5e85cb623,
+        type: 3}
+      propertyPath: fireballImpactPoolSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805818175144359565, guid: 633cfa4d306394943b4660e5e85cb623,
+        type: 3}
+      propertyPath: cannonballImpactPoolSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805818175144359565, guid: 633cfa4d306394943b4660e5e85cb623,
+        type: 3}
+      propertyPath: bombTowerExplosionPoolSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805818175144359565, guid: 633cfa4d306394943b4660e5e85cb623,
+        type: 3}
+      propertyPath: slowTowerExplosionPoolSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805818175144359565, guid: 633cfa4d306394943b4660e5e85cb623,
+        type: 3}
+      propertyPath: basicTowerExplosionPoolSize
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3805818175144359570, guid: 633cfa4d306394943b4660e5e85cb623,
         type: 3}
       propertyPath: m_RootOrder
@@ -1328,6 +1385,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5096007368269997524, guid: e7fc3ba7a4dda7e439d9ef4edf80d2fe,
+        type: 3}
+      propertyPath: arrowPoolSize
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5096007368269997524, guid: e7fc3ba7a4dda7e439d9ef4edf80d2fe,
+        type: 3}
+      propertyPath: laserPoolSize
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5096007368269997524, guid: e7fc3ba7a4dda7e439d9ef4edf80d2fe,
+        type: 3}
+      propertyPath: iceballPoolSize
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5096007368269997524, guid: e7fc3ba7a4dda7e439d9ef4edf80d2fe,
+        type: 3}
+      propertyPath: missilePoolSize
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5096007368269997524, guid: e7fc3ba7a4dda7e439d9ef4edf80d2fe,
+        type: 3}
+      propertyPath: fireballPoolSize
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5096007368269997524, guid: e7fc3ba7a4dda7e439d9ef4edf80d2fe,
+        type: 3}
+      propertyPath: cannonballPoolSize
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7fc3ba7a4dda7e439d9ef4edf80d2fe, type: 3}
