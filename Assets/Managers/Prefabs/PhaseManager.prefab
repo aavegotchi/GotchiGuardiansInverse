@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8672783815577021957}
-  - component: {fileID: 2098581967210504937}
+  - component: {fileID: 2055421612177715782}
+  - component: {fileID: 2264701013026162770}
   - component: {fileID: 6305502727634556823}
   m_Layer: 0
   m_Name: PhaseManager
@@ -33,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2098581967210504937
+--- !u!114 &2055421612177715782
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,35 +43,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 3041988294203579022}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 612003ff9c2fcd64c9bfbdc64f23445f, type: 3}
+  m_Script: {fileID: 11500000, guid: 121aa4bbe92ec38b29b198e64897f3c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  transitionScreenAnimator: {fileID: 0}
-  transitionCountdownTextUI: {fileID: 0}
-  countdownTimer: {fileID: 0}
-  rewardsScreenUI: {fileID: 0}
-  pawnLickquidatorRewardTextUI: {fileID: 0}
-  aerialLickquidatorRewardTextUI: {fileID: 0}
-  bossLickquidatorRewardTextUI: {fileID: 0}
-  basicTowerRewardTextUI: {fileID: 0}
-  arrowTowerRewardTextUI: {fileID: 0}
-  fireTowerRewardTextUI: {fileID: 0}
-  iceTowerRewardTextUI: {fileID: 0}
-  pawnLickquidatorCostTextUI: {fileID: 0}
-  aerialLickquidatorCostTextUI: {fileID: 0}
-  bossLickquidatorCostTextUI: {fileID: 0}
-  basicTowerCostTextUI: {fileID: 0}
-  arrowTowerCostTextUI: {fileID: 0}
-  fireTowerCostTextUI: {fileID: 0}
-  iceTowerCostTextUI: {fileID: 0}
-  enemiesSpawnBonusTextUI: {fileID: 0}
-  netTextUI: {fileID: 0}
   generalSO: {fileID: 11400000, guid: 185dd8ec98cbab1408d76c8295922571, type: 2}
-  prepPhaseText: Prep Phase Starting Soon...
+  prepPhaseText: Prep Phase Starting...
   survivalPhaseText: Survival Phase Starting...
+  defeatPhaseText: Your Gotchi Has Died...
+  victoryPhaseText: You Won!
   numSecondsOnRewardsScreen: 8
   numSecondsOnNonRewardsScreen: 2
+  _CountdownTracker: 0
+--- !u!114 &2264701013026162770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3041988294203579022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b889292b554b5ede0b1709bcf92c4cc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 2055421612177715782}
 --- !u!114 &6305502727634556823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,5 +90,5 @@ MonoBehaviour:
     RawGuidValue: 4370e2dfe9cd2c548b2cb5fbc85b434e
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 2098581967210504937}
+  - {fileID: 2055421612177715782}
   SimulationBehaviours: []

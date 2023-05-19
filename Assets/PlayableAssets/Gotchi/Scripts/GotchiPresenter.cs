@@ -10,6 +10,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using PhaseManager;
+using PhaseManager.Presenter;
 
 namespace Gotchi.Player.Presenter
 {
@@ -247,13 +249,13 @@ namespace Gotchi.Player.Presenter
         // TODO: these can probably go into the phase manager or as helpers
         private bool isTransitionPhase()
         {
-            return PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep
-                && PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Survival;
+            return PhasePresenter.Instance.GetCurrentPhase() != Phase.Prep
+                && PhasePresenter.Instance.GetCurrentPhase() != Phase.Survival;
         }
 
         private bool isPrepPhase()
         {
-            return PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Prep;
+            return PhasePresenter.Instance.GetCurrentPhase() == Phase.Prep;
         }
 
         private void configureAgent()

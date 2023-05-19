@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Fusion;
+using PhaseManager;
+using PhaseManager.Presenter;
 
 public abstract class BaseNode : NetworkBehaviour
 {
@@ -61,7 +63,7 @@ public abstract class BaseNode : NetworkBehaviour
     {
         if (isPointerOverUI()) return;
 
-        if (occupied || PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep) return;
+        if (occupied || PhasePresenter.Instance.GetCurrentPhase() != Phase.Prep) return;
         
         // Check if nodeUI is within a certain distance and active in the scene
         if (nodeUI.gameObject.activeInHierarchy &&

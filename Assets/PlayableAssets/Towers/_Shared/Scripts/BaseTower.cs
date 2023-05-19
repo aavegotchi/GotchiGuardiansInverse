@@ -1,5 +1,7 @@
 using UnityEngine;
 using Gotchi.Events;
+using PhaseManager;
+using PhaseManager.Presenter;
 
 public abstract class BaseTower : MonoBehaviour, IDamageable
 {
@@ -78,7 +80,7 @@ public abstract class BaseTower : MonoBehaviour, IDamageable
 
     void OnMouseDown()
     {
-        if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Prep) return;
+        if (PhasePresenter.Instance.GetCurrentPhase() != Phase.Prep) return;
         if (enemyTag == "Tower") return; // TODO: messy atm as this is prevent tower's upgrade ui for the aerial lickquidator
 
         NodeManager.Instance.NodeUI.OpenNodeUpgradeUI(transform, this);

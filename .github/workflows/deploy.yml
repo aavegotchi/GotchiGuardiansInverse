@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - 'production'
+      - 'staging'
+      # TODO: remove
+      - 'master'
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs:
+  test:
+    name: Test
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+
+  buildWebGL:
+    name: Build WebGL
+    needs: test
+    uses: ./.github/workflows/build-webgl.yml
+    secrets: inherit
+
+  deployWebGL:
+    name: Deploy WebGL
+    needs: buildWebGL
+    uses: ./.github/workflows/deploy-webgl.yml
+    secrets: inherit
+    with:
+      environment: ${{ env.GITHUB_REF_NAME }}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 using Gotchi.Events;
+using PhaseManager;
 using Gotchi.Lickquidator.Manager;
 
 namespace Gotchi.Audio
@@ -237,7 +238,7 @@ namespace Gotchi.Audio
             playSound(SoundManager.SoundType.SurvivalPhaseMusic, true);
         }
 
-        private void playPhaseTransition(PhaseManager.Phase nextPhase)
+        private void playPhaseTransition(Phase nextPhase)
         {
             pauseSound(SoundManager.SoundType.PrepPhaseMusic);
             pauseSound(SoundManager.SoundType.SurvivalPhaseMusic);

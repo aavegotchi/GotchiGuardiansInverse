@@ -1,6 +1,8 @@
 using Gotchi.Audio;
 using System.Runtime.Serialization.Formatters;
 using UnityEngine;
+using PhaseManager;
+using PhaseManager.Presenter;
 
 public class TurretTower : BaseTower
 {
@@ -30,7 +32,7 @@ public class TurretTower : BaseTower
 
         if (target == null) return;
 
-        if (PhaseManager.Instance.CurrentPhase != PhaseManager.Phase.Survival) return;
+        if (PhasePresenter.Instance.GetCurrentPhase() != Phase.Survival) return;
 
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
@@ -49,7 +51,7 @@ public class TurretTower : BaseTower
 
     private void OnMouseEnter()
     {
-        if(!isNodeUIOpenOnThis && PhaseManager.Instance.CurrentPhase == PhaseManager.Phase.Prep)
+        if(!isNodeUIOpenOnThis && PhasePresenter.Instance.GetCurrentPhase() == Phase.Prep)
         {
             if (rangeCircle != null)
             {
