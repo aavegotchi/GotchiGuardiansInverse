@@ -5,12 +5,10 @@ using System.Linq;
 
 public class GameplayDataEditor : EditorWindow
 {
-    private GameplayData gameplayData;
     private Vector2 towerListScrollPosition;
     private int selectedTowerIndex = -1;
    // private TowerCoreData selectedTower;
     private Vector2 rightPaneScrollInspector;
-    private bool isLoaded = false;
     private string newTowerName = "New Tower";
 
     private float splitterWidth = 5f;
@@ -28,7 +26,6 @@ public class GameplayDataEditor : EditorWindow
 
     private void OnEnable()
     {
-        LoadData();
     }
 
     private void OnGUI()
@@ -57,27 +54,20 @@ public class GameplayDataEditor : EditorWindow
             LoadData();
         }
 
-        if (isLoaded && GUILayout.Button("Save"))
+        if (GUILayout.Button("Save"))
         {
             SaveData();
         }
 
         EditorGUILayout.EndHorizontal();
 
-        if (!isLoaded)
-        {
-            EditorGUILayout.HelpBox("No GameplayData found. Press Load to create a new file with default values.", MessageType.Info);
-
-            return;
-        }
-
         EditorGUILayout.LabelField("General Settings", EditorStyles.boldLabel);
 
         EditorGUILayout.Space();
 
-        EditorGUILayout.TextField("Version", gameplayData.version);
-        gameplayData.startingGold = EditorGUILayout.IntField("Starting Gold", gameplayData.startingGold);
-        gameplayData.startingIncome = EditorGUILayout.IntField("Starting Income", gameplayData.startingIncome);
+        EditorGUILayout.TextField("Version", GameplayData.Singleton.version);
+        GameplayData.Singleton.startingGold = EditorGUILayout.IntField("Starting Gold", GameplayData.Singleton.startingGold);
+        GameplayData.Singleton.startingIncome = EditorGUILayout.IntField("Starting Income", GameplayData.Singleton.startingIncome);
         
 
         EditorGUILayout.Space();
@@ -138,14 +128,13 @@ public class GameplayDataEditor : EditorWindow
 
     private void LoadData()
     {
-        gameplayData = GameplayData.LoadData();
+        GameplayData.ReloadSingleton();
         currentEditingTemplate = null;
-        isLoaded = true;
     }
 
     private void SaveData()
     {
-        gameplayData.SaveData();
+        GameplayData.Singleton.SaveData();
     }
 
     #region Tower Data
@@ -155,21 +144,21 @@ public class GameplayDataEditor : EditorWindow
         EditorGUILayout.LabelField("Tower Templates", EditorStyles.boldLabel);
         towerListScrollPosition = EditorGUILayout.BeginScrollView(towerListScrollPosition, GUILayout.ExpandHeight(true));
 
-        if (gameplayData != null && gameplayData.towerTemplates != null)
+        if (GameplayData.Singleton != null && GameplayData.Singleton.towerTemplates != null)
         {
-            for (int i = 0; i < gameplayData.towerTemplates.Count; i++)
+            for (int i = 0; i < GameplayData.Singleton.towerTemplates.Count; i++)
             {
                 EditorGUILayout.BeginHorizontal();
 
-                if (gameplayData.towerTemplates[i] == currentEditingTemplate)
+                if (GameplayData.Singleton.towerTemplates[i] == currentEditingTemplate)
                 {
                     GUI.color = Color.yellow; // Set the highlight color
                 }
-                EditorGUILayout.LabelField(gameplayData.towerTemplates[i].name);
+                EditorGUILayout.LabelField(GameplayData.Singleton.towerTemplates[i].name);
 
                 if (GUILayout.Button("Edit"))
                 {
-                    currentEditingTemplate = gameplayData.towerTemplates[i];
+                    currentEditingTemplate = GameplayData.Singleton.towerTemplates[i];
                 }
                 GUI.color = Color.white;
 

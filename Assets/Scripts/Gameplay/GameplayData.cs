@@ -10,7 +10,7 @@ public class GameplayData
     public int startingIncome;
     public List<TowerTemplate> towerTemplates;
 
-    private static GameplayData loadedData = null;
+    
 
     public GameplayData()
     {
@@ -20,14 +20,23 @@ public class GameplayData
         towerTemplates = new List<TowerTemplate>();
     }
 
-    public static GameplayData GetCurrentData()
+    private static GameplayData _singleton = null;
+    public static GameplayData Singleton
     {
-        if (loadedData == null)
+        get
         {
-            loadedData = LoadData();
-        }
+            if (_singleton == null)
+            {
+                _singleton = LoadData();
+            }
 
-        return loadedData;
+            return _singleton;
+        }
+    }
+
+    public static void ReloadSingleton()
+    {
+        _singleton = LoadData();
     }
 
     public static GameplayData LoadData()

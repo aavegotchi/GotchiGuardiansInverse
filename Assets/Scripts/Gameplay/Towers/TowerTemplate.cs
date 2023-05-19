@@ -29,10 +29,6 @@ public class TowerTemplate : IDataTemplate
     public float buildTime;
     public float range;
 
-    public override string ToString()
-    {
-        return name;
-    }
 
     public static void EnsureAllTowers(GameplayData data)
     {

@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
-public class TowerInstanceGO : MonoBehaviour
+public class TowerController : NetworkBehaviour
 {
+    [SerializeField]
+    public TowerInstance towerInstance;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -1,13 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class GameObjectInstance
+using Fusion;
+
+public class GameObjectInstance : NetworkBehaviour
 {
     static int lastAssignedID = 0;
+
     public int ID;
 
     public GameObjectInstance() { 
+    }
+
+    private void Awake()
+    {
         ID = lastAssignedID++;
     }
 }
