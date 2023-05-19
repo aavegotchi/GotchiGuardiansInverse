@@ -14,19 +14,19 @@ env:
 jobs:
   test:
     name: Test
-    uses: ./.github/workflows/jobs/test.yml
+    uses: ./.github/workflows/test.yml
     secrets: inherit
 
   buildWebGL:
     name: Build WebGL
     needs: test
-    uses: ./.github/workflows/jobs/build-webgl.yml
+    uses: ./.github/workflows/build-webgl.yml
     secrets: inherit
 
   deployWebGL:
     name: Deploy WebGL
     needs: buildWebGL
-    uses: ./.github/workflows/jobs/deploy-webgl.yml
+    uses: ./.github/workflows/deploy-webgl.yml
     secrets: inherit
     with:
       environment: ${{ env.GITHUB_REF_NAME }}
