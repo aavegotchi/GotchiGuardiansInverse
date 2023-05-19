@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Gotchi.Events;
 using Gotchi.Network;
+using PhaseManager.Presenter;
 
 public class MainMenu : MonoBehaviour
 {
@@ -75,7 +76,7 @@ public class MainMenu : MonoBehaviour
         loadingMenuCanvas.SetActive(false);
         mainMenuCanvas.SetActive(false);
 
-        PhaseManager.Instance.StartFirstPrepPhase();
+        PhasePresenter.Instance.StartFirstPrepPhase();
     }
     #endregion
 }

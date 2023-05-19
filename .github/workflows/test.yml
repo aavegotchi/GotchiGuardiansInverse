@@ -1,0 +1,48 @@
+name: Test
+
+on:
+  workflow_call:
+    secrets:
+      UNITY_LICENSE:
+        required: true
+
+jobs:
+  test:
+    name: Test (${{ matrix.testMode }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        testMode:
+          - EditMode
+          - PlayMode
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@main
+        with:
+          lfs: true
+      # Restore cache
+      - name: Restore cache
+        uses: actions/cache@main
+        with:
+          path: Library
+          key: Library-test
+          restore-keys: Library-
+      # Run tests
+      - name: Run tests
+        id: runTests
+        uses: game-ci/unity-test-runner@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          artifactsPath: ${{ matrix.testMode }}
+          checkName: Test Results (${{ matrix.testMode }})
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          testMode: ${{ matrix.testMode }}
+      # Upload test artifacts
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@main
+        with:
+          name: Test results (${{ matrix.testMode }})
+          path: ${{ steps.runTests.outputs.artifactsPath }}

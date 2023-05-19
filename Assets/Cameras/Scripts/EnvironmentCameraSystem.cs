@@ -1,8 +1,7 @@
-using Cinemachine;
-using UnityEditor;
 using UnityEngine;
 
-public class EnvironmentCameraSystem : MonoBehaviour {
+public class EnvironmentCameraSystem : MonoBehaviour
+{
   #region Fields
   [Header("Required Refs")]
   [SerializeField] private GameObject bounds = null;
@@ -10,7 +9,7 @@ public class EnvironmentCameraSystem : MonoBehaviour {
   [Header("Attributes")]
   [SerializeField] private bool isKeyboardMovementEnabled = true;
   [SerializeField] private float keyboardMovementSpeed = 25f;
-  
+
   [SerializeField] private bool isEdgeScrollMovementEnabled = true;
   [SerializeField] private float edgeScrollBuffer = 50f;
   [SerializeField] private float edgeScrollMovementSpeed = 100f;
@@ -24,55 +23,68 @@ public class EnvironmentCameraSystem : MonoBehaviour {
   #endregion
 
   #region Unity Functions
-  private void Awake() {
+  private void Awake()
+  {
     SetBounds();
   }
 
-  private void Update() {
+  private void Update()
+  {
     HandleMovement();
   }
   #endregion
 
   #region Private Functions
-  private void SetBounds() {
+  private void SetBounds()
+  {
     Renderer boundsRenderer = bounds.GetComponent<Renderer>();
 
-    if (boundsRenderer == null) {
+    if (boundsRenderer == null)
+    {
       Renderer[] childRenderers = bounds.GetComponentsInChildren<Renderer>();
 
-      if (childRenderers.Length > 0) {
+      if (childRenderers.Length > 0)
+      {
         boundsRenderer = childRenderers[0];
-      
-        for (int i = 1; i < childRenderers.Length; i++) {
+
+        for (int i = 1; i < childRenderers.Length; i++)
+        {
           boundsRenderer.bounds.Encapsulate(childRenderers[i].bounds);
         }
       }
     }
 
-    if (boundsRenderer == null) {
+    if (boundsRenderer == null)
+    {
       return;
     }
 
     Vector3 boundsBufferVector = new Vector3(boundsBuffer, boundsBuffer, boundsBuffer);
-    
+
     boundsMax = boundsRenderer.bounds.max + boundsBufferVector;
     boundsMin = boundsRenderer.bounds.min - boundsBufferVector;
   }
 
-  private void HandleMovement() {
+  private void HandleMovement()
+  {
     Vector3 movementInputDirection = new Vector3(0, 0, 0);
 
-    if (isKeyboardMovementEnabled) {
-      if (Input.GetKey(KeyCode.W)) {
+    if (isKeyboardMovementEnabled)
+    {
+      if (Input.GetKey(KeyCode.W))
+      {
         movementInputDirection.z += keyboardMovementSpeed;
       }
-      if (Input.GetKey(KeyCode.S)) {
+      if (Input.GetKey(KeyCode.S))
+      {
         movementInputDirection.z -= keyboardMovementSpeed;
       }
-      if (Input.GetKey(KeyCode.A)) {
+      if (Input.GetKey(KeyCode.A))
+      {
         movementInputDirection.x -= keyboardMovementSpeed;
       }
-      if (Input.GetKey(KeyCode.D)) {
+      if (Input.GetKey(KeyCode.D))
+      {
         movementInputDirection.x += keyboardMovementSpeed;
       }
     }

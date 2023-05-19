@@ -1,0 +1,37 @@
+name: Deploy WebGL
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+    secrets:
+      UNITY_LICENSE:
+        required: true
+
+jobs:
+  deployWebGL:
+    name: Deploy (WebGL)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+          lfs: true
+      # Download build artifacts
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-WebGL
+          path: build
+      # Deploy to GitHub Pages
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: pages-${{ inputs.environment }}
+          folder: build/WebGL

@@ -5245,12 +5245,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 755836784205390960}
-  - component: {fileID: 4161372482478654007}
-  - component: {fileID: 4297088228064767030}
   - component: {fileID: 3248566665437993995}
-  - component: {fileID: 2777930016483656565}
   - component: {fileID: 8798585370841287131}
   - component: {fileID: 3952053190403523680}
+  - component: {fileID: 8726538126639483675}
+  - component: {fileID: 7612665586950072915}
   m_Layer: 10
   m_Name: TD_Gotchi
   m_TagString: Tower
@@ -5277,50 +5276,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4161372482478654007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6665416994352312182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52b8a9799d6979143b8f706e178ec4f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  gotchiObjectSO: {fileID: 11400000, guid: 681b30293c3efac4b9f1dad0e4bf4483, type: 2}
-  swordAnim: {fileID: 7743941734871062196}
-  spinAnim: {fileID: 2491246566271843120}
-  swordEffect: {fileID: 2842565001994265541}
-  spinEffect: {fileID: 8018159057271575860}
-  healthbar: {fileID: 9208720214513312327, guid: 076327f8421e28a4ab3ad5e7068e5119,
-    type: 3}
-  HealthbarOffset: {fileID: 2027114214}
-  rangeCircle: {fileID: 4615668477892764075}
-  swordTrigger: Swing
-  spinTrigger: Spin
-  enemyTag: Enemy
---- !u!114 &4297088228064767030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6665416994352312182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8563e0b2fec1874aa7e198f3fb0a0a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  gotchiObjectSO: {fileID: 11400000, guid: 681b30293c3efac4b9f1dad0e4bf4483, type: 2}
-  inputActions: {fileID: -944628639613478452, guid: ceabcba2e8569194c9d945050386e204,
-    type: 3}
-  actionMapKey: Player
-  actionKey: Move
-  rightClickActionKey: RightClick
 --- !u!195 &3248566665437993995
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5343,23 +5298,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &2777930016483656565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6665416994352312182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dee407c5fc2251c428d17ea4b7b77209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
-  _Username:
-    _length: 0
-    _data:
-      Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!114 &8798585370841287131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5382,10 +5320,9 @@ MonoBehaviour:
     RawGuidValue: 1baecf065ed39294897675d970cf4448
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 4161372482478654007}
-  - {fileID: 4297088228064767030}
-  - {fileID: 2777930016483656565}
   - {fileID: 3952053190403523680}
+  - {fileID: 8726538126639483675}
+  - {fileID: 7612665586950072915}
   SimulationBehaviours: []
 --- !u!114 &3952053190403523680
 MonoBehaviour:
@@ -5415,6 +5352,53 @@ MonoBehaviour:
     RotTeleportRadians: 1.5
   UseLegacySharedModeInterpolation: 0
   TargetInterpolationDelay: 0.03
+--- !u!114 &8726538126639483675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6665416994352312182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffdcddf55ff195e488467f6641253e2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  _Destination: {x: 0, y: 0, z: 0}
+  _Username: 
+  _IsSpinAttacking: 0
+  config: {fileID: 11400000, guid: 681b30293c3efac4b9f1dad0e4bf4483, type: 2}
+  targetTag: Enemy
+  attackAnimTrigger: Swing
+  abilityAnimTrigger: Spin
+  rangeIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
+  healthBarOffset: {fileID: 2027114214}
+--- !u!114 &7612665586950072915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6665416994352312182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ee72ca85e03d5459b524c27a6ef04c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0
+  model: {fileID: 8726538126639483675}
+  rangeCircle: {fileID: 4615668477892764075}
+  deathEffect: 5
+  attackAnimation: {fileID: 7743941734871062196}
+  attackParticleEffect: {fileID: 2842565001994265541}
+  spinAttackAnimation: {fileID: 2491246566271843120}
+  spinAttackParticleEffect: {fileID: 8018159057271575860}
+  inputActions: {fileID: -944628639613478452, guid: ceabcba2e8569194c9d945050386e204,
+    type: 3}
+  actionMapKey: Player
+  rightClickKey: RightClick
+  frameReadyInterval: 10
 --- !u!1 &8987684962425492679
 GameObject:
   m_ObjectHideFlags: 0
@@ -5747,6 +5731,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263587942913489349, guid: e7b8261b9186246449b598181aa96afe,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263587942913489349, guid: e7b8261b9186246449b598181aa96afe,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7109758073829887693, guid: e7b8261b9186246449b598181aa96afe,
         type: 3}

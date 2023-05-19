@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Gotchi.Events;
+using Gotchi.Lickquidator.Presenter;
+using Gotchi.Lickquidator.Model;
 
-namespace Gotchi.Lickquidators
+namespace Gotchi.Lickquidator.Manager
 {
     public class LickquidatorManager : MonoBehaviour
     {
@@ -131,7 +133,7 @@ namespace Gotchi.Lickquidators
 
                 LickquidatorPresenter lickquidator = GetByObject(lickquidatorObj);
 
-                lickquidator.AssignHealthBar(HealthBarPool_UI.Instance.GetHealthbar(lickquidatorModel.HealthBarOffset));
+                lickquidator.AssignHealthBar();
                 lickquidator.Freeze(); // to prevent prep phase 'pushing'
 
                 spawnedLickquidators.Add(lickquidatorObj);

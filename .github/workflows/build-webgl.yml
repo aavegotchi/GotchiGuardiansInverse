@@ -1,0 +1,41 @@
+name: Build WebGL
+
+on:
+  workflow_call:
+    secrets:
+      UNITY_LICENSE:
+        required: true
+
+jobs:
+  buildWebGL:
+    name: Build (WebGL)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+          lfs: true
+      # Restore cache
+      - name: Restore cache
+        uses: actions/cache@main
+        with:
+          path: Library
+          key: Library-WebGL
+          restore-keys: Library-
+      # Build
+      - name: Build
+        uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          targetPlatform: WebGL
+      # Upload build artifacts
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@main
+        with:
+          name: Build-WebGL
+          path: build/WebGL

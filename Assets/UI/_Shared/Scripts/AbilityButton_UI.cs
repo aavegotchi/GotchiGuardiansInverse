@@ -128,13 +128,13 @@ public class AbilityButton_UI : MonoBehaviour, IPointerClickHandler, IPointerEnt
     {
         if(!isCooldown)
         {
-            NetworkManager.Instance.LocalPlayerGotchi.PlayerHoveredMouseOverAbility();
+            NetworkManager.Instance.LocalPlayerGotchi.HandleOnHoverAbilityButton();
         }
     }
 
     private void OnExit()
     {
-        NetworkManager.Instance.LocalPlayerGotchi.PlayerStoppedHoveringMouseOverAbility();
+        NetworkManager.Instance.LocalPlayerGotchi.HandleOnExitAbilityButton();
     }
 
     #endregion
