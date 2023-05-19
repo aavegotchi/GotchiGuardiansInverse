@@ -1,27 +1,17 @@
-name: Build
+name: Build WebGL
 
 on:
-  push:
-    branches:
-      - 'production'
-      - 'staging'
-      # TODO: remove
-      - 'master'
+  workflow_call:
+    secrets:
+      UNITY_LICENSE:
+        required: true
 
 jobs:
-  test:
-    uses: ./.github/workflows/test.yml
-    secrets: inherit
-
-  build:
-    name: Build (${{ matrix.targetPlatform }})
-    needs: test
+  buildWebGL:
+    name: Build (WebGL)
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        targetPlatform:
-          - WebGL
     steps:
       # Checkout repository
       - name: Checkout repository
@@ -34,7 +24,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Library
-          key: Library-${{ matrix.targetPlatform }}
+          key: Library-WebGL
           restore-keys: Library-
       # Build
       - name: Build
@@ -42,10 +32,10 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          targetPlatform: ${{ matrix.targetPlatform }}
+          targetPlatform: WebGL
       # Upload build artifacts
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: Build-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
+          name: Build-WebGL
+          path: build/WebGL

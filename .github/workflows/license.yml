@@ -1,4 +1,4 @@
-name: Licenser
+name: License
 
 on: [workflow_dispatch]
 

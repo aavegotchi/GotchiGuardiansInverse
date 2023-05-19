@@ -1,13 +1,10 @@
 name: Test
 
 on:
-  push:
-    branches-ignore:
-      - 'production'
-      - 'staging'
-      # TODO: remove
-      - 'master'
   workflow_call:
+    secrets:
+      UNITY_LICENSE:
+        required: true
 
 jobs:
   test:
@@ -46,7 +43,6 @@ jobs:
       # Upload test artifacts
       - name: Upload test artifacts
         uses: actions/upload-artifact@v2
-        if: always()
         with:
           name: Test results (${{ matrix.testMode }})
           path: ${{ steps.runTests.outputs.artifactsPath }}
