@@ -260,6 +260,7 @@ namespace Gotchi.Player.Presenter
 
         private void configureAgent()
         {
+            agent.Warp(GotchiManager.Instance.Spawn.position);
             agent.speed = model.Config.MovementSpeed;
             agent.acceleration = model.Config.MovementAcceleration;
             agent.angularSpeed = model.Config.AngularSpeed;
