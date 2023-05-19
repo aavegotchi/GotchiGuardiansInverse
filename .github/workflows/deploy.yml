@@ -7,6 +7,7 @@ on:
       - 'staging'
       # TODO: remove
       - 'master'
+      - chore/#185161544-ci-cd-continued
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -29,4 +30,4 @@ jobs:
     uses: ./.github/workflows/deploy-webgl.yml
     secrets: inherit
     with:
-      environment: ${{ env.GITHUB_REF_NAME }}
+      environment: ${{ vars.GITHUB_REF_NAME }}

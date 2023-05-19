@@ -2,11 +2,12 @@ name: Pipeline
 
 on:
   push:
-    branches_ignore:
+    branches-ignore:
       - 'production'
       - 'staging'
       # TODO: remove
       - 'master'
+      - chore/#185161544-ci-cd-continued
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
