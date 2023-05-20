@@ -113,7 +113,7 @@ public class GameplayDataEditor : EditorWindow
 
             rightPaneScrollInspector = EditorGUILayout.BeginScrollView(rightPaneScrollInspector, GUILayout.ExpandHeight(true));
 
-            currentEditingTemplate.DrawDataInspectors();
+            currentEditingTemplate = currentEditingTemplate.DrawDataInspectors(GameplayData.Singleton);
 
             EditorGUILayout.EndScrollView();
             

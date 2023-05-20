@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[Serializable] public class TowerPrefabDictionary : SerializableDictionary<TowerTypeID, GameObject> { }
-[Serializable] public class TowerIconDictionary : SerializableDictionary<TowerTypeID, Texture> { }
+[Serializable] public class TowerPrefabDictionary : SerializableDictionary<TowerTemplate.TowerTypeID, GameObject> { }
+[Serializable] public class TowerIconDictionary : SerializableDictionary<TowerTemplate.TowerTypeID, Texture> { }
 
 public class TowerManager : MonoBehaviour
 {
@@ -32,7 +32,7 @@ public class TowerManager : MonoBehaviour
         return null;
     }
 
-    public TowerInstance SpawnInstanceOfType(TowerTypeID towerTypeID)
+    public TowerInstance SpawnInstanceOfType(TowerTemplate.TowerTypeID towerTypeID)
     {
         if (TowerPrefabs.ContainsKey(towerTypeID) && TowerPrefabs[towerTypeID] != null)
         {
@@ -59,7 +59,7 @@ public class TowerManager : MonoBehaviour
     public List<RadialUIButtonData> GetTowerBuildOptions()
     {
         List<RadialUIButtonData> towerBuildOptions = new List<RadialUIButtonData>();
-        foreach (TowerTypeID towerTypeID in TowerPrefabs.Keys)
+        foreach (TowerTemplate.TowerTypeID towerTypeID in TowerPrefabs.Keys)
         {
             towerBuildOptions.Add(new RadialUIButtonData(TowerIcons[towerTypeID]));
         }

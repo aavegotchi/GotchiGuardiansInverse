@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Xml;
 
 [System.Serializable]
 public class GameplayData
@@ -46,7 +49,11 @@ public class GameplayData
         if (File.Exists(saveFilePath))
         {
             string jsonData = File.ReadAllText(saveFilePath);
-            GameplayData data = JsonUtility.FromJson<GameplayData>(jsonData);
+            var jsonSettings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            };
+            GameplayData data = JsonConvert.DeserializeObject<GameplayData>(jsonData, jsonSettings);
             TowerTemplate.EnsureAllTowers(data);
             return data;
         }
@@ -63,12 +70,16 @@ public class GameplayData
     public void SaveData()
     {
         string saveFilePath = "Assets/GameData/GameplayData.json";
-        string jsonData = JsonUtility.ToJson(this, true);
+        var jsonSettings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.Auto
+        };
+        string jsonData = JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented, jsonSettings);
         File.WriteAllText(saveFilePath, jsonData);
         Debug.Log("GameplayData saved successfully.");
     }
 
-    public TowerTemplate GetTemplateFromType(TowerTypeID type)
+    public TowerTemplate GetTemplateFromType(TowerTemplate.TowerTypeID type)
     {
         foreach (TowerTemplate template in towerTemplates)
         {

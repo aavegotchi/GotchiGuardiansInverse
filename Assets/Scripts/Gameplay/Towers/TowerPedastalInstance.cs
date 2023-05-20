@@ -21,7 +21,7 @@ public class TowerPedastalInstance : GameObjectInstance
         gameObject.name = "Tower Pedastal Instance: " + ID;
     }
 
-    void SpawnTower(TowerTypeID type)
+    void SpawnTower(TowerTemplate.TowerTypeID type)
     {
         if (towerInstance != null)
         {

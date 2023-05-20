@@ -197,7 +197,7 @@ public abstract class DictionaryDrawer<TK, TV> : PropertyDrawer
 //public class CustomDictionaryDrawer : DictionaryDrawer<string, bool> { }
 
 [CustomPropertyDrawer(typeof(TowerPrefabDictionary))]
-public class TowerPrefabDictionaryDrawer : DictionaryDrawer<TowerTypeID, GameObject> { }
+public class TowerPrefabDictionaryDrawer : DictionaryDrawer<TowerTemplate.TowerTypeID, GameObject> { }
 
 [CustomPropertyDrawer(typeof(TowerIconDictionary))]
-public class TowerIconDictionaryDrawer : DictionaryDrawer<TowerTypeID, Texture> { }
+public class TowerIconDictionaryDrawer : DictionaryDrawer<TowerTemplate.TowerTypeID, Texture> { }

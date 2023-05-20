@@ -1,34 +1,41 @@
 {
-    "version": "0.0.1",
-    "startingGold": 100,
-    "startingIncome": 10,
-    "towerTemplates": [
-        {
-            "name": "Brute Force",
-            "tooltipText": "This tower doesn't hit hard BUT it hits very very, did I say very, fast.",
-            "type": 1,
-            "tier": 0,
-            "buildCost": 0,
-            "buildTime": 0.0,
-            "range": 0.0
-        },
-        {
-            "name": "ROFL Launcher",
-            "tooltipText": "ROFL's aren't to be messed with. This tower launches them into the fray where they bounce from enemy to enemy.",
-            "type": 2,
-            "tier": 0,
-            "buildCost": 0,
-            "buildTime": 0.0,
-            "range": 0.0
-        },
-        {
-            "name": "Bull Market Den",
-            "tooltipText": "Out of this den comes the Bull, and they are here to take care of business!",
-            "type": 3,
-            "tier": 0,
-            "buildCost": 0,
-            "buildTime": 0.0,
-            "range": 0.0
-        }
-    ]
+  "version": "0.0.1",
+  "startingGold": 100,
+  "startingIncome": 10,
+  "towerTemplates": [
+    {
+      "$type": "TowerTemplate_Projectile, Assembly-CSharp",
+      "ProjectileType": 0,
+      "ProjectileDamage": 0,
+      "ProjectileSpeed": 0.0,
+      "name": "Brute Force",
+      "tooltipText": "This tower doesn't hit hard BUT it hits very very, did I say very, fast.",
+      "type": 1,
+      "tier": 0,
+      "behavior": 1,
+      "buildCost": 0,
+      "buildTime": 0.0,
+      "range": 0.0
+    },
+    {
+      "name": "ROFL Launcher",
+      "tooltipText": "ROFL's aren't to be messed with. This tower launches them into the fray where they bounce from enemy to enemy.",
+      "type": 2,
+      "tier": 0,
+      "behavior": 0,
+      "buildCost": 0,
+      "buildTime": 0.0,
+      "range": 0.0
+    },
+    {
+      "name": "Bull Market Den",
+      "tooltipText": "Out of this den comes the Bull, and they are here to take care of business!",
+      "type": 3,
+      "tier": 0,
+      "behavior": 0,
+      "buildCost": 0,
+      "buildTime": 0.0,
+      "range": 0.0
+    }
+  ]
 }
