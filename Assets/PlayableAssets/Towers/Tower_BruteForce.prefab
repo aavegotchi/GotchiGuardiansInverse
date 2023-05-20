@@ -240,7 +240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1001634488055098504}
-  - component: {fileID: 2598914264597141864}
+  - component: {fileID: 7221473256893805769}
   - component: {fileID: 2914218849693971873}
   - component: {fileID: 2912448946183183838}
   - component: {fileID: 8863080428457905670}
@@ -267,7 +267,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2598914264597141864
+--- !u!114 &7221473256893805769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6448762565945295959}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f161fa7fdc3e22744a092a7f12508a28, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ec6be4fb0bf76f4c949da9f1b22c2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  towerInstance: {fileID: 2598914264597141864}
+  towerInstance: {fileID: 7221473256893805769}
 --- !u!114 &2912448946183183838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,14 +310,14 @@ MonoBehaviour:
   ObjectInterest: 1
   DefaultInterestGroups: []
   DestroyWhenStateAuthorityLeaves: 0
-  AllowStateAuthorityOverride: 1
+  AllowStateAuthorityOverride: 0
   AoiPositionSource: {fileID: 0}
   Flags: 2305
   NetworkGuid:
     RawGuidValue: 3caf00cdb3974d34a916f2b284f35848
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 2598914264597141864}
+  - {fileID: 7221473256893805769}
   - {fileID: 2914218849693971873}
   SimulationBehaviours: []
 --- !u!114 &8863080428457905670
@@ -338,6 +338,6 @@ MonoBehaviour:
   progress: 0
   adjustOriginToWorldY: 1
   originValue: 0
-  distance: 10
+  distance: 29
   show: 0
   showTime: 1

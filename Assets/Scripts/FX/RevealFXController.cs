@@ -39,7 +39,7 @@ public class RevealFXController : MonoBehaviour
             foreach (Material mat in target.GetComponent<Renderer>().materials)
             {
                 mat.SetFloat("_RevealOrigin", originValue + offset);
-                mat.SetFloat("_RevealDistance", distance + offset);
+                mat.SetFloat("_RevealDistance", distance);
             }
         }
     }
@@ -87,7 +87,7 @@ public class RevealFXController : MonoBehaviour
             foreach (Material mat in target.GetComponent<Renderer>().materials)
             {
                 mat.SetFloat("_RevealOrigin", originValue + offset);
-                mat.SetFloat("_RevealDistance", distance + offset);
+                mat.SetFloat("_RevealDistance", distance);
             }
         }
     }

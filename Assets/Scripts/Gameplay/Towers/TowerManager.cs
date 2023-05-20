@@ -20,6 +20,7 @@ public class TowerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ActiveTowerInstances = new Dictionary<int, TowerInstance>();
         Singleton = this;
     }
 
@@ -61,7 +62,7 @@ public class TowerManager : MonoBehaviour
         List<RadialUIButtonData> towerBuildOptions = new List<RadialUIButtonData>();
         foreach (TowerTemplate.TowerTypeID towerTypeID in TowerPrefabs.Keys)
         {
-            towerBuildOptions.Add(new RadialUIButtonData(TowerIcons[towerTypeID]));
+            towerBuildOptions.Add(new RadialUIButtonData_Tower(towerTypeID, TowerIcons[towerTypeID]));
         }
         return towerBuildOptions;
     }

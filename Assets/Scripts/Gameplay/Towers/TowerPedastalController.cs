@@ -24,7 +24,7 @@ public class TowerPedastalController : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        towerPedastalInstance.OnTowerInstanceChanged += TowerPedastalInstance_OnTowerInstanceChanged;
     }
 
     // Update is called once per frame
@@ -39,11 +39,9 @@ public class TowerPedastalController : NetworkBehaviour
             {
                 GameObject hitObject = ColliderRedirector.GetFinalTarget(hit.transform.gameObject);
 
-                // A collider was hit by the ray. Check if it's a cube object.
-                if (hitObject == gameObject) // replace "Cube" with the appropriate tag
+                if (hitObject == gameObject && towerPedastalInstance.TowerInstance == null)
                 {
                     ShowRadialMenu();
-                    // The ray hit a cube object. Do something...
                 }
             }
         }
@@ -51,12 +49,18 @@ public class TowerPedastalController : NetworkBehaviour
 
     private void OnMouseEnter()
     {
-        placeholderMouseOverGO?.SetActive(true);
+        if (towerPedastalInstance.TowerInstance == null)
+        {
+            placeholderMouseOverGO?.SetActive(true);
+        }
     }
 
     private void OnMouseExit()
     {
-        placeholderMouseOverGO?.SetActive(false);
+        if (towerPedastalInstance.TowerInstance == null)
+        {
+            placeholderMouseOverGO?.SetActive(false);
+        }
     }
 
     private void ShowRadialMenu()
@@ -71,12 +75,18 @@ public class TowerPedastalController : NetworkBehaviour
         else
         {
             activeRadial.Hide();
-            //activeRadial.ShowChoices(GameplayData.Singleton.towerTemplates.Count, gameObject);
         }
     }
 
     private void OnRadialButtonActivated(RadialUI radialUI, int index, RadialUIButton button)
     {
+        RadialUIButtonData_Tower towerButtonData = button.Data as RadialUIButtonData_Tower;
+
+        if (towerButtonData != null)
+        {
+            towerPedastalInstance?.SpawnTower(towerButtonData.TypeID);
+            activeRadial?.Hide();
+        }
     }
 
     private void OnRadialStateChanged(RadialUI radialUI, RadialUI.RadialState state)
@@ -85,6 +95,14 @@ public class TowerPedastalController : NetworkBehaviour
         {
             Destroy(activeRadial.gameObject);
             activeRadial = null;
+        }
+    }
+
+    private void TowerPedastalInstance_OnTowerInstanceChanged(TowerPedastalInstance pedastal, TowerInstance newInstance)
+    {
+        if (newInstance != null)
+        {
+            placeholderMouseOverGO?.SetActive(false);
         }
     }
 }

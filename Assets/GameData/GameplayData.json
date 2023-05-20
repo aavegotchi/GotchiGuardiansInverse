@@ -6,8 +6,8 @@
     {
       "$type": "TowerTemplate_Projectile, Assembly-CSharp",
       "ProjectileType": 0,
-      "ProjectileDamage": 0,
-      "ProjectileSpeed": 0.0,
+      "ProjectileDamage": 5,
+      "ProjectileSpeed": 100.0,
       "name": "Brute Force",
       "tooltipText": "This tower doesn't hit hard BUT it hits very very, did I say very, fast.",
       "type": 1,

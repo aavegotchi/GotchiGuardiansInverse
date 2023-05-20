@@ -127,7 +127,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Reveal: 1
+    - _Reveal: 0.521
     - _RevealDistance: 29
     - _RevealEdgeWidth: 0.05
     - _RevealOrigin: 0
@@ -151,7 +151,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Emissive: {r: 0, g: 0, b: 0, a: 1}
-    - _RevealEdgeColor: {r: 0.961658, g: 0, b: 1, a: 1}
+    - _RevealEdgeColor: {r: 0, g: 0.28627452, b: 0.21176471, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _UVOffset: {r: 0, g: 0, b: 0, a: 0}
     - _UVScale: {r: 1, g: 1, b: 0, a: 0}
