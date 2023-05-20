@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[Serializable] public class TowerPrefabDictionary : SerializableDictionary<TowerTypeID, TowerInstance> { }
+[Serializable] public class TowerPrefabDictionary : SerializableDictionary<TowerTypeID, GameObject> { }
 [Serializable] public class TowerIconDictionary : SerializableDictionary<TowerTypeID, Texture> { }
 
 public class TowerManager : MonoBehaviour
@@ -36,10 +36,15 @@ public class TowerManager : MonoBehaviour
     {
         if (TowerPrefabs.ContainsKey(towerTypeID) && TowerPrefabs[towerTypeID] != null)
         {
-            TowerInstance towerInstance = Instantiate(TowerPrefabs[towerTypeID]);
-            towerInstance.Template = GameplayData.Singleton.GetTemplateFromType(towerTypeID);
-            ActiveTowerInstances.Add(towerInstance.ID, towerInstance);
-            return towerInstance;
+            GameObject newTowerObj = Instantiate(TowerPrefabs[towerTypeID]);
+            TowerInstance towerInstance = newTowerObj.GetComponent<TowerInstance>();
+
+            if (towerInstance != null)
+            {
+                towerInstance.Template = GameplayData.Singleton.GetTemplateFromType(towerTypeID);
+                ActiveTowerInstances.Add(towerInstance.ID, towerInstance);
+                return towerInstance;
+            }
         }
 
         return null;

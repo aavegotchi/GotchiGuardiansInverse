@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4221127718663965160
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1572685597945975756}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1572685597945975756
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4221127718663965160}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8528727737571152807}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8528727737571152800
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,8 +28,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1572685597945975756}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -81,14 +49,14 @@ MonoBehaviour:
     _HashCodes: 010000000200000003000000
     _Next: ffffffffffffffffffffffff
     _Count: 3
-    _Version: 9
+    _Version: 12
     _FreeList: -1
     _FreeCount: 0
     _Keys: 010000000200000003000000
     _Values:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 6448762565945295959, guid: 3caf00cdb3974d34a916f2b284f35848, type: 3}
+    - {fileID: 6448762565945295959, guid: 23fdac48bba267c45a7d805f37c2ca17, type: 3}
+    - {fileID: 6448762565945295959, guid: 81bd815703f26084cb0f3b8b39516e5b, type: 3}
   TowerIcons:
     _Buckets: 020000000000000001000000
     _HashCodes: 010000000200000003000000

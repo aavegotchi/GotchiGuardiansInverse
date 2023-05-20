@@ -11,9 +11,11 @@ public class RevealFXController : MonoBehaviour
     [SerializeField]
     private float progress = 0.0f;
     [SerializeField]
-    private int botValue = 0;
+    private bool adjustOriginToWorldY = true;
     [SerializeField]
-    private int topValue = 10;
+    private int originValue = 0;
+    [SerializeField]
+    private int distance = 10;
     [SerializeField]
     private bool show = false;
     [SerializeField]
@@ -27,12 +29,17 @@ public class RevealFXController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        float offset = 0.0f;
+        if (adjustOriginToWorldY)
+        {
+            offset = transform.position.y;
+        }
         foreach (GameObject target in targets)
         {
             foreach (Material mat in target.GetComponent<Renderer>().materials)
             {
-                mat.SetFloat("_RevealOrigin", botValue);
-                mat.SetFloat("_RevealDistance", topValue);
+                mat.SetFloat("_RevealOrigin", originValue + offset);
+                mat.SetFloat("_RevealDistance", distance + offset);
             }
         }
     }
@@ -69,12 +76,18 @@ public class RevealFXController : MonoBehaviour
 
         showTweener = DOTween.To(() => progress, (x) => { progress = x; }, show ? 1.0f : 0.0f, showTime);
 
+        float offset = 0.0f;
+        if (adjustOriginToWorldY)
+        {
+            offset = transform.position.y;
+        }
+
         foreach (GameObject target in targets)
         {
             foreach (Material mat in target.GetComponent<Renderer>().materials)
             {
-                mat.SetFloat("_RevealOrigin", botValue);
-                mat.SetFloat("_RevealDistance", topValue);
+                mat.SetFloat("_RevealOrigin", originValue + offset);
+                mat.SetFloat("_RevealDistance", distance + offset);
             }
         }
     }
