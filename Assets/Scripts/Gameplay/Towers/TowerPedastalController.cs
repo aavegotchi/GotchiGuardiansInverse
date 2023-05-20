@@ -5,7 +5,6 @@ using Fusion;
 using static RadialUIButton;
 using System;
 
-[RequireComponent(typeof(Collider))]
 public class TowerPedastalController : NetworkBehaviour
 {
     [SerializeField]
@@ -38,8 +37,10 @@ public class TowerPedastalController : NetworkBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
+                GameObject hitObject = ColliderRedirector.GetFinalTarget(hit.transform.gameObject);
+
                 // A collider was hit by the ray. Check if it's a cube object.
-                if (hit.transform == transform) // replace "Cube" with the appropriate tag
+                if (hitObject == gameObject) // replace "Cube" with the appropriate tag
                 {
                     ShowRadialMenu();
                     // The ray hit a cube object. Do something...
@@ -67,10 +68,11 @@ public class TowerPedastalController : NetworkBehaviour
             activeRadial.OnRadialButtonActivated += OnRadialButtonActivated;
             activeRadial.ShowChoices(TowerManager.Singleton.GetTowerBuildOptions(), gameObject);
         }
-        //else
-        //{
-        //    activeRadial.ShowChoices(GameplayData.Singleton.towerTemplates.Count, gameObject);
-        //}
+        else
+        {
+            activeRadial.Hide();
+            //activeRadial.ShowChoices(GameplayData.Singleton.towerTemplates.Count, gameObject);
+        }
     }
 
     private void OnRadialButtonActivated(RadialUI radialUI, int index, RadialUIButton button)

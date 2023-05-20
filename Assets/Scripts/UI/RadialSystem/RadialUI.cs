@@ -56,6 +56,8 @@ public class RadialUI : MonoBehaviour
 
         activeSequence = DOTween.Sequence();
 
+        State = RadialState.Opening;
+
         int currentIndex = 0;
         foreach (RadialUIButton button in ChoiceButtons)
         {
@@ -96,6 +98,8 @@ public class RadialUI : MonoBehaviour
             activeSequence = null;
         }
 
+        State = RadialState.Closing;
+
         activeSequence = DOTween.Sequence();
 
         foreach (RadialUIButton button in ChoiceButtons)
@@ -120,9 +124,9 @@ public class RadialUI : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                RadialUIButton hitButton = hit.transform.gameObject.GetComponent<RadialUIButton>();
+                RadialUIButton hitButton = ColliderRedirector.GetFinalTarget<RadialUIButton>(hit.transform.gameObject);
                 // A collider was hit by the ray. Check if it's a cube object.
-                if (hitButton != null && ChoiceButtons.Contains(hit.transform.gameObject.GetComponent<RadialUIButton>()))
+                if (hitButton != null && ChoiceButtons.Contains(hitButton))
                 {
                     OnRadialButtonActivated?.Invoke(this, ChoiceButtons.IndexOf(hitButton), hitButton);
                 }

@@ -1,7 +1,6 @@
 using UnityEngine.Events;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
 public class RadialUIButton : MonoBehaviour
 {
     public delegate void RadialBtnActivated(RadialUIButton button);

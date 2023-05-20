@@ -12,11 +12,6 @@ public class TowerPedastalInstance : GameObjectInstance
     public delegate void TowerInstanceChanged(TowerPedastalInstance pedastal, TowerInstance newInstance);
     public event TowerInstanceChanged OnTowerInstanceChanged;
 
-    public TowerPedastalInstance()
-    {
-        gameObject.name = "stupid";
-    }
-
     // Start is called before the first frame update
     void Start()
     {
