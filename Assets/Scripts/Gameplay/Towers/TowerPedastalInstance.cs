@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class TowerPedastalInstance : GameObjectInstance
 {
+    [SerializeField] 
+    private GameObject TowerInstanceRoot;
+
     private TowerInstance towerInstance = null;
 
     public TowerInstance TowerInstance
@@ -31,7 +34,7 @@ public class TowerPedastalInstance : GameObjectInstance
         if (towerInstance != null)
         {
             towerInstance.Pedastal = this;
-            towerInstance.transform.SetParent(transform, false);
+            towerInstance.transform.SetParent(TowerInstanceRoot.transform, false);
 
             if (towerInstance != null)
             {
