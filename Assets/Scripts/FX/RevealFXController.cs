@@ -9,7 +9,7 @@ public class RevealFXController : MonoBehaviour
     [SerializeField]
     private List<GameObject> targets;
     [SerializeField]
-    private float progress = 0.0f;
+    public float progress = 0.0f;
     [SerializeField]
     private bool adjustOriginToWorldY = true;
     [SerializeField]

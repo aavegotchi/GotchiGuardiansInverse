@@ -281,6 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   ID: 0
+  _CurrentState: 0
 --- !u!114 &2914218849693971873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,7 +295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
-  towerInstance: {fileID: 7221473256893805769}
+  TowerInstance: {fileID: 7221473256893805769}
+  RevealFXController: {fileID: 8863080428457905670}
 --- !u!114 &2912448946183183838
 MonoBehaviour:
   m_ObjectHideFlags: 0

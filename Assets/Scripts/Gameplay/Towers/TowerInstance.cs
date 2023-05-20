@@ -1,4 +1,6 @@
 using Fusion;
+using PhaseManager.Model;
+using System;
 using UnityEngine;
 using static TowerInstance;
 
@@ -14,29 +16,36 @@ public class TowerInstance : GameObjectInstance
         Upgrading, // Represents an upgrade in progress
     };
 
+    #region Events
+    public event Action<TowerInstance, State> OnStateChanged = delegate { };
+    public event Action<TowerInstance, float> OnBuildingProgressChanged = delegate { };
+    #endregion
+
     #region Variables
     [SerializeField]
     public TowerController Controller { get; set; }
 
-    public delegate void StateChanged(TowerInstance instance, State state);
-    public event StateChanged OnStateChanged;
-
+    //[Networked(OnChanged = nameof(OnSetState))]
+    //public State CurrentState { get; set; } = State.New;
     private State _currentState = State.New;
-    public State CurrentState 
+    public State CurrentState
     {
         get { return _currentState; }
-        private set
+        set
         {
             if (_currentState != value)
             {
                 _currentState = value;
-                OnStateChanged?.Invoke(this, _currentState);
+                OnStateChanged_Internal();
             }
-        } 
+        }
     }
+
+    private float BuildingProgress = 0.0f;
 
     [SerializeField]
     public TowerTemplate Template { get; set; } = null;
+    [SerializeField]
     public TowerPedastalInstance Pedastal { get; set; } = null;
     #endregion
 
@@ -44,6 +53,75 @@ public class TowerInstance : GameObjectInstance
     void Start()
     {
         gameObject.name = "Tower Instance [" + Template.name + "]: " + ID;
+    }
+
+    //public override void FixedUpdateNetwork()
+    public void Update()
+    {
+        if (CurrentState == State.Building)
+        {
+            UpdateBuilding();
+        }
+    }
+    #endregion
+
+    public void StartBuilding()
+    {
+        if (CurrentState != State.New)
+        {
+            Debug.LogError("Tower Instance " + ID + " tried to start building but was not in the New state!");
+            return;
+        }
+
+        BuildingProgress = 0.0f;
+        CurrentState = State.Building;
+    }
+
+    private void UpdateBuilding()
+    {
+        float newProgress = BuildingProgress + (Time.deltaTime / Template.buildTime);
+        SetBuildingProgress(newProgress);
+
+        if (BuildingProgress == 1.0f)
+        {
+            FinishBuilding();
+        }
+    }
+
+    private void FinishBuilding()
+    {
+        CurrentState = State.Idle;
+    }
+
+    private void SetBuildingProgress(float progress)
+    {
+        float _validProgress = Mathf.Clamp(progress, 0.0f, 1.0f);
+        if (BuildingProgress != _validProgress)
+        {
+            BuildingProgress = _validProgress;
+            OnBuildingProgressChanged(this, BuildingProgress);
+        }
+    }
+
+    #region network functions
+
+    private static void OnSetState(Changed<TowerInstance> changed)
+    {
+        changed.Behaviour.OnStateChanged_Internal();
+    }
+
+    private void OnStateChanged_Internal()
+    {
+        OnStateChanged?.Invoke(this, CurrentState);
+
+        if (CurrentState == State.Idle)
+        {
+            SetBuildingProgress(1.0f);
+        }
+        else if (CurrentState == State.Building)
+        {
+            SetBuildingProgress(0.0f);
+        }
     }
     #endregion
 }

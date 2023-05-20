@@ -736,7 +736,7 @@ MonoBehaviour:
   _interpolationDataSource: 0
   buildEffect: {fileID: 9220745280710179020}
   nodeUI: {fileID: 0}
-  visualRenderer: {fileID: 0}
+  visualRenderer: {fileID: 1701371715266909622}
   unoccupiedMaterial: {fileID: 2100000, guid: f1600150a66d04c4f8a4456c3b64cb7d, type: 2}
   occupiedMaterial: {fileID: 2100000, guid: 690f216a352093943993e1a29c201c2b, type: 2}
   graphicRaycaster: {fileID: 0}
@@ -5465,6 +5465,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3aab68a8a31c4b4f9460c2d66b8d635, type: 3}
+--- !u!23 &1701371715266909622 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9026984033114915717, guid: a3aab68a8a31c4b4f9460c2d66b8d635,
+    type: 3}
+  m_PrefabInstance: {fileID: 7699526612983846451}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2787824628375476979 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5506320231866715328, guid: a3aab68a8a31c4b4f9460c2d66b8d635,
