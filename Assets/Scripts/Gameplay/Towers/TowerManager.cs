@@ -15,6 +15,7 @@ public class TowerManager : MonoBehaviour
 
     private Dictionary<int, TowerInstance> ActiveTowerInstances;
 
+    [HideInInspector]
     public static TowerManager Singleton;
 
     // Start is called before the first frame update

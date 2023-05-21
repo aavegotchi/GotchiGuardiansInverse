@@ -241,7 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1001634488055098504}
   - component: {fileID: 7221473256893805769}
-  - component: {fileID: 2914218849693971873}
+  - component: {fileID: 1841527480424362406}
   - component: {fileID: 2912448946183183838}
   - component: {fileID: 8863080428457905670}
   m_Layer: 0
@@ -264,6 +264,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7226933708375397328}
+  - {fileID: 2365417906556088304}
+  - {fileID: 5717273397201409000}
+  - {fileID: 8857413138435601076}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -281,8 +284,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   ID: 0
-  _CurrentState: 0
---- !u!114 &2914218849693971873
+  PreparedProjectile: {fileID: 0}
+  LaunchedProjectiles: []
+  CooldownTime: 0
+--- !u!114 &1841527480424362406
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -291,12 +296,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6448762565945295959}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 333c3593435554a42af4b8b28598503f, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f4256559f924b4db67d30323d086be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   TowerInstance: {fileID: 7221473256893805769}
   RevealFXController: {fileID: 8863080428457905670}
+  ProjectileParent: {fileID: 6680597755014738087}
+  ProjectileSpawnPoint: {fileID: 6901016392137572175}
+  ProjectileIdlePoint: {fileID: 8567515386900324302}
 --- !u!114 &2912448946183183838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,7 +328,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 7221473256893805769}
-  - {fileID: 2914218849693971873}
+  - {fileID: 1841527480424362406}
   SimulationBehaviours: []
 --- !u!114 &8863080428457905670
 MonoBehaviour:
@@ -337,9 +345,102 @@ MonoBehaviour:
   targets:
   - {fileID: 408987654202409819}
   - {fileID: 3819332233506654770}
-  progress: 0
-  adjustOriginToWorldY: 1
-  originValue: 0
-  distance: 29
-  show: 0
-  showTime: 1
+  Progress: 0
+  AdjustOriginToWorldY: 1
+  OriginValue: 0
+  Distance: 29
+  Show: 0
+  ShowTime: 1
+--- !u!1 &6680597755014738087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2365417906556088304}
+  m_Layer: 0
+  m_Name: ActiveProjectiles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2365417906556088304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6680597755014738087}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1001634488055098504}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6901016392137572175
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5717273397201409000}
+  m_Layer: 0
+  m_Name: ProjectileSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5717273397201409000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6901016392137572175}
+  m_LocalRotation: {x: -0.10239839, y: -0.15473428, z: -0.016126713, w: 0.9825029}
+  m_LocalPosition: {x: 2.66, y: 23.58, z: -7.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1001634488055098504}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: -11.9, y: -17.9, z: 0}
+--- !u!1 &8567515386900324302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8857413138435601076}
+  m_Layer: 0
+  m_Name: ProjectileIdlePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8857413138435601076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8567515386900324302}
+  m_LocalRotation: {x: -0.10358096, y: -0.13359618, z: -0.014041511, w: 0.9855079}
+  m_LocalPosition: {x: -1.51, y: 26.8, z: 6.57}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1001634488055098504}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -12, y: -15.44, z: 0}

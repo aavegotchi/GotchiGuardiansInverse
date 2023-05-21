@@ -201,3 +201,9 @@ public class TowerPrefabDictionaryDrawer : DictionaryDrawer<TowerTemplate.TowerT
 
 [CustomPropertyDrawer(typeof(TowerIconDictionary))]
 public class TowerIconDictionaryDrawer : DictionaryDrawer<TowerTemplate.TowerTypeID, Texture> { }
+
+[CustomPropertyDrawer(typeof(ProjectileInstancePrefabDictionary))]
+public class ProjectileInstancePrefabDictionaryDrawer : DictionaryDrawer<ProjectileInstance.ProjectileTypeID, GameObject> { }
+
+[CustomPropertyDrawer(typeof(ProjectileVisualPrefabDictionary))]
+public class ProjectileVisualPrefabDictionaryDrawer : DictionaryDrawer<ProjectileInstance.ProjectileTypeID, GameObject> { }

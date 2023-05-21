@@ -22,7 +22,6 @@ public class TowerInstance : GameObjectInstance
     #endregion
 
     #region Variables
-    [SerializeField]
     public TowerController Controller { get; set; }
 
     //[Networked(OnChanged = nameof(OnSetState))]
@@ -43,20 +42,19 @@ public class TowerInstance : GameObjectInstance
 
     private float BuildingProgress = 0.0f;
 
-    [SerializeField]
+    //[Header("Dynamic Debug - null in prefab")]
     public TowerTemplate Template { get; set; } = null;
-    [SerializeField]
     public TowerPedastalInstance Pedastal { get; set; } = null;
     #endregion
 
     #region functions
-    void Start()
+    protected virtual void Start()
     {
         gameObject.name = "Tower Instance [" + Template.name + "]: " + ID;
     }
 
     //public override void FixedUpdateNetwork()
-    public void Update()
+    protected virtual void Update()
     {
         if (CurrentState == State.Building)
         {

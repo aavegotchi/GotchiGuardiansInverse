@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// DEPRECATED
 [CreateAssetMenu(fileName = "GameSettings", menuName = "ScriptableObjects/Games/GotchiTowerDefense/GameSettings/Projectile")]
 public class ProjectileObjectSO : ScriptableObject
 {
