@@ -12,29 +12,25 @@ namespace Gotchi.Lickquidator.SpeedyBoi.Presenter
         [SerializeField] private GameObject moveParticleSystemObj = null;
         #endregion
 
-        #region Private Variables
-        private LickquidatorModel_SpeedyBoi model = null;
-        #endregion
-
         #region Unity Functions
         protected override void Start()
         {
             base.Start();
-            model = (LickquidatorModel_SpeedyBoi)Model;
+            model = (LickquidatorModel_SpeedyBoi)model;
         }
         
         protected override void OnEnable()
         {
             base.OnEnable();
-            Model.OnIsMovingUpdated += handleOnMovingUpdated;
-            Model.OnAttacked += handleOnAttacked;
+            model.OnIsMovingUpdated += handleOnMovingUpdated;
+            model.OnAttacked += handleOnAttacked;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            Model.OnIsMovingUpdated -= handleOnMovingUpdated;
-            Model.OnAttacked += handleOnAttacked;
+            model.OnIsMovingUpdated -= handleOnMovingUpdated;
+            model.OnAttacked += handleOnAttacked;
         }
         #endregion
 

@@ -28,6 +28,7 @@ public class EnemyQueue_UI : MonoBehaviour
     [SerializeField] private Sprite pawnLickquidatorSprite = null;
     [SerializeField] private Sprite aerialLickquidatorSprite = null;
     [SerializeField] private Sprite bossLickquidatorSprite = null;
+    [SerializeField] private Sprite speedyBoiLickquidatorSprite = null;
     [SerializeField] private Sprite noneSprite = null;
     #endregion
 
@@ -111,6 +112,11 @@ public class EnemyQueue_UI : MonoBehaviour
         {
             buttonImage.sprite = bossLickquidatorSprite;
         }
+        else if (type == LickquidatorManager.LickquidatorType.SpeedyBoi)
+        {
+            buttonImage.sprite = speedyBoiLickquidatorSprite;
+        }
+        
         buttonBtn.enabled = true;
     }
     #endregion

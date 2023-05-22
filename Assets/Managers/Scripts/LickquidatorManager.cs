@@ -17,7 +17,8 @@ namespace Gotchi.Lickquidator.Manager
             None,
             PawnLickquidator,
             AerialLickquidator,
-            BossLickquidator
+            BossLickquidator,
+            SpeedyBoi,
         }
 
         public List<LickquidatorPresenter> ActiveLickquidators
@@ -37,11 +38,13 @@ namespace Gotchi.Lickquidator.Manager
         [SerializeField] private GameObject pawnLickquidatorPrefab = null;
         [SerializeField] private GameObject aerialLickquidatorPrefab = null;
         [SerializeField] private GameObject bossLickquidatorPrefab = null;
+        [SerializeField] private GameObject speedyBoiLickquidatorPrefab = null;
 
         [Header("Attributes")]
         [SerializeField] private int pawnLickquidatorPoolSize = 5;
         [SerializeField] private int aerialLickquidatorPoolSize = 5;
         [SerializeField] private int bossLickquidatorPoolSize = 5;
+        [SerializeField] private int speedyBoiLickquidatorPoolSize = 5;
         #endregion
 
         #region Private Variables
@@ -49,6 +52,7 @@ namespace Gotchi.Lickquidator.Manager
         private List<GameObject> pawnLickquidatorPool = new List<GameObject>();
         private List<GameObject> aerialLickquidatorPool = new List<GameObject>();
         private List<GameObject> bossLickquidatorPool = new List<GameObject>();
+        private List<GameObject> speedyBoiLickquidatorPool = new List<GameObject>();
         private List<GameObject> spawnedLickquidators = new List<GameObject>();
         private Dictionary<GameObject, LickquidatorPresenter> lickquidatorLookup = new Dictionary<GameObject, LickquidatorPresenter>();
         #endregion
@@ -71,10 +75,12 @@ namespace Gotchi.Lickquidator.Manager
             pawnLickquidatorPool = createPool(pawnLickquidatorPrefab, pawnLickquidatorPoolSize);
             aerialLickquidatorPool = createPool(aerialLickquidatorPrefab, aerialLickquidatorPoolSize);
             bossLickquidatorPool = createPool(bossLickquidatorPrefab, bossLickquidatorPoolSize);
+            speedyBoiLickquidatorPool = createPool(speedyBoiLickquidatorPrefab, speedyBoiLickquidatorPoolSize);
 
             combinedPool.AddRange(pawnLickquidatorPool);
             combinedPool.AddRange(aerialLickquidatorPool);
             combinedPool.AddRange(bossLickquidatorPool);
+            combinedPool.AddRange(speedyBoiLickquidatorPool);
 
             initializeLookup();
         }
@@ -179,6 +185,9 @@ namespace Gotchi.Lickquidator.Manager
                 case LickquidatorType.BossLickquidator:
                     pool = bossLickquidatorPool;
                     break;
+                case LickquidatorType.SpeedyBoi:
+                    pool = speedyBoiLickquidatorPool;
+                    break;
             }
 
             if (pool.All(lickquidator => lickquidator.activeSelf))
@@ -194,6 +203,9 @@ namespace Gotchi.Lickquidator.Manager
                         break;
                     case LickquidatorType.BossLickquidator:
                         prefab = bossLickquidatorPrefab;
+                        break;
+                    case LickquidatorType.SpeedyBoi:
+                        prefab = speedyBoiLickquidatorPrefab;
                         break;
                     default:
                         return pool;

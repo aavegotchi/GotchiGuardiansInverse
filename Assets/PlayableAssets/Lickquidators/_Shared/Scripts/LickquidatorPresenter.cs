@@ -17,7 +17,7 @@ namespace Gotchi.Lickquidator.Presenter
 
         #region Fields
         [Header("Model")]
-        [SerializeField] private LickquidatorModel model = null;
+        [SerializeField] protected LickquidatorModel model = null;
 
         [Header("View")]
         [SerializeField] private ImpactPool_FX.ImpactType deathEffect = ImpactPool_FX.ImpactType.BasicTower;
@@ -89,7 +89,7 @@ namespace Gotchi.Lickquidator.Presenter
         void OnDrawGizmosSelected()
         {
             if (model.Config == null) return;
-            
+
             Gizmos.color = model.RangeIndicatorColor;
             Gizmos.DrawWireSphere(transform.position, model.Config.AttackRange);
         }

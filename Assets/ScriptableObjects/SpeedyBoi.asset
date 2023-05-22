@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd34fe7adafb1b409605bb405a031c9, type: 3}
   m_Name: SpeedyBoi
   m_EditorClassIdentifier: 
-  Name: Pawn
-  Type: 1
+  Name: Speedy Boi
+  Type: 4
   Level: 1
   AttackDamage: 10
   AttackRange: 5
