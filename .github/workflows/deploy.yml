@@ -30,4 +30,4 @@ jobs:
     uses: ./.github/workflows/deploy-webgl.yml
     secrets: inherit
     with:
-      environment: ${{ vars.GITHUB_REF_NAME }}
+      environment: ${{ GITHUB_REF_NAME }}
