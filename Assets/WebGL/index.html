@@ -6,8 +6,8 @@
     <title>Gotchi Guardians</title>
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" style="background: url('Build/GotchiTowerDefense_Builds.jpg.gz') center / cover"></canvas>
-    <script src="Build/GotchiTowerDefense_Builds.loader.js"></script>
+    <canvas id="unity-canvas" style="background: url('Build/WebGL.jpg') center / cover"></canvas>
+    <script src="Build/WebGL.loader.js"></script>
     <script>
       var meta = document.createElement('meta');
       meta.name = 'viewport';
@@ -29,9 +29,9 @@
       document.body.style.backgroundColor = "black";
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/GotchiTowerDefense_Builds.data.gz",
-        frameworkUrl: "Build/GotchiTowerDefense_Builds.framework.js.gz",
-        codeUrl: "Build/GotchiTowerDefense_Builds.wasm.gz",
+        dataUrl: "Build/WebGL.data",
+        frameworkUrl: "Build/WebGL.framework.js",
+        codeUrl: "Build/WebGL.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Inverse",
         productName: "GotchiGuardians",
