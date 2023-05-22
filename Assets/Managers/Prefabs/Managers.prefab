@@ -1043,12 +1043,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 462755329372116384}
     m_Modifications:
-    - target: {fileID: 5172441279832803132, guid: ba35fa4b3a2be2e4dabaa1e1d47a8d96,
-        type: 3}
-      propertyPath: gotchiPrefab
-      value: 
-      objectReference: {fileID: 6665416994352312182, guid: 02cd7c0bff2ad43cbb73bd7738b7ca4f,
-        type: 3}
     - target: {fileID: 5657520700067688740, guid: ba35fa4b3a2be2e4dabaa1e1d47a8d96,
         type: 3}
       propertyPath: m_Name
