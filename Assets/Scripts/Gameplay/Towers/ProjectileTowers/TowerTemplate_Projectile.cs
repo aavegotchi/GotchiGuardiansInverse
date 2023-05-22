@@ -15,6 +15,7 @@ public class TowerTemplate_Projectile : TowerTemplate
 
     public override IDataTemplate DrawDataInspectors(GameplayData data)
     {
+#if UNITY_EDITOR
         IDataTemplate returnVal = base.DrawDataInspectors(data);
 
         if (returnVal != this)
@@ -50,6 +51,7 @@ public class TowerTemplate_Projectile : TowerTemplate
         {
             ProjectileAttackCooldown = Mathf.Max(0f, attackCooldown);
         }
+#endif
 
         return this;
     }

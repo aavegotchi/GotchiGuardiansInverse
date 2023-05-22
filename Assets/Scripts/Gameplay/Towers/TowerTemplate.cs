@@ -50,6 +50,7 @@ public class TowerTemplate : IDataTemplate
 
     public override IDataTemplate DrawDataInspectors(GameplayData data)
     {
+#if UNITY_EDITOR
         EditorGUILayout.LabelField("Tower Type", type.ToString());
         name = EditorGUILayout.TextField("Tower Name", name);
         tooltipText = EditorGUILayout.TextField("Tooltip Text", tooltipText);
@@ -92,6 +93,7 @@ public class TowerTemplate : IDataTemplate
         buildCost = EditorGUILayout.IntField("Build Cost", buildCost);
         buildTime = EditorGUILayout.FloatField("Build Time", buildTime);
         range = EditorGUILayout.FloatField("Range", range);
+#endif
 
         return this;
     }
