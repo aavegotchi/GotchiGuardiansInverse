@@ -16,17 +16,17 @@ MonoBehaviour:
   Type: 4
   Level: 1
   AttackDamage: 10
-  AttackRange: 5
-  AttackCountdown: 2.5
+  AttackRange: 20
+  AttackCountdown: 1
   Cost: 50
   buildTime: 1.5
   Health: 100
   OffsetDistance: 20
-  MovementSpeed: 20
-  MovementAcceleration: 10
-  AngularSpeed: 200
-  AttackRotationSpeed: 2
+  MovementSpeed: 40
+  MovementAcceleration: 15
+  AngularSpeed: 300
+  AttackRotationSpeed: 50
   NavMeshAgentHeight: 2
   NavMeshAgentPriority: 50
   NavMeshAgentRadius: 2
-  NavMeshAgentStoppingDistance: 5
+  NavMeshAgentStoppingDistance: 10

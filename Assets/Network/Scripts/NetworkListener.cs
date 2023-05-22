@@ -93,7 +93,7 @@ namespace Gotchi.Network
 
             await runner.Shutdown();
 
-            SceneManager.LoadScene("GotchiTowerDefense");
+            SceneManager.LoadScene("GotchiTowerDefense-WithTerrain");
         }
 
         public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data)

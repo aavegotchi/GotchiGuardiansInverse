@@ -133,7 +133,7 @@ namespace Gotchi.Player.Presenter
             {
                 Debug.Log("Local player left, despawning");
                 Runner.Despawn(Object);
-                SceneManager.LoadScene("GotchiTowerDefense");
+                SceneManager.LoadScene("GotchiTowerDefense-WithTerrain");
             }
             else
             {

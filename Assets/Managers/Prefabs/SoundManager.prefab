@@ -99,4 +99,6 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: d1153acce8918494bab6b37f6a6254f9, type: 3}
   - soundType: 26
     audioClip: {fileID: 8300000, guid: e429fbaee1b01e6448d3cdd3a7b2c433, type: 3}
+  - soundType: 27
+    audioClip: {fileID: 8300000, guid: 62258d70dd22dc44ebfeb3c4257f4905, type: 3}
   audioPoolSize: 20
