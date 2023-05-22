@@ -14,6 +14,7 @@ jobs:
   deployWebGL:
     name: Deploy (WebGL)
     runs-on: ubuntu-latest
+    concurrency: ci-${{ github.ref }}
     strategy:
       fail-fast: false
     steps:
@@ -29,6 +30,10 @@ jobs:
         with:
           name: Build (WebGL)
           path: build
+      # Override build index.html
+      - name: Override build index.html
+        shell: bash
+        run: cp -f Assets/WebGL/index.html build/WebGL
       # Deploy to GitHub Pages
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
