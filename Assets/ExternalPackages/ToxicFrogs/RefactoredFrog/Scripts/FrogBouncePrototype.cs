@@ -129,7 +129,17 @@ public class FrogBouncePrototype : MonoBehaviour
         isMoving = false;
 
         // Pause at the target for the duration of pauseDuration
-        yield return new WaitForSeconds(pauseDuration);
+        float pauseTimer = pauseDuration;
+        while (pauseTimer > 0)
+        {
+            pauseTimer -= Time.deltaTime;
+
+            // This line will keep the frog locked to the moving target
+            targetPositionWithOffset = nextTarget.position + targetOffset;
+            transform.position = targetPositionWithOffset;
+
+            yield return null;
+        }
 
         // Decide the next target and set shouldLookAtNextTarget to true
         DecideNextTarget();
@@ -142,7 +152,17 @@ public class FrogBouncePrototype : MonoBehaviour
         }
 
         // Wait for standbyDuration before moving to the next target
-        yield return new WaitForSeconds(standbyDuration);
+        float standbyTimer = standbyDuration;
+        while (standbyTimer > 0)
+        {
+            standbyTimer -= Time.deltaTime;
+
+            // This line will keep the frog locked to the moving target during standby
+            targetPositionWithOffset = nextTarget.position + targetOffset;
+            transform.position = targetPositionWithOffset;
+
+            yield return null;
+        }
 
         // If shouldLookAtNextTarget is true, set it to false
         if (shouldLookAtNextTarget)
