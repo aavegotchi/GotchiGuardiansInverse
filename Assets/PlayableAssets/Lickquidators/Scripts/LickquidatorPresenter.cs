@@ -89,7 +89,7 @@ namespace Gotchi.Lickquidator.Presenter
         void OnDrawGizmosSelected()
         {
             Gizmos.color = model.RangeIndicatorColor;
-            Gizmos.DrawWireSphere(transform.position, model.Config.AttackRange);
+            //Gizmos.DrawWireSphere(transform.position, model.Config.AttackRange);
         }
         #endregion
 
