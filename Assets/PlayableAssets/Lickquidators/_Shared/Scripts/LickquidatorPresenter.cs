@@ -9,7 +9,7 @@ using Gotchi.Player.Presenter;
 
 namespace Gotchi.Lickquidator.Presenter
 {
-    public class LickquidatorPresenter : MonoBehaviour
+    public abstract class LickquidatorPresenter : MonoBehaviour
     {
         #region Properties
         public LickquidatorModel Model { get { return model; } }
@@ -22,7 +22,7 @@ namespace Gotchi.Lickquidator.Presenter
         [Header("View")]
         [SerializeField] private ImpactPool_FX.ImpactType deathEffect = ImpactPool_FX.ImpactType.BasicTower;
         [SerializeField] private Animator attackAnimation = null;
-        [SerializeField] private GameObject attackParticleEffect = null;
+        [SerializeField] private GameObject attackParticleSystemObj = null;
 
         [Header("Gameplay")]
         [SerializeField] private int frameReadyInterval = 10;
@@ -44,19 +44,19 @@ namespace Gotchi.Lickquidator.Presenter
             rigidBody = GetComponent<Rigidbody>();
         }
 
-        void Start()
+        protected virtual void Start()
         {
             configureAgent();
         }
 
-        void OnEnable()
+        protected virtual void OnEnable()
         {
             model.OnMovementSpeedUpdated += handleOnMovementSpeedUpdated;
             model.OnHealthUpdated += handleOnHealthUpdated;
             model.OnIsMovingUpdated += handleIsMovingUpdated;
         }
 
-        void OnDisable()
+        protected virtual void OnDisable()
         {
             model.OnMovementSpeedUpdated -= handleOnMovementSpeedUpdated;
             model.OnHealthUpdated -= handleOnHealthUpdated;
@@ -101,6 +101,7 @@ namespace Gotchi.Lickquidator.Presenter
 
         public void AssignHealthBar()
         {
+            model.UpdateHealth(model.MaxHealth);
             healthBar = HealthBarPool_UI.Instance.GetHealthbar(model.HealthBarOffset);
             healthBar.SetHealthbarMaxHealth(model.Health);
         }
@@ -283,10 +284,12 @@ namespace Gotchi.Lickquidator.Presenter
             attackCountdownTracker = model.Config.AttackCountdown;
 
             if (attackAnimation != null) attackAnimation.SetTrigger(model.AttackAnimTriggerHash);
-            if (attackParticleEffect != null) attackParticleEffect.SetActive(true);
+            if (attackParticleSystemObj != null) attackParticleSystemObj.SetActive(true);
             
             EventBus.EnemyEvents.EnemyAttacked(model.Config.Type);
             inRangeTarget.Damage(model.Config.AttackDamage);
+            
+            model.PublishOnAttacked();
         }
 
         private void rewardDeath()

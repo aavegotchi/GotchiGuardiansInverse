@@ -6363,6 +6363,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1543370718020151859, guid: 87c37cc6d0d49814fa80e95c8a8a45fb,
+        type: 3}
+      propertyPath: m_Name
+      value: Attack_Light
+      objectReference: {fileID: 0}
     - target: {fileID: 5177024078983081584, guid: 87c37cc6d0d49814fa80e95c8a8a45fb,
         type: 3}
       propertyPath: m_Name
@@ -6423,50 +6428,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7870421886810595383, guid: 87c37cc6d0d49814fa80e95c8a8a45fb,
+        type: 3}
+      propertyPath: m_Range
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7870421886810595383, guid: 87c37cc6d0d49814fa80e95c8a8a45fb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7870421886810595383, guid: 87c37cc6d0d49814fa80e95c8a8a45fb,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87c37cc6d0d49814fa80e95c8a8a45fb, type: 3}
---- !u!1 &1023754962 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5177024078983081584, guid: 87c37cc6d0d49814fa80e95c8a8a45fb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1023754961}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1023754963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023754962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20b85495e1b92b246b53b95bc7aef95e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 0}
-  deathEffect: 5
-  attackAnimation: {fileID: 0}
-  attackParticleEffect: {fileID: 0}
-  frameReadyInterval: 10
---- !u!114 &1023754964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023754962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a0d12df23fb91469d28843cf38c2d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  origConfig: {fileID: 11400000, guid: 106194c01cbc6ec46a5b8c5137c9ed53, type: 2}
-  generalConfig: {fileID: 0}
-  targetTag: Tower
-  attackAnimTrigger: Swipe
-  rangeIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
-  healthBarOffset: {fileID: 0}
-  isPassive: 0
 --- !u!114 &1043567507 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7566477160544631934, guid: 0db00547c97d89641a099995fbf0b123,

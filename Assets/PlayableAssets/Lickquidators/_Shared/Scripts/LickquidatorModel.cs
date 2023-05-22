@@ -3,12 +3,13 @@ using System;
 
 namespace Gotchi.Lickquidator.Model
 {
-    public class LickquidatorModel : MonoBehaviour
+    public abstract class LickquidatorModel : MonoBehaviour
     {
         #region Events
         public event Action OnMovementSpeedUpdated = delegate {};
         public event Action OnHealthUpdated = delegate {};
         public event Action OnIsMovingUpdated = delegate {};
+        public event Action OnAttacked = delegate {};
         #endregion
 
         #region Properties
@@ -16,8 +17,9 @@ namespace Gotchi.Lickquidator.Model
         public LickquidatorObjectSO Config { get { return config; } }
         public GeneralSO GeneralConfig { get { return generalConfig; } }
         public float MovementSpeed { get { return movementSpeed; }}
-        public int Health { get { return health; }}
-        public bool IsMoving { get { return isMoving; }}
+        public int Health { get { return health; } }
+        public int MaxHealth { get { return maxHealth; } }
+        public bool IsMoving { get { return isMoving; } }
         public string TargetTag { get { return targetTag; } }
         public int AttackAnimTriggerHash { get { return attackAnimTriggerHash; } }
         public Color RangeIndicatorColor { get { return rangeIndicatorColor; } }
@@ -39,15 +41,17 @@ namespace Gotchi.Lickquidator.Model
         private LickquidatorObjectSO config = null;
         private float movementSpeed = 0f;
         private int health = 0;
+        private int maxHealth = 0;
         private bool isMoving = false;
         private int attackAnimTriggerHash = 0;
         #endregion
 
         #region Unity Functions
-        void Awake()
+        protected virtual void Awake()
         {
             movementSpeed = origConfig.MovementSpeed;
             health = origConfig.Health;
+            maxHealth = origConfig.Health;
             config = ScriptableObject.CreateInstance<LickquidatorObjectSO>();
             ResetConfig();
             attackAnimTriggerHash = Animator.StringToHash(attackAnimTrigger);
@@ -71,6 +75,11 @@ namespace Gotchi.Lickquidator.Model
         {
             this.isMoving = isMoving;
             OnIsMovingUpdated();
+        }
+
+        public void PublishOnAttacked()
+        {
+            OnAttacked();
         }
 
         public void ResetConfig()

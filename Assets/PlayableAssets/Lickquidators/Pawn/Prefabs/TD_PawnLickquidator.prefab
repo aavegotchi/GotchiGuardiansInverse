@@ -1927,8 +1927,8 @@ GameObject:
   - component: {fileID: 366838744082006805}
   - component: {fileID: -5422960735627624557}
   - component: {fileID: 8656449059519761027}
-  - component: {fileID: 7169599561378858414}
-  - component: {fileID: 6331650518207907281}
+  - component: {fileID: 4832154518798663347}
+  - component: {fileID: 6222497004576861149}
   m_Layer: 6
   m_Name: TD_PawnLickquidator
   m_TagString: Enemy
@@ -2006,7 +2006,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 11.773264, z: 5}
   m_Center: {x: 0, y: 5.386632, z: 0}
---- !u!114 &7169599561378858414
+--- !u!114 &4832154518798663347
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2015,7 +2015,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5267499421225181793}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a0d12df23fb91469d28843cf38c2d5, type: 3}
+  m_Script: {fileID: 11500000, guid: f778f64b1f68aa341b834fd0ff6d08cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   origConfig: {fileID: 11400000, guid: dd8423788cd7a5a4eb94971b4ddeb3d7, type: 2}
@@ -2025,7 +2025,7 @@ MonoBehaviour:
   rangeIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
   healthBarOffset: {fileID: 4633385786108276291}
   isPassive: 0
---- !u!114 &6331650518207907281
+--- !u!114 &6222497004576861149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2034,13 +2034,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5267499421225181793}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20b85495e1b92b246b53b95bc7aef95e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d66d9612c25ad240b178d979b75e922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 7169599561378858414}
+  model: {fileID: 4832154518798663347}
   deathEffect: 5
   attackAnimation: {fileID: 1626734771791772352}
-  attackParticleEffect: {fileID: 5110517186924075716}
+  attackParticleSystemObj: {fileID: 5110517186924075716}
   frameReadyInterval: 10
 --- !u!1 &5362764489606529960
 GameObject:

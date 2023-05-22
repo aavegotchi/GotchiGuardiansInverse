@@ -2299,8 +2299,8 @@ GameObject:
   - component: {fileID: 8656449059945063059}
   - component: {fileID: 1772166786773167060}
   - component: {fileID: 5171585481469437382}
-  - component: {fileID: 4082963699084868600}
-  - component: {fileID: 9173183138442507803}
+  - component: {fileID: 8676381026583683838}
+  - component: {fileID: 593100694574970627}
   m_Layer: 6
   m_Name: TD_AerialLickquidator
   m_TagString: Enemy
@@ -2418,7 +2418,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9, y: 5.5, z: 9}
   m_Center: {x: 0, y: 8.433175, z: 0}
---- !u!114 &4082963699084868600
+--- !u!114 &8676381026583683838
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2427,7 +2427,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8574046402635549988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a0d12df23fb91469d28843cf38c2d5, type: 3}
+  m_Script: {fileID: 11500000, guid: f778f64b1f68aa341b834fd0ff6d08cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   origConfig: {fileID: 11400000, guid: 8eeca3ce5c676454fb231d8af4893727, type: 2}
@@ -2437,7 +2437,7 @@ MonoBehaviour:
   rangeIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
   healthBarOffset: {fileID: 6177874959328656165}
   isPassive: 1
---- !u!114 &9173183138442507803
+--- !u!114 &593100694574970627
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2446,13 +2446,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8574046402635549988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20b85495e1b92b246b53b95bc7aef95e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d66d9612c25ad240b178d979b75e922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 4082963699084868600}
+  model: {fileID: 8676381026583683838}
   deathEffect: 5
   attackAnimation: {fileID: 0}
-  attackParticleEffect: {fileID: 0}
+  attackParticleSystemObj: {fileID: 0}
   frameReadyInterval: 10
 --- !u!1 &9014571768921774415
 GameObject:

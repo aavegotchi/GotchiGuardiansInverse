@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5563519181929526525}
   - component: {fileID: 5188278783812393725}
   - component: {fileID: 3459662070546464107}
-  - component: {fileID: 1952879469270889190}
-  - component: {fileID: 4243884643165364153}
+  - component: {fileID: 7730406847697374908}
+  - component: {fileID: 1783009095403309130}
   m_Layer: 6
   m_Name: TD_BossLickquidator
   m_TagString: Enemy
@@ -91,7 +91,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 11.773264, z: 5}
   m_Center: {x: 0, y: 5.386632, z: 0}
---- !u!114 &1952879469270889190
+--- !u!114 &7730406847697374908
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 88726243156104585}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a0d12df23fb91469d28843cf38c2d5, type: 3}
+  m_Script: {fileID: 11500000, guid: f778f64b1f68aa341b834fd0ff6d08cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   origConfig: {fileID: 11400000, guid: 90974a00ac41e324aabef1265175efb0, type: 2}
@@ -110,7 +110,7 @@ MonoBehaviour:
   rangeIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
   healthBarOffset: {fileID: 4733366673996628668}
   isPassive: 0
---- !u!114 &4243884643165364153
+--- !u!114 &1783009095403309130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,13 +119,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 88726243156104585}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20b85495e1b92b246b53b95bc7aef95e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d66d9612c25ad240b178d979b75e922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 1952879469270889190}
+  model: {fileID: 7730406847697374908}
   deathEffect: 5
   attackAnimation: {fileID: 1818600289364270267}
-  attackParticleEffect: {fileID: 8534630177084799919}
+  attackParticleSystemObj: {fileID: 8534630177084799919}
   frameReadyInterval: 10
 --- !u!1 &166227737478132800
 GameObject:
