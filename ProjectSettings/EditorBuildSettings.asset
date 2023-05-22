@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GotchiTowerDefense.unity
     guid: 59ff21a89b1ea2a47b4898d58d2dedf4
+  - enabled: 1
+    path: Assets/Scenes/GotchiTowerDefense-WithTerrain.unity
+    guid: 922ea6555c0b249c69d0db14ab72beb8
   m_configObjects: {}
