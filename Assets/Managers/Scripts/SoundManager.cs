@@ -144,7 +144,7 @@ namespace Gotchi.Audio
                 AudioSource audioSource = child.AddComponent<AudioSource>();
                 audioSource.spatialBlend = 1.0f;
                 audioSource.playOnAwake = false;
-                audioSource.maxDistance = 200;
+                audioSource.maxDistance = 5000;
                 audioSource.rolloffMode = AudioRolloffMode.Linear;
                 audioSource.dopplerLevel = 0f;
                 audioSource.gameObject.SetActive(false);

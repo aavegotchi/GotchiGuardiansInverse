@@ -13,12 +13,6 @@ namespace Gotchi.Lickquidator.SpeedyBoi.Presenter
         #endregion
 
         #region Unity Functions
-        protected override void Start()
-        {
-            base.Start();
-            model = (LickquidatorModel_SpeedyBoi)model;
-        }
-        
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -40,7 +34,7 @@ namespace Gotchi.Lickquidator.SpeedyBoi.Presenter
             if (model.IsMoving)
             {
                 moveAnimation.enabled = true;
-                moveAnimation.SetTrigger(model.MoveAnimTriggerHash);
+                moveAnimation.SetTrigger(((LickquidatorModel_SpeedyBoi)model).MoveAnimTriggerHash);
                 moveParticleSystemObj.SetActive(true);
             }
             else 
@@ -52,7 +46,7 @@ namespace Gotchi.Lickquidator.SpeedyBoi.Presenter
 
         private void handleOnAttacked()
         {
-            knockbackAnimation.SetTrigger(model.KnockbackAnimTriggerHash);
+            knockbackAnimation.SetTrigger(((LickquidatorModel_SpeedyBoi)model).KnockbackAnimTriggerHash);
         }
         #endregion
     }

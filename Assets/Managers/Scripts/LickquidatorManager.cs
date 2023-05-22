@@ -21,6 +21,7 @@ namespace Gotchi.Lickquidator.Manager
             SpeedyBoi,
         }
 
+        // TODO: this can be optimized
         public List<LickquidatorPresenter> ActiveLickquidators
         {
             get 
@@ -120,12 +121,12 @@ namespace Gotchi.Lickquidator.Manager
         {
             Transform nodeTransform = enemyBlueprint.node.transform;
             Vector3 position = nodeTransform.position;
-            Quaternion rotation = nodeTransform.rotation * Quaternion.Euler(Vector3.up * -90f); // face toward movement dir;
+            Quaternion rotation = nodeTransform.rotation * Quaternion.Euler(Vector3.up * 180f); // face toward movement dir
 
             StatsManager.Instance.Money -= enemyBlueprint.cost;
             StatsManager.Instance.TrackCreateEnemy(enemyBlueprint);
 
-            List<GameObject> pool = getPool((LickquidatorType)enemyBlueprint.type);
+            List<GameObject> pool = getPool(enemyBlueprint.type);
 
             foreach (GameObject lickquidatorObj in pool)
             {
@@ -138,7 +139,6 @@ namespace Gotchi.Lickquidator.Manager
                 lickquidatorObj.SetActive(true);
 
                 LickquidatorPresenter lickquidator = GetByObject(lickquidatorObj);
-
                 lickquidator.AssignHealthBar();
                 lickquidator.Freeze(); // to prevent prep phase 'pushing'
 

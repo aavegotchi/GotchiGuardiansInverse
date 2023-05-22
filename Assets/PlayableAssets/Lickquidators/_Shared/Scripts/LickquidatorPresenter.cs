@@ -44,7 +44,7 @@ namespace Gotchi.Lickquidator.Presenter
             rigidBody = GetComponent<Rigidbody>();
         }
 
-        protected virtual void Start()
+        void Start()
         {
             configureAgent();
         }
@@ -103,9 +103,9 @@ namespace Gotchi.Lickquidator.Presenter
 
         public void AssignHealthBar()
         {
-            model.UpdateHealth(model.MaxHealth);
             healthBar = HealthBarPool_UI.Instance.GetHealthbar(model.HealthBarOffset);
             healthBar.SetHealthbarMaxHealth(model.Health);
+            model.UpdateHealth(model.MaxHealth);
         }
 
         public void PlayDead(bool keepUpgrades = false)
@@ -152,7 +152,7 @@ namespace Gotchi.Lickquidator.Presenter
 
         private void handleOnHealthUpdated()
         {
-            if (healthBar.CurrentHealth <= 0) return;
+            if (healthBar.CurrentHealth == model.MaxHealth || healthBar.CurrentHealth <= 0) return;
 
             float damage = healthBar.CurrentHealth - model.Health;
             healthBar.ShowDamagePopUpAndColorDifferentlyIfEnemy(damage, true);
