@@ -20,6 +20,6 @@ jobs:
 
   buildWebGL:
     name: Build WebGL
-    needs: test
+    needs: [test]
     uses: ./.github/workflows/build-webgl.yml
     secrets: inherit

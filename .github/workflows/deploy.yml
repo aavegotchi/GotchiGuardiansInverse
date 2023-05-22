@@ -20,14 +20,14 @@ jobs:
 
   buildWebGL:
     name: Build WebGL
-    needs: test
+    needs: [test]
     uses: ./.github/workflows/build-webgl.yml
     secrets: inherit
 
   deployWebGL:
     name: Deploy WebGL
-    needs: buildWebGL
+    needs: [buildWebGL]
     uses: ./.github/workflows/deploy-webgl.yml
     secrets: inherit
     with:
-      environment: $GITHUB_REF_NAME
+      environment: ${{ github.ref_name }}
