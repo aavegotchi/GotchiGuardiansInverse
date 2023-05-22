@@ -2497,7 +2497,7 @@ GameObject:
   - component: {fileID: 5517942346259264714}
   - component: {fileID: 8154898495668534120}
   m_Layer: 0
-  m_Name: DireTire
+  m_Name: SpeedBoi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
