@@ -73,7 +73,7 @@ public class ProjectileManager : NetworkBehaviour
                 ProjectilePoolMap.Add(typeID, new List<ProjectileInstance>());
             }
             ProjectilePoolMap[typeID].Add(projectileInstance);
-            projectileInstance.transform.parent = InstancePoolRoot.transform;
+            projectileInstance.transform.SetParent(InstancePoolRoot.transform);
         }
     }
 
@@ -93,7 +93,7 @@ public class ProjectileManager : NetworkBehaviour
                 VisualPoolMap.Add(typeID, new List<ProjectileVisual>());
             }
             VisualPoolMap[typeID].Add(projectileVisual);
-            projectileVisual.transform.parent = VisualPoolRoot.transform;
+            projectileVisual.transform.SetParent(VisualPoolRoot.transform);
         }
     }
 

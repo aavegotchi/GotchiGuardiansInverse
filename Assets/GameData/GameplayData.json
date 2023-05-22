@@ -5,11 +5,11 @@
   "towerTemplates": [
     {
       "$type": "TowerTemplate_Projectile, Assembly-CSharp",
-      "ProjectileType": 0,
+      "ProjectileType": 1,
       "ProjectileDamage": 5,
       "ProjectileSpeed": 100.0,
       "BuildLoaded": false,
-      "ProjectileSpawnTime": 1.0,
+      "ProjectileSpawnTime": 0.4,
       "ProjectileAttackCooldown": 1.0,
       "name": "Brute Force",
       "tooltipText": "This tower doesn't hit hard BUT it hits very very, did I say very, fast.",
@@ -18,17 +18,24 @@
       "behavior": 1,
       "buildCost": 0,
       "buildTime": 3.0,
-      "range": 0.0
+      "range": 10.0
     },
     {
+      "$type": "TowerTemplate_Projectile, Assembly-CSharp",
+      "ProjectileType": 2,
+      "ProjectileDamage": 0,
+      "ProjectileSpeed": 0.0,
+      "BuildLoaded": false,
+      "ProjectileSpawnTime": 0.0,
+      "ProjectileAttackCooldown": 0.0,
       "name": "ROFL Launcher",
       "tooltipText": "ROFL's aren't to be messed with. This tower launches them into the fray where they bounce from enemy to enemy.",
       "type": 2,
       "tier": 0,
-      "behavior": 0,
+      "behavior": 1,
       "buildCost": 0,
-      "buildTime": 0.0,
-      "range": 0.0
+      "buildTime": 3.0,
+      "range": 10.0
     },
     {
       "name": "Bull Market Den",

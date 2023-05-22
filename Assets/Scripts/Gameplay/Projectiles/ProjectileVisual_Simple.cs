@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class ProjectileVisual_Simple : ProjectileVisual
 {
-    //public enum State
-    //{
-    //    Inactive, // Initial state, should switch to Building automatically in controller
-    //    Spawning, // Represents the projectile being built (Think reload)
-    //    Idle, // Represents the Projectile being idle (loaded), ready to fire in this case
-    //    Acting, // Represents the Projectile moving to its target or being activated
-    //    Hit, // Represents the projectile resolving its hit
-    //    Dead, // Represents the projectile being exhausted and should likely be cleaned up
-    //};
-
     #region fields
     [Header("FX Configurations")]
     [SerializeField]
@@ -85,6 +75,13 @@ public class ProjectileVisual_Simple : ProjectileVisual
         UpdateBasedOnState();
 
         return true;
+    }
+
+    public override void Cleanup()
+    {
+        Instance.OnStateChanged -= Instance_OnStateChanged;
+
+        base.Cleanup();
     }
 
     private void Instance_OnStateChanged(ProjectileInstance arg1, ProjectileInstance.State arg2)

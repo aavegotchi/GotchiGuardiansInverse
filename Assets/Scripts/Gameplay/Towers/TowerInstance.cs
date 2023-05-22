@@ -40,7 +40,7 @@ public class TowerInstance : GameObjectInstance
         }
     }
 
-    private float BuildingProgress = 0.0f;
+    public float BuildingProgress { get; private set; } = 0.0f;
 
     //[Header("Dynamic Debug - null in prefab")]
     public TowerTemplate Template { get; set; } = null;

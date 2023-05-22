@@ -11,7 +11,9 @@ public class TowerController : NetworkBehaviour
     [SerializeField]
     public TowerInstance TowerInstance;
     [SerializeField]
-    private RevealFXController RevealFXController;
+    private GameObject VisualRoot;
+    [Header("Dynamic Debug - null in prefab")]
+    private TowerVisual TowerVisual = null;
     #endregion
 
     #region Unity Funcs
@@ -19,8 +21,8 @@ public class TowerController : NetworkBehaviour
     protected virtual void Start()
     {
         TowerInstance.OnStateChanged += TowerInstance_OnStateChanged;
-        TowerInstance.OnBuildingProgressChanged += TowerInstance_OnBuildingProgressChanged;
-        Spawned();
+        TowerInstance.OnVisualsEnabledChanged += TowerInstance_OnVisualsEnabledChanged;
+        UpdateVisuals();
     }
 
     // Update is called once per frame
@@ -33,13 +35,6 @@ public class TowerController : NetworkBehaviour
     #endregion
 
     #region Internal Funcs
-    private void TowerInstance_OnBuildingProgressChanged(TowerInstance instance, float buildProgress)
-    {
-        if (RevealFXController != null)
-        {
-            RevealFXController.Progress = buildProgress;
-        }
-    }
 
     private void TowerInstance_OnStateChanged(TowerInstance instance, TowerInstance.State state)
     {
@@ -151,6 +146,37 @@ public class TowerController : NetworkBehaviour
     protected virtual bool UpdateUpgrading()
     {
         return true;
+    }
+    #endregion
+
+    #region visuals Logic
+
+    private void UpdateVisuals()
+    {
+        if (TowerInstance.VisualsEnabled && TowerVisual == null)
+        {
+            TowerVisual = TowerManager.Singleton.ClaimTowerVisual(TowerInstance.Template.type);
+
+            if (TowerVisual == null)
+            {
+                Debug.LogError("Failed to claim tower visual for type: " + TowerInstance.Template.type);
+                return;
+            }
+
+            TowerVisual.gameObject.SetActive(true);
+            TowerVisual.transform.SetParent(VisualRoot.transform, false);
+            TowerVisual.AssignData(TowerInstance, this);
+        }
+        else if (!TowerInstance.VisualsEnabled && TowerVisual != null)
+        {
+            TowerManager.Singleton.FreeTowerVisual(TowerVisual);
+            TowerVisual = null;
+        }
+    }
+
+    private void TowerInstance_OnVisualsEnabledChanged(GameObjectInstance arg1, bool arg2)
+    {
+        UpdateVisuals();
     }
     #endregion
 }
