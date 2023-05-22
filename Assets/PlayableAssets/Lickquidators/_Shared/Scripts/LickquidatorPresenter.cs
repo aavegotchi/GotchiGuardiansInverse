@@ -88,6 +88,8 @@ namespace Gotchi.Lickquidator.Presenter
 
         void OnDrawGizmosSelected()
         {
+            if (model.Config == null) return;
+            
             Gizmos.color = model.RangeIndicatorColor;
             Gizmos.DrawWireSphere(transform.position, model.Config.AttackRange);
         }
