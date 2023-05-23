@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Fusion;
 using Fusion.Sockets;
@@ -32,7 +33,7 @@ namespace Gotchi.Network
                 if (botCount > 0) {
                     GotchiManager.Instance.RemoveBot();
                 } else {
-                    GotchiManager.Instance.SpawnBots(7);
+                    GotchiManager.Instance.SpawnBots(8 - runner.ActivePlayers.Count());
                 }
 
                 runner.Spawn(
