@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 3741209693376963574}
   - component: {fileID: 337595135634444003}
   m_Layer: 0
-  m_Name: EnvironmentCameraSystem
+  m_Name: EnvironmentCameraController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4923779992707988883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccc1b590d767d4347a0ab543e8711909, type: 3}
+  m_Script: {fileID: 11500000, guid: a0e71cd0938a741e0af726ee26fc9ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bounds: {fileID: 7149886271161978182}
