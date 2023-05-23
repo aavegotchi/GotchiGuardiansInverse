@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Gotchi
   SpinAbilityDamage: 40
-  SpinAbilityRange: 10
+  SpinAbilityRange: 15
   SpinAbilityKnockbackForce: 50
   AttackCountdown: 1
   AttackDamage: 20
-  AttackRange: 15
+  AttackRange: 18
   Health: 200
-  MovementSpeed: 10
-  MovementAcceleration: 10
-  AngularSpeed: 120
-  AttackRotationSpeed: 10
+  MovementSpeed: 30
+  MovementAcceleration: 40
+  AngularSpeed: 500
+  AttackRotationSpeed: 40
   NavMeshAgentHeight: 2
   NavMeshAgentPriority: 50
   NavMeshAgentRadius: 0.5

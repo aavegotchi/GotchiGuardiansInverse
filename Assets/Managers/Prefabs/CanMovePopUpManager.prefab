@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bba0a6ec7e179404a87ce667640ff1ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canMovePopUpPrefab: {fileID: 4332533784369299404}
+  canMovePopUpPrefab: {fileID: 7974444870095860304, guid: 07dc2ad9781173e4d944f41d0ad0a52a,
+    type: 3}
   canMovePopUpPoolSize: 10
-  popUpHeightOffset: {x: 0, y: 0.5, z: 0}
+  popUpHeightOffset: {x: 0, y: 3, z: 0}

@@ -3,7 +3,7 @@ using Gotchi.Events;
 using PhaseManager;
 using PhaseManager.Presenter;
 
-public abstract class BaseTower : MonoBehaviour, IDamageable
+public abstract class BaseTower : MonoBehaviour
 {
     #region Public Variables
     public Transform HealthbarOffset
