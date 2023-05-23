@@ -37,5 +37,5 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@main
         with:
-          name: Build-WebGL
+          name: Build (WebGL)
           path: build/WebGL

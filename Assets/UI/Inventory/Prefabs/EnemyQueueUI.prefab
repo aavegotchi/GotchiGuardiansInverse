@@ -82,6 +82,8 @@ MonoBehaviour:
     type: 3}
   bossLickquidatorSprite: {fileID: 21300000, guid: af34b6102de7c9a4fa31d40c62652423,
     type: 3}
+  speedyBoiLickquidatorSprite: {fileID: 21300000, guid: 20c7d3063aeb1de4289eb7c190f9c935,
+    type: 3}
   noneSprite: {fileID: 21300000, guid: 999d04c0ea94ccc41b3d80788160695b, type: 3}
 --- !u!1 &5319386832668973101
 GameObject:
