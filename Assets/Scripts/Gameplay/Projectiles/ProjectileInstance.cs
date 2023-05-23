@@ -52,6 +52,7 @@ public class ProjectileInstance : GameObjectInstance
     // We don't rely on serialization here, its more for exposing to inspector for debugging purposes
     [Header("Dynamic Debug - null in prefab")]
     public TowerInstance_Projectile SpawningTowerInstance = null;
+    public ProjectileController ProjectileController;
     public ProjectileManager ProjectileManager;
     public float SpawningProgress; // 0.0f = not spawned, 1.0f = fully spawned
     public float SpawnTime; // 1.0f = 1 second

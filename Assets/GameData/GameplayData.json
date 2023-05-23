@@ -7,7 +7,7 @@
       "$type": "TowerTemplate_Projectile, Assembly-CSharp",
       "ProjectileType": 1,
       "ProjectileDamage": 5,
-      "ProjectileSpeed": 100.0,
+      "ProjectileSpeed": 250.0,
       "BuildLoaded": false,
       "ProjectileSpawnTime": 0.4,
       "ProjectileAttackCooldown": 1.0,
@@ -18,13 +18,13 @@
       "behavior": 1,
       "buildCost": 0,
       "buildTime": 3.0,
-      "range": 10.0
+      "range": 100.0
     },
     {
       "$type": "TowerTemplate_Projectile, Assembly-CSharp",
       "ProjectileType": 2,
       "ProjectileDamage": 0,
-      "ProjectileSpeed": 0.0,
+      "ProjectileSpeed": 250.0,
       "BuildLoaded": false,
       "ProjectileSpawnTime": 0.0,
       "ProjectileAttackCooldown": 0.0,
@@ -35,7 +35,7 @@
       "behavior": 1,
       "buildCost": 0,
       "buildTime": 3.0,
-      "range": 10.0
+      "range": 100.0
     },
     {
       "name": "Bull Market Den",

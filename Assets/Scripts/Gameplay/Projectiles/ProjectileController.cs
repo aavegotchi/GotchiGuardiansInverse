@@ -16,6 +16,8 @@ public class ProjectileController : NetworkBehaviour
     [SerializeField]
     private ProjectileVisual ProjectileVisual;
 
+    private GameObject Target;
+
     void Start()
     {
         if (ProjectileInstance == null)
@@ -23,6 +25,8 @@ public class ProjectileController : NetworkBehaviour
             Debug.LogError("ProjectileController has no ProjectileInstance assigned!");
             return;
         }
+
+        ProjectileInstance.ProjectileController = this;
 
         ProjectileInstance.OnStateChanged += ProjectileInstance_OnStateChanged;
 
@@ -45,6 +49,23 @@ public class ProjectileController : NetworkBehaviour
 
         ProjectileInstance.SpawningProgress = 0.0f;
         ProjectileInstance.CurrentState = ProjectileInstance.State.Spawning;
+    }
+
+    public virtual bool FireAtTarget(GameObject target)
+    {
+        if (Target != null)
+        {
+            Debug.LogError("ProjectileController[" + ProjectileInstance.ID + "] trying to fire at target when already has a target!");
+            return false;
+        }
+
+        if (ProjectileInstance.CurrentState != ProjectileInstance.State.Idle)
+        {
+            Debug.LogError("Tried to fire projectile when not in idle state!");
+            return false;
+        }
+
+        return true;
     }
 
     #region Internal Functions

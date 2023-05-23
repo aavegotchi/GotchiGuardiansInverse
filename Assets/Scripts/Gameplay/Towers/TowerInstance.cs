@@ -19,6 +19,7 @@ public class TowerInstance : GameObjectInstance
     #region Events
     public event Action<TowerInstance, State> OnStateChanged = delegate { };
     public event Action<TowerInstance, float> OnBuildingProgressChanged = delegate { };
+    public event Action<TowerInstance, float> OnAcquiringTargetProgressChanged = delegate { };
     #endregion
 
     #region Variables
@@ -40,7 +41,10 @@ public class TowerInstance : GameObjectInstance
         }
     }
 
+    [HideInInspector]
     public float BuildingProgress { get; private set; } = 0.0f;
+    [HideInInspector]
+    public float AcquiringTargetProgress { get; private set; } = 0.0f;
 
     //[Header("Dynamic Debug - null in prefab")]
     public TowerTemplate Template { get; set; } = null;
@@ -56,13 +60,30 @@ public class TowerInstance : GameObjectInstance
     //public override void FixedUpdateNetwork()
     protected virtual void Update()
     {
-        if (CurrentState == State.Building)
+        switch (CurrentState)
         {
-            UpdateBuilding();
+            case State.Building:
+                UpdateBuilding();
+                break;
+            //case State.Idle:
+            //    UpdateIdle();
+            //    break;
+            //case State.Acting:
+            //    UpdateActing();
+            //    break;
+            //case State.Cooldown:
+            //    UpdateCooldown();
+            //    break;
+            //case State.Upgrading:
+            //    UpdateUpgrading();
+            //    break;
+            default:
+                break;
         }
     }
     #endregion
 
+    #region Building State Logic
     public void StartBuilding()
     {
         if (CurrentState != State.New)
@@ -100,6 +121,7 @@ public class TowerInstance : GameObjectInstance
             OnBuildingProgressChanged(this, BuildingProgress);
         }
     }
+    #endregion
 
     #region network functions
 

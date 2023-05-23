@@ -8,10 +8,13 @@ public class TowerVisual : MonoBehaviour
     public TowerTemplate.TowerTypeID TypeID;
     [SerializeField]
     private RevealFXController RevealFXController;
+    [SerializeField]
+    private GameObject TurretRoot; // Optional root that will look at current target (if any)
 
     [Header("Dynamic Debug - null in prefab")]
     public TowerInstance Instance;
     public TowerController Controller;
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +25,7 @@ public class TowerVisual : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateTurretLookat();
     }
 
     #region public interfaces
@@ -67,5 +70,29 @@ public class TowerVisual : MonoBehaviour
             RevealFXController.Progress = progress;
         }
     }
+
+    private void UpdateTurretLookat()
+    {
+        if (TurretRoot != null)
+        {
+            TowerController_Projectile towerController_Projectile = Controller as TowerController_Projectile;
+
+            if (towerController_Projectile != null && towerController_Projectile.CurrentTarget != null)
+            {
+                Vector3 directionToTarget = towerController_Projectile.CurrentTarget.transform.position - TurretRoot.transform.position;
+                directionToTarget.y = 0;  // This ensures the turret only rotates around the y-axis
+
+                if (directionToTarget.sqrMagnitude > 0.0f)  // Only update the rotation if the direction is not zero
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+                    // This smooths out the rotation over time (though still quickly) to prevent too aggressive snapping
+                    TurretRoot.transform.rotation = Quaternion.RotateTowards(TurretRoot.transform.rotation, targetRotation, 300f * Time.deltaTime);
+                }
+            }
+        }
+    }
+
+
     #endregion
 }

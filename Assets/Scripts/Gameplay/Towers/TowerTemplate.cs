@@ -90,9 +90,9 @@ public class TowerTemplate : IDataTemplate
         }
 
         tier = (TowerTiers)EditorGUILayout.EnumPopup("Tower Tier", tier);
-        buildCost = EditorGUILayout.IntField("Build Cost", buildCost);
-        buildTime = EditorGUILayout.FloatField("Build Time", buildTime);
-        range = EditorGUILayout.FloatField("Range", range);
+        buildCost = Math.Max(0, EditorGUILayout.IntField("Build Cost", buildCost));
+        buildTime = MathF.Max(0.0f, EditorGUILayout.FloatField("Build Time", buildTime));
+        range = MathF.Max(0.0f, EditorGUILayout.FloatField("Range", range));
 #endif
 
         return this;
