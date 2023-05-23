@@ -26,11 +26,15 @@ public class SplitterController : MonoBehaviour
     {
         // Store the landing position of the first splitter
         landingPosition = splitterJumpTest.transform.position;
+        // Store the rotation of the first splitter
+        Quaternion landingRotation = splitterJumpTest.transform.rotation;
 
         splitterJumpTest.gameObject.SetActive(false);
 
         // Set the position of the second splitter to the landing position
         splitter2.transform.position = landingPosition;
+        // Set the rotation of the second splitter to the landing rotation
+        splitter2.transform.rotation = landingRotation;
 
         // Enable the second splitter
         splitter2.SetActive(true);

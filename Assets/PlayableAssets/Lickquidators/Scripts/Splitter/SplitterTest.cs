@@ -1,23 +1,34 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SplitterTest : MonoBehaviour
 {
-    public float speed = 5f;
-    public float maxHeight = 10f;
-    public float rotationSpeed = 2f;
-    public float initialSearchRadius = 10f;
-    public float minJumpDistance = 5f;
+    #region Events
+    // Event declarations go here, if any
+    #endregion
 
+    #region Public Variables
+    // None
+    #endregion
 
-    public Vector3 nextTarget;
+    #region Fields
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float maxHeight = 10f;
+    [SerializeField] private float rotationSpeed = 2f;
+    [SerializeField] private float initialSearchRadius = 10f;
+    [SerializeField] private float minJumpDistance = 9f;
+    [SerializeField] private Transform targetTransform;
+    [SerializeField] private float coneAngle = 10;
+    #endregion
 
-    SplitterController splitterController;
+    #region Private Variables
+    private Vector3 nextTarget;
+    private SplitterController splitterController;
     private const float TargetThreshold = .2f;
+    #endregion
 
-
+    #region Unity Functions
     private void Awake()
     {
         splitterController = FindObjectOfType<SplitterController>();
@@ -30,8 +41,14 @@ public class SplitterTest : MonoBehaviour
         Debug.Log("Next target found on NavMesh: " + nextTarget);
         MoveToPoint();
     }
+    #endregion
 
-    public void MoveToPoint()
+    #region Public Functions
+    // Publicly accessible functionality goes here, if any
+    #endregion
+
+    #region Private Functions
+    private void MoveToPoint()
     {
         Debug.Log("Starting movement to point: " + nextTarget);
         StartCoroutine(MoveToTargetCoroutine(nextTarget));
@@ -101,9 +118,18 @@ public class SplitterTest : MonoBehaviour
 
         while (!pointFound && searchRadius <= maxSearchRadius)
         {
-            // Sample two positions: one at the edge of the minimum distance, and another at the edge of the search radius
-            bool foundMin = NavMesh.SamplePosition(start + Random.insideUnitSphere * minDistance, out NavMeshHit hitMin, minDistance, NavMesh.AllAreas);
-            bool foundMax = NavMesh.SamplePosition(start + Random.insideUnitSphere * searchRadius, out NavMeshHit hitMax, searchRadius, NavMesh.AllAreas);
+            // Calculate the direction towards the target
+            Vector3 directionToTarget = (targetTransform.position - start).normalized;
+
+            // Generate a random direction within the cone
+            Vector3 randomDirection = Quaternion.Euler(0, Random.Range(-coneAngle, coneAngle), 0) * directionToTarget;
+
+            // Scale the random direction by the minimum distance and the search radius to get two points
+            Vector3 minPoint = start + randomDirection * minDistance;
+            Vector3 maxPoint = start + randomDirection * searchRadius;
+
+            bool foundMin = NavMesh.SamplePosition(minPoint, out NavMeshHit hitMin, minDistance, NavMesh.AllAreas);
+            bool foundMax = NavMesh.SamplePosition(maxPoint, out NavMeshHit hitMax, searchRadius, NavMesh.AllAreas);
 
             if (foundMin && foundMax)
             {
@@ -127,4 +153,5 @@ public class SplitterTest : MonoBehaviour
 
         return point;
     }
+    #endregion
 }
