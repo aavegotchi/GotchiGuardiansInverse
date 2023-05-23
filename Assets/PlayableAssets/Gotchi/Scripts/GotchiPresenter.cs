@@ -82,7 +82,7 @@ namespace Gotchi.Player.Presenter
             model.OnDestinationUpdated -= handleOnDestinationUpdated;
             model.OnHealthUpdated -= handleOnHealthUpdated;
             model.OnUsernameUpdated -= handleOnUsernameUpdated;
-            model.OnIsSpinAttackingUpdated += handleOnIsSpinAttackingUpdated;
+            model.OnIsSpinAttackingUpdated -= handleOnIsSpinAttackingUpdated;
 
             rightClick.performed -= handleOnRightClick;
             rightClick.Disable();
@@ -213,7 +213,11 @@ namespace Gotchi.Player.Presenter
 
             EventBus.GotchiEvents.GotchiAttacked(GotchiManager.AttackType.Spin);
 
-            if (isPrepPhase()) return;
+            if (isPrepPhase()) 
+            {
+                model.IsSpinAttacking = false;
+                return;
+            }
 
             // TODO: instead of networking it this way, it probably would be better to just network the lickquidators' transforms and healths
             List<LickquidatorPresenter> lickquidators = LickquidatorManager.Instance.ActiveLickquidators;

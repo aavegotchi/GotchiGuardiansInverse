@@ -2650,7 +2650,6 @@ MonoBehaviour:
   isPassive: 0
   isRanged: 0
   moveAnimTrigger: Roll
-  knockbackAnimTrigger: Knockback
 --- !u!114 &1807752785865356503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2669,7 +2668,6 @@ MonoBehaviour:
   attackParticleSystemObj: {fileID: 0}
   frameReadyInterval: 10
   moveAnimation: {fileID: 2260258991781722175}
-  knockbackAnimation: {fileID: 2260258991781722175}
   moveParticleSystemObj: {fileID: 2878285143704739430}
 --- !u!1 &5345153080918369653
 GameObject:
@@ -4289,6 +4287,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5517942346259264714}
     m_Modifications:
+    - target: {fileID: 11475245425296322, guid: 8edd6c3912781fe4182692f70f302f53,
+        type: 3}
+      propertyPath: isLoop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2068098142334326255, guid: 8edd6c3912781fe4182692f70f302f53,
         type: 3}
       propertyPath: m_RootOrder

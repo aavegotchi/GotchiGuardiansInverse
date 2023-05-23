@@ -44,18 +44,13 @@ namespace Gotchi.Lickquidator.SpeedyBoi.Presenter
         {
             Vector3 startPos = transform.position;
             Vector3 targetPos1 = startPos + new Vector3(0f, 0f, -10f);
-            Vector3 targetPos2 = startPos + new Vector3(0f, 0f, -8f);
-            Vector3 targetPos3 = startPos + new Vector3(0f, 0f, -15f);
-            
+            Vector3 targetPos2 = startPos + new Vector3(0f, 0f, -15f);
+
             float timeFrom0To1 = 0.25f;
-            float timeFrom1To2 = 0.08f;
-            float timeFrom2To1 = 0.17f;
-            float timeFrom1To3 = 0.5f;
+            float timeFrom1To2 = 0.5f;
 
             yield return lerpPosition(startPos, targetPos1, timeFrom0To1);
             yield return lerpPosition(targetPos1, targetPos2, timeFrom1To2);
-            yield return lerpPosition(targetPos2, targetPos1, timeFrom2To1);
-            yield return lerpPosition(targetPos1, targetPos3, timeFrom1To3);
         }
 
         private IEnumerator lerpPosition(Vector3 startPos, Vector3 endPos, float timeFromStartToEnd)

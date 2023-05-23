@@ -510,10 +510,10 @@ MonoBehaviour:
   model: {fileID: 8726538126639483675}
   rangeCircle: {fileID: 4615668477892764075}
   deathEffect: 5
-  attackAnimation: {fileID: 0}
-  attackParticleEffect: {fileID: 0}
-  spinAttackAnimation: {fileID: 0}
-  spinAttackParticleEffect: {fileID: 0}
+  attackAnimation: {fileID: 3629429032971418652}
+  attackParticleEffect: {fileID: 9103044011116759405}
+  spinAttackAnimation: {fileID: 1459702289406756493}
+  spinAttackParticleEffect: {fileID: 5567175093533283141}
   inputActions: {fileID: -944628639613478452, guid: ceabcba2e8569194c9d945050386e204,
     type: 3}
   actionMapKey: Player
@@ -1024,6 +1024,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 5614092659238552293, guid: 03fe4e81278acab4c867b129fb6c50d3,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5614092659238552293, guid: 03fe4e81278acab4c867b129fb6c50d3,
+        type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8706049904758765439, guid: 03fe4e81278acab4c867b129fb6c50d3,
         type: 3}
       propertyPath: m_Name
@@ -1042,6 +1052,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3859741025762026554}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5567175093533283141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8706049904758765439, guid: 03fe4e81278acab4c867b129fb6c50d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 3859741025762026554}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4993421023306368351
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1049,6 +1065,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4064777656144710227}
     m_Modifications:
+    - target: {fileID: 235571835335046224, guid: ba1f4e646736bad41ad6daea7579b2b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258351062168652850, guid: ba1f4e646736bad41ad6daea7579b2b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7666448512491557995, guid: ba1f4e646736bad41ad6daea7579b2b7,
         type: 3}
       propertyPath: m_Name
@@ -1124,11 +1150,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7746329146408482255, guid: ba1f4e646736bad41ad6daea7579b2b7,
+        type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7746329146408482255, guid: ba1f4e646736bad41ad6daea7579b2b7,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7746329146408482255, guid: ba1f4e646736bad41ad6daea7579b2b7,
+        type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba1f4e646736bad41ad6daea7579b2b7, type: 3}
 --- !u!4 &3398110759505546516 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7666448512491849803, guid: ba1f4e646736bad41ad6daea7579b2b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4993421023306368351}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3629429032971418652 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8580029706796333379, guid: ba1f4e646736bad41ad6daea7579b2b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4993421023306368351}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9103044011116759405 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4258351062168652850, guid: ba1f4e646736bad41ad6daea7579b2b7,
     type: 3}
   m_PrefabInstance: {fileID: 4993421023306368351}
   m_PrefabAsset: {fileID: 0}

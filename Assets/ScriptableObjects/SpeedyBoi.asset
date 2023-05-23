@@ -24,8 +24,8 @@ MonoBehaviour:
   OffsetDistance: 20
   MovementSpeed: 40
   MovementAcceleration: 15
-  AngularSpeed: 800
-  AttackRotationSpeed: 50
+  AngularSpeed: 1000
+  AttackRotationSpeed: 70
   NavMeshAgentHeight: 2
   NavMeshAgentPriority: 50
   NavMeshAgentRadius: 2
