@@ -46,43 +46,27 @@ namespace Gotchi.Lickquidator.SpeedyBoi.Presenter
             Vector3 targetPos1 = startPos + new Vector3(0f, 0f, -10f);
             Vector3 targetPos2 = startPos + new Vector3(0f, 0f, -8f);
             Vector3 targetPos3 = startPos + new Vector3(0f, 0f, -15f);
+            
             float timeFrom0To1 = 0.25f;
             float timeFrom1To2 = 0.08f;
             float timeFrom2To1 = 0.17f;
             float timeFrom1To3 = 0.5f;
 
+            yield return lerpPosition(startPos, targetPos1, timeFrom0To1);
+            yield return lerpPosition(targetPos1, targetPos2, timeFrom1To2);
+            yield return lerpPosition(targetPos2, targetPos1, timeFrom2To1);
+            yield return lerpPosition(targetPos1, targetPos3, timeFrom1To3);
+        }
+
+        private IEnumerator lerpPosition(Vector3 startPos, Vector3 endPos, float timeFromStartToEnd)
+        {
             float time = 0f;
-            while (time < timeFrom0To1)
+            while (time < timeFromStartToEnd)
             {
-                time = Mathf.MoveTowards(time, timeFrom0To1, Time.deltaTime);
-                transform.position = Vector3.Lerp(startPos, targetPos1, time / timeFrom0To1);
+                time = Mathf.MoveTowards(time, timeFromStartToEnd, Time.deltaTime);
+                transform.position = Vector3.Lerp(startPos, endPos, time / timeFromStartToEnd);
                 yield return null;
             }
-            time = 0f;
-
-            while (time < timeFrom1To2)
-            {
-                time = Mathf.MoveTowards(time, timeFrom1To2, Time.deltaTime);
-                transform.position = Vector3.Lerp(targetPos1, targetPos2, time / timeFrom1To2);
-                yield return null;
-            }
-            time = 0f;
-
-            while (time < timeFrom2To1)
-            {
-                time = Mathf.MoveTowards(time, timeFrom2To1, Time.deltaTime);
-                transform.position = Vector3.Lerp(targetPos2, targetPos1, time / timeFrom2To1);
-                yield return null;
-            }
-            time = 0f;
-
-            while (time < timeFrom1To3)
-            {
-                time = Mathf.MoveTowards(time, timeFrom1To3, Time.deltaTime);
-                transform.position = Vector3.Lerp(targetPos1, targetPos3, time / timeFrom1To3);
-                yield return null;
-            }
-            time = 0f;
         }
         #endregion
     }
