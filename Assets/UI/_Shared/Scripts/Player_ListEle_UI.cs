@@ -66,8 +66,6 @@ public class Player_ListEle_UI : MonoBehaviour
     {
         get { return lastAppliedTargetHp; }
     }
-
-    public bool IsBot;
     #endregion
 
     #region Unity methods
