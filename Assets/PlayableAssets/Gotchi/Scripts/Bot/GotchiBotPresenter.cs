@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using PhaseManager;
 using PhaseManager.Presenter;
-using Gotchi.Events;
+using GameMaster;
 using Gotchi.Bot.Model;
 using Random = UnityEngine.Random;
 
@@ -76,7 +76,7 @@ namespace Gotchi.Bot.Presenter {
         {
             if (health <= 0)
             {
-                EventBus.GotchiEvents.GotchiDied(gameObject.GetInstanceID());
+                GameMasterEvents.GotchiEvents.GotchiDied(gameObject.GetInstanceID());
             }
         }
 
@@ -88,7 +88,7 @@ namespace Gotchi.Bot.Presenter {
             while (model.ShouldSimulateDamage && model.Health > 0)
             {
                 int damage = Math.Min(Random.Range(0, 15), model.Health);
-                EventBus.GotchiEvents.GotchiDamaged(gameObject.GetInstanceID(), damage);
+                GameMasterEvents.GotchiEvents.GotchiDamaged(gameObject.GetInstanceID(), damage);
                 model.SetHealth(model.Health - damage);
                 yield return new WaitForSeconds(1f);
             }

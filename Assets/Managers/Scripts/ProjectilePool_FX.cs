@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Gotchi.Events;
+using GameMaster;
 using Gotchi.Lickquidator.Manager;
 
 public class ProjectilePool_FX : MonoBehaviour
@@ -88,11 +88,11 @@ public class ProjectilePool_FX : MonoBehaviour
 
             if (projectileType == ProjectileType.Laser)
             {
-                EventBus.EnemyEvents.EnemyAttacked(LickquidatorManager.LickquidatorType.AerialLickquidator);
+                GameMasterEvents.EnemyEvents.EnemyAttacked(LickquidatorManager.LickquidatorType.AerialLickquidator);
             }
             else
             {
-                EventBus.TowerEvents.TowerAttacked(turretTowerObjectSO.Type);
+                GameMasterEvents.TowerEvents.TowerAttacked(turretTowerObjectSO.Type);
             }
             
             return projectile;

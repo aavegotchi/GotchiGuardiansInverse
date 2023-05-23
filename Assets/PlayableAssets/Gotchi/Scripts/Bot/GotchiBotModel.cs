@@ -1,5 +1,5 @@
 using System;
-using Gotchi.Events;
+using GameMaster;
 using PhaseManager;
 
 namespace Gotchi.Bot.Model
@@ -32,7 +32,7 @@ namespace Gotchi.Bot.Model
             this.gotchiId = gotchiId;
             this.health = health;
             this.username = username;
-            EventBus.PhaseEvents.PhaseChanged += HandlePhaseUpdated;
+            GameMasterEvents.PhaseEvents.PhaseChanged += HandlePhaseUpdated;
         }
 
         public void SetGotchiId(int gotchiId)

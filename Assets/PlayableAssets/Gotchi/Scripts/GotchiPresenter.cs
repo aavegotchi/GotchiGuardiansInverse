@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fusion;
-using Gotchi.Events;
+using GameMaster;
 using Gotchi.Lickquidator.Manager;
 using Gotchi.Lickquidator.Presenter;
 using Gotchi.Network;
@@ -159,7 +159,7 @@ namespace Gotchi.Player.Presenter
 
         public void Damage(int damage)
         {
-            EventBus.GotchiEvents.GotchiDamaged(gameObject.GetInstanceID(), damage);
+            GameMasterEvents.GotchiEvents.GotchiDamaged(gameObject.GetInstanceID(), damage);
             model.UpdateHealth(model.Health - damage);
         }
 
@@ -219,7 +219,7 @@ namespace Gotchi.Player.Presenter
             if (spinAttackAnimation != null) spinAttackAnimation.SetTrigger(model.AbilityAnimTriggerHash);
             if (spinAttackParticleEffect != null) spinAttackParticleEffect.SetActive(true);
 
-            EventBus.GotchiEvents.GotchiAttacked(gameObject.GetInstanceID(), GotchiManager.AttackType.Spin);
+            GameMasterEvents.GotchiEvents.GotchiAttacked(gameObject.GetInstanceID(), GotchiManager.AttackType.Spin);
 
             if (isPrepPhase()) 
             {
@@ -344,13 +344,13 @@ namespace Gotchi.Player.Presenter
             if (attackAnimation != null) attackAnimation.SetTrigger(model.AttackAnimTriggerHash);
             if (attackParticleEffect != null) attackParticleEffect.SetActive(true);
 
-            EventBus.GotchiEvents.GotchiAttacked(gameObject.GetInstanceID(), GotchiManager.AttackType.Basic);
+            GameMasterEvents.GotchiEvents.GotchiAttacked(gameObject.GetInstanceID(), GotchiManager.AttackType.Basic);
             inRangeTarget.Damage(model.Config.AttackDamage);
         }
 
         private void playDead()
         {
-            EventBus.GotchiEvents.GotchiDied(gameObject.GetInstanceID());
+            GameMasterEvents.GotchiEvents.GotchiDied(gameObject.GetInstanceID());
             ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
             
             gameObject.SetActive(false);

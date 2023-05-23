@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
-using Gotchi.Events;
+using GameMaster;
 
 public class Player_ListEle_UI : MonoBehaviour
 {
@@ -104,12 +104,12 @@ public class Player_ListEle_UI : MonoBehaviour
 
     void OnEnable()
     {
-        EventBus.GotchiEvents.GotchiDamaged += HandleGotchiDamage;
+        GameMasterEvents.GotchiEvents.GotchiDamaged += HandleGotchiDamage;
     }
 
     void OnDisable() 
     {
-        EventBus.GotchiEvents.GotchiDamaged -= HandleGotchiDamage;
+        GameMasterEvents.GotchiEvents.GotchiDamaged -= HandleGotchiDamage;
     }
     #endregion
 

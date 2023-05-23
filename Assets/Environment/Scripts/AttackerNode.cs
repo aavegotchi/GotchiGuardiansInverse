@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using Gotchi.Events;
+using GameMaster;
 using Fusion;
 using Gotchi.Lickquidator.Manager;
 
@@ -35,12 +35,12 @@ public class AttackerNode : BaseNode
     #region Unity Functions
     void OnEnable()
     {
-        EventBus.PhaseEvents.SurvivalPhaseStarted += startSpawnEnemies;
+        GameMasterEvents.PhaseEvents.SurvivalPhaseStarted += startSpawnEnemies;
     }
 
     void OnDisable()
     {
-        EventBus.PhaseEvents.SurvivalPhaseStarted -= startSpawnEnemies;
+        GameMasterEvents.PhaseEvents.SurvivalPhaseStarted -= startSpawnEnemies;
     }
     #endregion
 
@@ -70,7 +70,7 @@ public class AttackerNode : BaseNode
 
         this.Occupied = true;
         enemyBlueprint.node = this;
-        EventBus.EnemyEvents.EnemyStarted();
+        GameMasterEvents.EnemyEvents.EnemyStarted();
         spawnedEnemyBlueprints.Add(enemyBlueprint);
         BuildProgressPool_UI.Instance.GetAndShowProgressBar(enemyBlueprint, true);
         this.BuildEffect.SetActive(true);
@@ -98,7 +98,7 @@ public class AttackerNode : BaseNode
     {
         foreach (EnemyBlueprint enemyBlueprint in spawnedEnemyBlueprints)
         {
-            EventBus.EnemyEvents.EnemyFinished(enemyBlueprint);
+            GameMasterEvents.EnemyEvents.EnemyFinished(enemyBlueprint);
             yield return new WaitForSeconds(enemyBlueprint.buildTime * 0.5f); // for now, spawn enemies at half the time it takes to build them to avoid clumping
         }
     }

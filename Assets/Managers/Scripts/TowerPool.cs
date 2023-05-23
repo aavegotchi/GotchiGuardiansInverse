@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Gotchi.Events;
+using GameMaster;
 
 public class TowerPool : MonoBehaviour
 {
@@ -95,12 +95,12 @@ public class TowerPool : MonoBehaviour
 
     void OnEnable()
     {
-        EventBus.TowerEvents.TowerFinished += spawnTower;
+        GameMasterEvents.TowerEvents.TowerFinished += spawnTower;
     }
 
     void OnDisable()
     {
-        EventBus.TowerEvents.TowerFinished -= spawnTower;
+        GameMasterEvents.TowerEvents.TowerFinished -= spawnTower;
     }
     #endregion
 

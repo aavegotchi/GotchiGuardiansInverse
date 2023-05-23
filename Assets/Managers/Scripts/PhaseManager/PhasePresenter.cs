@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Gotchi.Events;
+using GameMaster;
 using Gotchi.Network;
 using Gotchi.Lickquidator.Manager;
 using PhaseManager.Model;
@@ -81,13 +81,13 @@ namespace PhaseManager {
                     model.StartCountdown();
                     OnShowCoundownUpdated(true);
 
-                    EventBus.PhaseEvents.PrepPhaseStarted();
+                    GameMasterEvents.PhaseEvents.PrepPhaseStarted();
                 }
                 else if (model.CurrentPhase == Phase.Survival)
                 {
                     OnShowCoundownUpdated(false);
 
-                    EventBus.PhaseEvents.SurvivalPhaseStarted();
+                    GameMasterEvents.PhaseEvents.SurvivalPhaseStarted();
                 }
                 else if (model.CurrentPhase == Phase.Defeat)
                 {
@@ -105,7 +105,7 @@ namespace PhaseManager {
                 if (nextPhase != Phase.None) {
                     model.SetCurrentPhase(Phase.Transitioning);
 
-                    EventBus.PhaseEvents.TransitionPhaseStarted(nextPhase);
+                    GameMasterEvents.PhaseEvents.TransitionPhaseStarted(nextPhase);
 
                     if (nextPhase == Phase.Prep)
                     {
@@ -118,12 +118,12 @@ namespace PhaseManager {
 
             private void HandleCurrentPhaseUpdated(Phase phase)
             {
-                EventBus.PhaseEvents.PhaseChanged(phase);
+                GameMasterEvents.PhaseEvents.PhaseChanged(phase);
             }
 
             private void HandleDefeat()
             {
-                EventBus.PhaseEvents.TransitionPhaseStarted(Phase.Defeat);
+                GameMasterEvents.PhaseEvents.TransitionPhaseStarted(Phase.Defeat);
 
                 StartCoroutine(showTransition(Phase.Defeat));
             }

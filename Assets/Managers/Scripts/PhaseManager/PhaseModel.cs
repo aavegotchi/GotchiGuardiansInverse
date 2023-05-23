@@ -2,7 +2,7 @@ using System.Collections;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Gotchi.Events;
+using GameMaster;
 using Gotchi.Network;
 using Gotchi.Lickquidator.Manager;
 using Fusion;
@@ -84,12 +84,12 @@ namespace PhaseManager
 
             void OnEnable() 
             {
-                EventBus.GotchiEvents.GotchiDied += HandleGotchiDied;
+                GameMasterEvents.GotchiEvents.GotchiDied += HandleGotchiDied;
             }
 
             void OnDisable() 
             {
-                EventBus.GotchiEvents.GotchiDied -= HandleGotchiDied;
+                GameMasterEvents.GotchiEvents.GotchiDied -= HandleGotchiDied;
             }
             #endregion
 
