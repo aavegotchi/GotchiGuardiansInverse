@@ -1,3 +1,5 @@
+using System;
+using PhaseManager;
 using Gotchi.Lickquidator.Manager;
 
 namespace Gotchi.Events
@@ -9,6 +11,7 @@ namespace Gotchi.Events
         public delegate void TowerFn(TowerPool.TowerType towerType);
         public delegate void EnemyFn(LickquidatorManager.LickquidatorType enemyType);
         public delegate void GotchiFn(GotchiManager.AttackType attackType);
+        public delegate void GotchiDamageFn(string gotchiId, int damage);
         public delegate void TowerBuildFn(TowerBlueprint towerBlueprint);
         public delegate void EnemyBuildFn(EnemyBlueprint enemyBlueprint);
         
@@ -28,6 +31,7 @@ namespace Gotchi.Events
 
     public class PhaseEventsBlueprint
     {
+        public Action<Phase> PhaseChanged = delegate { };
         public EventBus.EmptyFn MainMenuStarted;
         public EventBus.EmptyFn PrepPhaseStarted;
         public EventBus.EmptyFn SurvivalPhaseStarted;
@@ -55,6 +59,7 @@ namespace Gotchi.Events
     public class GotchiEventsBlueprint
     {
         public EventBus.GotchiFn GotchiAttacked;
+        public Action<int, int> GotchiDamaged = delegate { };
         public EventBus.EmptyFn GotchiHit; // currently unused
         public EventBus.EmptyFn GotchiDied;
         public EventBus.EmptyFn GotchisAllDead;

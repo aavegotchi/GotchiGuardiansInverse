@@ -2,9 +2,14 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using Gotchi.Events;
 
 public class Player_ListEle_UI : MonoBehaviour
 {
+    #region Public Variables
+    public int PlayerId { get { return playerId; } }
+    #endregion
+
     #region fields
     [Header("Sub Objects")]
     [SerializeField] private TextMeshProUGUI playerNameLabel = null;
@@ -24,7 +29,7 @@ public class Player_ListEle_UI : MonoBehaviour
     [SerializeField] private Sprite deadBackgroundSprite;
 
     [Header("HP")]
-    [SerializeField] private int maxHP = 1000;
+    [SerializeField] private int maxHP = 250;
     [SerializeField] private float animTimePerHpAmount = 0.005f;
     [SerializeField] private int editorTargetHP;
 
@@ -38,6 +43,8 @@ public class Player_ListEle_UI : MonoBehaviour
     #endregion
 
     #region private variables
+    private int playerId = -1;
+
     // HP
     private int currentRenderedHP;
     private int lastAppliedTargetHp;
@@ -59,6 +66,8 @@ public class Player_ListEle_UI : MonoBehaviour
     {
         get { return lastAppliedTargetHp; }
     }
+
+    public bool IsBot;
     #endregion
 
     #region Unity methods
@@ -68,7 +77,7 @@ public class Player_ListEle_UI : MonoBehaviour
         currentRenderedHP = maxHP;
         editorTargetHP = maxHP;
         lastAppliedTargetHp = maxHP;
-        hpLabel.SetText(currentRenderedHP.ToString());
+        hpLabel.SetText(maxHP.ToString());
 
         currentBankAmt = editorBankAmt;
         lastAppliedBankAmt = editorBankAmt;
@@ -86,10 +95,6 @@ public class Player_ListEle_UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lastAppliedTargetHp != editorTargetHP) {
-            UpdateHp(editorTargetHP);
-        }
-
         if (lastAppliedBankAmt != editorBankAmt) {
             UpdateBank(editorBankAmt);
         }
@@ -98,9 +103,23 @@ public class Player_ListEle_UI : MonoBehaviour
             UpdateIncomeAmt(editorIncomeAmt);
         }
     }
+
+    void OnEnable()
+    {
+        EventBus.GotchiEvents.GotchiDamaged += HandleGotchiDamage;
+    }
+
+    void OnDisable() 
+    {
+        EventBus.GotchiEvents.GotchiDamaged -= HandleGotchiDamage;
+    }
     #endregion
 
     #region public functions
+    public void SetPlayerId(int id) 
+    {
+        playerId = id;
+    }
     public void SetPlayerName(string playerName)
     {
         playerNameLabel.SetText(playerName);
@@ -184,6 +203,14 @@ public class Player_ListEle_UI : MonoBehaviour
         }
 
         incomeTweener = DOTween.To(() => currentIncomeAmt, (x) => { currentIncomeAmt = x; incomeLabel.SetText(currentIncomeAmt.ToString()); }, lastAppliedIncomeAmt, 0.5f);
+    }
+
+    public void HandleGotchiDamage(int id, int damage)
+    {
+        if (id == playerId)
+        {
+            UpdateHp(lastAppliedTargetHp - damage);
+        }
     }
     #endregion
 }

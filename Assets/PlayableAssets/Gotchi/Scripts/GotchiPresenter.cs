@@ -153,6 +153,7 @@ namespace Gotchi.Player.Presenter
         public void Damage(int damage)
         {
             model.UpdateHealth(model.Health - damage);
+            EventBus.GotchiEvents.GotchiDamaged(gameObject.GetInstanceID(), damage);
         }
 
         // TODO: refactor AbilityButton_UI to its own MVP component 
@@ -181,7 +182,7 @@ namespace Gotchi.Player.Presenter
 
         private void handleOnUsernameUpdated()
         {
-            UserInterfaceManager.Instance.PlayersListUI.AddPlayerEntry(model.Username, Object.HasInputAuthority);
+            UserInterfaceManager.Instance.PlayersListUI.AddPlayerEntry(gameObject.GetInstanceID(), model.Username, Object.HasInputAuthority);
         }
 
         private void handleOnRightClick(InputAction.CallbackContext Context)

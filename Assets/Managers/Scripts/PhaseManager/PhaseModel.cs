@@ -7,7 +7,8 @@ using Gotchi.Lickquidator.Manager;
 using Fusion;
 
 namespace PhaseManager
-{    public enum Phase
+{    
+    public enum Phase
     {
         None,
         Prep,
