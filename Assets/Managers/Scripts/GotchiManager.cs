@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Gotchi.Player.Presenter;
 using Gotchi.Bot.Presenter;
 
 public class GotchiManager : MonoBehaviour
@@ -27,6 +28,8 @@ public class GotchiManager : MonoBehaviour
 
     public List<GameObject> Bots { get { return spawnedBots; } }
 
+    public List<GameObject> Gotchis { get { return spawnedGotchis; } }
+
     #endregion
 
     #region Fields
@@ -40,8 +43,10 @@ public class GotchiManager : MonoBehaviour
     #endregion
 
     #region Private Variables
+    private List<GameObject> spawnedGotchis = new List<GameObject>();
     private List<GameObject> spawnedBots = new List<GameObject>();
-    private Dictionary<int, GotchiBotPresenter> BotLookup = new Dictionary<int, GotchiBotPresenter>();
+    private Dictionary<int, GotchiPresenter> gotchiLookup = new Dictionary<int, GotchiPresenter>();
+    private Dictionary<int, GotchiBotPresenter> botLookup = new Dictionary<int, GotchiBotPresenter>();
     #endregion
 
     #region Unity Functions
@@ -68,7 +73,17 @@ public class GotchiManager : MonoBehaviour
             presenter.SetUsername("bot_" + (i + 1));
             
             spawnedBots.Add(bot);
-            BotLookup.Add(bot.GetInstanceID(), presenter);
+            botLookup.Add(bot.GetInstanceID(), presenter);
+        }
+    }
+
+    public void RemoveBot(int botId)
+    {
+        int botIndex = spawnedBots.FindIndex(go => go.GetInstanceID() == botId);
+
+        if (botIndex != -1) {
+            spawnedBots.RemoveAt(botIndex);
+            botLookup.Remove(botId);
         }
     }
 
@@ -76,8 +91,47 @@ public class GotchiManager : MonoBehaviour
     {
         GameObject removedBot = spawnedBots[spawnedBots.Count - 1];
         spawnedBots.RemoveAt(spawnedBots.Count - 1);
+        botLookup.Remove(removedBot.GetInstanceID());
         Destroy(removedBot);
     }
 
+    public void RegisterGotchi(GotchiPresenter NewGotchi)
+    {
+        int id = NewGotchi.gameObject.GetInstanceID();
+        spawnedGotchis.Add(NewGotchi.gameObject);
+        gotchiLookup.Add(id, NewGotchi);
+    }
+
+    public void RemoveGotchi(GotchiPresenter Gotchi)
+    {
+        spawnedGotchis.Remove(Gotchi.gameObject);
+        gotchiLookup.Remove(Gotchi.gameObject.GetInstanceID());
+    }
+
+    public int GetLiveGotchiCount()
+    {
+        int totalLiveGotchis = 0;
+        spawnedGotchis.ForEach(delegate(GameObject go) {
+            if (!gotchiLookup[go.GetInstanceID()].IsDead())
+            {
+                totalLiveGotchis++;
+            }
+        });
+        
+        return totalLiveGotchis;
+    }
+
+    public int GetLiveBotCount()
+    {
+        int totalLiveBots = 0;
+        spawnedBots.ForEach(delegate(GameObject go) {
+        if (!botLookup[go.GetInstanceID()].IsDead())
+        {
+            totalLiveBots++;
+        }
+        });
+        
+        return totalLiveBots;
+    }
     #endregion
 }

@@ -45,15 +45,15 @@ namespace PhaseManager {
             void OnEnable() 
             {
                 model.OnCountdownValueUpdated += onCountdownUpdated;
-                model.OnIsTransitioningUpdated += HandlePhaseTransition;
-                EventBus.GotchiEvents.GotchisAllDead += HandleDefeat;
+                model.OnNextPhaseUpdated += HandlePhaseTransition;
+                model.OnCurrentPhaseUpdated += HandleCurrentPhaseUpdated;
             }
 
             void OnDisable() 
             {
                 model.OnCountdownValueUpdated -= onCountdownUpdated;
-                model.OnIsTransitioningUpdated -= HandlePhaseTransition;
-                EventBus.GotchiEvents.GotchisAllDead -= HandleDefeat;
+                model.OnNextPhaseUpdated -= HandlePhaseTransition;
+                model.OnCurrentPhaseUpdated -= HandleCurrentPhaseUpdated;
             }
             #endregion
 
@@ -73,7 +73,7 @@ namespace PhaseManager {
             public void updatePhase(string nextPhaseStr)
             {
                 Phase nextPhase = (Phase)Enum.Parse(typeof(Phase), nextPhaseStr);
-                model.SetIsTransitioning(false);
+                model.SetNextPhase(Phase.None);
                 model.SetCurrentPhase(nextPhase);
 
                 if (model.CurrentPhase == Phase.Prep)
@@ -100,10 +100,9 @@ namespace PhaseManager {
 
             }
 
-            private void HandlePhaseTransition()
+            private void HandlePhaseTransition(Phase nextPhase)
             {
-                if (model.IsTransitioning) {
-                    Phase nextPhase = model.CurrentPhase == Phase.Prep ? Phase.Survival : Phase.Prep;
+                if (nextPhase != Phase.None) {
                     model.SetCurrentPhase(Phase.Transitioning);
 
                     EventBus.PhaseEvents.TransitionPhaseStarted(nextPhase);
@@ -115,6 +114,11 @@ namespace PhaseManager {
 
                     StartCoroutine(showTransition(nextPhase));
                 }
+            }
+
+            private void HandleCurrentPhaseUpdated(Phase phase)
+            {
+                EventBus.PhaseEvents.PhaseChanged(phase);
             }
 
             private void HandleDefeat()
@@ -133,7 +137,7 @@ namespace PhaseManager {
                     OnIsRewardsUIOpenUpdated(true);
 
                     yield return new WaitForSeconds(model.NumSecondsOnRewardsScreen);
-                    OnIsRewardsUIOpenUpdated(true);
+                    OnIsRewardsUIOpenUpdated(false);
 
                     StatsManager.Instance.ClearCreateAndKillStats();
                 }

@@ -34,21 +34,6 @@ public class Players_List_UI : MonoBehaviour
         show();
     }
 
-    void OnEnable() {
-        // print("Player elements length: " + playerElements.Count);
-        // for (int i = 0; i < playerElements.Count; i++) {
-        //     Player_ListEle_UI playerElement = playerElements[i];
-        //     string username = "Bot" + i;
-        //     if (!playerElement.gameObject.activeSelf)
-        //     {
-        //         playerElement.SetPlayerName(username);
-        //         playerElement.gameObject.SetActive(true);
-        //         playerElement.IsBot = true;
-        //         usernameToPlayerElementsIndexDict[username] = i;
-        //     }
-        // }
-    }
-
     void Update()
     {
         if (isShow == isVisible) return;
@@ -71,7 +56,6 @@ public class Players_List_UI : MonoBehaviour
             playerElement.SetPlayerName(username);
             playerElement.SetPlayerId(id);
             playerElement.gameObject.SetActive(true);
-            playerElement.IsBot = false;
             usernameToPlayerElementsIndexDict[username] = 0;
             return;
         }
@@ -79,12 +63,11 @@ public class Players_List_UI : MonoBehaviour
         for (int i=1; i<playerElements.Count; i++)
         {
             Player_ListEle_UI playerElement = playerElements[i];
-            if (playerElement.IsBot || !playerElement.gameObject.activeSelf)
+            if (!playerElement.gameObject.activeSelf)
             {
                 playerElement.SetPlayerName(username);
                 playerElement.SetPlayerId(id);
                 playerElement.gameObject.SetActive(true);
-                playerElement.IsBot = false;
                 usernameToPlayerElementsIndexDict[username] = i;
                 return;
             }

@@ -246,7 +246,7 @@ namespace Gotchi.Audio
             playSound(SoundManager.SoundType.PhaseTransition);
         }
 
-        private void playGotchiAttacked(GotchiManager.AttackType attackType)
+        private void playGotchiAttacked(int _gotchiId, GotchiManager.AttackType attackType)
         {
             if (attackType == GotchiManager.AttackType.Basic)
             {
@@ -258,7 +258,7 @@ namespace Gotchi.Audio
             }
         }
 
-        private void playGotchiDied()
+        private void playGotchiDied(int _gotchiId)
         {
             playSound(SoundManager.SoundType.GotchiDied);
         }
