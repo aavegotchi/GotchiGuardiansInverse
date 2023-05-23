@@ -42,6 +42,7 @@ namespace Gotchi.Audio
             BuildingStarted,
             MenuItemSelectedLong,
             MenuItemSelectedShort,
+            Ram,
         }
         #endregion
 
@@ -142,9 +143,9 @@ namespace Gotchi.Audio
                 child.transform.SetParent(transform, true);
 
                 AudioSource audioSource = child.AddComponent<AudioSource>();
-                audioSource.spatialBlend = 1.0f;
+                audioSource.spatialBlend = 0f; // set to 2D audio
                 audioSource.playOnAwake = false;
-                audioSource.maxDistance = 200;
+                audioSource.maxDistance = 100;
                 audioSource.rolloffMode = AudioRolloffMode.Linear;
                 audioSource.dopplerLevel = 0f;
                 audioSource.gameObject.SetActive(false);
@@ -285,6 +286,10 @@ namespace Gotchi.Audio
             else if (enemyType == LickquidatorManager.LickquidatorType.BossLickquidator)
             {
                 playSound(SoundManager.SoundType.TongueFired);
+            }
+            else if (enemyType == LickquidatorManager.LickquidatorType.SpeedyBoi)
+            {
+                playSound(SoundManager.SoundType.Ram);
             }
         }
 

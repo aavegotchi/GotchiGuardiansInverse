@@ -56,6 +56,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8506557226920511997}
+  - component: {fileID: 3024331144907935862}
   m_Layer: 0
   m_Name: ProgressbarManager
   m_TagString: Untagged
@@ -78,6 +79,21 @@ Transform:
   m_Father: {fileID: 462755329372116384}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3024331144907935862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2643741899578134121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb392933e4df044cb00ca27b999e3bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressBarPrefab: {fileID: 9208720214513312333, guid: 104c4925c050b494786113ae4b6e06c9,
+    type: 3}
+  progressBarPoolSize: 15
 --- !u!1 &7201214084888619790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1119,12 +1135,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 462755329372116384}
     m_Modifications:
-    - target: {fileID: 5172441279832803132, guid: ba35fa4b3a2be2e4dabaa1e1d47a8d96,
-        type: 3}
-      propertyPath: gotchiPrefab
-      value: 
-      objectReference: {fileID: 6665416994352312182, guid: 02cd7c0bff2ad43cbb73bd7738b7ca4f,
-        type: 3}
     - target: {fileID: 5657520700067688740, guid: ba35fa4b3a2be2e4dabaa1e1d47a8d96,
         type: 3}
       propertyPath: m_Name

@@ -50,6 +50,9 @@ MonoBehaviour:
     type: 3}
   bossLickquidatorPrefab: {fileID: 88726243156104585, guid: 2e3982ed5cd15d54788cdee36f5901bf,
     type: 3}
+  speedyBoiLickquidatorPrefab: {fileID: 5177024078983081584, guid: 87c37cc6d0d49814fa80e95c8a8a45fb,
+    type: 3}
   pawnLickquidatorPoolSize: 5
   aerialLickquidatorPoolSize: 5
   bossLickquidatorPoolSize: 5
+  speedyBoiLickquidatorPoolSize: 5

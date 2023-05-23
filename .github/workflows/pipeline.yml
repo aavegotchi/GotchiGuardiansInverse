@@ -2,11 +2,9 @@ name: Pipeline
 
 on:
   push:
-    branches_ignore:
+    branches-ignore:
       - 'production'
       - 'staging'
-      # TODO: remove
-      - 'master'
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -19,6 +17,6 @@ jobs:
 
   buildWebGL:
     name: Build WebGL
-    needs: test
+    needs: [test]
     uses: ./.github/workflows/build-webgl.yml
     secrets: inherit
