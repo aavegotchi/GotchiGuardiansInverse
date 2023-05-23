@@ -12,6 +12,11 @@ namespace Gotchi.Lickquidator.SpeedyBoi.Presenter
         [SerializeField] private GameObject moveParticleSystemObj = null;
         #endregion
 
+        #region Private Variables
+        Vector3 prevPos = Vector3.zero;
+        Vector3 dir = Vector3.zero;
+        #endregion
+
         #region Unity Functions
         protected override void OnEnable()
         {
@@ -30,39 +35,40 @@ namespace Gotchi.Lickquidator.SpeedyBoi.Presenter
         #region Private Functions
         private void showMovingEffects()
         {
-            moveAnimation.enabled = true;
             moveAnimation.SetTrigger(((LickquidatorModel_SpeedyBoi)model).MoveAnimTriggerHash);
             moveParticleSystemObj.SetActive(true);
         }
 
         private void handleOnAttacked()
         {
-            StartCoroutine(knockback());
+            Vector3 dir = GetDirectionToTarget();
+            rigidBody.AddForce(dir.normalized * -200f, ForceMode.Impulse); 
+            // TODO: if we don't like physics, a more sophisticated version of the below coroutine can be considered
+            // but using physics would be the cleanest approach
+
+            // StartCoroutine(knockback());
         }
 
-        private IEnumerator knockback()
-        {
-            Vector3 startPos = transform.position;
-            Vector3 targetPos1 = startPos + new Vector3(0f, 0f, -10f);
-            Vector3 targetPos2 = startPos + new Vector3(0f, 0f, -15f);
+        // void FixedUpdate()
+        // {
+        //     Vector3 curPos = transform.position;
+        //     if (curPos == prevPos) return;
+        //     dir = (curPos - prevPos).normalized;
+        //     prevPos = curPos;
+        // }
 
-            float timeFrom0To1 = 0.25f;
-            float timeFrom1To2 = 0.5f;
-
-            yield return lerpPosition(startPos, targetPos1, timeFrom0To1);
-            yield return lerpPosition(targetPos1, targetPos2, timeFrom1To2);
-        }
-
-        private IEnumerator lerpPosition(Vector3 startPos, Vector3 endPos, float timeFromStartToEnd)
-        {
-            float time = 0f;
-            while (time < timeFromStartToEnd)
-            {
-                time = Mathf.MoveTowards(time, timeFromStartToEnd, Time.deltaTime);
-                transform.position = Vector3.Lerp(startPos, endPos, time / timeFromStartToEnd);
-                yield return null;
-            }
-        }
+        // private IEnumerator knockback()
+        // {
+        //     Vector3 curDir = -dir;
+        //     float duration = 0.5f;
+        //     float time = 0f;
+        //     while (time < duration) 
+        //     {
+        //         transform.Translate(curDir * time / duration);
+        //         time += Time.deltaTime;
+        //         yield return null;  
+        //     }
+        // }
         #endregion
     }
 }

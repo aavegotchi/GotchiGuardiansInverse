@@ -43,7 +43,6 @@ namespace Gotchi.Lickquidator.Model
         private float movementSpeed = 0f;
         private int health = 0;
         private int maxHealth = 0;
-        // private bool isMoving = false;
         private int attackAnimTriggerHash = 0;
         #endregion
 

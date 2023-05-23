@@ -20,10 +20,10 @@ MonoBehaviour:
   AttackDamage: 20
   AttackRange: 18
   Health: 200
-  MovementSpeed: 25
-  MovementAcceleration: 15
-  AngularSpeed: 120
-  AttackRotationSpeed: 15
+  MovementSpeed: 30
+  MovementAcceleration: 40
+  AngularSpeed: 500
+  AttackRotationSpeed: 40
   NavMeshAgentHeight: 2
   NavMeshAgentPriority: 50
   NavMeshAgentRadius: 0.5

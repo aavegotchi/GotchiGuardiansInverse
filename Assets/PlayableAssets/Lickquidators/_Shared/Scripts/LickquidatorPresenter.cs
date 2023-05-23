@@ -33,7 +33,7 @@ namespace Gotchi.Lickquidator.Presenter
         private NavMeshAgent agent = null;
         private Transform inRangeTargetTransform = null;
         private GotchiPresenter inRangeTarget = null;
-        private Rigidbody rigidBody = null;
+        protected Rigidbody rigidBody = null;
         private float attackCountdownTracker = 0.5f;
         #endregion
 
@@ -141,6 +141,11 @@ namespace Gotchi.Lickquidator.Presenter
         {
             rigidBody.AddForce(force, ForceMode.Impulse);
         }
+
+        protected Vector3 GetDirectionToTarget()
+        {
+            return inRangeTargetTransform.position - transform.position;
+        }
         #endregion
 
         #region Event Handlers
@@ -151,7 +156,7 @@ namespace Gotchi.Lickquidator.Presenter
 
         private void handleOnHealthUpdated()
         {
-            if (healthBar.CurrentHealth == model.MaxHealth || healthBar.CurrentHealth <= 0) return;
+            if (healthBar.CurrentHealth <= 0) return;
 
             float damage = healthBar.CurrentHealth - model.Health;
             healthBar.ShowDamagePopUpAndColorDifferentlyIfEnemy(damage, true);
@@ -256,7 +261,7 @@ namespace Gotchi.Lickquidator.Presenter
 
         private void rotateTowardInRangeTarget()
         {
-            Vector3 dir = inRangeTargetTransform.position - transform.position;
+            Vector3 dir = GetDirectionToTarget();
             Quaternion lookRotation = Quaternion.LookRotation(dir);
             Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * model.Config.AttackRotationSpeed).eulerAngles;
             transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);

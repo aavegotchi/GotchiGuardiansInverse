@@ -23,8 +23,8 @@ MonoBehaviour:
   Health: 100
   OffsetDistance: 20
   MovementSpeed: 40
-  MovementAcceleration: 15
-  AngularSpeed: 1000
+  MovementAcceleration: 70
+  AngularSpeed: 800
   AttackRotationSpeed: 70
   NavMeshAgentHeight: 2
   NavMeshAgentPriority: 50
