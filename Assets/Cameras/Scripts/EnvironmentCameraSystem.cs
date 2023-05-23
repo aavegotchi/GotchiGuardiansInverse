@@ -94,6 +94,7 @@ public class EnvironmentCameraSystem : MonoBehaviour
   {
     Vector3 movementInputDirection = new Vector3(0, 0, 0);
 
+    // Keyboard movement
     if (isKeyboardMovementEnabled)
     {
       // Up
@@ -121,6 +122,7 @@ public class EnvironmentCameraSystem : MonoBehaviour
       }
     }
 
+    // Edge scrolling movement
     if (isEdgeScrollMovementEnabled)
     {
       Vector3 mouseViewportPoint = Camera.main.ScreenToViewportPoint(Input.mousePosition);
@@ -167,6 +169,11 @@ public class EnvironmentCameraSystem : MonoBehaviour
         }
       }
     }
+
+    // Clamp movement speed
+    float movementSpeedMax = Mathf.Max(keyboardMovementSpeed, edgeScrollMovementSpeedMax);
+    movementInputDirection.z = Mathf.Clamp(movementInputDirection.z, -movementSpeedMax, movementSpeedMax);
+    movementInputDirection.x = Mathf.Clamp(movementInputDirection.x, -movementSpeedMax, movementSpeedMax);
 
     Vector3 movementDirection = transform.forward * movementInputDirection.z + transform.right * movementInputDirection.x;
 
