@@ -1,7 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 
-public class EnvironmentCameraSystem : MonoBehaviour
+public class EnvironmentCameraController : MonoBehaviour
 {
   #region Fields
   [Header("Required Refs")]
