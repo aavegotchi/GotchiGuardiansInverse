@@ -15,7 +15,7 @@ using PhaseManager.Presenter;
 
 namespace Gotchi.Player.Presenter
 {
-    public class GotchiPresenter : NetworkBehaviour, IPlayerLeft, IDamageable
+    public class GotchiPresenter : NetworkBehaviour, IPlayerLeft
     {
         #region Properties
         public GotchiModel Model { get { return model; } }

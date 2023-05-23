@@ -2604,7 +2604,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5177024078983081584}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 5, y: 17, z: 17}
@@ -2648,6 +2648,7 @@ MonoBehaviour:
   rangeIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
   healthBarOffset: {fileID: 2575022667898164216}
   isPassive: 0
+  isRanged: 0
   moveAnimTrigger: Roll
   knockbackAnimTrigger: Knockback
 --- !u!114 &1807752785865356503
@@ -4351,7 +4352,7 @@ PrefabInstance:
     - target: {fileID: 4519141397916107000, guid: 8edd6c3912781fe4182692f70f302f53,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8edd6c3912781fe4182692f70f302f53, type: 3}

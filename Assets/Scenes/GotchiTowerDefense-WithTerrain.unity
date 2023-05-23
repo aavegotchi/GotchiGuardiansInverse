@@ -817,27 +817,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24df3e01d290bbc4ba1f055942c61f08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &233889674 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2643741899578134121, guid: 5e07df5628a177d4ab67ea3174725eda,
-    type: 3}
-  m_PrefabInstance: {fileID: 462755330232994019}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &233889676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 233889674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eb392933e4df044cb00ca27b999e3bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  progressBarPrefab: {fileID: 9208720214513312333, guid: 104c4925c050b494786113ae4b6e06c9,
-    type: 3}
-  progressBarPoolSize: 15
 --- !u!43 &317539644
 Mesh:
   m_ObjectHideFlags: 0
@@ -9635,17 +9614,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 462755329322870415, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: healthbarPrefab
-      value: 
-      objectReference: {fileID: 9208720214513312333, guid: ce5e2b748e1866449a258c6c20c229e5,
-        type: 3}
-    - target: {fileID: 462755329322870415, guid: 5e07df5628a177d4ab67ea3174725eda,
-        type: 3}
-      propertyPath: healthbarPoolSize
-      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 462755329372116384, guid: 5e07df5628a177d4ab67ea3174725eda,
         type: 3}

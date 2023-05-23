@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2068098142334326255}
   - component: {fileID: 8581301230351877168}
   - component: {fileID: 4838468068646948806}
+  - component: {fileID: 11475245425296322}
   m_Layer: 0
   m_Name: Rolling_ParticleSystem
   m_TagString: Untagged
@@ -169,7 +170,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -4812,3 +4813,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &11475245425296322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4519141397916107000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78e9b081e4e773744bbf7ccc5d48001a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isLoop: 0

@@ -7,17 +7,14 @@ namespace Gotchi.Lickquidator.SpeedyBoi.Model
     {
         #region Properties
         public int MoveAnimTriggerHash { get { return moveAnimTriggerHash; } }
-        public int KnockbackAnimTriggerHash { get { return knockbackAnimTriggerHash; } }
         #endregion
 
         #region Fields
         [SerializeField] private string moveAnimTrigger = "Roll";
-        [SerializeField] private string knockbackAnimTrigger = "Knockback";
         #endregion
 
         #region Private Varibles
         private int moveAnimTriggerHash = 0;
-        private int knockbackAnimTriggerHash = 0;
         #endregion
 
         #region Unity Functions
@@ -25,7 +22,6 @@ namespace Gotchi.Lickquidator.SpeedyBoi.Model
         {
             base.Awake();
             moveAnimTriggerHash = Animator.StringToHash(moveAnimTrigger);
-            knockbackAnimTriggerHash = Animator.StringToHash(knockbackAnimTrigger);
         }
         #endregion  
     }

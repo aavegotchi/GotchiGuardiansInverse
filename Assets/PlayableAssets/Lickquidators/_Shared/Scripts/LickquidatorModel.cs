@@ -8,7 +8,7 @@ namespace Gotchi.Lickquidator.Model
         #region Events
         public event Action OnMovementSpeedUpdated = delegate {};
         public event Action OnHealthUpdated = delegate {};
-        public event Action OnIsMovingUpdated = delegate {};
+        // public event Action OnIsMovingUpdated = delegate {};
         public event Action OnAttacked = delegate {};
         #endregion
 
@@ -19,12 +19,12 @@ namespace Gotchi.Lickquidator.Model
         public float MovementSpeed { get { return movementSpeed; }}
         public int Health { get { return health; } }
         public int MaxHealth { get { return maxHealth; } }
-        public bool IsMoving { get { return isMoving; } }
         public string TargetTag { get { return targetTag; } }
         public int AttackAnimTriggerHash { get { return attackAnimTriggerHash; } }
         public Color RangeIndicatorColor { get { return rangeIndicatorColor; } }
         public Transform HealthBarOffset { get { return healthBarOffset; } }
         public bool IsPassive { get { return isPassive; } }
+        public bool IsRanged { get { return isRanged; } }
         #endregion
         
         #region Fields
@@ -35,6 +35,7 @@ namespace Gotchi.Lickquidator.Model
         [SerializeField] private Color rangeIndicatorColor = Color.red;
         [SerializeField] private Transform healthBarOffset = null;
         [SerializeField] private bool isPassive = false;
+        [SerializeField] private bool isRanged = true;
         #endregion
         
         #region Private Variables
@@ -42,7 +43,7 @@ namespace Gotchi.Lickquidator.Model
         private float movementSpeed = 0f;
         private int health = 0;
         private int maxHealth = 0;
-        private bool isMoving = false;
+        // private bool isMoving = false;
         private int attackAnimTriggerHash = 0;
         #endregion
 
@@ -61,20 +62,16 @@ namespace Gotchi.Lickquidator.Model
         #region Public Functions
         public void UpdateMovementSpeed(float movementSpeed)
         {
+            if (this.movementSpeed == movementSpeed) return;
             this.movementSpeed = movementSpeed; 
             OnMovementSpeedUpdated();
         }
 
         public void UpdateHealth(int health)
         {
+            if (this.health == health) return;
             this.health = health;
             OnHealthUpdated();
-        }
-
-        public void UpdateIsMoving(bool isMoving)
-        {
-            this.isMoving = isMoving;
-            OnIsMovingUpdated();
         }
 
         public void PublishOnAttacked()

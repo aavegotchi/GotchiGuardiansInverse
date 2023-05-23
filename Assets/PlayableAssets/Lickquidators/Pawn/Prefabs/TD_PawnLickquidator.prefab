@@ -2001,7 +2001,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5267499421225181793}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 5, y: 11.773264, z: 5}
@@ -2025,6 +2025,7 @@ MonoBehaviour:
   rangeIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
   healthBarOffset: {fileID: 4633385786108276291}
   isPassive: 0
+  isRange: 1
 --- !u!114 &6222497004576861149
 MonoBehaviour:
   m_ObjectHideFlags: 0

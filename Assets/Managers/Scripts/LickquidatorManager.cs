@@ -26,7 +26,8 @@ namespace Gotchi.Lickquidator.Manager
         {
             get 
             { 
-                return spawnedLickquidators
+                return GameObject
+                    .FindGameObjectsWithTag("Enemy") // TODO: temporary for now
                     .Where(lickquidatorObj => lickquidatorObj.activeSelf)
                     .Select(lickquidatorObj => lickquidatorObj.GetComponent<LickquidatorPresenter>())
                     .ToList(); 
@@ -54,7 +55,6 @@ namespace Gotchi.Lickquidator.Manager
         private List<GameObject> aerialLickquidatorPool = new List<GameObject>();
         private List<GameObject> bossLickquidatorPool = new List<GameObject>();
         private List<GameObject> speedyBoiLickquidatorPool = new List<GameObject>();
-        private List<GameObject> spawnedLickquidators = new List<GameObject>();
         private Dictionary<GameObject, LickquidatorPresenter> lickquidatorLookup = new Dictionary<GameObject, LickquidatorPresenter>();
         #endregion
 
@@ -88,15 +88,11 @@ namespace Gotchi.Lickquidator.Manager
 
         void OnEnable()
         {
-            EventBus.PhaseEvents.PrepPhaseStarted += freezeLickquidators;
-            EventBus.PhaseEvents.SurvivalPhaseStarted += unfreezeLickquidators;
             EventBus.EnemyEvents.EnemyFinished += spawnLickquidator;
         }
 
         void OnDisable()
         {
-            EventBus.PhaseEvents.PrepPhaseStarted -= freezeLickquidators;
-            EventBus.PhaseEvents.SurvivalPhaseStarted -= unfreezeLickquidators;
             EventBus.EnemyEvents.EnemyFinished -= spawnLickquidator;
         }
         #endregion
@@ -140,9 +136,7 @@ namespace Gotchi.Lickquidator.Manager
 
                 LickquidatorPresenter lickquidator = GetByObject(lickquidatorObj);
                 lickquidator.AssignHealthBar();
-                lickquidator.Freeze(); // to prevent prep phase 'pushing'
-
-                spawnedLickquidators.Add(lickquidatorObj);
+                // lickquidator.Freeze(); // to prevent prep phase 'pushing'
 
                 return;
             }
@@ -218,22 +212,6 @@ namespace Gotchi.Lickquidator.Manager
             }
 
             return pool;
-        }
-
-        private void unfreezeLickquidators()
-        {
-            foreach (LickquidatorPresenter lickquidator in ActiveLickquidators)
-            {
-                lickquidator.UnFreeze();
-            }
-        }
-
-        private void freezeLickquidators()
-        {
-            foreach (LickquidatorPresenter lickquidator in ActiveLickquidators)
-            {
-                lickquidator.Freeze();
-            }
         }
         #endregion
     }

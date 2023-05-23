@@ -368,6 +368,8 @@ GameObject:
   - component: {fileID: 3952053190403523680}
   - component: {fileID: 8726538126639483675}
   - component: {fileID: 7612665586950072915}
+  - component: {fileID: 5881305106518164291}
+  - component: {fileID: 3455567471859236991}
   m_Layer: 10
   m_Name: TD_GotchiV2
   m_TagString: Tower
@@ -517,6 +519,35 @@ MonoBehaviour:
   actionMapKey: Player
   rightClickKey: RightClick
   frameReadyInterval: 10
+--- !u!54 &5881305106518164291
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6665416994352312182}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 3
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &3455567471859236991
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6665416994352312182}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 5, z: 4}
+  m_Center: {x: 0, y: 3.4, z: 0}
 --- !u!1 &6696599341726878882
 GameObject:
   m_ObjectHideFlags: 0

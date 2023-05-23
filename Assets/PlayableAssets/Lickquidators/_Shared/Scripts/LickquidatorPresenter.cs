@@ -32,7 +32,7 @@ namespace Gotchi.Lickquidator.Presenter
         private HealthBar_UI healthBar = null;
         private NavMeshAgent agent = null;
         private Transform inRangeTargetTransform = null;
-        private IDamageable inRangeTarget = null;
+        private GotchiPresenter inRangeTarget = null;
         private Rigidbody rigidBody = null;
         private float attackCountdownTracker = 0.5f;
         #endregion
@@ -53,14 +53,12 @@ namespace Gotchi.Lickquidator.Presenter
         {
             model.OnMovementSpeedUpdated += handleOnMovementSpeedUpdated;
             model.OnHealthUpdated += handleOnHealthUpdated;
-            model.OnIsMovingUpdated += handleIsMovingUpdated;
         }
 
         protected virtual void OnDisable()
         {
             model.OnMovementSpeedUpdated -= handleOnMovementSpeedUpdated;
             model.OnHealthUpdated -= handleOnHealthUpdated;
-            model.OnIsMovingUpdated -= handleIsMovingUpdated;
         }
 
         void Update()
@@ -69,7 +67,10 @@ namespace Gotchi.Lickquidator.Presenter
 
             if (isFrameReady())
             {
-                updateInRangeTarget();
+                if (model.IsRanged)
+                {
+                    updateInRangeTarget();
+                }
                 updateUltimateTarget();
             }
 
@@ -92,6 +93,14 @@ namespace Gotchi.Lickquidator.Presenter
 
             Gizmos.color = model.RangeIndicatorColor;
             Gizmos.DrawWireSphere(transform.position, model.Config.AttackRange);
+        }
+
+        void OnCollisionEnter(Collision other)
+        {
+            if (model.IsRanged || other.gameObject.tag != model.TargetTag) return;
+
+            inRangeTargetTransform = other.gameObject.transform;
+            inRangeTarget = inRangeTargetTransform.GetComponent<GotchiPresenter>();
         }
         #endregion
 
@@ -128,16 +137,6 @@ namespace Gotchi.Lickquidator.Presenter
             rewardDeath();
         }
 
-        public void Freeze()
-        {
-            model.UpdateIsMoving(false);
-        }
-
-        public void UnFreeze()
-        {
-            model.UpdateIsMoving(true);
-        }
-
         public void Knockback(Vector3 force)
         {
             rigidBody.AddForce(force, ForceMode.Impulse);
@@ -161,11 +160,6 @@ namespace Gotchi.Lickquidator.Presenter
             if (model.Health > 0) return;
 
             PlayDead(true);
-        }
-
-        private void handleIsMovingUpdated()
-        {
-            agent.isStopped = !model.IsMoving;
         }
         #endregion
         
@@ -222,18 +216,13 @@ namespace Gotchi.Lickquidator.Presenter
                 }
 
                 inRangeTargetTransform = nearestTarget.transform;
-                inRangeTarget = inRangeTargetTransform.GetComponent<IDamageable>();
+                inRangeTarget = inRangeTargetTransform.GetComponent<GotchiPresenter>();
                 attackCountdownTracker = model.Config.AttackCountdown;
                 return;
             }
 
             inRangeTargetTransform = null;
             inRangeTarget = null;
-
-            if (agent.enabled && agent.isOnNavMesh) 
-            {
-                model.UpdateIsMoving(true);
-            }
         }
 
         private void updateUltimateTarget()
@@ -267,8 +256,6 @@ namespace Gotchi.Lickquidator.Presenter
 
         private void rotateTowardInRangeTarget()
         {
-            model.UpdateIsMoving(false);
-
             Vector3 dir = inRangeTargetTransform.position - transform.position;
             Quaternion lookRotation = Quaternion.LookRotation(dir);
             Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * model.Config.AttackRotationSpeed).eulerAngles;
@@ -277,21 +264,26 @@ namespace Gotchi.Lickquidator.Presenter
 
         private void attackInRangeTarget()
         {
-            if (attackCountdownTracker > 0f)
+            if (model.IsRanged)
             {
-                attackCountdownTracker -= Time.deltaTime;
-                return;
-            }
+                if (attackCountdownTracker > 0f)
+                {
+                    attackCountdownTracker -= Time.deltaTime;
+                    return;
+                }
 
-            attackCountdownTracker = model.Config.AttackCountdown;
+                attackCountdownTracker = model.Config.AttackCountdown;
+            }
 
             if (attackAnimation != null) attackAnimation.SetTrigger(model.AttackAnimTriggerHash);
             if (attackParticleSystemObj != null) attackParticleSystemObj.SetActive(true);
             
             EventBus.EnemyEvents.EnemyAttacked(model.Config.Type);
             inRangeTarget.Damage(model.Config.AttackDamage);
-            
             model.PublishOnAttacked();
+            
+            inRangeTargetTransform = null;
+            inRangeTarget = null;
         }
 
         private void rewardDeath()
