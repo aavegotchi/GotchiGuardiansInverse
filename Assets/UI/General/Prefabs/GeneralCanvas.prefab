@@ -11784,7 +11784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a08fdb84702394580206b8bee9fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadSceneName: GotchiTowerDefense
+  loadSceneName: GotchiTowerDefense-WithTerrain
   managers: {fileID: 0}
 --- !u!1 &8801978419798697847
 GameObject:
