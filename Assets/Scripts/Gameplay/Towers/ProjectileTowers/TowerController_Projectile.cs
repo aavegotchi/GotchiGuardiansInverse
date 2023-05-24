@@ -150,6 +150,8 @@ public class TowerController_Projectile : TowerController
             return;
         }
 
+        Debug.Log("TowerController[" + TowerInstance.ID + "] Firing projectile[" + TowerInstanceProjectile.PreparedProjectile.ID + "] at target: " + CurrentTarget.name);
+
         TowerInstanceProjectile.PreparedProjectile = null;
     }
 
@@ -205,27 +207,51 @@ public class TowerController_Projectile : TowerController
             return false;
         }
 
+        newInstance.gameObject.SetActive(true);
         newInstance.SetupFromTower(TowerInstanceProjectile);
         TowerInstanceProjectile.PreparedProjectile = newInstance;
         newInstance.transform.SetParent(ProjectileParent.transform);
-        
+
+        Debug.Log("TowerController[" + TowerInstance.ID + "] Claimed ProjectileInstance[" + newInstance.ID + "]");
+
+        newInstance.OnStateChanged += NewInstance_OnStateChanged;
+
+        if (newInstance.Target != null)
+        {
+            Debug.LogError("TowerController[" + TowerInstance.ID + "] Acquired ProjectileInstance[" + newInstance.ID + "] which still had a target!");
+        }
 
         if (ttp.BuildLoaded || ttp.ProjectileSpawnTime == 0.0f)
         {
             newInstance.transform.position = ProjectileIdlePoint.transform.position;
             newInstance.transform.rotation = ProjectileIdlePoint.transform.rotation;
-            newInstance.CurrentState = ProjectileInstance.State.Idle;
+            newInstance.EnterIdle();
             return true;
         }
         else
         {
             newInstance.transform.position = ProjectileSpawnPoint.transform.position;
             newInstance.transform.rotation = ProjectileSpawnPoint.transform.rotation;
-            newInstance.CurrentState = ProjectileInstance.State.Spawning;
+            ProjectileController controller = newInstance.gameObject.GetComponent<ProjectileController>();
 
             TowerInstanceProjectile.EnterCooldown();
             return false;
         }
+    }
+
+    private void NewInstance_OnStateChanged(ProjectileInstance instance, ProjectileInstance.State newState)
+    {
+        if (newState == ProjectileInstance.State.Dead)
+        {
+            ReleaseProjectile(instance);
+        }
+    }
+
+    private void ReleaseProjectile(ProjectileInstance projectile)
+    {
+        Debug.Log("TowerController[" + TowerInstance.ID + "] Releasing ProjectileInstance[" + projectile.ID + "]");
+        projectile.OnStateChanged -= NewInstance_OnStateChanged;
+        ProjectileManager.Singleton.FreeProjectileInstance(projectile);
     }
     #endregion
 }

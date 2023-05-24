@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e00d889dc3e144dbb6c5eaa4c9be29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TypeID: 0
+  TypeID: 1
   ProjectileManager: {fileID: 0}
   Controller: {fileID: 0}
   Instance: {fileID: 0}

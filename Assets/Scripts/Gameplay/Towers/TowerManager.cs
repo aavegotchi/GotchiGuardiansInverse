@@ -160,6 +160,7 @@ public class TowerManager : MonoBehaviour
         }
 
         GameObject newTowerObj = Instantiate(TowerVisualPrefabs[typeID]);
+        newTowerObj.SetActive(false);
         TowerVisual towerVisual = newTowerObj.GetComponent<TowerVisual>();
         if (towerVisual == null)
         {

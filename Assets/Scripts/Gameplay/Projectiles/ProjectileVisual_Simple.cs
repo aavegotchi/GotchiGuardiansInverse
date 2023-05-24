@@ -84,8 +84,14 @@ public class ProjectileVisual_Simple : ProjectileVisual
         base.Cleanup();
     }
 
-    private void Instance_OnStateChanged(ProjectileInstance arg1, ProjectileInstance.State arg2)
+    private void Instance_OnStateChanged(ProjectileInstance instance, ProjectileInstance.State arg2)
     {
+        if (instance != Instance)
+        {
+            Debug.LogWarning("ProjectileVisual still listening to events from instance[" + instance.ID + "] despite not being assigned internally!");
+            instance.OnStateChanged -= Instance_OnStateChanged;
+            return;
+        }
         UpdateBasedOnState();
     }
     #endregion

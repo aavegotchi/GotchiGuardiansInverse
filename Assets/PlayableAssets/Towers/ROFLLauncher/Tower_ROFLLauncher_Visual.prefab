@@ -329,8 +329,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24de50838902241429e5a45ffa6aa5fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TypeID: 0
+  TypeID: 2
   RevealFXController: {fileID: 904422005625337547}
+  TurretRoot: {fileID: 0}
   Instance: {fileID: 0}
   Controller: {fileID: 0}
 --- !u!114 &904422005625337547

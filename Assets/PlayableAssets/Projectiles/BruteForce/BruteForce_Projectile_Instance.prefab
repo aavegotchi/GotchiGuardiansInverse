@@ -80,8 +80,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   ID: 0
-  TypeID: 0
+  HitDuration: 1
+  TypeID: 1
   SpawningTowerInstance: {fileID: 0}
+  ProjectileController: {fileID: 0}
   ProjectileManager: {fileID: 0}
   SpawningProgress: 0
   SpawnTime: 0

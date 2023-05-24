@@ -197,6 +197,7 @@ public class ProjectileManager : NetworkBehaviour
         }
 
         projectileInstance.ProjectileManager = this;
+        projectileInstance.gameObject.SetActive(false);
 
         return projectileInstance;
     }
@@ -224,6 +225,8 @@ public class ProjectileManager : NetworkBehaviour
         }
 
         projectileVisual.ProjectileManager = this;
+
+        projectileVisual.gameObject.SetActive(false);
 
         return projectileVisual;
     }

@@ -1,4 +1,6 @@
 using Fusion;
+using Gotchi.Lickquidator.Manager;
+using Gotchi.Lickquidator.Presenter;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +28,13 @@ public class ProjectileInstance : GameObjectInstance
     #region Events
     public event Action<ProjectileInstance, State> OnStateChanged = delegate { };
     public event Action<ProjectileInstance, TowerController_Projectile> OnSetupForTower = delegate { };
+    public event Action<ProjectileInstance, GameObject> OnTargetChanged = delegate { };
     #endregion
+
+    [SerializeField]
+    public float HitDuration = 1.0f;
+
+    private float _hitDurationTimer = 0.0f;
 
 
     #region Variables
@@ -36,7 +44,7 @@ public class ProjectileInstance : GameObjectInstance
     public State CurrentState
     {
         get { return _currentState; }
-        set
+        protected set
         {
             if (_currentState != value)
             {
@@ -58,6 +66,9 @@ public class ProjectileInstance : GameObjectInstance
     public float SpawnTime; // 1.0f = 1 second
     public int Damage;
     public float TravelSpeed;
+    public float ActingTime { get; private set; } = 0.0f;
+
+    public GameObject Target { get; private set; } = null;
     #endregion
 
     void Start()
@@ -77,8 +88,10 @@ public class ProjectileInstance : GameObjectInstance
             case State.Idle:
                 break;
             case State.Acting:
+                UpdateActing();
                 break;
             case State.Hit:
+                UpdateHit();
                 break;
             case State.Dead:
                 break;
@@ -91,6 +104,7 @@ public class ProjectileInstance : GameObjectInstance
     // Called when the projectile is returned to the pool
     public void Cleanup()
     {
+        Target = null;
         SpawningTowerInstance = null;
         CurrentState = State.Inactive;
     }
@@ -104,16 +118,93 @@ public class ProjectileInstance : GameObjectInstance
 
         OnSetupForTower.Invoke(this, tower.gameObject.GetComponent<TowerController_Projectile>());
     }
+
+    public void FireAtTarget(GameObject target)
+    {
+        if (target == null)
+        {
+            Debug.LogError("ProjectileInstance[" + ID + "]: Cannot fire at null target!");
+            return;
+        }
+        
+        if (Target != null) 
+        {
+            Debug.LogError("ProjectileInstance[" + ID + "]: Cannot fire at target when projectile already has a target");
+            return;
+        }
+
+        Target = target;
+        OnTargetChanged.Invoke(this, target);
+        EnterActing();
+    }
     #endregion
 
     #region internal Functions
+    public void EnterIdle()
+    {
+        CurrentState = State.Idle;
+    }
+
+    public void EnterSpawning()
+    {
+        CurrentState = State.Spawning;
+    }
+
     private void UpdateSpawning()
     {
         SpawningProgress = Mathf.Clamp01(SpawningProgress + (Time.deltaTime / SpawnTime));
 
         if (SpawningProgress >= 1.0f)
         {
-            CurrentState = State.Idle;
+            FinishSpawning();
+        }
+    }
+
+    private void FinishSpawning()
+    {
+        CurrentState = State.Idle;
+    }
+
+    public void EnterActing()
+    {
+        if (CurrentState != State.Idle) 
+        {
+            Debug.LogError("ProjectileInstance: Cannot enter Acting state from state: " + CurrentState.ToString());
+            return;
+        }
+
+        ActingTime = 0.0f;
+        CurrentState = State.Acting;
+    }
+
+    private void UpdateActing()
+    {
+        ActingTime += Time.deltaTime;
+    }
+
+    public void EnterHit()
+    {
+        _hitDurationTimer = 0.0f;
+        CurrentState = State.Hit;
+
+        if (Target != null && Target.activeInHierarchy && Target.tag == "Enemy")
+        {
+            LickquidatorPresenter enemy = LickquidatorManager.Instance.GetByObject(Target);
+
+            if (enemy != null)
+            {
+                enemy.Damage(Damage);
+            }
+        }
+    }
+
+    protected virtual void UpdateHit()
+    {
+        _hitDurationTimer += Time.deltaTime;
+
+        if (_hitDurationTimer >= HitDuration)
+        {
+            CurrentState = State.Dead;
         }
     }
     #endregion

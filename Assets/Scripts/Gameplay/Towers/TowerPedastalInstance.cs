@@ -34,6 +34,7 @@ public class TowerPedastalInstance : GameObjectInstance
         if (towerInstance != null)
         {
             towerInstance.Pedastal = this;
+            towerInstance.gameObject.SetActive(true);
             towerInstance.transform.SetParent(TowerInstanceRoot.transform, false);
 
             if (towerInstance != null)

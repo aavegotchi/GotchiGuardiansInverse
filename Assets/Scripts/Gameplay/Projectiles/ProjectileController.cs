@@ -1,4 +1,5 @@
 using Fusion;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,13 @@ public class ProjectileController : NetworkBehaviour
     [SerializeField]
     private ProjectileVisual ProjectileVisual;
 
-    private GameObject Target;
+    protected Vector3 LaunchPosition;
+    protected float LaunchY;
+    protected Quaternion LaunchRotation;
+
+    // We keep a last valid hit location because the target could be dead.
+    // In that case projectile still needs a destination to hit even if it won't be updated anymore
+    protected Vector3 HitLocation; 
 
     void Start()
     {
@@ -34,6 +41,30 @@ public class ProjectileController : NetworkBehaviour
         UpdateVisuals();
     }
 
+    private void Update()
+    {
+        switch (ProjectileInstance.CurrentState)
+        {
+            case ProjectileInstance.State.Spawning:
+                UpdateSpawning();
+                break;
+            case ProjectileInstance.State.Idle:
+                UpdateIdle();
+                break;
+            case ProjectileInstance.State.Acting:
+                UpdateActing();
+                break;
+            case ProjectileInstance.State.Hit:
+                UpdateHit();
+                break;
+            case ProjectileInstance.State.Dead:
+                UpdateDead();
+                break;
+            default:
+                break;
+        }
+    }
+
     public void Spawn()
     {
         if (ProjectileInstance == null)
@@ -48,12 +79,12 @@ public class ProjectileController : NetworkBehaviour
         }
 
         ProjectileInstance.SpawningProgress = 0.0f;
-        ProjectileInstance.CurrentState = ProjectileInstance.State.Spawning;
+        ProjectileInstance.EnterSpawning();
     }
 
     public virtual bool FireAtTarget(GameObject target)
     {
-        if (Target != null)
+        if (ProjectileInstance.Target != null)
         {
             Debug.LogError("ProjectileController[" + ProjectileInstance.ID + "] trying to fire at target when already has a target!");
             return false;
@@ -64,6 +95,10 @@ public class ProjectileController : NetworkBehaviour
             Debug.LogError("Tried to fire projectile when not in idle state!");
             return false;
         }
+
+        ProjectileInstance.FireAtTarget(target);
+
+        Debug.Log("ProjectileController[" + ProjectileInstance.ID + "] fired at target[" + target.name + "]");
 
         return true;
     }
@@ -79,48 +114,78 @@ public class ProjectileController : NetworkBehaviour
             //case ProjectileInstance.State.Inactive:
             //    break;
             case ProjectileInstance.State.Spawning:
-                HandleSpawned();
+                HandleEnterSpawned();
                 break;
             case ProjectileInstance.State.Idle:
-                HandleIdle();
+                HandleEnterIdle();
                 break;
             case ProjectileInstance.State.Acting:
-                HandleActing();
+                HandleEnterActing();
                 break;
             case ProjectileInstance.State.Hit:
-                Hit();
+                HandleEnterHit();
                 break;
             case ProjectileInstance.State.Dead:
-                HandleDead();
+                HandleEnterDead();
                 break;
             default:
                 break;
         }
     }
 
-    protected virtual void HandleSpawned()
+    protected virtual void HandleEnterSpawned()
     {
 
     }
 
-    protected virtual void HandleIdle()
+    protected virtual void HandleEnterIdle()
     {
 
     }
 
-    protected virtual void HandleActing()
+    protected virtual void HandleEnterActing()
     {
-
+        LaunchPosition = transform.position;
+        LaunchRotation = transform.rotation;
+        LaunchY = transform.forward.normalized.y;
     }
 
-    protected virtual void Hit()
+    protected virtual void HandleEnterHit()
     {
-
+        //ImpactPool_FX.Instance.SpawnImpact(ImpactPool_FX.ImpactType.Arrow, transform.position, transform.rotation);
     }
 
-    protected virtual void HandleDead()
+    protected virtual void HandleEnterDead()
     {
         UpdateVisuals();
+    }
+
+    protected virtual void UpdateSpawning()
+    {
+        // Do nothing, derived classes can do more
+    }
+
+    protected virtual void UpdateIdle()
+    {
+        // Do nothing, derived classes can do more
+    }
+
+    protected virtual void UpdateActing()
+    {
+        if (ProjectileInstance.Target != null && ProjectileInstance.Target.gameObject.activeInHierarchy)
+        {
+            HitLocation = ProjectileInstance.Target.transform.position;
+        }
+    }
+
+    protected virtual void UpdateHit()
+    {
+        // Do nothing, derived classes can do more
+    }
+
+    protected virtual void UpdateDead()
+    {
+        // Do nothing, derived classes can do more
     }
 
     private void ProjectileInstance_OnVisualsEnabledChanged(GameObjectInstance projectileInstance, bool isVisible)
