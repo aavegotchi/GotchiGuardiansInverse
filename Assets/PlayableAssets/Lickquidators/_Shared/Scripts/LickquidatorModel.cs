@@ -8,7 +8,6 @@ namespace Gotchi.Lickquidator.Model
         #region Events
         public event Action OnMovementSpeedUpdated = delegate {};
         public event Action OnHealthUpdated = delegate {};
-        // public event Action OnIsMovingUpdated = delegate {};
         public event Action OnAttacked = delegate {};
         #endregion
 
