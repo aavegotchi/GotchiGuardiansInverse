@@ -9,7 +9,7 @@
       "ProjectileDamage": 5,
       "ProjectileSpeed": 250.0,
       "BuildLoaded": false,
-      "ProjectileSpawnTime": 0.4,
+      "ProjectileSpawnTime": 1.0,
       "ProjectileAttackCooldown": 1.0,
       "name": "Brute Force",
       "tooltipText": "This tower doesn't hit hard BUT it hits very very, did I say very, fast.",

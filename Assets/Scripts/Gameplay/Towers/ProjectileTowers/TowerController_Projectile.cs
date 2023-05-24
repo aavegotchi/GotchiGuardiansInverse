@@ -42,31 +42,7 @@ public class TowerController_Projectile : TowerController
 
         UpdateTargetting();
 
-        bool hasValidRotation = true;
-
-        if (TurretRoot != null && CurrentTarget != null)
-        {
-            // TODO: Might be worth sharing this calculation with the TowerVisual.cs instead of each calculation the same thing seperately and
-            // honestly this one should be the real authority
-            Vector3 directionToTarget = CurrentTarget.transform.position - TurretRoot.transform.position;
-            directionToTarget.y = 0;  // This ensures the turret only rotates around the y-axis
-
-            if (directionToTarget.sqrMagnitude > 0.0f)  // Only update the rotation if the direction is not zero
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-                
-                // This smooths out the rotation over time (though still quickly) to prevent too aggressive snapping
-                TurretRoot.transform.rotation = Quaternion.RotateTowards(TurretRoot.transform.rotation, targetRotation, 300f * Time.deltaTime);
-
-                hasValidRotation = TurretRoot.transform.rotation == targetRotation;
-
-                if (TowerInstanceProjectile.PreparedProjectile != null)
-                {
-                    TowerInstanceProjectile.PreparedProjectile.transform.position = ProjectileIdlePoint.transform.position;
-                    TowerInstanceProjectile.PreparedProjectile.transform.rotation = ProjectileIdlePoint.transform.rotation;
-                }
-            }
-        }
+        bool hasValidRotation = UpdateTurretTaretRotation();
 
         if (TowerInstanceProjectile.PreparedProjectile == null)
         {
@@ -125,6 +101,41 @@ public class TowerController_Projectile : TowerController
         }
     }
 
+    // Returns true if the rotation is ready for firing
+    private bool UpdateTurretTaretRotation()
+    {
+        bool hasValidRotation = true;
+
+        if (TurretRoot != null && CurrentTarget != null)
+        {
+            // TODO: Might be worth sharing this calculation with the TowerVisual.cs instead of each calculation the same thing seperately and
+            // honestly this one should be the real authority
+            Vector3 directionToTarget = CurrentTarget.transform.position - TurretRoot.transform.position;
+            directionToTarget.y = 0;  // This ensures the turret only rotates around the y-axis
+
+            if (directionToTarget.sqrMagnitude > 0.0f)  // Only update the rotation if the direction is not zero
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+                if (TurretRoot.transform.rotation != targetRotation)
+                {
+                    // This smooths out the rotation over time (though still quickly) to prevent too aggressive snapping
+                    TurretRoot.transform.rotation = Quaternion.RotateTowards(TurretRoot.transform.rotation, targetRotation, 300f * Time.deltaTime);
+
+                    hasValidRotation = TurretRoot.transform.rotation == targetRotation;
+
+                    if (TowerInstanceProjectile.PreparedProjectile != null)
+                    {
+                        TowerInstanceProjectile.PreparedProjectile.transform.position = ProjectileIdlePoint.transform.position;
+                        TowerInstanceProjectile.PreparedProjectile.transform.rotation = ProjectileIdlePoint.transform.rotation;
+                    }
+                }
+            }
+        }
+
+        return hasValidRotation;
+    }
+
     private void FireProjectile()
     {
         if (TowerInstanceProjectile.PreparedProjectile == null)
@@ -159,6 +170,10 @@ public class TowerController_Projectile : TowerController
     protected override bool UpdateCooldown()
     {
         base.UpdateCooldown();
+
+        UpdateTargetting();
+
+        UpdateTurretTaretRotation();
 
         // TODO: Refactor for this logic to be limited to the progress calculation which is broadcasted to specialized classes that handle the movement
         // of the projectile in their own way
@@ -206,8 +221,9 @@ public class TowerController_Projectile : TowerController
         {
             newInstance.transform.position = ProjectileSpawnPoint.transform.position;
             newInstance.transform.rotation = ProjectileSpawnPoint.transform.rotation;
+            newInstance.CurrentState = ProjectileInstance.State.Spawning;
 
-            TowerInstanceProjectile.CurrentState = TowerInstance.State.Cooldown;
+            TowerInstanceProjectile.EnterCooldown();
             return false;
         }
     }

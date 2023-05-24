@@ -9,8 +9,6 @@ public class TowerInstance_Projectile : TowerInstance
     public ProjectileInstance PreparedProjectile;
     public List<ProjectileInstance> LaunchedProjectiles;
 
-    public float CooldownTime = 0.0f;
-
     [HideInInspector]
     private TowerTemplate_Projectile _TTP = null;
     public TowerTemplate_Projectile TowerTemplateProjectile
@@ -25,23 +23,15 @@ public class TowerInstance_Projectile : TowerInstance
         }
     }
 
-    protected override void Update()
+    protected override void UpdateCooldown()
     {
-        base.Update();
+        base.UpdateCooldown();
 
-        if (CurrentState == State.Cooldown)
-        {
-            UpdateCooldown();
-        }
-    }
-
-    private void UpdateCooldown()
-    {
         CooldownTime = Mathf.Clamp(CooldownTime + Time.deltaTime, 0.0f, TowerTemplateProjectile.ProjectileAttackCooldown);
-        
+
         if (CooldownTime >= TowerTemplateProjectile.ProjectileAttackCooldown && PreparedProjectile.CurrentState == ProjectileInstance.State.Idle)
         {
-            CurrentState = State.Idle;
+            FinishCooldown();
         }
     }
 }

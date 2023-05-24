@@ -31,7 +31,7 @@ public class TowerInstance : GameObjectInstance
     public State CurrentState
     {
         get { return _currentState; }
-        set
+        protected set
         {
             if (_currentState != value)
             {
@@ -45,6 +45,8 @@ public class TowerInstance : GameObjectInstance
     public float BuildingProgress { get; private set; } = 0.0f;
     [HideInInspector]
     public float AcquiringTargetProgress { get; private set; } = 0.0f;
+    [HideInInspector]
+    public float CooldownTime = 0.0f;
 
     //[Header("Dynamic Debug - null in prefab")]
     public TowerTemplate Template { get; set; } = null;
@@ -71,9 +73,9 @@ public class TowerInstance : GameObjectInstance
             //case State.Acting:
             //    UpdateActing();
             //    break;
-            //case State.Cooldown:
-            //    UpdateCooldown();
-            //    break;
+            case State.Cooldown:
+                UpdateCooldown();
+                break;
             //case State.Upgrading:
             //    UpdateUpgrading();
             //    break;
@@ -123,6 +125,26 @@ public class TowerInstance : GameObjectInstance
     }
     #endregion
 
+    #region Cooldown State Logic
+
+    public void EnterCooldown()
+    {
+        CurrentState = State.Cooldown;
+        CooldownTime = 0.0f;
+    }
+
+    protected virtual void UpdateCooldown()
+    {
+        // Derived classes should override this and implement final logic
+    }
+
+    protected void FinishCooldown()
+    {
+        CurrentState = State.Idle;
+    }
+
+    #endregion
+
     #region network functions
 
     private static void OnSetState(Changed<TowerInstance> changed)
@@ -141,6 +163,10 @@ public class TowerInstance : GameObjectInstance
         else if (CurrentState == State.Building)
         {
             SetBuildingProgress(0.0f);
+        }
+        else if (CurrentState == State.Cooldown)
+        {
+
         }
     }
     #endregion
