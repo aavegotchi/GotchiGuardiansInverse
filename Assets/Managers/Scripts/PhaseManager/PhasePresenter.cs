@@ -60,7 +60,7 @@ namespace PhaseManager {
             #region Public Functions
             public void StartFirstPrepPhase()
             {
-                model.SetNextPhase(Phase.Prep);
+                model.SetNextPhase(Phase.Intro);
             }
 
             public Phase GetCurrentPhase()
@@ -132,18 +132,19 @@ namespace PhaseManager {
             private IEnumerator showTransition(Phase nextPhase, Phase prevPhase = Phase.None)
             {
                 OnShowTransitionUIUpdated(true);
-                if (nextPhase == Phase.Prep)
+                if (nextPhase == Phase.Intro) {
+                    OnTransitionUITextUpdated(model.IntroPhaseText);
+                    yield return new WaitForSeconds(model.NumSecondsOnNonRewardsScreen);
+                } else if (nextPhase == Phase.Prep)
                 {
                     OnTransitionUITextUpdated(model.PrepPhaseText);
-                    if (!(prevPhase == Phase.None)) {
+                    if (!(prevPhase == Phase.Intro)) {
                         OnIsRewardsUIOpenUpdated(true);
                          yield return new WaitForSeconds(model.NumSecondsOnRewardsScreen);
                         OnIsRewardsUIOpenUpdated(false);
                     } else {
                         yield return new WaitForSeconds(model.NumSecondsOnNonRewardsScreen);
                     }
-                    
-                   
 
                     StatsManager.Instance.ClearCreateAndKillStats();
                 }
@@ -162,6 +163,8 @@ namespace PhaseManager {
                 }
 
                 OnShowTransitionUIUpdated(false);
+
+                yield return new WaitForSeconds(model.NumSecondsUIFadeOut);
 
                 updatePhase(nextPhase.ToString());
             }
