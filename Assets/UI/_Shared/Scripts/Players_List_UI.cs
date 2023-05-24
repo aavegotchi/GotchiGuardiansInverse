@@ -48,12 +48,13 @@ public class Players_List_UI : MonoBehaviour
     #endregion
 
     #region Public Functions
-    public void AddPlayerEntry(string username, bool isMain = false)
+    public void AddPlayerEntry(int id, string username, bool isMain = false)
     {
         if (isMain)
         {
             Player_ListEle_UI playerElement = playerElements[0];
             playerElement.SetPlayerName(username);
+            playerElement.SetPlayerId(id);
             playerElement.gameObject.SetActive(true);
             usernameToPlayerElementsIndexDict[username] = 0;
             return;
@@ -65,6 +66,7 @@ public class Players_List_UI : MonoBehaviour
             if (!playerElement.gameObject.activeSelf)
             {
                 playerElement.SetPlayerName(username);
+                playerElement.SetPlayerId(id);
                 playerElement.gameObject.SetActive(true);
                 usernameToPlayerElementsIndexDict[username] = i;
                 return;

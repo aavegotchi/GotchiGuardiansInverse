@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Gotchi.Events;
+using GameMaster;
 using Gotchi.Network;
 using Gotchi.Lickquidator.Manager;
 using PhaseManager.Model;
@@ -45,15 +45,15 @@ namespace PhaseManager {
             void OnEnable() 
             {
                 model.OnCountdownValueUpdated += onCountdownUpdated;
-                model.OnIsTransitioningUpdated += HandlePhaseTransition;
-                EventBus.GotchiEvents.GotchisAllDead += HandleDefeat;
+                model.OnNextPhaseUpdated += HandlePhaseTransition;
+                model.OnCurrentPhaseUpdated += HandleCurrentPhaseUpdated;
             }
 
             void OnDisable() 
             {
                 model.OnCountdownValueUpdated -= onCountdownUpdated;
-                model.OnIsTransitioningUpdated -= HandlePhaseTransition;
-                EventBus.GotchiEvents.GotchisAllDead -= HandleDefeat;
+                model.OnNextPhaseUpdated -= HandlePhaseTransition;
+                model.OnCurrentPhaseUpdated -= HandleCurrentPhaseUpdated;
             }
             #endregion
 
@@ -73,7 +73,7 @@ namespace PhaseManager {
             public void updatePhase(string nextPhaseStr)
             {
                 Phase nextPhase = (Phase)Enum.Parse(typeof(Phase), nextPhaseStr);
-                model.SetIsTransitioning(false);
+                model.SetNextPhase(Phase.None);
                 model.SetCurrentPhase(nextPhase);
 
                 if (model.CurrentPhase == Phase.Prep)
@@ -81,13 +81,13 @@ namespace PhaseManager {
                     model.StartCountdown();
                     OnShowCoundownUpdated(true);
 
-                    EventBus.PhaseEvents.PrepPhaseStarted();
+                    GameMasterEvents.PhaseEvents.PrepPhaseStarted();
                 }
                 else if (model.CurrentPhase == Phase.Survival)
                 {
                     OnShowCoundownUpdated(false);
 
-                    EventBus.PhaseEvents.SurvivalPhaseStarted();
+                    GameMasterEvents.PhaseEvents.SurvivalPhaseStarted();
                 }
                 else if (model.CurrentPhase == Phase.Defeat)
                 {
@@ -100,13 +100,12 @@ namespace PhaseManager {
 
             }
 
-            private void HandlePhaseTransition()
+            private void HandlePhaseTransition(Phase nextPhase)
             {
-                if (model.IsTransitioning) {
-                    Phase nextPhase = model.CurrentPhase == Phase.Prep ? Phase.Survival : Phase.Prep;
+                if (nextPhase != Phase.None) {
                     model.SetCurrentPhase(Phase.Transitioning);
 
-                    EventBus.PhaseEvents.TransitionPhaseStarted(nextPhase);
+                    GameMasterEvents.PhaseEvents.TransitionPhaseStarted(nextPhase);
 
                     if (nextPhase == Phase.Prep)
                     {
@@ -117,9 +116,14 @@ namespace PhaseManager {
                 }
             }
 
+            private void HandleCurrentPhaseUpdated(Phase phase)
+            {
+                GameMasterEvents.PhaseEvents.PhaseChanged(phase);
+            }
+
             private void HandleDefeat()
             {
-                EventBus.PhaseEvents.TransitionPhaseStarted(Phase.Defeat);
+                GameMasterEvents.PhaseEvents.TransitionPhaseStarted(Phase.Defeat);
 
                 StartCoroutine(showTransition(Phase.Defeat));
             }
@@ -133,7 +137,7 @@ namespace PhaseManager {
                     OnIsRewardsUIOpenUpdated(true);
 
                     yield return new WaitForSeconds(model.NumSecondsOnRewardsScreen);
-                    OnIsRewardsUIOpenUpdated(true);
+                    OnIsRewardsUIOpenUpdated(false);
 
                     StatsManager.Instance.ClearCreateAndKillStats();
                 }

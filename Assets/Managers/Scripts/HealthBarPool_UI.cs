@@ -85,7 +85,7 @@ public class HealthBarPool_UI : MonoBehaviour
             healthbarPool.Add(healthbar);
         }
 
-        //EventBus.PoolEvents.HealthBarPoolReady();
+        //GameMasterEvents.PoolEvents.HealthBarPoolReady();
     }
     #endregion
 }

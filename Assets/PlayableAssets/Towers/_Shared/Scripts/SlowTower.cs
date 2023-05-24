@@ -1,5 +1,5 @@
 using UnityEngine;
-using Gotchi.Events;
+using GameMaster;
 using PhaseManager;
 using PhaseManager.Presenter;
 using Gotchi.Lickquidator.Manager;
@@ -49,7 +49,7 @@ public class SlowTower : MonoBehaviour
         {
             activatedSlowField = Instantiate(slowField, transform.position, transform.rotation);
             
-            EventBus.TowerEvents.TowerAttacked(TowerPool.TowerType.SlowTower);
+            GameMasterEvents.TowerEvents.TowerAttacked(TowerPool.TowerType.SlowTower);
         }
     }
     #endregion

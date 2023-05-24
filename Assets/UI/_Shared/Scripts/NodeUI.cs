@@ -1,5 +1,5 @@
 using UnityEngine;
-using Gotchi.Events;
+using GameMaster;
 using PhaseManager.Presenter;
 using Gotchi.Lickquidator.Model;
 
@@ -47,12 +47,12 @@ public class NodeUI : MonoBehaviour
 
     void OnEnable()
     {
-        EventBus.PhaseEvents.SurvivalPhaseStarted += Close;
+        GameMasterEvents.PhaseEvents.SurvivalPhaseStarted += Close;
     }
 
     void OnDisable()
     {
-        EventBus.PhaseEvents.SurvivalPhaseStarted -= Close;
+        GameMasterEvents.PhaseEvents.SurvivalPhaseStarted -= Close;
     }
     #endregion
 
@@ -68,7 +68,7 @@ public class NodeUI : MonoBehaviour
 
     public void Open()
     {
-        EventBus.MenuEvents.MenuItemSelectedShort();
+        GameMasterEvents.MenuEvents.MenuItemSelectedShort();
         gameObject.SetActive(true);
         uiAnimator.SetTrigger("Open");
     }
