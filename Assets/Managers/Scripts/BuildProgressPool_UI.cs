@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Assertions;
-using Gotchi.Events;
+using GameMaster;
 
 public class BuildProgressPool_UI : MonoBehaviour
 {
@@ -50,7 +50,7 @@ public class BuildProgressPool_UI : MonoBehaviour
         
         progressBar.ShowProgressBarAndSetDuration(towerBlueprint, (TowerBlueprint blueprint) =>
         {
-            EventBus.TowerEvents.TowerFinished(blueprint);
+            GameMasterEvents.TowerEvents.TowerFinished(blueprint);
             progressBar.Reset();
         });
     }
@@ -64,7 +64,7 @@ public class BuildProgressPool_UI : MonoBehaviour
         {
             if (!skipSpawn)
             {
-                EventBus.EnemyEvents.EnemyFinished(blueprint);
+                GameMasterEvents.EnemyEvents.EnemyFinished(blueprint);
             }
 
             progressBar.Reset();

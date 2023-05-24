@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using Gotchi.Events;
+using GameMaster;
 using Fusion;
 
 public class DefenderNode : BaseNode
@@ -26,7 +26,7 @@ public class DefenderNode : BaseNode
 
         this.Occupied = true;
         towerBlueprint.node = this;
-        EventBus.TowerEvents.TowerStarted();
+        GameMasterEvents.TowerEvents.TowerStarted();
         BuildProgressPool_UI.Instance.GetAndShowProgressBar(towerBlueprint);
         this.BuildEffect.SetActive(true);
     }

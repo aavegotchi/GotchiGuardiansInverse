@@ -1,5 +1,5 @@
 using UnityEngine;
-using Gotchi.Events;
+using GameMaster;
 using PhaseManager;
 using PhaseManager.Presenter;
 
@@ -127,7 +127,7 @@ public abstract class BaseTower : MonoBehaviour
 
     public void PlayDead(bool keepUpgrades = false)
     {
-        EventBus.TowerEvents.TowerDied(towerBlueprint.type);
+        GameMasterEvents.TowerEvents.TowerDied(towerBlueprint.type);
         towerBlueprint.node.Occupied = keepUpgrades;
         ImpactPool_FX.Instance.SpawnImpact(impactType, transform.position, transform.rotation);
         

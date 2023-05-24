@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
-using Gotchi.Events;
+using GameMaster;
 using PhaseManager;
 using PhaseManager.Presenter;
 using Gotchi.Lickquidator.Model;
@@ -119,7 +119,7 @@ namespace Gotchi.Lickquidator.Presenter
 
         public void PlayDead(bool keepUpgrades = false)
         {
-            EventBus.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
+            GameMasterEvents.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
             ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
 
             gameObject.SetActive(false);
@@ -283,7 +283,7 @@ namespace Gotchi.Lickquidator.Presenter
             if (attackAnimation != null) attackAnimation.SetTrigger(model.AttackAnimTriggerHash);
             if (attackParticleSystemObj != null) attackParticleSystemObj.SetActive(true);
             
-            EventBus.EnemyEvents.EnemyAttacked(model.Config.Type);
+            GameMasterEvents.EnemyEvents.EnemyAttacked(model.Config.Type);
             inRangeTarget.Damage(model.Config.AttackDamage);
             model.PublishOnAttacked();
             

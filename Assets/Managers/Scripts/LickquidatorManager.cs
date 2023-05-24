@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Gotchi.Events;
+using GameMaster;
 using Gotchi.Lickquidator.Presenter;
 using Gotchi.Lickquidator.Model;
 
@@ -88,12 +88,12 @@ namespace Gotchi.Lickquidator.Manager
 
         void OnEnable()
         {
-            EventBus.EnemyEvents.EnemyFinished += spawnLickquidator;
+            GameMasterEvents.EnemyEvents.EnemyFinished += spawnLickquidator;
         }
 
         void OnDisable()
         {
-            EventBus.EnemyEvents.EnemyFinished -= spawnLickquidator;
+            GameMasterEvents.EnemyEvents.EnemyFinished -= spawnLickquidator;
         }
         #endregion
 

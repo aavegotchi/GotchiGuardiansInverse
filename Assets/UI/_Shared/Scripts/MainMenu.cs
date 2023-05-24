@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Gotchi.Events;
+using GameMaster;
 using Gotchi.Network;
 using PhaseManager.Presenter;
 
@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour
     #region Unity Functions
     void Start()
     {
-        EventBus.PhaseEvents.MainMenuStarted();
+        GameMasterEvents.PhaseEvents.MainMenuStarted();
 
         if (PlayerPrefs.HasKey("username"))
         {
@@ -42,14 +42,14 @@ public class MainMenu : MonoBehaviour
     #region Public Functions
     public void ShowUsernameMenu()
     {
-        EventBus.MenuEvents.MenuItemSelectedLong();
+        GameMasterEvents.MenuEvents.MenuItemSelectedLong();
         usernameMenuCanvas.SetActive(true);
         usernameMenuCanvasAnimator.SetTrigger(usernameMenuCanvasAnimatorOpenTrigger);
     }
 
     public void StartFreePlay()
     {
-        EventBus.MenuEvents.MenuItemSelectedLong();
+        GameMasterEvents.MenuEvents.MenuItemSelectedLong();
         StartCoroutine(waitAndStart());
         PlayerPrefs.SetString("username", usernameText.text);
     }
