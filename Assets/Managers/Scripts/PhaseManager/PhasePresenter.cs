@@ -60,7 +60,7 @@ namespace PhaseManager {
             #region Public Functions
             public void StartFirstPrepPhase()
             {
-                updatePhase(Phase.Prep.ToString());
+                model.SetNextPhase(Phase.Prep);
             }
 
             public Phase GetCurrentPhase()
@@ -103,6 +103,7 @@ namespace PhaseManager {
             private void HandlePhaseTransition(Phase nextPhase)
             {
                 if (nextPhase != Phase.None) {
+                    Phase prevPhase = model.CurrentPhase;
                     model.SetCurrentPhase(Phase.Transitioning);
 
                     GameMasterEvents.PhaseEvents.TransitionPhaseStarted(nextPhase);
@@ -112,7 +113,7 @@ namespace PhaseManager {
                         StatsManager.Instance.Money += StatsManager.Instance.GetEnemiesSpawnBonus();
                     }
 
-                    StartCoroutine(showTransition(nextPhase));
+                    StartCoroutine(showTransition(nextPhase, prevPhase));
                 }
             }
 
@@ -128,16 +129,21 @@ namespace PhaseManager {
                 StartCoroutine(showTransition(Phase.Defeat));
             }
 
-            private IEnumerator showTransition(Phase nextPhase)
+            private IEnumerator showTransition(Phase nextPhase, Phase prevPhase = Phase.None)
             {
                 OnShowTransitionUIUpdated(true);
                 if (nextPhase == Phase.Prep)
                 {
                     OnTransitionUITextUpdated(model.PrepPhaseText);
-                    OnIsRewardsUIOpenUpdated(true);
-
-                    yield return new WaitForSeconds(model.NumSecondsOnRewardsScreen);
-                    OnIsRewardsUIOpenUpdated(false);
+                    if (!(prevPhase == Phase.None)) {
+                        OnIsRewardsUIOpenUpdated(true);
+                         yield return new WaitForSeconds(model.NumSecondsOnRewardsScreen);
+                        OnIsRewardsUIOpenUpdated(false);
+                    } else {
+                        yield return new WaitForSeconds(model.NumSecondsOnNonRewardsScreen);
+                    }
+                    
+                   
 
                     StatsManager.Instance.ClearCreateAndKillStats();
                 }
