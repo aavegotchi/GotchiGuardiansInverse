@@ -75,7 +75,6 @@ public class BuildProgressPool_UI : MonoBehaviour
     #region Private Functions
     private ProgressBar_UI CreateNewProgressBar()
     {
-        Debug.Log($"~~progressBarPrefab: {progressBarPrefab}");
         GameObject progressBarObj = Instantiate(progressBarPrefab, Vector3.zero, Quaternion.identity, transform);
         ProgressBar_UI progressBar = progressBarObj.GetComponent<ProgressBar_UI>();
         return progressBar;

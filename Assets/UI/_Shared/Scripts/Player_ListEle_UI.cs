@@ -110,7 +110,6 @@ public class Player_ListEle_UI : MonoBehaviour
 
     public void Click()
     {
-        Debug.Log($"~~Click: {playerId}");
         List<Player_ListEle_UI> playerElements = UserInterfaceManager.Instance.PlayersListUI.playerElements;
         foreach(Player_ListEle_UI ele in playerElements)
         {
