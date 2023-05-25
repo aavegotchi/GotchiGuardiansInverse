@@ -129,7 +129,7 @@ MonoBehaviour:
   mouseZoomAmount: 50
   mouseZoomDuration: 1
   zoomDistanceMax: 260
-  zoomDistanceMin: 125
+  zoomDistanceMin: 120
   zoomAngleMax: 50
   zoomAngleMin: 60
 --- !u!114 &337595135634444003
