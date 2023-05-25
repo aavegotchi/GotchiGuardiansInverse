@@ -11,6 +11,7 @@ namespace PhaseManager
 {    
     public enum Phase
     {
+        Intro,
         None,
         Prep,
         Survival,
@@ -26,6 +27,9 @@ namespace PhaseManager
             [Header("Attributes")]
             [SerializeField] private GeneralSO generalSO = null;
             public GeneralSO GeneralSO { get { return generalSO; } }
+
+            [SerializeField] private string introPhaseText = "Welcome to Gotchi Guardians. The first prep phase will begin soon! (Intro Phase)";
+            public string IntroPhaseText { get { return introPhaseText; } }
 
             [SerializeField] private string prepPhaseText = "Prep Phase Starting...";
             public string PrepPhaseText { get { return prepPhaseText; } }
@@ -44,6 +48,9 @@ namespace PhaseManager
 
             [SerializeField] private int numSecondsOnNonRewardsScreen = 2;
             public int NumSecondsOnNonRewardsScreen { get { return numSecondsOnNonRewardsScreen; } }
+            
+            [SerializeField] private int numSecondsUIFadeOut = 1;
+            public int NumSecondsUIFadeOut { get { return numSecondsUIFadeOut; } }
             #endregion
 
             #region Events
@@ -72,6 +79,10 @@ namespace PhaseManager
 
                 if (nextPhase != Phase.None || currentPhase == Phase.Transitioning || currentPhase == Phase.None) return;
 
+                if (currentPhase == Phase.Intro)
+                {
+                    SetNextPhase(Phase.Prep);
+                }
                 if (currentPhase == Phase.Prep)
                 {
                     TrackPhaseCountdown();
