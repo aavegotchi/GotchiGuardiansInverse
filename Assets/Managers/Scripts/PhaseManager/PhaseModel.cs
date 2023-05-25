@@ -1,14 +1,12 @@
-using System.Collections;
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 using GameMaster;
 using Gotchi.Network;
 using Gotchi.Lickquidator.Manager;
 using Fusion;
 
 namespace PhaseManager
-{    
+{
     public enum Phase
     {
         Intro,

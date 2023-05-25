@@ -1,15 +1,13 @@
 using System.Collections;
 using System;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using GameMaster;
-using Gotchi.Network;
-using Gotchi.Lickquidator.Manager;
 using PhaseManager.Model;
 
-namespace PhaseManager {
-    namespace Presenter {
+namespace PhaseManager
+{
+    namespace Presenter
+    {
         public class PhasePresenter: MonoBehaviour
         {
             public PhaseModel Model { get { return model; } }
