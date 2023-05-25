@@ -18,6 +18,7 @@ namespace Gotchi.EnvironmentCamera
     private Vector3 cameraPositionOffset = Vector3.zero;
     private float zoomTime = 0f;
     private Vector3 defaultCameraPosition = Vector3.zero;
+    private Vector3 defaultCameraPositionOffset = Vector3.zero;
     #endregion
 
     #region Unity Functions
@@ -43,7 +44,7 @@ namespace Gotchi.EnvironmentCamera
 
     void Update()
     {
-      // if (!model.IsEnabled) return;
+      if (!model.IsEnabled) return;
 
       Vector3 movementInputDirection = getMovementInput();
       if (movementInputDirection != Vector3.zero)
@@ -56,11 +57,13 @@ namespace Gotchi.EnvironmentCamera
         handleZoomInput();
       }
     }
+    #endregion
 
-    void Start()
+    #region Public Functions
+    public void Reset()
     {
-      // Set zoom to default configuration at start
-      vCameraTransposer.m_FollowOffset = Quaternion.Euler(model.ZoomAngleMax, 0, 0) * -transform.forward * cameraPositionOffset.magnitude;
+      vCameraTransposer.m_FollowOffset = new Vector3(0f, 199.17f, -167.12f); // Hardcoded from zoom calculation
+      transform.position = defaultCameraPosition;
     }
     #endregion
 
@@ -284,6 +287,8 @@ namespace Gotchi.EnvironmentCamera
           zoomTime / model.MouseZoomDuration
         );
         vCameraTransposer.m_FollowOffset = newCameraPositionOffset;
+
+        Debug.Log("-----newCameraPositionOffset: " + newCameraPositionOffset.ToString());
 
         // Move camera to either mouse point or default
         transform.position = Vector3.Lerp(

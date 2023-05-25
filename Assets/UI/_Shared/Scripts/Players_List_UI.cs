@@ -7,7 +7,7 @@ using UnityEngine;
 public class Players_List_UI : MonoBehaviour
 {
     #region Fields
-    [SerializeField] private List<Player_ListEle_UI> playerElements = new List<Player_ListEle_UI>();
+    [SerializeField] public List<Player_ListEle_UI> playerElements = new List<Player_ListEle_UI>();
     [SerializeField] private int padding = 10;
     [SerializeField] private bool isShow = false;
     [SerializeField] private float reorderAnimSpeedPerPixel = 0.001f;
@@ -57,6 +57,7 @@ public class Players_List_UI : MonoBehaviour
             playerElement.SetPlayerId(id);
             playerElement.gameObject.SetActive(true);
             usernameToPlayerElementsIndexDict[username] = 0;
+            playerElement.VCamera.gameObject.SetActive(true);
             return;
         }
 

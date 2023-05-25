@@ -44,15 +44,15 @@ namespace Gotchi.EnvironmentCamera
     public bool IsMouseZoomEnabled { get { return isMouseZoomEnabled; } }
     [SerializeField] private float mouseZoomAmount = 50f;
     public float MouseZoomAmount { get { return mouseZoomAmount; } }
-    [SerializeField] private float mouseZoomDuration = 2f;
+    [SerializeField] private float mouseZoomDuration = 1f;
     public float MouseZoomDuration { get { return mouseZoomDuration; } }
-    [SerializeField] private float zoomDistanceMax = 300f;
+    [SerializeField] private float zoomDistanceMax = 260f;
     public float ZoomDistanceMax { get { return zoomDistanceMax; } }
-    [SerializeField] private float zoomDistanceMin = 125f;
+    [SerializeField] private float zoomDistanceMin = 120f;
     public float ZoomDistanceMin { get { return zoomDistanceMin; } }
-    [SerializeField] private float zoomAngleMax = 65f;
+    [SerializeField] private float zoomAngleMax = 50f;
     public float ZoomAngleMax { get { return zoomAngleMax; } }
-    [SerializeField] private float zoomAngleMin = 80f;
+    [SerializeField] private float zoomAngleMin = 60f;
     public float ZoomAngleMin { get { return zoomAngleMin; } }
     #endregion
 

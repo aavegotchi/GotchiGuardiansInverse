@@ -1,16 +1,22 @@
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
+using Cinemachine;
 using DG.Tweening;
 using GameMaster;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class Player_ListEle_UI : MonoBehaviour
 {
     #region Public Variables
     public int PlayerId { get { return playerId; } }
+    public CinemachineVirtualCamera VCamera { get { return vCamera; } }
     #endregion
 
     #region fields
+    [Header("Camera")]
+    [SerializeField] private CinemachineVirtualCamera vCamera = null;
+
     [Header("Sub Objects")]
     [SerializeField] private TextMeshProUGUI playerNameLabel = null;
     [SerializeField] private Image bankImg = null;
@@ -99,6 +105,19 @@ public class Player_ListEle_UI : MonoBehaviour
 
         if (lastAppliedIncomeAmt != editorIncomeAmt) { 
             UpdateIncomeAmt(editorIncomeAmt);
+        }
+    }
+
+    public void Click()
+    {
+        List<Player_ListEle_UI> playerElements = UserInterfaceManager.Instance.PlayersListUI.playerElements;
+        foreach(Player_ListEle_UI ele in playerElements)
+        {
+            if (ele.PlayerId == playerId) {
+                ele.VCamera.gameObject.SetActive(true);
+            } else {
+                ele.VCamera.gameObject.SetActive(false);
+            }
         }
     }
 
