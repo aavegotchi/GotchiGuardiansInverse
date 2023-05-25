@@ -22,10 +22,10 @@ MonoBehaviour:
   buildTime: 2.5
   Health: 200
   OffsetDistance: 20
-  MovementSpeed: 5
-  MovementAcceleration: 5
-  AngularSpeed: 200
-  AttackRotationSpeed: 2
+  MovementSpeed: 25
+  MovementAcceleration: 70
+  AngularSpeed: 800
+  AttackRotationSpeed: 70
   NavMeshAgentHeight: 2
   NavMeshAgentPriority: 50
   NavMeshAgentRadius: 2
