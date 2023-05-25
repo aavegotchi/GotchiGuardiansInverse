@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3970650567075290078}
   - component: {fileID: 3970650567075290073}
   m_Layer: 0
-  m_Name: HealthBarManager
+  m_Name: HealthbarManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4f3a2c227f76a499ba66194317f49b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthbarPrefab: {fileID: 9208720214513312333, guid: 076327f8421e28a4ab3ad5e7068e5119,
+  healthbarPrefab: {fileID: 9208720214513312333, guid: ce5e2b748e1866449a258c6c20c229e5,
     type: 3}
   healthbarPoolSize: 50

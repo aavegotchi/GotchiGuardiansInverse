@@ -11,17 +11,21 @@ public class EnemyInventory : MonoBehaviour
     [SerializeField] private LickquidatorObjectSO pawnLickquidatorSO = null;
     [SerializeField] private LickquidatorObjectSO aerialLickquidatorSO = null;
     [SerializeField] private LickquidatorObjectSO bossLickquidatorSO = null;
+    [SerializeField] private LickquidatorObjectSO speedyBoiLickquidatorSO = null;
 
     [Header("Required Refs")]
     [SerializeField] private TextMeshProUGUI pawnLickquidatorCostText = null;
     [SerializeField] private TextMeshProUGUI aerialLickquidatorCostText = null;
     [SerializeField] private TextMeshProUGUI bossLickquidatorCostText = null;
+    [SerializeField] private TextMeshProUGUI speedyBoiLickquidatorCostText = null;
     [SerializeField] private Button pawnLickquidatorButton = null;
     [SerializeField] private Button aerialLickquidatorButton = null;
     [SerializeField] private Button bossLickquidatorButton = null;
+    [SerializeField] private Button speedyBoiLickquidatorButton = null;
     [SerializeField] private CanvasGroup pawnLickquidatorCostCanvasGroup = null;
     [SerializeField] private CanvasGroup aerialLickquidatorCostCanvasGroup = null;
     [SerializeField] private CanvasGroup bossLickquidatorCostCanvasGroup = null;
+    [SerializeField] private CanvasGroup speedyBoiLickquidatorCostCanvasGroup = null;
     [SerializeField] private NodeUI nodeUI = null;
     #endregion
 
@@ -29,6 +33,7 @@ public class EnemyInventory : MonoBehaviour
     private EnemyBlueprint pawnLickquidator = new EnemyBlueprint();
     private EnemyBlueprint aerialLickquidator = new EnemyBlueprint();
     private EnemyBlueprint bossLickquidator = new EnemyBlueprint();
+    private EnemyBlueprint speedyBoiLickquidator = new EnemyBlueprint();
     #endregion
 
     #region Unity Functions
@@ -38,15 +43,19 @@ public class EnemyInventory : MonoBehaviour
         Assert.IsNotNull(pawnLickquidatorSO);
         Assert.IsNotNull(aerialLickquidatorSO);
         Assert.IsNotNull(bossLickquidatorSO);
+        Assert.IsNotNull(speedyBoiLickquidatorSO);
         Assert.IsNotNull(pawnLickquidatorCostText);
         Assert.IsNotNull(aerialLickquidatorCostText);
         Assert.IsNotNull(bossLickquidatorCostText);
+        Assert.IsNotNull(speedyBoiLickquidatorCostText);
         Assert.IsNotNull(pawnLickquidatorButton);
         Assert.IsNotNull(aerialLickquidatorButton);
         Assert.IsNotNull(bossLickquidatorButton);
+        Assert.IsNotNull(speedyBoiLickquidatorButton);
         Assert.IsNotNull(pawnLickquidatorCostCanvasGroup);
         Assert.IsNotNull(aerialLickquidatorCostCanvasGroup);
         Assert.IsNotNull(bossLickquidatorCostCanvasGroup);
+        Assert.IsNotNull(speedyBoiLickquidatorCostCanvasGroup);
         Assert.IsNotNull(nodeUI);
     }
 
@@ -55,10 +64,12 @@ public class EnemyInventory : MonoBehaviour
         pawnLickquidator.type = LickquidatorManager.LickquidatorType.PawnLickquidator;
         aerialLickquidator.type = LickquidatorManager.LickquidatorType.AerialLickquidator;
         bossLickquidator.type = LickquidatorManager.LickquidatorType.BossLickquidator;
+        speedyBoiLickquidator.type = LickquidatorManager.LickquidatorType.SpeedyBoi;
 
         pawnLickquidator.buildTime = pawnLickquidatorSO.buildTime;
         aerialLickquidator.buildTime = aerialLickquidatorSO.buildTime;
         bossLickquidator.buildTime = bossLickquidatorSO.buildTime;
+        speedyBoiLickquidator.buildTime = speedyBoiLickquidatorSO.buildTime;
 
     }
     #endregion
@@ -97,12 +108,24 @@ public class EnemyInventory : MonoBehaviour
         buildSelectedEnemy(enemyBlueprint);
     }
 
+    public void SelectSpeedyBoi()
+    {
+        EnemyBlueprint enemyBlueprint = new EnemyBlueprint
+        {
+            type = LickquidatorManager.LickquidatorType.SpeedyBoi,
+            buildTime = speedyBoiLickquidatorSO.buildTime,
+            cost = speedyBoiLickquidatorSO.Cost
+        };
+        buildSelectedEnemy(enemyBlueprint);
+    }
+
     public void UpdateOptionsBasedOnMoney()
     {
         updateCostsFromSO();
         disableButtonIfNoMoney(pawnLickquidator.cost, pawnLickquidatorButton, pawnLickquidatorCostCanvasGroup);
         disableButtonIfNoMoney(aerialLickquidator.cost, aerialLickquidatorButton, aerialLickquidatorCostCanvasGroup);
         disableButtonIfNoMoney(bossLickquidator.cost, bossLickquidatorButton, bossLickquidatorCostCanvasGroup);
+        disableButtonIfNoMoney(speedyBoiLickquidator.cost, speedyBoiLickquidatorButton, speedyBoiLickquidatorCostCanvasGroup);
     }
 
     public void DisableOptions()
@@ -110,6 +133,7 @@ public class EnemyInventory : MonoBehaviour
         disableButton(pawnLickquidatorButton, pawnLickquidatorCostCanvasGroup);
         disableButton(aerialLickquidatorButton, aerialLickquidatorCostCanvasGroup);
         disableButton(bossLickquidatorButton, bossLickquidatorCostCanvasGroup);
+        disableButton(speedyBoiLickquidatorButton, speedyBoiLickquidatorCostCanvasGroup);
     }
     #endregion
 
@@ -119,10 +143,12 @@ public class EnemyInventory : MonoBehaviour
         pawnLickquidator.cost = pawnLickquidatorSO.Cost;
         aerialLickquidator.cost = aerialLickquidatorSO.Cost;
         bossLickquidator.cost = bossLickquidatorSO.Cost;
+        speedyBoiLickquidator.cost = speedyBoiLickquidatorSO.Cost;
 
         pawnLickquidatorCostText.text = $"{pawnLickquidatorSO.Cost}";
         aerialLickquidatorCostText.text = $"{aerialLickquidatorSO.Cost}";
         bossLickquidatorCostText.text = $"{bossLickquidatorSO.Cost}";
+        speedyBoiLickquidatorCostText.text = $"{speedyBoiLickquidatorSO.Cost}";
     }
 
     private void disableButtonIfNoMoney(int cost, Button button, CanvasGroup canvasGroup)

@@ -16,6 +16,7 @@ namespace Gotchi.Player.Model
         #region Properties
         public GotchiObjectSO Config { get { return config; } }
         public int Health { get { return health; } }
+        public int MaxHealth { get { return maxHealth; } }
         public string TargetTag { get { return targetTag; } }
         public int AttackAnimTriggerHash { get { return attackAnimTriggerHash; } }
         public int AbilityAnimTriggerHash { get { return abilityAnimTriggerHash; } }
@@ -44,6 +45,7 @@ namespace Gotchi.Player.Model
 
         #region Private Variables
         private int health = 0;
+        private int maxHealth = 0;
         private int attackAnimTriggerHash = 0;
         private int abilityAnimTriggerHash = 0;
         #endregion
@@ -52,6 +54,7 @@ namespace Gotchi.Player.Model
         void Awake()
         {
             health = config.Health;
+            maxHealth = config.Health;
             attackAnimTriggerHash = Animator.StringToHash(attackAnimTrigger);
             abilityAnimTriggerHash = Animator.StringToHash(abilityAnimTrigger);
         }

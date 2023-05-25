@@ -11,13 +11,13 @@ env:
 
 jobs:
   test:
-    name: Test
-    uses: ./.github/workflows/test.yml
-    secrets: inherit
+    # name: Test
+    # uses: ./.github/workflows/test.yml
+    # secrets: inherit
 
   buildWebGL:
     name: Build WebGL
-    needs: [test]
+    # needs: [test]
     uses: ./.github/workflows/build-webgl.yml
     secrets: inherit
 

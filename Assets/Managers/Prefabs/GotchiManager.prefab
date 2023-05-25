@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359eec8d3d157ab40ac8e4e8f097ca3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gotchiPrefab: {fileID: 6665416994352312182, guid: 02cd7c0bff2ad43cbb73bd7738b7ca4f,
+  gotchiPrefab: {fileID: 6665416994352312182, guid: 7555d625cddff4d34b196187d950b27f,
+    type: 3}
+  botGotchiPrefab: {fileID: 41361147938679944, guid: d55e610d8ea11c949aa1d2d70bb9033d,
     type: 3}
   spawn: {fileID: 1436068082631546822}
 --- !u!1 &6131138999123034964

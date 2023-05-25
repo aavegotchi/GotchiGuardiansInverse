@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Fusion;
-using Gotchi.Events;
+using GameMaster;
 using Gotchi.Lickquidator.Manager;
 using Gotchi.Lickquidator.Presenter;
 using Gotchi.Network;
@@ -15,7 +15,7 @@ using PhaseManager.Presenter;
 
 namespace Gotchi.Player.Presenter
 {
-    public class GotchiPresenter : NetworkBehaviour, IPlayerLeft, IDamageable
+    public class GotchiPresenter : NetworkBehaviour, IPlayerLeft
     {
         #region Properties
         public GotchiModel Model { get { return model; } }
@@ -82,10 +82,15 @@ namespace Gotchi.Player.Presenter
             model.OnDestinationUpdated -= handleOnDestinationUpdated;
             model.OnHealthUpdated -= handleOnHealthUpdated;
             model.OnUsernameUpdated -= handleOnUsernameUpdated;
-            model.OnIsSpinAttackingUpdated += handleOnIsSpinAttackingUpdated;
+            model.OnIsSpinAttackingUpdated -= handleOnIsSpinAttackingUpdated;
 
             rightClick.performed -= handleOnRightClick;
             rightClick.Disable();
+        }
+
+        void OnDestroy() 
+        {
+            GotchiManager.Instance.RemoveGotchi(this);
         }
 
         void Update()
@@ -125,6 +130,8 @@ namespace Gotchi.Player.Presenter
             {
                 Debug.Log("Spawned remote player");
             }
+            GotchiManager.Instance.RegisterGotchi(this);
+
         }
 
         public void PlayerLeft(PlayerRef player)
@@ -133,7 +140,7 @@ namespace Gotchi.Player.Presenter
             {
                 Debug.Log("Local player left, despawning");
                 Runner.Despawn(Object);
-                SceneManager.LoadScene("GotchiTowerDefense");
+                SceneManager.LoadScene("GotchiTowerDefense-WithTerrain");
             }
             else
             {
@@ -152,6 +159,7 @@ namespace Gotchi.Player.Presenter
 
         public void Damage(int damage)
         {
+            GameMasterEvents.GotchiEvents.GotchiDamaged(gameObject.GetInstanceID(), damage);
             model.UpdateHealth(model.Health - damage);
         }
 
@@ -181,7 +189,7 @@ namespace Gotchi.Player.Presenter
 
         private void handleOnUsernameUpdated()
         {
-            UserInterfaceManager.Instance.PlayersListUI.AddPlayerEntry(model.Username, Object.HasInputAuthority);
+            UserInterfaceManager.Instance.PlayersListUI.AddPlayerEntry(gameObject.GetInstanceID(), model.Username, Object.HasInputAuthority);
         }
 
         private void handleOnRightClick(InputAction.CallbackContext Context)
@@ -211,9 +219,13 @@ namespace Gotchi.Player.Presenter
             if (spinAttackAnimation != null) spinAttackAnimation.SetTrigger(model.AbilityAnimTriggerHash);
             if (spinAttackParticleEffect != null) spinAttackParticleEffect.SetActive(true);
 
-            EventBus.GotchiEvents.GotchiAttacked(GotchiManager.AttackType.Spin);
+            GameMasterEvents.GotchiEvents.GotchiAttacked(gameObject.GetInstanceID(), GotchiManager.AttackType.Spin);
 
-            if (isPrepPhase()) return;
+            if (isPrepPhase()) 
+            {
+                model.IsSpinAttacking = false;
+                return;
+            }
 
             // TODO: instead of networking it this way, it probably would be better to just network the lickquidators' transforms and healths
             List<LickquidatorPresenter> lickquidators = LickquidatorManager.Instance.ActiveLickquidators;
@@ -332,13 +344,13 @@ namespace Gotchi.Player.Presenter
             if (attackAnimation != null) attackAnimation.SetTrigger(model.AttackAnimTriggerHash);
             if (attackParticleEffect != null) attackParticleEffect.SetActive(true);
 
-            EventBus.GotchiEvents.GotchiAttacked(GotchiManager.AttackType.Basic);
+            GameMasterEvents.GotchiEvents.GotchiAttacked(gameObject.GetInstanceID(), GotchiManager.AttackType.Basic);
             inRangeTarget.Damage(model.Config.AttackDamage);
         }
 
         private void playDead()
         {
-            EventBus.GotchiEvents.GotchiDied();
+            GameMasterEvents.GotchiEvents.GotchiDied(gameObject.GetInstanceID());
             ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
             
             gameObject.SetActive(false);
@@ -347,19 +359,6 @@ namespace Gotchi.Player.Presenter
                 healthBar.Reset();
                 healthBar = null;
             }
-
-            // TODO: this should probably go into its own game over MVP component
-            showGameOverWhenNoGotchisRemaining();
-        }
-
-        private void showGameOverWhenNoGotchisRemaining()
-        {
-            GameObject[] gotchis = GameObject.FindGameObjectsWithTag("Tower")
-                .Where(gotchi => gotchi.activeSelf && gotchi.GetComponent<GotchiPresenter>() != null && !gotchi.GetComponent<GotchiPresenter>().IsDead()).ToArray();
-            
-            if (gotchis.Length > 0) return;
-            
-            UserInterfaceManager.Instance.ShowGameOverUI();
         }
 
         private bool isFrameReady()

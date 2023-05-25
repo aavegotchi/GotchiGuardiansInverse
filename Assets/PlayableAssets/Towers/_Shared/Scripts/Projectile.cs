@@ -1,5 +1,5 @@
 using UnityEngine;
-using Gotchi.Events;
+using GameMaster;
 using Gotchi.Lickquidator.Manager;
 using Gotchi.Lickquidator.Presenter;
 using Gotchi.Player.Presenter;
@@ -145,7 +145,7 @@ public class Projectile : MonoBehaviour
 
         if (isLaserAttack()) return;
 
-        EventBus.TowerEvents.TowerHit(turretTowerObjectSO.Type);
+        GameMasterEvents.TowerEvents.TowerHit(turretTowerObjectSO.Type);
 
         gameObject.SetActive(false);
     }

@@ -1027,6 +1027,7 @@ GameObject:
   - component: {fileID: 3135123454282970089}
   - component: {fileID: 533471148231593441}
   - component: {fileID: 4413573752344679541}
+  - component: {fileID: 2523825305205228657}
   m_Layer: 5
   m_Name: PlayerBoardEntry
   m_TagString: Untagged
@@ -1101,6 +1102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c2e8d6a6307124c8402c7d9a843ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vCamera: {fileID: 0}
   playerNameLabel: {fileID: 1896198232503961280}
   bankImg: {fileID: 2466126012815178037}
   incomeImg: {fileID: 2680704220078798921}
@@ -1114,7 +1116,7 @@ MonoBehaviour:
     type: 3}
   deadBackgroundSprite: {fileID: 21300000, guid: 18cf647ca5a2a5f4496053f76d29390a,
     type: 3}
-  maxHP: 1000
+  maxHP: 200
   animTimePerHpAmount: 0.005
   editorTargetHP: 0
   editorBankAmt: 100
@@ -1123,7 +1125,62 @@ MonoBehaviour:
   loseBankAnimator: {fileID: 4232977597204500126}
   gainIncomeAnimator: {fileID: 7200068704203462360}
   loseIncomeAnimator: {fileID: 5443492242980637425}
-  transferIncomeToBankAnimator: {fileID: 0}
+--- !u!114 &2523825305205228657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8135359089676943051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4413573752344679541}
+        m_TargetAssemblyTypeName: Player_ListEle_UI, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1034539206750245202
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Gotchi.Events;
+using GameMaster;
 using Gotchi.Lickquidator.Presenter;
 using Gotchi.Lickquidator.Model;
 
@@ -17,14 +17,17 @@ namespace Gotchi.Lickquidator.Manager
             None,
             PawnLickquidator,
             AerialLickquidator,
-            BossLickquidator
+            BossLickquidator,
+            SpeedyBoi,
         }
 
+        // TODO: this can be optimized
         public List<LickquidatorPresenter> ActiveLickquidators
         {
             get 
             { 
-                return spawnedLickquidators
+                return GameObject
+                    .FindGameObjectsWithTag("Enemy") // TODO: temporary for now
                     .Where(lickquidatorObj => lickquidatorObj.activeSelf)
                     .Select(lickquidatorObj => lickquidatorObj.GetComponent<LickquidatorPresenter>())
                     .ToList(); 
@@ -37,11 +40,13 @@ namespace Gotchi.Lickquidator.Manager
         [SerializeField] private GameObject pawnLickquidatorPrefab = null;
         [SerializeField] private GameObject aerialLickquidatorPrefab = null;
         [SerializeField] private GameObject bossLickquidatorPrefab = null;
+        [SerializeField] private GameObject speedyBoiLickquidatorPrefab = null;
 
         [Header("Attributes")]
         [SerializeField] private int pawnLickquidatorPoolSize = 5;
         [SerializeField] private int aerialLickquidatorPoolSize = 5;
         [SerializeField] private int bossLickquidatorPoolSize = 5;
+        [SerializeField] private int speedyBoiLickquidatorPoolSize = 5;
         #endregion
 
         #region Private Variables
@@ -49,7 +54,7 @@ namespace Gotchi.Lickquidator.Manager
         private List<GameObject> pawnLickquidatorPool = new List<GameObject>();
         private List<GameObject> aerialLickquidatorPool = new List<GameObject>();
         private List<GameObject> bossLickquidatorPool = new List<GameObject>();
-        private List<GameObject> spawnedLickquidators = new List<GameObject>();
+        private List<GameObject> speedyBoiLickquidatorPool = new List<GameObject>();
         private Dictionary<GameObject, LickquidatorPresenter> lickquidatorLookup = new Dictionary<GameObject, LickquidatorPresenter>();
         #endregion
 
@@ -71,26 +76,24 @@ namespace Gotchi.Lickquidator.Manager
             pawnLickquidatorPool = createPool(pawnLickquidatorPrefab, pawnLickquidatorPoolSize);
             aerialLickquidatorPool = createPool(aerialLickquidatorPrefab, aerialLickquidatorPoolSize);
             bossLickquidatorPool = createPool(bossLickquidatorPrefab, bossLickquidatorPoolSize);
+            speedyBoiLickquidatorPool = createPool(speedyBoiLickquidatorPrefab, speedyBoiLickquidatorPoolSize);
 
             combinedPool.AddRange(pawnLickquidatorPool);
             combinedPool.AddRange(aerialLickquidatorPool);
             combinedPool.AddRange(bossLickquidatorPool);
+            combinedPool.AddRange(speedyBoiLickquidatorPool);
 
             initializeLookup();
         }
 
         void OnEnable()
         {
-            EventBus.PhaseEvents.PrepPhaseStarted += freezeLickquidators;
-            EventBus.PhaseEvents.SurvivalPhaseStarted += unfreezeLickquidators;
-            EventBus.EnemyEvents.EnemyFinished += spawnLickquidator;
+            GameMasterEvents.EnemyEvents.EnemyFinished += spawnLickquidator;
         }
 
         void OnDisable()
         {
-            EventBus.PhaseEvents.PrepPhaseStarted -= freezeLickquidators;
-            EventBus.PhaseEvents.SurvivalPhaseStarted -= unfreezeLickquidators;
-            EventBus.EnemyEvents.EnemyFinished -= spawnLickquidator;
+            GameMasterEvents.EnemyEvents.EnemyFinished -= spawnLickquidator;
         }
         #endregion
 
@@ -114,12 +117,12 @@ namespace Gotchi.Lickquidator.Manager
         {
             Transform nodeTransform = enemyBlueprint.node.transform;
             Vector3 position = nodeTransform.position;
-            Quaternion rotation = nodeTransform.rotation * Quaternion.Euler(Vector3.up * -90f); // face toward movement dir;
+            Quaternion rotation = nodeTransform.rotation * Quaternion.Euler(Vector3.up * 180f); // face toward movement dir
 
             StatsManager.Instance.Money -= enemyBlueprint.cost;
             StatsManager.Instance.TrackCreateEnemy(enemyBlueprint);
 
-            List<GameObject> pool = getPool((LickquidatorType)enemyBlueprint.type);
+            List<GameObject> pool = getPool(enemyBlueprint.type);
 
             foreach (GameObject lickquidatorObj in pool)
             {
@@ -132,11 +135,8 @@ namespace Gotchi.Lickquidator.Manager
                 lickquidatorObj.SetActive(true);
 
                 LickquidatorPresenter lickquidator = GetByObject(lickquidatorObj);
-
                 lickquidator.AssignHealthBar();
-                lickquidator.Freeze(); // to prevent prep phase 'pushing'
-
-                spawnedLickquidators.Add(lickquidatorObj);
+                // lickquidator.Freeze(); // to prevent prep phase 'pushing'
 
                 return;
             }
@@ -179,6 +179,9 @@ namespace Gotchi.Lickquidator.Manager
                 case LickquidatorType.BossLickquidator:
                     pool = bossLickquidatorPool;
                     break;
+                case LickquidatorType.SpeedyBoi:
+                    pool = speedyBoiLickquidatorPool;
+                    break;
             }
 
             if (pool.All(lickquidator => lickquidator.activeSelf))
@@ -195,6 +198,9 @@ namespace Gotchi.Lickquidator.Manager
                     case LickquidatorType.BossLickquidator:
                         prefab = bossLickquidatorPrefab;
                         break;
+                    case LickquidatorType.SpeedyBoi:
+                        prefab = speedyBoiLickquidatorPrefab;
+                        break;
                     default:
                         return pool;
                 }
@@ -206,22 +212,6 @@ namespace Gotchi.Lickquidator.Manager
             }
 
             return pool;
-        }
-
-        private void unfreezeLickquidators()
-        {
-            foreach (LickquidatorPresenter lickquidator in ActiveLickquidators)
-            {
-                lickquidator.UnFreeze();
-            }
-        }
-
-        private void freezeLickquidators()
-        {
-            foreach (LickquidatorPresenter lickquidator in ActiveLickquidators)
-            {
-                lickquidator.Freeze();
-            }
         }
         #endregion
     }
