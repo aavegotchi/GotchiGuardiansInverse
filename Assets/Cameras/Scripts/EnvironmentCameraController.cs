@@ -1,4 +1,6 @@
 using Cinemachine;
+using GameMaster;
+using PhaseManager;
 using UnityEngine;
 
 public class EnvironmentCameraController : MonoBehaviour
@@ -30,7 +32,7 @@ public class EnvironmentCameraController : MonoBehaviour
   #endregion
 
   #region Private Variables
-  private bool isEnabled = true;
+  private bool isEnabled = false;
 
   private Vector3 boundsMax = Vector3.positiveInfinity;
   private Vector3 boundsMin = Vector3.negativeInfinity;
@@ -47,6 +49,16 @@ public class EnvironmentCameraController : MonoBehaviour
 
     vCameraTransposer = vCamera.GetCinemachineComponent<CinemachineTransposer>();
     cameraPositionOffset = vCameraTransposer.m_FollowOffset;
+  }
+
+  private void OnEnable()
+  {
+    GameMasterEvents.PhaseEvents.PhaseChanged += HandlePhaseChanged;
+  }
+
+  private void OnDisable()
+  {
+    GameMasterEvents.PhaseEvents.PhaseChanged -= HandlePhaseChanged;
   }
 
   private void Update()
@@ -88,6 +100,11 @@ public class EnvironmentCameraController : MonoBehaviour
 
     boundsMax = boundsRenderer.bounds.max + boundsBufferVector;
     boundsMin = boundsRenderer.bounds.min - boundsBufferVector;
+  }
+
+  private void HandlePhaseChanged(Phase phase)
+  {
+    isEnabled = phase == Phase.Prep || phase == Phase.Survival;
   }
 
   private void HandleMovement()
