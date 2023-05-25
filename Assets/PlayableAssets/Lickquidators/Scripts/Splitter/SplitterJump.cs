@@ -1,8 +1,10 @@
+using Gotchi.Lickquidator.Manager;
+using Gotchi.Lickquidator.Splitter.Presenter;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SplitterTest : MonoBehaviour
+public class SplitterJump : MonoBehaviour
 {
     #region Events
     // Event declarations go here, if any
@@ -13,6 +15,7 @@ public class SplitterTest : MonoBehaviour
     #endregion
 
     #region Fields
+    [SerializeField] LickquidatorPresenter_Splitter _splitter;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float maxHeight = 10f;
     [SerializeField] private float rotationSpeed = 2f;
@@ -24,15 +27,15 @@ public class SplitterTest : MonoBehaviour
 
     #region Private Variables
     private Vector3 nextTarget;
-    private SplitterController splitterController;
     private const float TargetThreshold = .2f;
+
+    private LickquidatorManager lickquidatorManager;
     #endregion
 
     #region Unity Functions
     private void Awake()
     {
-        splitterController = FindObjectOfType<SplitterController>();
-        Debug.Log("SplitterController found: " + (splitterController != null));
+        lickquidatorManager = LickquidatorManager.Instance;
     }
 
     private void Start()
@@ -40,6 +43,11 @@ public class SplitterTest : MonoBehaviour
         nextTarget = FindPointOnNavMesh(transform.position, initialSearchRadius, minJumpDistance);
         Debug.Log("Next target found on NavMesh: " + nextTarget);
         MoveToPoint();
+    }
+
+    private void OnEnable()
+    {
+        // targetTransform = // assign to current player
     }
     #endregion
 
@@ -102,12 +110,17 @@ public class SplitterTest : MonoBehaviour
         // Ensure the final position is exactly the target position.
         transform.position = target;
         Debug.Log("Reached target: " + transform.position);
-        TriggerEndEvent();
+        DeactivateOldSplitterAndEnableNewOne();
     }
 
-    void TriggerEndEvent()
+    void DeactivateOldSplitterAndEnableNewOne()
     {
-        splitterController.ObjectLanded();
+        Debug.Log("DeactivateOldSplitterAndEnableNewOne");
+        //spawn splitter (no secondary spawn)
+        lickquidatorManager.SpawnSplitterAtPosition(this.transform.position, this.transform.rotation, false);
+        _splitter.DeactivateSplitterAfterJump();
+        // reset
+
     }
 
     private Vector3 FindPointOnNavMesh(Vector3 start, float searchRadius, float minDistance = 1f, float maxSearchRadius = 100f)

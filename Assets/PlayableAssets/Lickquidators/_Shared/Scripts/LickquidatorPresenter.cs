@@ -30,7 +30,7 @@ namespace Gotchi.Lickquidator.Presenter
 
         #region Private Variables
         private HealthBar_UI healthBar = null;
-        private NavMeshAgent agent = null;
+        protected NavMeshAgent agent = null;
         private Transform inRangeTargetTransform = null;
         private GotchiPresenter inRangeTarget = null;
         protected Rigidbody rigidBody = null;

@@ -4,6 +4,7 @@ using UnityEngine;
 using Gotchi.Events;
 using Gotchi.Lickquidator.Presenter;
 using Gotchi.Lickquidator.Model;
+using Gotchi.Lickquidator.Splitter.Presenter;
 
 namespace Gotchi.Lickquidator.Manager
 {
@@ -19,18 +20,19 @@ namespace Gotchi.Lickquidator.Manager
             AerialLickquidator,
             BossLickquidator,
             SpeedyBoi,
+            Splitter
         }
 
         // TODO: this can be optimized
         public List<LickquidatorPresenter> ActiveLickquidators
         {
-            get 
-            { 
+            get
+            {
                 return GameObject
                     .FindGameObjectsWithTag("Enemy") // TODO: temporary for now
                     .Where(lickquidatorObj => lickquidatorObj.activeSelf)
                     .Select(lickquidatorObj => lickquidatorObj.GetComponent<LickquidatorPresenter>())
-                    .ToList(); 
+                    .ToList();
             }
         }
         #endregion
@@ -41,12 +43,15 @@ namespace Gotchi.Lickquidator.Manager
         [SerializeField] private GameObject aerialLickquidatorPrefab = null;
         [SerializeField] private GameObject bossLickquidatorPrefab = null;
         [SerializeField] private GameObject speedyBoiLickquidatorPrefab = null;
+        [SerializeField] private GameObject splitterLickquidatorPrefab = null;
+
 
         [Header("Attributes")]
         [SerializeField] private int pawnLickquidatorPoolSize = 5;
         [SerializeField] private int aerialLickquidatorPoolSize = 5;
         [SerializeField] private int bossLickquidatorPoolSize = 5;
         [SerializeField] private int speedyBoiLickquidatorPoolSize = 5;
+        [SerializeField] private int splitterLickquidatorPoolSize = 5;
         #endregion
 
         #region Private Variables
@@ -55,6 +60,7 @@ namespace Gotchi.Lickquidator.Manager
         private List<GameObject> aerialLickquidatorPool = new List<GameObject>();
         private List<GameObject> bossLickquidatorPool = new List<GameObject>();
         private List<GameObject> speedyBoiLickquidatorPool = new List<GameObject>();
+        private List<GameObject> splitterLickquidatorPool = new List<GameObject>();
         private Dictionary<GameObject, LickquidatorPresenter> lickquidatorLookup = new Dictionary<GameObject, LickquidatorPresenter>();
         #endregion
 
@@ -77,11 +83,13 @@ namespace Gotchi.Lickquidator.Manager
             aerialLickquidatorPool = createPool(aerialLickquidatorPrefab, aerialLickquidatorPoolSize);
             bossLickquidatorPool = createPool(bossLickquidatorPrefab, bossLickquidatorPoolSize);
             speedyBoiLickquidatorPool = createPool(speedyBoiLickquidatorPrefab, speedyBoiLickquidatorPoolSize);
+            splitterLickquidatorPool = createPool(splitterLickquidatorPrefab, splitterLickquidatorPoolSize);
 
             combinedPool.AddRange(pawnLickquidatorPool);
             combinedPool.AddRange(aerialLickquidatorPool);
             combinedPool.AddRange(bossLickquidatorPool);
             combinedPool.AddRange(speedyBoiLickquidatorPool);
+            combinedPool.AddRange(splitterLickquidatorPool);
 
             initializeLookup();
         }
@@ -142,6 +150,31 @@ namespace Gotchi.Lickquidator.Manager
             }
         }
 
+
+        private void spawnSplitterAtPosition(Vector3 position, Quaternion rotation, bool canSplitNextSpawn)
+        {
+            Debug.Log("SpawnSplitterAtPosition");
+            List<GameObject> pool = getPool(LickquidatorType.Splitter);
+
+            foreach (GameObject lickquidatorObj in pool)
+            {
+                if (lickquidatorObj.activeSelf) continue;
+
+                LickquidatorModel lickquidatorModel = lickquidatorObj.GetComponent<LickquidatorModel>();
+                lickquidatorObj.transform.position = position;
+                lickquidatorObj.transform.rotation = rotation;
+                lickquidatorObj.SetActive(true);
+
+                LickquidatorPresenter lickquidator = GetByObject(lickquidatorObj);
+                lickquidator.AssignHealthBar();
+
+
+                lickquidator.GetComponent<LickquidatorPresenter_Splitter>().SetCanSplitOnDeath(canSplitNextSpawn);
+
+                return;
+            }
+        }
+
         private void initializeLookup()
         {
             foreach (GameObject lickquidatorObj in combinedPool)
@@ -182,6 +215,9 @@ namespace Gotchi.Lickquidator.Manager
                 case LickquidatorType.SpeedyBoi:
                     pool = speedyBoiLickquidatorPool;
                     break;
+                case LickquidatorType.Splitter:
+                    pool = splitterLickquidatorPool;
+                    break;
             }
 
             if (pool.All(lickquidator => lickquidator.activeSelf))
@@ -201,6 +237,9 @@ namespace Gotchi.Lickquidator.Manager
                     case LickquidatorType.SpeedyBoi:
                         prefab = speedyBoiLickquidatorPrefab;
                         break;
+                    case LickquidatorType.Splitter:
+                        prefab = splitterLickquidatorPrefab;
+                        break;
                     default:
                         return pool;
                 }
@@ -212,6 +251,13 @@ namespace Gotchi.Lickquidator.Manager
             }
 
             return pool;
+        }
+        #endregion
+
+        #region Public Functions
+        public void SpawnSplitterAtPosition(Vector3 position, Quaternion rotation, bool canSplitNextSpawn)
+        {
+            spawnSplitterAtPosition(position, rotation, canSplitNextSpawn);
         }
         #endregion
     }
