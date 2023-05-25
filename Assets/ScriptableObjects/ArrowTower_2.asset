@@ -18,7 +18,7 @@ MonoBehaviour:
   buildTime: 3
   Health: 300
   AttackRange: 30
-  AttackCountdown: 3
+  AttackCountdown: 2
   AttackDamageMultiplier: 1
   AttackRotationSpeed: 6
   deathEffectType: 2
