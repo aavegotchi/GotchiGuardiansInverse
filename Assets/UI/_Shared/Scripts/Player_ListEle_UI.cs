@@ -1,11 +1,22 @@
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
+using Cinemachine;
 using DG.Tweening;
+using GameMaster;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class Player_ListEle_UI : MonoBehaviour
 {
+    #region Public Variables
+    public int PlayerId { get { return playerId; } }
+    public CinemachineVirtualCamera VCamera { get { return vCamera; } }
+    #endregion
+
     #region fields
+    [Header("Camera")]
+    [SerializeField] private CinemachineVirtualCamera vCamera = null;
+
     [Header("Sub Objects")]
     [SerializeField] private TextMeshProUGUI playerNameLabel = null;
     [SerializeField] private Image bankImg = null;
@@ -24,7 +35,7 @@ public class Player_ListEle_UI : MonoBehaviour
     [SerializeField] private Sprite deadBackgroundSprite;
 
     [Header("HP")]
-    [SerializeField] private int maxHP = 1000;
+    [SerializeField] private int maxHP = 250;
     [SerializeField] private float animTimePerHpAmount = 0.005f;
     [SerializeField] private int editorTargetHP;
 
@@ -38,6 +49,8 @@ public class Player_ListEle_UI : MonoBehaviour
     #endregion
 
     #region private variables
+    private int playerId = -1;
+
     // HP
     private int currentRenderedHP;
     private int lastAppliedTargetHp;
@@ -68,7 +81,7 @@ public class Player_ListEle_UI : MonoBehaviour
         currentRenderedHP = maxHP;
         editorTargetHP = maxHP;
         lastAppliedTargetHp = maxHP;
-        hpLabel.SetText(currentRenderedHP.ToString());
+        hpLabel.SetText(maxHP.ToString());
 
         currentBankAmt = editorBankAmt;
         lastAppliedBankAmt = editorBankAmt;
@@ -86,10 +99,6 @@ public class Player_ListEle_UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lastAppliedTargetHp != editorTargetHP) {
-            UpdateHp(editorTargetHP);
-        }
-
         if (lastAppliedBankAmt != editorBankAmt) {
             UpdateBank(editorBankAmt);
         }
@@ -98,9 +107,36 @@ public class Player_ListEle_UI : MonoBehaviour
             UpdateIncomeAmt(editorIncomeAmt);
         }
     }
+
+    public void Click()
+    {
+        List<Player_ListEle_UI> playerElements = UserInterfaceManager.Instance.PlayersListUI.playerElements;
+        foreach(Player_ListEle_UI ele in playerElements)
+        {
+            if (ele.PlayerId == playerId) {
+                ele.VCamera.gameObject.SetActive(true);
+            } else {
+                ele.VCamera.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    void OnEnable()
+    {
+        GameMasterEvents.GotchiEvents.GotchiDamaged += HandleGotchiDamage;
+    }
+
+    void OnDisable() 
+    {
+        GameMasterEvents.GotchiEvents.GotchiDamaged -= HandleGotchiDamage;
+    }
     #endregion
 
     #region public functions
+    public void SetPlayerId(int id) 
+    {
+        playerId = id;
+    }
     public void SetPlayerName(string playerName)
     {
         playerNameLabel.SetText(playerName);
@@ -184,6 +220,14 @@ public class Player_ListEle_UI : MonoBehaviour
         }
 
         incomeTweener = DOTween.To(() => currentIncomeAmt, (x) => { currentIncomeAmt = x; incomeLabel.SetText(currentIncomeAmt.ToString()); }, lastAppliedIncomeAmt, 0.5f);
+    }
+
+    public void HandleGotchiDamage(int id, int damage)
+    {
+        if (id == playerId)
+        {
+            UpdateHp(lastAppliedTargetHp - damage);
+        }
     }
     #endregion
 }

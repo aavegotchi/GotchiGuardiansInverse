@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Fusion;
 using Fusion.Sockets;
@@ -27,6 +28,14 @@ namespace Gotchi.Network
             if (runner.IsServer)
             {
                 Debug.Log("We are server, spawning player");
+
+                int botCount = GotchiManager.Instance.Bots.Count;
+                if (botCount > 0) {
+                    GotchiManager.Instance.RemoveBot();
+                } else {
+                    GotchiManager.Instance.SpawnBots(8 - runner.ActivePlayers.Count());
+                }
+
                 runner.Spawn(
                     GotchiManager.Instance.GotchiPrefab.GetComponent<GotchiPresenter>(),
                     GotchiManager.Instance.Spawn.position,

@@ -1,14 +1,15 @@
-using System.Collections;
 using System;
 using UnityEngine;
-using UnityEngine.UI;
+using GameMaster;
 using Gotchi.Network;
 using Gotchi.Lickquidator.Manager;
 using Fusion;
 
 namespace PhaseManager
-{    public enum Phase
+{
+    public enum Phase
     {
+        Intro,
         None,
         Prep,
         Survival,
@@ -24,6 +25,9 @@ namespace PhaseManager
             [Header("Attributes")]
             [SerializeField] private GeneralSO generalSO = null;
             public GeneralSO GeneralSO { get { return generalSO; } }
+
+            [SerializeField] private string introPhaseText = "Welcome to Gotchi Guardians. The first prep phase will begin soon! (Intro Phase)";
+            public string IntroPhaseText { get { return introPhaseText; } }
 
             [SerializeField] private string prepPhaseText = "Prep Phase Starting...";
             public string PrepPhaseText { get { return prepPhaseText; } }
@@ -42,19 +46,25 @@ namespace PhaseManager
 
             [SerializeField] private int numSecondsOnNonRewardsScreen = 2;
             public int NumSecondsOnNonRewardsScreen { get { return numSecondsOnNonRewardsScreen; } }
+            
+            [SerializeField] private int numSecondsUIFadeOut = 1;
+            public int NumSecondsUIFadeOut { get { return numSecondsUIFadeOut; } }
             #endregion
 
             #region Events
-            public event Action OnCurrentPhaseUpdated = delegate {};
-            public event Action OnIsTransitioningUpdated = delegate {};
+            public event Action<Phase> OnCurrentPhaseUpdated = delegate {};
+            public event Action<Phase> OnNextPhaseUpdated = delegate {};
             public event Action OnCountdownValueUpdated = delegate {};
+            #endregion
+
+            #region Public Variables
+            public Phase CurrentPhase { get { return currentPhase; } }
+            public Phase NextPhase { get { return nextPhase; } }
             #endregion
 
             #region Private Variables
             private Phase currentPhase = Phase.None;
-            public Phase CurrentPhase { get { return currentPhase; } }
-            private bool isTransitioning = false;
-            public bool IsTransitioning { get { return isTransitioning; } }
+            private Phase nextPhase = Phase.None;
 
             [Networked(OnChanged = nameof(OnSetCountdown))] 
             public float CountdownTracker { get; set; } = 0f;
@@ -65,8 +75,12 @@ namespace PhaseManager
             {
                 if (!Object.HasStateAuthority) return;
 
-                if (isTransitioning || currentPhase == Phase.Transitioning || currentPhase == Phase.None) return;
+                if (nextPhase != Phase.None || currentPhase == Phase.Transitioning || currentPhase == Phase.None) return;
 
+                if (currentPhase == Phase.Intro)
+                {
+                    SetNextPhase(Phase.Prep);
+                }
                 if (currentPhase == Phase.Prep)
                 {
                     TrackPhaseCountdown();
@@ -75,6 +89,16 @@ namespace PhaseManager
                 {
                     HandleEndSurvivalPhase();
                 }
+            }
+
+            void OnEnable() 
+            {
+                GameMasterEvents.GotchiEvents.GotchiDied += HandleGotchiDied;
+            }
+
+            void OnDisable() 
+            {
+                GameMasterEvents.GotchiEvents.GotchiDied -= HandleGotchiDied;
             }
             #endregion
 
@@ -85,15 +109,15 @@ namespace PhaseManager
             {
                 currentPhase = phase;
 
-                OnCurrentPhaseUpdated();
+                OnCurrentPhaseUpdated(phase);
             }
 
 
-            public void SetIsTransitioning(bool isTransitioning)
+            public void SetNextPhase(Phase nextPhase)
             {
-                this.isTransitioning = isTransitioning;
+                this.nextPhase = nextPhase;
 
-                OnIsTransitioningUpdated();
+                OnNextPhaseUpdated(nextPhase);
             }
 
             public void TrackPhaseCountdown()
@@ -111,17 +135,17 @@ namespace PhaseManager
             {
                 if (LickquidatorManager.Instance.ActiveLickquidators.Count == 0 && !NetworkManager.Instance.LocalPlayerGotchi.IsDead())
                 {
-                    rpc_startNextPhase();
+                    rpc_startNextPhase(Phase.Prep);
                 }
             }
             #endregion
 
             #region Network Functions
             [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-            private void rpc_startNextPhase()
+            private void rpc_startNextPhase(Phase phase)
             {
                 print("Next Phase RPC called");
-                SetIsTransitioning(true);
+                SetNextPhase(phase);
             }
 
             [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
@@ -135,13 +159,25 @@ namespace PhaseManager
                 OnCountdownValueUpdated();
                 if (CountdownTracker <= 0f)
                 {
-                    rpc_startNextPhase();
+                    rpc_startNextPhase(Phase.Survival);
                 }
             }
 
             public static void OnSetCountdown(Changed<PhaseModel> changed)
             {
                 changed.Behaviour.onCountdownUpdated();
+            }
+            #endregion
+
+            #region Private Functions
+            public void HandleGotchiDied(int gotchiId)
+            {
+                if (gotchiId == NetworkManager.Instance.LocalPlayerGotchi.gameObject.GetInstanceID())
+                {
+                    SetNextPhase(Phase.Defeat);
+                } else if (GotchiManager.Instance.GetLiveGotchiCount() == 1 && GotchiManager.Instance.GetLiveBotCount() == 0) {
+                    SetNextPhase(Phase.Victory);
+                }
             }
             #endregion
         }

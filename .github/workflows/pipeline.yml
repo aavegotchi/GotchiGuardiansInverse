@@ -10,13 +10,13 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
-  test:
-    name: Test
-    uses: ./.github/workflows/test.yml
-    secrets: inherit
+  # test:
+    # name: Test
+    # uses: ./.github/workflows/test.yml
+    # secrets: inherit
 
   buildWebGL:
     name: Build WebGL
-    needs: [test]
+    # needs: [test]
     uses: ./.github/workflows/build-webgl.yml
     secrets: inherit

@@ -1,239 +1,310 @@
+using System.Collections;
 using Cinemachine;
 using UnityEngine;
 
-public class EnvironmentCameraController : MonoBehaviour
+namespace Gotchi.EnvironmentCamera
 {
-  #region Fields
-  [Header("Required Refs")]
-  [SerializeField] private GameObject bounds = null;
-  [SerializeField] private CinemachineVirtualCamera vCamera = null;
-
-  [Header("Attributes")]
-  [SerializeField] private bool isKeyboardMovementEnabled = true;
-  [SerializeField] private float keyboardMovementSpeed = 150f;
-
-  [SerializeField] private bool isEdgeScrollMovementEnabled = true;
-  [SerializeField] private float edgeScrollMovementBuffer = 50f;
-  [SerializeField] private float edgeScrollMovementSpeedMax = 150f;
-  [SerializeField] private float edgeScrollMovementSpeedMin = 25f;
-
-  [SerializeField] private float movementBuffer = 0f;
-
-  [SerializeField] private bool isMouseZoomEnabled = true;
-  [SerializeField] private float mouseZoomAmount = 50f;
-  [SerializeField] private float mouseZoomSpeed = 5f;
-
-  [SerializeField] private float zoomDistanceMax = 300f;
-  [SerializeField] private float zoomDistanceMin = 125f;
-  [SerializeField] private float zoomAngleMax = 65f;
-  [SerializeField] private float zoomAngleMin = 80f;
-  #endregion
-
-  #region Private Variables
-  private bool isEnabled = true;
-
-  private Vector3 boundsMax = Vector3.positiveInfinity;
-  private Vector3 boundsMin = Vector3.negativeInfinity;
-
-  private CinemachineTransposer vCameraTransposer = null;
-
-  private Vector3 cameraPositionOffset = Vector3.zero;
-  #endregion
-
-  #region Unity Functions
-  private void Awake()
+  public class EnvironmentCameraController : MonoBehaviour
   {
-    SetBounds();
+    #region Fields
+    [SerializeField] private EnvironmentCameraModel model = null;
+    #endregion
 
-    vCameraTransposer = vCamera.GetCinemachineComponent<CinemachineTransposer>();
-    cameraPositionOffset = vCameraTransposer.m_FollowOffset;
-  }
+    #region Private Variables
+    private Camera mainCamera = null;
+    private CinemachineTransposer vCameraTransposer = null;
+    private Vector3 boundsMax = Vector3.positiveInfinity;
+    private Vector3 boundsMin = Vector3.negativeInfinity;
+    private Vector3 cameraPositionOffset = Vector3.zero;
+    private float zoomTime = 0f;
+    private Vector3 defaultCameraPosition = Vector3.zero;
+    private Vector3 defaultCameraPositionOffset = Vector3.zero;
+    #endregion
 
-  private void Update()
-  {
-    if (isEnabled)
+    #region Unity Functions
+    void Awake()
     {
-      HandleMovement();
-      HandleZoom();
+      setBounds();
+
+      mainCamera = Camera.main;
+      defaultCameraPosition = transform.position;
+      vCameraTransposer = model.VCamera.GetCinemachineComponent<CinemachineTransposer>();
+      cameraPositionOffset = vCameraTransposer.m_FollowOffset;
     }
-  }
-  #endregion
 
-  #region Private Functions
-  private void SetBounds()
-  {
-    Renderer boundsRenderer = bounds.GetComponent<Renderer>();
-
-    if (boundsRenderer == null)
+    void OnEnable()
     {
-      Renderer[] childRenderers = bounds.GetComponentsInChildren<Renderer>();
+      model.OnIsZoomingUpdated += handleOnIsZoomingUpdated;
+    }
 
-      if (childRenderers.Length > 0)
+    void OnDisable()
+    {
+      model.OnIsZoomingUpdated -= handleOnIsZoomingUpdated;
+    }
+
+    void Update()
+    {
+      if (!model.IsEnabled) return;
+
+      Vector3 movementInputDirection = getMovementInput();
+      if (movementInputDirection != Vector3.zero)
       {
-        boundsRenderer = childRenderers[0];
+        handleMovementInput(movementInputDirection);
+      }
 
-        for (int i = 1; i < childRenderers.Length; i++)
+      if (!model.IsZooming)
+      {
+        handleZoomInput();
+      }
+    }
+    #endregion
+
+    #region Public Functions
+    public void Reset()
+    {
+      vCameraTransposer.m_FollowOffset = new Vector3(0f, 199.17f, -167.12f); // Hardcoded from zoom calculation
+      transform.position = defaultCameraPosition;
+    }
+    #endregion
+
+    #region Event Handlers
+    private void handleOnIsZoomingUpdated()
+    { 
+      if (model.MouseScrollDeltaY == 0) return;
+
+      StartCoroutine(zoomAndMoveCamera());
+    }
+    #endregion
+
+    #region Private Functions
+    private void setBounds()
+    {
+      Renderer boundsRenderer = model.Bounds.GetComponent<Renderer>();
+
+      if (boundsRenderer == null)
+      {
+        Renderer[] childRenderers = model.Bounds.GetComponentsInChildren<Renderer>();
+
+        if (childRenderers.Length > 0)
         {
-          boundsRenderer.bounds.Encapsulate(childRenderers[i].bounds);
+          boundsRenderer = childRenderers[0];
+
+          for (int i = 1; i < childRenderers.Length; i++)
+          {
+            boundsRenderer.bounds.Encapsulate(childRenderers[i].bounds);
+          }
         }
       }
+
+      if (boundsRenderer == null)
+      {
+        return;
+      }
+
+      Vector3 boundsBufferVector = new Vector3(model.MovementBuffer, model.MovementBuffer, model.MovementBuffer);
+
+      boundsMax = boundsRenderer.bounds.max + boundsBufferVector;
+      boundsMin = boundsRenderer.bounds.min - boundsBufferVector;
     }
 
-    if (boundsRenderer == null)
+    private Vector3 getMovementInput()
     {
-      return;
-    }
+      Vector3 movementInputDirection = new Vector3(0, 0, 0);
 
-    Vector3 boundsBufferVector = new Vector3(movementBuffer, movementBuffer, movementBuffer);
-
-    boundsMax = boundsRenderer.bounds.max + boundsBufferVector;
-    boundsMin = boundsRenderer.bounds.min - boundsBufferVector;
-  }
-
-  private void HandleMovement()
-  {
-    Vector3 movementInputDirection = new Vector3(0, 0, 0);
-
-    // Keyboard movement
-    if (isKeyboardMovementEnabled)
-    {
-      // Up
-      if (Input.GetKey(KeyCode.W))
-      {
-        movementInputDirection.z += keyboardMovementSpeed;
-      }
-
-      // Down
-      if (Input.GetKey(KeyCode.S))
-      {
-        movementInputDirection.z -= keyboardMovementSpeed;
-      }
-
-      // Left
-      if (Input.GetKey(KeyCode.A))
-      {
-        movementInputDirection.x -= keyboardMovementSpeed;
-      }
-
-      // Right
-      if (Input.GetKey(KeyCode.D))
-      {
-        movementInputDirection.x += keyboardMovementSpeed;
-      }
-    }
-
-    // Edge scrolling movement
-    if (isEdgeScrollMovementEnabled)
-    {
-      Vector3 mouseViewportPoint = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-
-      bool isMouseOnScreen = !(
-        mouseViewportPoint.x < 0 ||
-        mouseViewportPoint.x > 1 ||
-        mouseViewportPoint.y < 0 ||
-        mouseViewportPoint.y > 1
-      );
-
-      if (isMouseOnScreen)
+      // Keyboard movement
+      if (model.IsKeyboardMovementEnabled)
       {
         // Up
-        float upBreakpoint = Screen.height - edgeScrollMovementBuffer;
-        if (Input.mousePosition.y >= upBreakpoint)
+        if (Input.GetKey(KeyCode.W))
         {
-          float movementSpeedStrength = (Input.mousePosition.y - upBreakpoint) / edgeScrollMovementBuffer;
-          movementInputDirection.z += GetEdgeScrollMovementSpeed(movementSpeedStrength);
+          movementInputDirection.z += model.KeyboardMovementSpeed;
         }
 
         // Down
-        float downBreakpoint = edgeScrollMovementBuffer;
-        if (Input.mousePosition.y <= downBreakpoint)
+        if (Input.GetKey(KeyCode.S))
         {
-          float movementSpeedStrength = (downBreakpoint - Input.mousePosition.y) / edgeScrollMovementBuffer;
-          movementInputDirection.z -= GetEdgeScrollMovementSpeed(movementSpeedStrength);
+          movementInputDirection.z -= model.KeyboardMovementSpeed;
         }
 
         // Left
-        float leftBreakpoint = edgeScrollMovementBuffer;
-        if (Input.mousePosition.x <= leftBreakpoint)
+        if (Input.GetKey(KeyCode.A))
         {
-          float movementSpeedStrength = (leftBreakpoint - Input.mousePosition.x) / edgeScrollMovementBuffer;
-          movementInputDirection.x -= GetEdgeScrollMovementSpeed(movementSpeedStrength);
+          movementInputDirection.x -= model.KeyboardMovementSpeed;
         }
 
         // Right
-        float rightBreakpoint = Screen.width - edgeScrollMovementBuffer;
-        if (Input.mousePosition.x >= rightBreakpoint)
+        if (Input.GetKey(KeyCode.D))
         {
-          float movementSpeedStrength = (Input.mousePosition.x - rightBreakpoint) / edgeScrollMovementBuffer;
-          movementInputDirection.x += GetEdgeScrollMovementSpeed(movementSpeedStrength);
+          movementInputDirection.x += model.KeyboardMovementSpeed;
         }
       }
-    }
 
-    // Clamp movement speed
-    float movementSpeedMax = Mathf.Max(keyboardMovementSpeed, edgeScrollMovementSpeedMax);
-    movementInputDirection.z = Mathf.Clamp(movementInputDirection.z, -movementSpeedMax, movementSpeedMax);
-    movementInputDirection.x = Mathf.Clamp(movementInputDirection.x, -movementSpeedMax, movementSpeedMax);
-
-    Vector3 movementDirection = transform.forward * movementInputDirection.z + transform.right * movementInputDirection.x;
-
-    Vector3 newPosition = transform.position + (Time.deltaTime * movementDirection);
-
-    newPosition = new Vector3(
-      Mathf.Clamp(newPosition.x, boundsMin.x, boundsMax.x),
-      transform.position.y,
-      Mathf.Clamp(newPosition.z, boundsMin.z, boundsMax.z)
-    );
-
-    transform.position = newPosition;
-  }
-
-  private float GetEdgeScrollMovementSpeed(float movementSpeedStrength)
-  {
-    return (edgeScrollMovementSpeedMax - edgeScrollMovementSpeedMin) * movementSpeedStrength + edgeScrollMovementSpeedMin;
-  }
-
-  private void HandleZoom()
-  {
-    Vector3 cameraDirection = cameraPositionOffset.normalized;
-
-    if (isMouseZoomEnabled)
-    {
-      if (Input.mouseScrollDelta.y > 0)
+      // Edge scrolling movement
+      if (model.IsEdgeScrollMovementEnabled)
       {
-        // In
-        cameraPositionOffset -= cameraDirection * mouseZoomAmount;
+        Vector3 mouseViewportPoint = mainCamera.ScreenToViewportPoint(Input.mousePosition);
+
+        bool isMouseOnScreen = !(
+          mouseViewportPoint.x < 0 ||
+          mouseViewportPoint.x > 1 ||
+          mouseViewportPoint.y < 0 ||
+          mouseViewportPoint.y > 1
+        );
+
+        if (isMouseOnScreen)
+        {
+          float mousePositionX = Input.mousePosition.x;
+          float mousePositionY = Input.mousePosition.y;
+
+          // Up
+          float upBreakpoint = Screen.height - model.EdgeScrollMovementBuffer;
+          if (mousePositionY >= upBreakpoint)
+          {
+            float movementSpeedStrength = (mousePositionY - upBreakpoint) / model.EdgeScrollMovementBuffer;
+            movementInputDirection.z += getEdgeScrollMovementSpeed(movementSpeedStrength);
+          }
+
+          // Down
+          float downBreakpoint = model.EdgeScrollMovementBuffer;
+          if (mousePositionY <= downBreakpoint)
+          {
+            float movementSpeedStrength = (downBreakpoint - mousePositionY) / model.EdgeScrollMovementBuffer;
+            movementInputDirection.z -= getEdgeScrollMovementSpeed(movementSpeedStrength);
+          }
+
+          // Left
+          float leftBreakpoint = model.EdgeScrollMovementBuffer;
+          if (mousePositionX <= leftBreakpoint)
+          {
+            float movementSpeedStrength = (leftBreakpoint - mousePositionX) / model.EdgeScrollMovementBuffer;
+            movementInputDirection.x -= getEdgeScrollMovementSpeed(movementSpeedStrength);
+          }
+
+          // Right
+          float rightBreakpoint = Screen.width - model.EdgeScrollMovementBuffer;
+          if (mousePositionX >= rightBreakpoint)
+          {
+            float movementSpeedStrength = (mousePositionX - rightBreakpoint) / model.EdgeScrollMovementBuffer;
+            movementInputDirection.x += getEdgeScrollMovementSpeed(movementSpeedStrength);
+          }
+        }
       }
-      if (Input.mouseScrollDelta.y < 0)
+
+      return movementInputDirection;
+    }
+    
+    private void handleMovementInput(Vector3 movementInputDirection)
+    {
+      // Clamp movement speed
+      float movementSpeedMax = Mathf.Max(model.KeyboardMovementSpeed, model.EdgeScrollMovementSpeedMax);
+      movementInputDirection.z = Mathf.Clamp(movementInputDirection.z, -movementSpeedMax, movementSpeedMax);
+      movementInputDirection.x = Mathf.Clamp(movementInputDirection.x, -movementSpeedMax, movementSpeedMax);
+
+      Vector3 movementDirection = transform.forward * movementInputDirection.z + transform.right * movementInputDirection.x;
+      Vector3 newPosition = transform.position + (Time.deltaTime * movementDirection);
+
+      newPosition = new Vector3(
+        Mathf.Clamp(newPosition.x, boundsMin.x, boundsMax.x),
+        transform.position.y,
+        Mathf.Clamp(newPosition.z, boundsMin.z, boundsMax.z)
+      );
+
+      transform.position = newPosition;
+    }
+
+    private float getEdgeScrollMovementSpeed(float movementSpeedStrength)
+    {
+      return (model.EdgeScrollMovementSpeedMax - model.EdgeScrollMovementSpeedMin) * movementSpeedStrength + model.EdgeScrollMovementSpeedMin;
+    }
+
+    private void handleZoomInput()
+    {
+      if (model.IsMouseZoomEnabled)
       {
-        // Out
-        cameraPositionOffset += cameraDirection * mouseZoomAmount;
+        float mouseScrollDeltaY = Input.mouseScrollDelta.y;
+        model.UpdateIsZooming(mouseScrollDeltaY);
       }
     }
 
-    // Clamp zoom distance
-    if (cameraPositionOffset.magnitude > zoomDistanceMax)
+    private Vector3 getMousePosition()
     {
-      cameraPositionOffset = cameraDirection * zoomDistanceMax;
+      Vector3 mousePosition = Vector3.zero;
+      Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+      RaycastHit hit;
+      if (Physics.Raycast(ray, out hit))
+      {
+        mousePosition = hit.point;
+      }
+      return mousePosition;
     }
-    if (cameraPositionOffset.magnitude < zoomDistanceMin)
+
+    private IEnumerator zoomAndMoveCamera()
     {
-      cameraPositionOffset = cameraDirection * zoomDistanceMin;
+      // Zoom original position
+      Vector3 origCameraPositionOffset = vCameraTransposer.m_FollowOffset;
+      Vector3 origCameraPosition = transform.position;
+      Vector3 newCameraPosition = defaultCameraPosition;
+      if (model.MouseScrollDeltaY > 0)
+      {
+        newCameraPosition = getMousePosition();
+        newCameraPosition.y = transform.position.y;
+      }
+
+      while (zoomTime < model.MouseZoomDuration)
+      {
+        Vector3 cameraDirection = cameraPositionOffset.normalized;
+
+        if (model.MouseScrollDeltaY > 0)
+        {
+          // In
+          cameraPositionOffset -= cameraDirection * model.MouseZoomAmount;
+        }
+        if (model.MouseScrollDeltaY < 0)
+        {
+          // Out
+          cameraPositionOffset += cameraDirection * model.MouseZoomAmount;
+        }
+
+        // Clamp zoom distance
+        if (cameraPositionOffset.magnitude > model.ZoomDistanceMax)
+        {
+          cameraPositionOffset = cameraDirection * model.ZoomDistanceMax;
+        }
+        if (cameraPositionOffset.magnitude < model.ZoomDistanceMin)
+        {
+          cameraPositionOffset = cameraDirection * model.ZoomDistanceMin;
+        }
+
+        // Change angle based on zoom level
+        float currentZoomPercent = (cameraPositionOffset.magnitude - model.ZoomDistanceMin) / (model.ZoomDistanceMax - model.ZoomDistanceMin);
+        float newCameraAngle = (model.ZoomAngleMax - model.ZoomAngleMin) * currentZoomPercent + model.ZoomAngleMin;
+
+        Vector3 newCameraPositionOffset = Quaternion.Euler(newCameraAngle, 0, 0) * -transform.forward * cameraPositionOffset.magnitude;
+
+        newCameraPositionOffset = Vector3.Lerp(
+          origCameraPositionOffset,
+          newCameraPositionOffset,
+          zoomTime / model.MouseZoomDuration
+        );
+        vCameraTransposer.m_FollowOffset = newCameraPositionOffset;
+
+        Debug.Log("-----newCameraPositionOffset: " + newCameraPositionOffset.ToString());
+
+        // Move camera to either mouse point or default
+        transform.position = Vector3.Lerp(
+          origCameraPosition,
+          newCameraPosition,
+          zoomTime / model.MouseZoomDuration
+        );
+
+        zoomTime += Time.deltaTime;
+
+        yield return null;
+      }
+
+      zoomTime = 0f;
+      model.UpdateIsZooming(0f);
     }
-
-    // Change angle based on zoom level
-    float currentZoomPercent = (cameraPositionOffset.magnitude - zoomDistanceMin) / (zoomDistanceMax - zoomDistanceMin);
-    float newCameraAngle = (zoomAngleMax - zoomAngleMin) * currentZoomPercent + zoomAngleMin;
-
-    Vector3 newCameraPositionOffset = Quaternion.Euler(newCameraAngle, 0, 0) * -transform.forward * cameraPositionOffset.magnitude;
-
-    newCameraPositionOffset = Vector3.Lerp(
-      vCameraTransposer.m_FollowOffset,
-      newCameraPositionOffset,
-      Time.deltaTime * mouseZoomSpeed
-    );
-
-    vCameraTransposer.m_FollowOffset = newCameraPositionOffset;
+    #endregion
   }
-  #endregion
 }
