@@ -100,7 +100,7 @@ public class EnemyQueue_UI : MonoBehaviour
 
     private void setButton(Image buttonImage, Button buttonBtn, LickquidatorManager.LickquidatorType type)
     {
-        if (type == LickquidatorManager.LickquidatorType.PawnLickquidator)
+        if (type == LickquidatorManager.LickquidatorType.SplitterLickquidator)
         {
             buttonImage.sprite = pawnLickquidatorSprite;
         }
@@ -112,7 +112,7 @@ public class EnemyQueue_UI : MonoBehaviour
         {
             buttonImage.sprite = bossLickquidatorSprite;
         }
-        else if (type == LickquidatorManager.LickquidatorType.SpeedyBoi)
+        else if (type == LickquidatorManager.LickquidatorType.SpeedyBoiLickquidator)
         {
             buttonImage.sprite = speedyBoiLickquidatorSprite;
         }

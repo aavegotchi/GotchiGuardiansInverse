@@ -165,7 +165,7 @@ MonoBehaviour:
   rotationSpeed: 120
   initialSearchRadius: 15
   minJumpDistance: 15
-  targetTransform: {fileID: 0}
+  targetJumpPosition: {x: 810, y: 105, z: 570}
   coneAngle: 15
 --- !u!1 &416549344942286558
 GameObject:
@@ -191,7 +191,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 416549344942286558}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 12, z: 0}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -301,7 +301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &478479611304211508
 Transform:
   m_ObjectHideFlags: 0
@@ -311,7 +311,7 @@ Transform:
   m_GameObject: {fileID: 1002110322841857678}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0.5833333, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9003751791077552932}
@@ -390,7 +390,7 @@ MonoBehaviour:
   targetTag: Tower
   attackAnimTrigger: Attack
   rangeIndicatorColor: {r: 1, g: 0, b: 0, a: 1}
-  healthBarOffset: {fileID: 0}
+  healthBarOffset: {fileID: 5576377602392947131}
   isPassive: 0
   isRanged: 1
   moveAnimTrigger: Walk
@@ -411,8 +411,8 @@ MonoBehaviour:
   attackAnimation: {fileID: 0}
   attackParticleSystemObj: {fileID: 0}
   frameReadyInterval: 10
-  lickquidatorVisual: {fileID: 0}
-  splitterJump: {fileID: 0}
+  lickquidatorVisual: {fileID: 6217002928243790276}
+  splitterJump: {fileID: 1468400667}
 --- !u!1 &1606178740278005029
 GameObject:
   m_ObjectHideFlags: 0

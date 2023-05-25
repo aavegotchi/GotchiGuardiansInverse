@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Gotchi.Lickquidator.Presenter;
-using Gotchi.Lickquidator.Splitter.Model;
+using Gotchi.Lickquidator.Model;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Gotchi.Lickquidator.Splitter.Presenter
 {
@@ -47,9 +44,9 @@ namespace Gotchi.Lickquidator.Splitter.Presenter
         private void handleOnHealthUpdated() { 
             if(model.Health < 1)
             {
-                Debug.Log("Split");
                 if(willSplitOnDeath)
                 {
+                    Debug.Log("splitting");
                     TriggerSplit();
                 }
             }
@@ -72,6 +69,11 @@ namespace Gotchi.Lickquidator.Splitter.Presenter
         {
             agent.enabled = true;
             gameObject.SetActive(false);
+        }
+
+        public bool IsGoingToSplitOnDeath()
+        {
+            return willSplitOnDeath;
         }
         #endregion
     }

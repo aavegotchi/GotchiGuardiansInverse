@@ -1,19 +1,12 @@
 using Gotchi.Lickquidator.Manager;
 using Gotchi.Lickquidator.Splitter.Presenter;
+using Gotchi.Network;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SplitterJump : MonoBehaviour
 {
-    #region Events
-    // Event declarations go here, if any
-    #endregion
-
-    #region Public Variables
-    // None
-    #endregion
-
     #region Fields
     [SerializeField] LickquidatorPresenter_Splitter _splitter;
     [SerializeField] private float speed = 5f;
@@ -21,11 +14,14 @@ public class SplitterJump : MonoBehaviour
     [SerializeField] private float rotationSpeed = 2f;
     [SerializeField] private float initialSearchRadius = 10f;
     [SerializeField] private float minJumpDistance = 9f;
-    [SerializeField] private Transform targetTransform;
+   
+    private Transform targetTransform;
+
     [SerializeField] private float coneAngle = 10;
     #endregion
 
     #region Private Variables
+    private Vector3 startingPosition;
     private Vector3 nextTarget;
     private const float TargetThreshold = .2f;
 
@@ -36,33 +32,27 @@ public class SplitterJump : MonoBehaviour
     private void Awake()
     {
         lickquidatorManager = LickquidatorManager.Instance;
+        startingPosition = transform.localPosition;
+        targetTransform = NetworkManager.Instance.LocalPlayerGotchi.transform;
     }
 
     private void Start()
     {
-        nextTarget = FindPointOnNavMesh(transform.position, initialSearchRadius, minJumpDistance);
+        nextTarget = findPointOnNavMesh(transform.position, initialSearchRadius, minJumpDistance);
         Debug.Log("Next target found on NavMesh: " + nextTarget);
         MoveToPoint();
     }
 
-    private void OnEnable()
-    {
-        // targetTransform = // assign to current player
-    }
-    #endregion
-
-    #region Public Functions
-    // Publicly accessible functionality goes here, if any
     #endregion
 
     #region Private Functions
     private void MoveToPoint()
     {
         Debug.Log("Starting movement to point: " + nextTarget);
-        StartCoroutine(MoveToTargetCoroutine(nextTarget));
+        StartCoroutine(moveToTargetCoroutine(nextTarget));
     }
 
-    private IEnumerator MoveToTargetCoroutine(Vector3 target)
+    private IEnumerator moveToTargetCoroutine(Vector3 target)
     {
         Vector3 startPosition = transform.position;
         float distance = Vector3.Distance(startPosition, target);
@@ -109,21 +99,17 @@ public class SplitterJump : MonoBehaviour
 
         // Ensure the final position is exactly the target position.
         transform.position = target;
-        Debug.Log("Reached target: " + transform.position);
-        DeactivateOldSplitterAndEnableNewOne();
+        deactivateOldSplitterAndEnableNewOne();
     }
 
-    void DeactivateOldSplitterAndEnableNewOne()
+    private void deactivateOldSplitterAndEnableNewOne()
     {
-        Debug.Log("DeactivateOldSplitterAndEnableNewOne");
-        //spawn splitter (no secondary spawn)
         lickquidatorManager.SpawnSplitterAtPosition(this.transform.position, this.transform.rotation, false);
+        transform.localPosition = startingPosition;
         _splitter.DeactivateSplitterAfterJump();
-        // reset
-
     }
 
-    private Vector3 FindPointOnNavMesh(Vector3 start, float searchRadius, float minDistance = 1f, float maxSearchRadius = 100f)
+    private Vector3 findPointOnNavMesh(Vector3 start, float searchRadius, float minDistance = 1f, float maxSearchRadius = 100f)
     {
         Vector3 point = Vector3.zero;
         bool pointFound = false;
@@ -150,11 +136,9 @@ public class SplitterJump : MonoBehaviour
                 float t = Random.value;
                 point = Vector3.Lerp(hitMin.position, hitMax.position, t);
                 pointFound = true;
-                Debug.Log("Point found on NavMesh: " + point);
             }
             else
             {
-                Debug.Log("Point not found on NavMesh, expanding search radius.");
                 searchRadius *= 2;
             }
         }

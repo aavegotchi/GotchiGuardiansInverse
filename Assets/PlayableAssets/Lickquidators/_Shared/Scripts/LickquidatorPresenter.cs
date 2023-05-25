@@ -6,6 +6,8 @@ using PhaseManager;
 using PhaseManager.Presenter;
 using Gotchi.Lickquidator.Model;
 using Gotchi.Player.Presenter;
+using Gotchi.Lickquidator.Splitter.Model;
+using Gotchi.Lickquidator.Splitter.Presenter;
 
 namespace Gotchi.Lickquidator.Presenter
 {
@@ -119,6 +121,12 @@ namespace Gotchi.Lickquidator.Presenter
 
         public void PlayDead(bool keepUpgrades = false)
         {
+            if (model is LickquidatorModel_Splitter && model.GetComponent<LickquidatorPresenter_Splitter>().IsGoingToSplitOnDeath()) // splitter hack
+            return;
+
+            Debug.Log("Play Dead - was not a Splitter");
+            Debug.Log("model - " + model);
+            Debug.Log("model.EnemyBlueprint.type - " + model.EnemyBlueprint.type);
             EventBus.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
             ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
 

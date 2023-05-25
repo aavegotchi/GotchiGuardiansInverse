@@ -82,7 +82,7 @@ namespace Transition_UI.Presenter {
         {
             rewardsScreenUI.SetActive(true);
 
-            int pawnLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(LickquidatorManager.LickquidatorType.PawnLickquidator);
+            int pawnLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(LickquidatorManager.LickquidatorType.SplitterLickquidator);
             int aerialLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(LickquidatorManager.LickquidatorType.AerialLickquidator);
             int bossLickquidatorKillCosts = StatsManager.Instance.GetEnemyKillCosts(LickquidatorManager.LickquidatorType.BossLickquidator);
 
@@ -92,7 +92,7 @@ namespace Transition_UI.Presenter {
             int fireTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.FireTower1);
             int iceTowerKillCosts = StatsManager.Instance.GetTowerKillCosts(TowerPool.TowerType.IceTower1);
 
-            int pawnLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(LickquidatorManager.LickquidatorType.PawnLickquidator);
+            int pawnLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(LickquidatorManager.LickquidatorType.SplitterLickquidator);
             int aerialLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(LickquidatorManager.LickquidatorType.AerialLickquidator);
             int bossLickquidatorCreateCosts = StatsManager.Instance.GetEnemyCreateCosts(LickquidatorManager.LickquidatorType.BossLickquidator);
 

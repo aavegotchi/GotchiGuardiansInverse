@@ -49,6 +49,7 @@ namespace Gotchi.Audio
         #region Fields
         [Header("Required Refs")]
         [SerializeField] private SoundTypeToAudioClip[] audioClips = null;
+        [SerializeField] private float audioDefaultVolume = 50f;
 
         [Header("Attributes")]
         [SerializeField] private int audioPoolSize = 20;
@@ -174,7 +175,7 @@ namespace Gotchi.Audio
                 if (isAudioNotAvailable) continue;
 
                 audioSource.clip = audioClip;
-                audioSource.volume = volume;
+                audioSource.volume = audioDefaultVolume;
                 audioSource.transform.position = transform.position;
                 audioSource.loop = loop;
                 audioSource.gameObject.SetActive(true);
@@ -275,7 +276,7 @@ namespace Gotchi.Audio
 
         private void playEnemyAttacked(LickquidatorManager.LickquidatorType enemyType)
         {
-            if (enemyType == LickquidatorManager.LickquidatorType.PawnLickquidator)
+            if (enemyType == LickquidatorManager.LickquidatorType.SplitterLickquidator)
             {
                 playSound(SoundManager.SoundType.PawnFired);
             }
@@ -287,7 +288,7 @@ namespace Gotchi.Audio
             {
                 playSound(SoundManager.SoundType.TongueFired);
             }
-            else if (enemyType == LickquidatorManager.LickquidatorType.SpeedyBoi)
+            else if (enemyType == LickquidatorManager.LickquidatorType.SpeedyBoiLickquidator)
             {
                 playSound(SoundManager.SoundType.Ram);
             }

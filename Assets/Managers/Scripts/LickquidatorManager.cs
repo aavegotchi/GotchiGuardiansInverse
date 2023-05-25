@@ -16,11 +16,10 @@ namespace Gotchi.Lickquidator.Manager
         public enum LickquidatorType
         {
             None,
-            PawnLickquidator,
+            SplitterLickquidator,
             AerialLickquidator,
             BossLickquidator,
-            SpeedyBoi,
-            Splitter
+            SpeedyBoiLickquidator,
         }
 
         // TODO: this can be optimized
@@ -39,7 +38,6 @@ namespace Gotchi.Lickquidator.Manager
 
         #region Fields
         [Header("Required Refs")]
-        [SerializeField] private GameObject pawnLickquidatorPrefab = null;
         [SerializeField] private GameObject aerialLickquidatorPrefab = null;
         [SerializeField] private GameObject bossLickquidatorPrefab = null;
         [SerializeField] private GameObject speedyBoiLickquidatorPrefab = null;
@@ -47,7 +45,6 @@ namespace Gotchi.Lickquidator.Manager
 
 
         [Header("Attributes")]
-        [SerializeField] private int pawnLickquidatorPoolSize = 5;
         [SerializeField] private int aerialLickquidatorPoolSize = 5;
         [SerializeField] private int bossLickquidatorPoolSize = 5;
         [SerializeField] private int speedyBoiLickquidatorPoolSize = 5;
@@ -56,7 +53,6 @@ namespace Gotchi.Lickquidator.Manager
 
         #region Private Variables
         private List<GameObject> combinedPool = new List<GameObject>();
-        private List<GameObject> pawnLickquidatorPool = new List<GameObject>();
         private List<GameObject> aerialLickquidatorPool = new List<GameObject>();
         private List<GameObject> bossLickquidatorPool = new List<GameObject>();
         private List<GameObject> speedyBoiLickquidatorPool = new List<GameObject>();
@@ -79,13 +75,11 @@ namespace Gotchi.Lickquidator.Manager
 
         void Start()
         {
-            pawnLickquidatorPool = createPool(pawnLickquidatorPrefab, pawnLickquidatorPoolSize);
             aerialLickquidatorPool = createPool(aerialLickquidatorPrefab, aerialLickquidatorPoolSize);
             bossLickquidatorPool = createPool(bossLickquidatorPrefab, bossLickquidatorPoolSize);
             speedyBoiLickquidatorPool = createPool(speedyBoiLickquidatorPrefab, speedyBoiLickquidatorPoolSize);
             splitterLickquidatorPool = createPool(splitterLickquidatorPrefab, splitterLickquidatorPoolSize);
 
-            combinedPool.AddRange(pawnLickquidatorPool);
             combinedPool.AddRange(aerialLickquidatorPool);
             combinedPool.AddRange(bossLickquidatorPool);
             combinedPool.AddRange(speedyBoiLickquidatorPool);
@@ -154,7 +148,7 @@ namespace Gotchi.Lickquidator.Manager
         private void spawnSplitterAtPosition(Vector3 position, Quaternion rotation, bool canSplitNextSpawn)
         {
             Debug.Log("SpawnSplitterAtPosition");
-            List<GameObject> pool = getPool(LickquidatorType.Splitter);
+            List<GameObject> pool = getPool(LickquidatorType.SplitterLickquidator);
 
             foreach (GameObject lickquidatorObj in pool)
             {
@@ -203,8 +197,8 @@ namespace Gotchi.Lickquidator.Manager
             List<GameObject> pool = null;
             switch (type)
             {
-                case LickquidatorType.PawnLickquidator:
-                    pool = pawnLickquidatorPool;
+                case LickquidatorType.SplitterLickquidator:
+                    pool = splitterLickquidatorPool;
                     break;
                 case LickquidatorType.AerialLickquidator:
                     pool = aerialLickquidatorPool;
@@ -212,11 +206,8 @@ namespace Gotchi.Lickquidator.Manager
                 case LickquidatorType.BossLickquidator:
                     pool = bossLickquidatorPool;
                     break;
-                case LickquidatorType.SpeedyBoi:
+                case LickquidatorType.SpeedyBoiLickquidator:
                     pool = speedyBoiLickquidatorPool;
-                    break;
-                case LickquidatorType.Splitter:
-                    pool = splitterLickquidatorPool;
                     break;
             }
 
@@ -225,8 +216,8 @@ namespace Gotchi.Lickquidator.Manager
                 GameObject prefab;
                 switch (type)
                 {
-                    case LickquidatorType.PawnLickquidator:
-                        prefab = pawnLickquidatorPrefab;
+                    case LickquidatorType.SplitterLickquidator:
+                        prefab = splitterLickquidatorPrefab;
                         break;
                     case LickquidatorType.AerialLickquidator:
                         prefab = aerialLickquidatorPrefab;
@@ -234,11 +225,8 @@ namespace Gotchi.Lickquidator.Manager
                     case LickquidatorType.BossLickquidator:
                         prefab = bossLickquidatorPrefab;
                         break;
-                    case LickquidatorType.SpeedyBoi:
+                    case LickquidatorType.SpeedyBoiLickquidator:
                         prefab = speedyBoiLickquidatorPrefab;
-                        break;
-                    case LickquidatorType.Splitter:
-                        prefab = splitterLickquidatorPrefab;
                         break;
                     default:
                         return pool;
