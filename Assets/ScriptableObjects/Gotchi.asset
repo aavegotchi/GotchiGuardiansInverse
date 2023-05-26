@@ -17,13 +17,13 @@ MonoBehaviour:
   SpinAbilityRange: 15
   SpinAbilityKnockbackForce: 50
   AttackCountdown: 1
-  AttackDamage: 300
-  AttackRange: 36
+  AttackDamage: 20
+  AttackRange: 18
   Health: 200
-  MovementSpeed: 70
-  MovementAcceleration: 150
-  AngularSpeed: 500
-  AttackRotationSpeed: 80
+  MovementSpeed: 30
+  MovementAcceleration: 70
+  AngularSpeed: 800
+  AttackRotationSpeed: 70
   NavMeshAgentHeight: 2
   NavMeshAgentPriority: 50
   NavMeshAgentRadius: 0.5

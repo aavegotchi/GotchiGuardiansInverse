@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 using System.Collections;
-using Gotchi.Events;
+using GameMaster;
 using PhaseManager;
 using Gotchi.Lickquidator.Manager;
 
@@ -86,52 +86,52 @@ namespace Gotchi.Audio
 
         void OnEnable()
         {
-            EventBus.MenuEvents.MenuItemSelectedLong += playMenuItemSelectedLong;
-            EventBus.MenuEvents.MenuItemSelectedShort += playMenuItemSelectedShort;
+            GameMasterEvents.MenuEvents.MenuItemSelectedLong += playMenuItemSelectedLong;
+            GameMasterEvents.MenuEvents.MenuItemSelectedShort += playMenuItemSelectedShort;
 
-            EventBus.PhaseEvents.MainMenuStarted += playPrepPhaseMusic;
-            EventBus.PhaseEvents.PrepPhaseStarted += playPrepPhaseMusic;
-            EventBus.PhaseEvents.SurvivalPhaseStarted += playSurvivalPhaseMusic;
-            EventBus.PhaseEvents.TransitionPhaseStarted += playPhaseTransition;
+            GameMasterEvents.PhaseEvents.MainMenuStarted += playPrepPhaseMusic;
+            GameMasterEvents.PhaseEvents.PrepPhaseStarted += playPrepPhaseMusic;
+            GameMasterEvents.PhaseEvents.SurvivalPhaseStarted += playSurvivalPhaseMusic;
+            GameMasterEvents.PhaseEvents.TransitionPhaseStarted += playPhaseTransition;
 
-            EventBus.GotchiEvents.GotchiAttacked += playGotchiAttacked;
-            EventBus.GotchiEvents.GotchiDied += playGotchiDied;
+            GameMasterEvents.GotchiEvents.GotchiAttacked += playGotchiAttacked;
+            GameMasterEvents.GotchiEvents.GotchiDied += playGotchiDied;
 
-            EventBus.EnemyEvents.EnemyStarted += playEnemyStarted;
-            EventBus.EnemyEvents.EnemyFinished += playEnemyFinished;
-            EventBus.EnemyEvents.EnemyAttacked += playEnemyAttacked;
-            EventBus.EnemyEvents.EnemyDied += playEnemyDied;
+            GameMasterEvents.EnemyEvents.EnemyStarted += playEnemyStarted;
+            GameMasterEvents.EnemyEvents.EnemyFinished += playEnemyFinished;
+            GameMasterEvents.EnemyEvents.EnemyAttacked += playEnemyAttacked;
+            GameMasterEvents.EnemyEvents.EnemyDied += playEnemyDied;
 
-            EventBus.TowerEvents.TowerStarted += playTowerStarted;
-            EventBus.TowerEvents.TowerFinished += playTowerFinished;
-            EventBus.TowerEvents.TowerAttacked += playTowerAttacked;
-            EventBus.TowerEvents.TowerHit += playTowerHit;
-            EventBus.TowerEvents.TowerDied += playTowerDied;
+            GameMasterEvents.TowerEvents.TowerStarted += playTowerStarted;
+            GameMasterEvents.TowerEvents.TowerFinished += playTowerFinished;
+            GameMasterEvents.TowerEvents.TowerAttacked += playTowerAttacked;
+            GameMasterEvents.TowerEvents.TowerHit += playTowerHit;
+            GameMasterEvents.TowerEvents.TowerDied += playTowerDied;
         }
 
         void OnDisable()
         {
-            EventBus.MenuEvents.MenuItemSelectedLong -= playMenuItemSelectedLong;
-            EventBus.MenuEvents.MenuItemSelectedShort -= playMenuItemSelectedShort;
+            GameMasterEvents.MenuEvents.MenuItemSelectedLong -= playMenuItemSelectedLong;
+            GameMasterEvents.MenuEvents.MenuItemSelectedShort -= playMenuItemSelectedShort;
 
-            EventBus.PhaseEvents.MainMenuStarted -= playPrepPhaseMusic;
-            EventBus.PhaseEvents.PrepPhaseStarted -= playPrepPhaseMusic;
-            EventBus.PhaseEvents.SurvivalPhaseStarted -= playSurvivalPhaseMusic;
-            EventBus.PhaseEvents.TransitionPhaseStarted -= playPhaseTransition;
+            GameMasterEvents.PhaseEvents.MainMenuStarted -= playPrepPhaseMusic;
+            GameMasterEvents.PhaseEvents.PrepPhaseStarted -= playPrepPhaseMusic;
+            GameMasterEvents.PhaseEvents.SurvivalPhaseStarted -= playSurvivalPhaseMusic;
+            GameMasterEvents.PhaseEvents.TransitionPhaseStarted -= playPhaseTransition;
 
-            EventBus.GotchiEvents.GotchiAttacked -= playGotchiAttacked;
-            EventBus.GotchiEvents.GotchiDied -= playGotchiDied;
+            GameMasterEvents.GotchiEvents.GotchiAttacked -= playGotchiAttacked;
+            GameMasterEvents.GotchiEvents.GotchiDied -= playGotchiDied;
 
-            EventBus.EnemyEvents.EnemyStarted -= playEnemyStarted;
-            EventBus.EnemyEvents.EnemyFinished -= playEnemyFinished;
-            EventBus.EnemyEvents.EnemyAttacked -= playEnemyAttacked;
-            EventBus.EnemyEvents.EnemyDied -= playEnemyDied;
+            GameMasterEvents.EnemyEvents.EnemyStarted -= playEnemyStarted;
+            GameMasterEvents.EnemyEvents.EnemyFinished -= playEnemyFinished;
+            GameMasterEvents.EnemyEvents.EnemyAttacked -= playEnemyAttacked;
+            GameMasterEvents.EnemyEvents.EnemyDied -= playEnemyDied;
 
-            EventBus.TowerEvents.TowerStarted -= playTowerStarted;
-            EventBus.TowerEvents.TowerFinished -= playTowerFinished;
-            EventBus.TowerEvents.TowerAttacked -= playTowerAttacked;
-            EventBus.TowerEvents.TowerHit -= playTowerHit;
-            EventBus.TowerEvents.TowerDied -= playTowerDied;
+            GameMasterEvents.TowerEvents.TowerStarted -= playTowerStarted;
+            GameMasterEvents.TowerEvents.TowerFinished -= playTowerFinished;
+            GameMasterEvents.TowerEvents.TowerAttacked -= playTowerAttacked;
+            GameMasterEvents.TowerEvents.TowerHit -= playTowerHit;
+            GameMasterEvents.TowerEvents.TowerDied -= playTowerDied;
         }
         #endregion
 
@@ -247,7 +247,7 @@ namespace Gotchi.Audio
             playSound(SoundManager.SoundType.PhaseTransition);
         }
 
-        private void playGotchiAttacked(GotchiManager.AttackType attackType)
+        private void playGotchiAttacked(int _gotchiId, GotchiManager.AttackType attackType)
         {
             if (attackType == GotchiManager.AttackType.Basic)
             {
@@ -259,7 +259,7 @@ namespace Gotchi.Audio
             }
         }
 
-        private void playGotchiDied()
+        private void playGotchiDied(int _gotchiId)
         {
             playSound(SoundManager.SoundType.GotchiDied);
         }

@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
-using Gotchi.Events;
 using PhaseManager;
 using PhaseManager.Presenter;
 using Gotchi.Lickquidator.Model;
 using Gotchi.Player.Presenter;
 using Gotchi.Lickquidator.Splitter.Model;
 using Gotchi.Lickquidator.Splitter.Presenter;
+using GameMaster;
 
 namespace Gotchi.Lickquidator.Presenter
 {
@@ -132,9 +132,9 @@ namespace Gotchi.Lickquidator.Presenter
             else
             {
                 Debug.Log("Else");
-                Debug.Log("model - " + model);
                 Debug.Log("model.EnemyBlueprint.type - " + model.EnemyBlueprint.type);
-                EventBus.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
+
+                GameMasterEvents.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
                 ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
 
                 gameObject.SetActive(false);
@@ -183,7 +183,7 @@ namespace Gotchi.Lickquidator.Presenter
             PlayDead(true);
         }
         #endregion
-        
+
         #region Private Functions
         private bool isSurvivalPhase()
         {
@@ -298,11 +298,11 @@ namespace Gotchi.Lickquidator.Presenter
 
             if (attackAnimation != null) attackAnimation.SetTrigger(model.AttackAnimTriggerHash);
             if (attackParticleSystemObj != null) attackParticleSystemObj.SetActive(true);
-            
-            EventBus.EnemyEvents.EnemyAttacked(model.Config.Type);
+
+            GameMasterEvents.EnemyEvents.EnemyAttacked(model.Config.Type);
             inRangeTarget.Damage(model.Config.AttackDamage);
             model.PublishOnAttacked();
-            
+
             inRangeTargetTransform = null;
             inRangeTarget = null;
         }
@@ -310,7 +310,7 @@ namespace Gotchi.Lickquidator.Presenter
         private void rewardDeath()
         {
             StatsManager.Instance.TrackKillEnemy(model.EnemyBlueprint);
-            
+
             float value = model.Config.Cost / model.GeneralConfig.EnemyKillRewardMultipleByCost;
             int roundedValue = Mathf.RoundToInt(value / 5.0f) * 5;
             StatsManager.Instance.Money += roundedValue;

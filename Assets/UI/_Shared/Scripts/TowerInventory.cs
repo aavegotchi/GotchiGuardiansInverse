@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.Assertions;
-using Gotchi.Events;
+using GameMaster;
 
 public class TowerInventory : MonoBehaviour
 {

@@ -1,5 +1,5 @@
 using UnityEngine;
-using Gotchi.Events;
+using GameMaster;
 using PhaseManager;
 using PhaseManager.Presenter;
 using Gotchi.Lickquidator.Manager;
@@ -68,7 +68,7 @@ public class AreaOfEffectTower : BaseTower
                 return;
             }
 
-            EventBus.TowerEvents.TowerAttacked(TowerPool.TowerType.SlowTower);
+            GameMasterEvents.TowerEvents.TowerAttacked(TowerPool.TowerType.SlowTower);
         }
     }
 
