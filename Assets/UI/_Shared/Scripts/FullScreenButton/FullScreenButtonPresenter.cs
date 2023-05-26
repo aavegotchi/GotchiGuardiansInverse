@@ -34,14 +34,14 @@ namespace Gotchi.UI.FullScreenButton
       }
 
       // Reference for more info: (https://docs.unity3d.com/Manual/webgl-cursorfullscreen.html)
-      public void OnPointerDown(PointerEventData eventData)
+      public void OnPointerDown(PointerEventData _pointerEventData)
       {
         // For acceptable UX, this must be done on pointer down because it actually ends up
         // occurring on pointer up
         Screen.fullScreen = !Screen.fullScreen;
       }
 
-      public void OnPointerUp(PointerEventData eventData)
+      public void OnPointerUp(PointerEventData _pointerEventData)
       {
         // This is when the full screen change is actually recognized
         model.SetIsFullScreen(Screen.fullScreen);
