@@ -7,10 +7,6 @@ namespace Gotchi.UI.FullScreenButton
   {
     public class FullScreenButtonModel : MonoBehaviour
     {
-      #region Public Variables
-      public bool IsFullScreen { get { return isFullScreen; } }
-      #endregion
-
       #region Events
       public event Action OnIsFullScreenUpdated = delegate { };
       #endregion
@@ -18,10 +14,7 @@ namespace Gotchi.UI.FullScreenButton
       #region Fields
       [Header("Required Refs")]
       [SerializeField] private Sprite fullScreenSprite = null;
-      public Sprite FullScreenSprite { get { return fullScreenSprite; } }
-
       [SerializeField] private Sprite fullScreenExitSprite = null;
-      public Sprite FullScreenExitSprite { get { return fullScreenExitSprite; } }
       #endregion
 
       #region Private Variables
@@ -37,7 +30,7 @@ namespace Gotchi.UI.FullScreenButton
 
       public Sprite GetFullScreenImageSprite()
       {
-        return IsFullScreen ? FullScreenExitSprite : FullScreenSprite;
+        return isFullScreen ? fullScreenExitSprite : fullScreenSprite;
       }
       #endregion
     }
