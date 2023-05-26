@@ -4661,7 +4661,8 @@ GameObject:
   - component: {fileID: 1562492480540865184}
   - component: {fileID: 3928550760219626229}
   - component: {fileID: 4984687058965738869}
-  - component: {fileID: 2840790109263388273}
+  - component: {fileID: 1689416751176681190}
+  - component: {fileID: 123490570558947656}
   m_Layer: 5
   m_Name: ToggleFullScreenButton
   m_TagString: Untagged
@@ -4771,7 +4772,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2840790109263388273
+--- !u!114 &1689416751176681190
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4780,12 +4781,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 6499800564945780033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 489db746b5a3649688614057f5510202, type: 3}
+  m_Script: {fileID: 11500000, guid: cd399da322b894d10ae9a9535ce58dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fullScreenSprite: {fileID: 21300000, guid: 8cd6b78801cd64ab693e1e019097861b, type: 3}
   fullScreenExitSprite: {fileID: 21300000, guid: 454df0bdca1974774b9afbdc5cdc420b,
     type: 3}
+--- !u!114 &123490570558947656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6499800564945780033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897e568fa16d940f0b6babeaa928840a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 1689416751176681190}
 --- !u!1 &6519644674185594025
 GameObject:
   m_ObjectHideFlags: 0
