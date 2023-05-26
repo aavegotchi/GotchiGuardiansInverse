@@ -21,6 +21,7 @@ public class SplitterJump : MonoBehaviour
     #endregion
 
     #region Private Variables
+    private EnemyBlueprint enemyBlueprint;
     private Vector3 startingPosition;
     private Vector3 nextTarget;
     private const float TargetThreshold = .2f;
@@ -39,7 +40,6 @@ public class SplitterJump : MonoBehaviour
     private void Start()
     {
         nextTarget = findPointOnNavMesh(transform.position, initialSearchRadius, minJumpDistance);
-        Debug.Log("Next target found on NavMesh: " + nextTarget);
         MoveToPoint();
     }
 
@@ -48,7 +48,6 @@ public class SplitterJump : MonoBehaviour
     #region Private Functions
     private void MoveToPoint()
     {
-        Debug.Log("Starting movement to point: " + nextTarget);
         StartCoroutine(moveToTargetCoroutine(nextTarget));
     }
 
@@ -56,7 +55,6 @@ public class SplitterJump : MonoBehaviour
     {
         Vector3 startPosition = transform.position;
         float distance = Vector3.Distance(startPosition, target);
-        Debug.Log("Calculated distance to target: " + distance);
         float travelTime = distance / speed; // Total travel time
 
         float elapsedTime = 0f; // Time that has passed
@@ -85,7 +83,6 @@ public class SplitterJump : MonoBehaviour
             float horizontalDistance = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(target.x, target.z));
             if (horizontalDistance <= TargetThreshold)
             {
-                Debug.Log("Start lerping towards the target's y position");
                 while (Mathf.Abs(transform.position.y - target.y) > TargetThreshold)
                 {
                     transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * speed);
@@ -104,7 +101,7 @@ public class SplitterJump : MonoBehaviour
 
     private void deactivateOldSplitterAndEnableNewOne()
     {
-        lickquidatorManager.SpawnSplitterAtPosition(this.transform.position, this.transform.rotation, false);
+        lickquidatorManager.SpawnSplitterAtPosition(this.transform.position, this.transform.rotation, false, _splitter.Model.EnemyBlueprint);
         transform.localPosition = startingPosition;
         _splitter.DeactivateSplitterAfterJump();
     }

@@ -145,7 +145,7 @@ namespace Gotchi.Lickquidator.Manager
         }
 
 
-        private void spawnSplitterAtPosition(Vector3 position, Quaternion rotation, bool canSplitNextSpawn)
+        private void spawnSplitterAtPosition(Vector3 position, Quaternion rotation, bool canSplitNextSpawn, EnemyBlueprint enemyBlueprint)
         {
             Debug.Log("SpawnSplitterAtPosition");
             List<GameObject> pool = getPool(LickquidatorType.SplitterLickquidator);
@@ -155,15 +155,17 @@ namespace Gotchi.Lickquidator.Manager
                 if (lickquidatorObj.activeSelf) continue;
 
                 LickquidatorModel lickquidatorModel = lickquidatorObj.GetComponent<LickquidatorModel>();
+
+                lickquidatorModel.EnemyBlueprint = enemyBlueprint;
                 lickquidatorObj.transform.position = position;
                 lickquidatorObj.transform.rotation = rotation;
                 lickquidatorObj.SetActive(true);
 
                 LickquidatorPresenter lickquidator = GetByObject(lickquidatorObj);
                 lickquidator.AssignHealthBar();
-
-
                 lickquidator.GetComponent<LickquidatorPresenter_Splitter>().SetCanSplitOnDeath(canSplitNextSpawn);
+
+
 
                 return;
             }
@@ -243,9 +245,9 @@ namespace Gotchi.Lickquidator.Manager
         #endregion
 
         #region Public Functions
-        public void SpawnSplitterAtPosition(Vector3 position, Quaternion rotation, bool canSplitNextSpawn)
+        public void SpawnSplitterAtPosition(Vector3 position, Quaternion rotation, bool canSplitNextSpawn, EnemyBlueprint enemyBlueprint)
         {
-            spawnSplitterAtPosition(position, rotation, canSplitNextSpawn);
+            spawnSplitterAtPosition(position, rotation, canSplitNextSpawn, enemyBlueprint);
         }
         #endregion
     }

@@ -121,28 +121,36 @@ namespace Gotchi.Lickquidator.Presenter
 
         public void PlayDead(bool keepUpgrades = false)
         {
-            if (model is LickquidatorModel_Splitter && model.GetComponent<LickquidatorPresenter_Splitter>().IsGoingToSplitOnDeath()) // splitter hack
-            return;
 
-            Debug.Log("Play Dead - was not a Splitter");
-            Debug.Log("model - " + model);
-            Debug.Log("model.EnemyBlueprint.type - " + model.EnemyBlueprint.type);
-            EventBus.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
-            ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
-
-            gameObject.SetActive(false);
-            if (healthBar != null)
+            if (model is LickquidatorModel_Splitter && model.GetComponent<LickquidatorPresenter_Splitter>().IsGoingToSplitOnDeath())
             {
-                healthBar.Reset();
-                healthBar = null;
-            }
+                Debug.Log("model is LickquidatorModel_Splitter && model.GetComponent<LickquidatorPresenter_Splitter>().IsGoingToSplitOnDeath()");
+                return;
 
-            if (!keepUpgrades)
+            } // splitter hack
+
+            else
             {
-                model.ResetConfig();
-            }
+                Debug.Log("Else");
+                Debug.Log("model - " + model);
+                Debug.Log("model.EnemyBlueprint.type - " + model.EnemyBlueprint.type);
+                EventBus.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
+                ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
 
-            rewardDeath();
+                gameObject.SetActive(false);
+                if (healthBar != null)
+                {
+                    healthBar.Reset();
+                    healthBar = null;
+                }
+
+                if (!keepUpgrades)
+                {
+                    model.ResetConfig();
+                }
+
+                rewardDeath();
+            }
         }
 
         public void Knockback(Vector3 force)

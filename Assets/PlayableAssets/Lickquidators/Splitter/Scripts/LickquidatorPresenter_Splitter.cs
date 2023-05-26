@@ -13,7 +13,7 @@ namespace Gotchi.Lickquidator.Splitter.Presenter
 
         #region Private Variables
 
-        private bool willSplitOnDeath = true;
+        public bool willSplitOnDeath = true;
         #endregion
 
         #region Unity Functions
@@ -68,6 +68,7 @@ namespace Gotchi.Lickquidator.Splitter.Presenter
         public void DeactivateSplitterAfterJump()
         {
             agent.enabled = true;
+            splitterJump.gameObject.SetActive(false);
             gameObject.SetActive(false);
         }
 
