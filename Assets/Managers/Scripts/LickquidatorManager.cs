@@ -5,6 +5,7 @@ using GameMaster;
 using Gotchi.Lickquidator.Presenter;
 using Gotchi.Lickquidator.Model;
 using Gotchi.Lickquidator.Splitter.Presenter;
+using System.Collections;
 
 namespace Gotchi.Lickquidator.Manager
 {
@@ -248,6 +249,17 @@ namespace Gotchi.Lickquidator.Manager
         public void DeactivateLickquidator(LickquidatorPresenter lickquidator)
         {
             activeLickquidators.Remove(lickquidator);
+        }
+
+        public void DelayDeactivationForSplitter(LickquidatorPresenter lickquidator)
+        {
+            StartCoroutine(DelayDeactivateFromList(lickquidator));
+        }
+
+        IEnumerator DelayDeactivateFromList(LickquidatorPresenter lickquidator)
+        {
+            yield return new WaitForSeconds(3f);
+            DeactivateLickquidator(lickquidator);
         }
         #endregion
     }

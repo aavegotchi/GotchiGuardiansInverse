@@ -116,26 +116,44 @@ namespace Gotchi.Lickquidator.Presenter
         public void AssignHealthBar()
         {
             healthBar = HealthBarPool_UI.Instance.GetHealthbar(model.HealthBarOffset);
-            healthBar.SetHealthbarMaxHealth(model.Health);
+
             model.UpdateHealth(model.MaxHealth);
+
+            healthBar.SetHealthbarMaxHealth(model.Health);
         }
 
         public void PlayDead(bool keepUpgrades = false)
         {
             if (model is LickquidatorModel_Splitter && model.GetComponent<LickquidatorPresenter_Splitter>().IsGoingToSplitOnDeath())
             {
-                HandleSplitter();
-            }
-
+                HandleSplitter(keepUpgrades);
+            } else
+            {
                 HandleNormalDeath(keepUpgrades);
+            }
         }
 
-        private void HandleSplitter()
+        private void HandleSplitter(bool keepUpgrades)
         {
             Debug.Log("model is LickquidatorModel_Splitter && model.GetComponent<LickquidatorPresenter_Splitter>().IsGoingToSplitOnDeath()");
+
+            Debug.Log("model.EnemyBlueprint.type - " + model.EnemyBlueprint.type);
+
+            GameMasterEvents.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
+            ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
+
+            if (healthBar != null)
+            {
+                healthBar.Reset();
+                healthBar = null;
+            }
+
+            LickquidatorManager.Instance.DelayDeactivationForSplitter(this);
+
+            gameObject.SetActive(false);
         }
 
-        private void HandleNormalDeath(bool keepUpgrades)
+        private void HandleNormalDeath (bool keepUpgrades)
         {
             Debug.Log("model.EnemyBlueprint.type - " + model.EnemyBlueprint.type);
 
@@ -156,7 +174,7 @@ namespace Gotchi.Lickquidator.Presenter
             rewardDeath();
 
             // Notify the LickquidatorManager that this Lickquidator has been deactivated
-            LickquidatorManager.Instance.LickquidatorDeactivated(this);
+            LickquidatorManager.Instance.DeactivateLickquidator(this);
 
             gameObject.SetActive(false);
         }
