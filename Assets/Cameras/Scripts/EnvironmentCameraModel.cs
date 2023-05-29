@@ -60,6 +60,7 @@ namespace Gotchi.EnvironmentCamera
     private bool isEnabled = false;
     private bool isZooming = false;
     private float mouseScrollDeltaY = 0f;
+    private bool isPanning = false;
     #endregion
 
     #region Unity Functions

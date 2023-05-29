@@ -12,58 +12,59 @@ namespace GameMaster
         public static EnemyEventsBlueprint EnemyEvents = new EnemyEventsBlueprint();
         public static GotchiEventsBlueprint GotchiEvents = new GotchiEventsBlueprint();
         public static PoolEventsBlueprint PoolEvents = new PoolEventsBlueprint();
+        public static MouseEventsBlueprint MouseEvents = new MouseEventsBlueprint();
     }
 
     public class MenuEventsBlueprint
     {
-        public Action MenuItemSelectedLong = delegate { };
-        public Action MenuItemSelectedShort = delegate { };
+        public Action MenuItemSelectedLong = delegate {};
+        public Action MenuItemSelectedShort = delegate {};
     }
 
     public class PhaseEventsBlueprint
     {
-        public Action<Phase> PhaseChanged = delegate { };
-        public Action MainMenuStarted = delegate { };
-        public Action PrepPhaseStarted = delegate { };
-        public Action SurvivalPhaseStarted = delegate { };
-        public Action<Phase> TransitionPhaseStarted = delegate { };
+        public Action<Phase> PhaseChanged = delegate {};
+        public Action MainMenuStarted = delegate {};
+        public Action PrepPhaseStarted = delegate {};
+        public Action SurvivalPhaseStarted = delegate {};
+        public Action<Phase> TransitionPhaseStarted = delegate {};
     }
 
     public class TowerEventsBlueprint
     {
-        public Action TowerStarted = delegate { };
-        public Action<TowerBlueprint> TowerFinished = delegate { };
-        public Action<TowerPool.TowerType> TowerAttacked = delegate { };
-        public Action<TowerPool.TowerType> TowerHit = delegate { };
-        public Action<TowerPool.TowerType> TowerDied = delegate { };
+        public Action TowerStarted = delegate {};
+        public Action<TowerBlueprint> TowerFinished = delegate {};
+        public Action<TowerPool.TowerType> TowerAttacked = delegate {};
+        public Action<TowerPool.TowerType> TowerHit = delegate {};
+        public Action<TowerPool.TowerType> TowerDied = delegate {};
     }
 
     public class EnemyEventsBlueprint
     {
-        public Action EnemyStarted = delegate { };
-        public Action<EnemyBlueprint> EnemyFinished = delegate { };
-        public Action<LickquidatorManager.LickquidatorType> EnemyAttacked = delegate { };
-        public Action<LickquidatorManager.LickquidatorType> EnemyHit = delegate { }; // currently unused
-        public Action<LickquidatorManager.LickquidatorType> EnemyDied = delegate { };
+        public Action EnemyStarted = delegate {};
+        public Action<EnemyBlueprint> EnemyFinished = delegate {};
+        public Action<LickquidatorManager.LickquidatorType> EnemyAttacked = delegate {};
+        public Action<LickquidatorManager.LickquidatorType> EnemyHit = delegate {}; // currently unused
+        public Action<LickquidatorManager.LickquidatorType> EnemyDied = delegate {};
     }
 
     public class GotchiEventsBlueprint
     {
-        public Action<int, GotchiManager.AttackType> GotchiAttacked = delegate { };
-        public Action<int, int> GotchiDamaged = delegate { };
-        public Action<int> GotchiHit = delegate { }; // currently unused
-        public Action<int> GotchiDied = delegate { };
-        public Action GotchisAllDead = delegate { };
+        public Action<int, GotchiManager.AttackType> GotchiAttacked = delegate {};
+        public Action<int, int> GotchiDamaged = delegate {};
+        public Action<int> GotchiHit = delegate {}; // currently unused
+        public Action<int> GotchiDied = delegate {};
+        public Action GotchisAllDead = delegate {};
     }
 
     public class PoolEventsBlueprint
     {
-        public Action AudioPoolReady = delegate { };
-        public Action HealthBarPoolReady = delegate { };
+        public Action AudioPoolReady = delegate {};
+        public Action HealthBarPoolReady = delegate {};
     }
 
-    public class SettingsBlueprint
+    public class MouseEventsBlueprint
     {
-
+        public Action<bool> OnIsPanning = delegate {};
     }
 }

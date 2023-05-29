@@ -1,5 +1,6 @@
-using System.Collections;
 using Cinemachine;
+using GameMaster;
+using System.Collections;
 using UnityEngine;
 
 namespace Gotchi.EnvironmentCamera
@@ -19,6 +20,7 @@ namespace Gotchi.EnvironmentCamera
     private float zoomTime = 0f;
     private Vector3 defaultCameraPosition = Vector3.zero;
     private Vector3 defaultCameraPositionOffset = Vector3.zero;
+    private bool isPanning = false;
     #endregion
 
     #region Unity Functions
@@ -50,6 +52,17 @@ namespace Gotchi.EnvironmentCamera
       if (movementInputDirection != Vector3.zero)
       {
         handleMovementInput(movementInputDirection);
+
+        if (!isPanning)
+        {
+          isPanning = true;
+          GameMasterEvents.MouseEvents.OnIsPanning(isPanning);
+        }
+      }
+      else if (isPanning)
+      {
+        isPanning = false;
+        GameMasterEvents.MouseEvents.OnIsPanning(isPanning);
       }
 
       if (!model.IsZooming)
@@ -69,7 +82,7 @@ namespace Gotchi.EnvironmentCamera
 
     #region Event Handlers
     private void handleOnIsZoomingUpdated()
-    { 
+    {
       if (model.MouseScrollDeltaY == 0) return;
 
       StartCoroutine(zoomAndMoveCamera());
@@ -192,7 +205,7 @@ namespace Gotchi.EnvironmentCamera
 
       return movementInputDirection;
     }
-    
+
     private void handleMovementInput(Vector3 movementInputDirection)
     {
       // Clamp movement speed
