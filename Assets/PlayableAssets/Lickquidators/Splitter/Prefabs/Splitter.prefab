@@ -242,6 +242,7 @@ MonoBehaviour:
   attackAnimation: {fileID: 0}
   attackParticleSystemObj: {fileID: 0}
   frameReadyInterval: 10
+  agent: {fileID: 4748651302183342074}
   lickquidatorVisual: {fileID: 6217002928243790276}
   willSplitOnDeath: 1
 --- !u!1 &1606178740278005029

@@ -21,6 +21,7 @@ public class SplitterJump : MonoBehaviour
     #endregion
 
     #region Private Variables
+    private EnemyBlueprint splitterEnemyBlueprint;
     private Transform targetTransform;
     private Vector3 nextTarget;
     private const float TargetThreshold = .2f;
@@ -101,13 +102,12 @@ public class SplitterJump : MonoBehaviour
 
         // Ensure the final position is exactly the target position.
         transform.position = target;
-        deactivateOldSplitterAndEnableNewOne();
+        spawnNextSplitter(splitterEnemyBlueprint);
     }
 
-    private void deactivateOldSplitterAndEnableNewOne()
+    private void spawnNextSplitter(EnemyBlueprint enemyBlueprint)
     {
-        lickquidatorManager.SpawnSplitterAtPosition(this.transform.position, this.transform.rotation, false, _splitter.Model.EnemyBlueprint);
-        _splitter.DeactivateSplitterAfterJump();
+        lickquidatorManager.SpawnSplitterAtPosition(this.transform.position, this.transform.rotation, false, enemyBlueprint);
         this.gameObject.SetActive(false);
     }
 
@@ -151,6 +151,13 @@ public class SplitterJump : MonoBehaviour
         }
 
         return point;
+    }
+    #endregion
+
+    #region Public Functions
+    public void AssignEnemyBlueprint(EnemyBlueprint enemyBlueprint)
+    {
+        splitterEnemyBlueprint = enemyBlueprint;
     }
     #endregion
 }

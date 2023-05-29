@@ -8,6 +8,7 @@ using Gotchi.Player.Presenter;
 using Gotchi.Lickquidator.Splitter.Model;
 using Gotchi.Lickquidator.Splitter.Presenter;
 using GameMaster;
+using Gotchi.Lickquidator.Manager;
 
 namespace Gotchi.Lickquidator.Presenter
 {
@@ -32,7 +33,7 @@ namespace Gotchi.Lickquidator.Presenter
 
         #region Private Variables
         private HealthBar_UI healthBar = null;
-        [SerializeField] protected NavMeshAgent agent = null;
+        protected NavMeshAgent agent;
         private Transform inRangeTargetTransform = null;
         private GotchiPresenter inRangeTarget = null;
         protected Rigidbody rigidBody = null;
@@ -40,7 +41,7 @@ namespace Gotchi.Lickquidator.Presenter
         #endregion
 
         #region Unity Functions
-        void Awake()
+        protected virtual void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             rigidBody = GetComponent<Rigidbody>();
@@ -125,10 +126,8 @@ namespace Gotchi.Lickquidator.Presenter
             {
                 HandleSplitter();
             }
-            else
-            {
+
                 HandleNormalDeath(keepUpgrades);
-            }
         }
 
         private void HandleSplitter()
@@ -138,13 +137,11 @@ namespace Gotchi.Lickquidator.Presenter
 
         private void HandleNormalDeath(bool keepUpgrades)
         {
-            Debug.Log("Else");
             Debug.Log("model.EnemyBlueprint.type - " + model.EnemyBlueprint.type);
 
             GameMasterEvents.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
             ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
 
-            gameObject.SetActive(false);
             if (healthBar != null)
             {
                 healthBar.Reset();
@@ -157,6 +154,11 @@ namespace Gotchi.Lickquidator.Presenter
             }
 
             rewardDeath();
+
+            // Notify the LickquidatorManager that this Lickquidator has been deactivated
+            LickquidatorManager.Instance.LickquidatorDeactivated(this);
+
+            gameObject.SetActive(false);
         }
 
         public void Knockback(Vector3 force)

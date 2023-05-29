@@ -2667,6 +2667,7 @@ MonoBehaviour:
   attackAnimation: {fileID: 0}
   attackParticleSystemObj: {fileID: 7527446463873140366}
   frameReadyInterval: 10
+  agent: {fileID: 2464580740552534604}
   moveAnimation: {fileID: 2260258991781722175}
   moveParticleSystemObj: {fileID: 2878285143704739430}
 --- !u!1 &5345153080918369653

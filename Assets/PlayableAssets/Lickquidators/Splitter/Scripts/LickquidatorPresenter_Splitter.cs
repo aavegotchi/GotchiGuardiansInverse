@@ -1,15 +1,11 @@
 using Gotchi.Lickquidator.Presenter;
-using Gotchi.Lickquidator.Model;
+using Gotchi.Lickquidator.Splitter.Model;
 using UnityEngine;
 
 namespace Gotchi.Lickquidator.Splitter.Presenter
 {
     public class LickquidatorPresenter_Splitter : LickquidatorPresenter
     {
-        #region Fields
-        [SerializeField] GameObject lickquidatorVisual;
-        #endregion
-
         #region Private Variables
         private SplitterJumpManager splitterJumpManager;
         private SplitterJump splitterJump;
@@ -17,8 +13,9 @@ namespace Gotchi.Lickquidator.Splitter.Presenter
         #endregion
 
         #region Unity Functions
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             splitterJumpManager = SplitterJumpManager.Instance;
         }
 
@@ -26,7 +23,6 @@ namespace Gotchi.Lickquidator.Splitter.Presenter
         {
             base.OnEnable();
             model.OnHealthUpdated += handleOnHealthUpdated;
-            lickquidatorVisual.SetActive(true);
         }
 
         protected override void OnDisable()
@@ -59,12 +55,8 @@ namespace Gotchi.Lickquidator.Splitter.Presenter
 
         private void TriggerSplit()
         {
-            // Hide visual and stop movement
-            lickquidatorVisual.SetActive(false);
-            agent.enabled = false;
-
             // Get SplitterJump from the SplitterJumpManager
-            splitterJump = splitterJumpManager.ActivateSplitterJump(this.transform);
+            splitterJump = splitterJumpManager.ActivateSplitterJump(this.transform, model.EnemyBlueprint);
         }
 
         #endregion
@@ -72,8 +64,6 @@ namespace Gotchi.Lickquidator.Splitter.Presenter
         #region Public Functions
         public void DeactivateSplitterAfterJump()
         {
-            agent.enabled = true;
-
             // Return splitterJump to the pool
             splitterJump.gameObject.SetActive(false);
             splitterJump = null; // Clear reference to allow GC and reassignment

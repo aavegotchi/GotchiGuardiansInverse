@@ -39,7 +39,7 @@ public class SplitterJumpManager : MonoBehaviour
     #endregion
 
     #region Public Functions
-    public SplitterJump ActivateSplitterJump(Transform startTransform)
+    public SplitterJump ActivateSplitterJump(Transform startTransform, EnemyBlueprint enemyBlueprint)
     {
         SplitterJump availableSplitterJump = GetAvailableSplitterJump();
 
@@ -51,6 +51,7 @@ public class SplitterJumpManager : MonoBehaviour
 
         availableSplitterJump.transform.position = startTransform.position;
         availableSplitterJump.gameObject.SetActive(true);
+        availableSplitterJump.GetComponent<SplitterJump>().AssignEnemyBlueprint(enemyBlueprint);
 
         return availableSplitterJump;
     }

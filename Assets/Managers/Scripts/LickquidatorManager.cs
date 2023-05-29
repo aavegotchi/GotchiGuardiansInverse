@@ -22,19 +22,10 @@ namespace Gotchi.Lickquidator.Manager
             SpeedyBoiLickquidator,
         }
 
-        // TODO: this can be optimized
-        public List<LickquidatorPresenter> ActiveLickquidators
-        {
-            get
-            {
-                return GameObject
-                    .FindGameObjectsWithTag("Enemy") // TODO: temporary for now
-                    .Where(lickquidatorObj => lickquidatorObj.activeSelf)
-                    .Select(lickquidatorObj => lickquidatorObj.GetComponent<LickquidatorPresenter>())
-                    .ToList();
-            }
-        }
+        public List<LickquidatorPresenter> ActiveLickquidators => activeLickquidators;
         #endregion
+
+
 
         #region Fields
         [Header("Required Refs")]
@@ -52,6 +43,8 @@ namespace Gotchi.Lickquidator.Manager
         #endregion
 
         #region Private Variables
+        private List<LickquidatorPresenter> activeLickquidators = new List<LickquidatorPresenter>();
+
         private List<GameObject> combinedPool = new List<GameObject>();
         private List<GameObject> aerialLickquidatorPool = new List<GameObject>();
         private List<GameObject> bossLickquidatorPool = new List<GameObject>();
@@ -137,6 +130,8 @@ namespace Gotchi.Lickquidator.Manager
                 lickquidatorObj.SetActive(true);
 
                 LickquidatorPresenter lickquidator = GetByObject(lickquidatorObj);
+                activeLickquidators.Add(lickquidator);
+
                 lickquidator.AssignHealthBar();
                 // lickquidator.Freeze(); // to prevent prep phase 'pushing'
 
@@ -147,7 +142,6 @@ namespace Gotchi.Lickquidator.Manager
 
         private void spawnSplitterAtPosition(Vector3 position, Quaternion rotation, bool canSplitNextSpawn, EnemyBlueprint enemyBlueprint)
         {
-            Debug.Log("SpawnSplitterAtPosition");
             List<GameObject> pool = getPool(LickquidatorType.SplitterLickquidator);
 
             foreach (GameObject lickquidatorObj in pool)
@@ -162,10 +156,10 @@ namespace Gotchi.Lickquidator.Manager
                 lickquidatorObj.SetActive(true);
 
                 LickquidatorPresenter lickquidator = GetByObject(lickquidatorObj);
+                activeLickquidators.Add(lickquidator);
+
                 lickquidator.AssignHealthBar();
                 lickquidator.GetComponent<LickquidatorPresenter_Splitter>().SetCanSplitOnDeath(canSplitNextSpawn);
-
-
 
                 return;
             }
@@ -248,6 +242,12 @@ namespace Gotchi.Lickquidator.Manager
         public void SpawnSplitterAtPosition(Vector3 position, Quaternion rotation, bool canSplitNextSpawn, EnemyBlueprint enemyBlueprint)
         {
             spawnSplitterAtPosition(position, rotation, canSplitNextSpawn, enemyBlueprint);
+        }
+
+        // Add this function to be called when a Lickquidator dies or is otherwise deactivated
+        public void DeactivateLickquidator(LickquidatorPresenter lickquidator)
+        {
+            activeLickquidators.Remove(lickquidator);
         }
         #endregion
     }
