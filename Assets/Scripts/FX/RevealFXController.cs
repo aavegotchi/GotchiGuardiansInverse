@@ -9,15 +9,17 @@ public class RevealFXController : MonoBehaviour
     [SerializeField]
     private List<GameObject> targets;
     [SerializeField]
-    private float progress = 0.0f;
+    public float Progress = 0.0f;
     [SerializeField]
-    private int botValue = 0;
+    private bool AdjustOriginToWorldY = true;
     [SerializeField]
-    private int topValue = 10;
+    private float OriginValue = 0.0f;
     [SerializeField]
-    private bool show = false;
+    private float Distance = 10.0f;
     [SerializeField]
-    private float showTime = 1.0f;
+    private bool Show = false;
+    [SerializeField]
+    private float ShowTime = 1.0f;
     #endregion
 
     private bool _lastShowApplied = false;
@@ -27,12 +29,18 @@ public class RevealFXController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        float offset = 0.0f;
+        if (AdjustOriginToWorldY)
+        {
+            offset = transform.position.y;
+        }
         foreach (GameObject target in targets)
         {
             foreach (Material mat in target.GetComponent<Renderer>().materials)
             {
-                mat.SetFloat("_RevealOrigin", botValue);
-                mat.SetFloat("_RevealDistance", topValue);
+                float adjustedValue = OriginValue + offset;
+                mat.SetFloat("_RevealOrigin", adjustedValue);
+                mat.SetFloat("_RevealDistance", Distance);
             }
         }
     }
@@ -40,12 +48,27 @@ public class RevealFXController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_lastAppliedProgress != progress)
+        float adjustedValue = OriginValue;
+        if (AdjustOriginToWorldY)
+        {
+            adjustedValue = OriginValue + transform.position.y;
+        }
+
+        foreach (GameObject target in targets)
+        {
+            foreach (Material mat in target.GetComponent<Renderer>().materials)
+            {
+                mat.SetFloat("_RevealOrigin", adjustedValue);
+                mat.SetFloat("_RevealDistance", Distance);
+            }
+        }
+
+        if (_lastAppliedProgress != Progress)
         {
             UpdateProgress();
         }
 
-        if (_lastShowApplied != show)
+        if (_lastShowApplied != Show)
         {
             UpdateShow();
         }
@@ -53,12 +76,12 @@ public class RevealFXController : MonoBehaviour
 
     private void UpdateShow()
     {
-        if (_lastShowApplied == show)
+        if (_lastShowApplied == Show)
         {
             return;
         }
 
-        _lastShowApplied = show;
+        _lastShowApplied = Show;
 
         if (showTweener != null)
         {
@@ -67,35 +90,41 @@ public class RevealFXController : MonoBehaviour
             showTweener = null;
         }
 
-        showTweener = DOTween.To(() => progress, (x) => { progress = x; }, show ? 1.0f : 0.0f, showTime);
+        showTweener = DOTween.To(() => Progress, (x) => { Progress = x; }, Show ? 1.0f : 0.0f, ShowTime);
+
+        float newOrigin = OriginValue;
+        if (AdjustOriginToWorldY)
+        {
+            newOrigin = OriginValue + transform.position.y;
+        }
 
         foreach (GameObject target in targets)
         {
             foreach (Material mat in target.GetComponent<Renderer>().materials)
             {
-                mat.SetFloat("_RevealOrigin", botValue);
-                mat.SetFloat("_RevealDistance", topValue);
+                mat.SetFloat("_RevealOrigin", newOrigin);
+                mat.SetFloat("_RevealDistance", Distance);
             }
         }
     }
 
     private void UpdateProgress()
     {
-        if (_lastAppliedProgress == progress)
+        if (_lastAppliedProgress == Progress)
         {
             return;
         }
 
-        if (progress < 0.0f)
+        if (Progress < 0.0f)
         {
-            progress = 0.0f;
+            Progress = 0.0f;
         }
-        else if (progress > 1.0f)
+        else if (Progress > 1.0f)
         {
-            progress = 1.0f;
+            Progress = 1.0f;
         }
 
-        _lastAppliedProgress = progress;
+        _lastAppliedProgress = Progress;
 
         foreach (GameObject target in targets) {
             foreach (Material mat in target.GetComponent<Renderer>().materials)

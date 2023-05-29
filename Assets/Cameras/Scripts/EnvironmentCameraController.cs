@@ -1,6 +1,6 @@
-using System.Collections;
 using Cinemachine;
 using GameMaster;
+using System.Collections;
 using UnityEngine;
 
 namespace Gotchi.EnvironmentCamera
@@ -82,7 +82,7 @@ namespace Gotchi.EnvironmentCamera
 
     #region Event Handlers
     private void handleOnIsZoomingUpdated()
-    { 
+    {
       if (model.MouseScrollDeltaY == 0) return;
 
       StartCoroutine(zoomAndMoveCamera());
@@ -205,7 +205,7 @@ namespace Gotchi.EnvironmentCamera
 
       return movementInputDirection;
     }
-    
+
     private void handleMovementInput(Vector3 movementInputDirection)
     {
       // Clamp movement speed

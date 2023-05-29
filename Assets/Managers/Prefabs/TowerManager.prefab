@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7957652913586144395
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7843802741261641086}
+  m_Layer: 0
+  m_Name: VisualPootRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7843802741261641086
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7957652913586144395}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8528727737571152807}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8528727737571152800
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8528727737571152807}
-  - component: {fileID: 8528727737571152806}
+  - component: {fileID: 7675069626292239964}
   m_Layer: 0
   m_Name: TowerManager
   m_TagString: Untagged
@@ -28,11 +59,12 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7843802741261641086}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8528727737571152806
+--- !u!114 &7675069626292239964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,36 +73,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 8528727737571152800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 227cb4ec03bd239429e5ad45feff22a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f503761e699b31418ba4cf9f5e4cd7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicTowerPrefab: {fileID: 3443321056009157549, guid: 6f873e3da8c50be4d852b2098c915110,
-    type: 3}
-  bombTowerPrefab: {fileID: 8912730134937698890, guid: dda62db898e2746429bd54c8456a193c,
-    type: 3}
-  slowTowerPrefab: {fileID: 6363487506713576509, guid: d8efdd3f4cc8a644b831d25ee09438c4,
-    type: 3}
-  arrowTower1Prefab: {fileID: 3419380884433830562, guid: 5ec0aa05d383b7b4590d464f491cbee0,
-    type: 3}
-  arrowTower2Prefab: {fileID: 8699166899353854431, guid: 6cdd5bf7390eb374aa65d70db5e3b83d,
-    type: 3}
-  arrowTower3Prefab: {fileID: 7833941157049236830, guid: 3c1e47b04038e684183c7db18a5f0e71,
-    type: 3}
-  fireTower1Prefab: {fileID: 5994176029770567409, guid: 9af859bfd034e0348b434be9403b45f4,
-    type: 3}
-  fireTower2Prefab: {fileID: 1286383218548459431, guid: 09a3fe5384e0bdd4da37fa9d52904692,
-    type: 3}
-  fireTower3Prefab: {fileID: 6017897722388203714, guid: f0c92279fb99b8f41a9229cf75830f33,
-    type: 3}
-  iceTower1Prefab: {fileID: 5602294575269227299, guid: e4a3f07de00d2944ba2b9011750d8f58,
-    type: 3}
-  iceTower2Prefab: {fileID: 386914449548775791, guid: 089d3ba6bb1bfa64ebc8ba10c1d2d4ad,
-    type: 3}
-  iceTower3Prefab: {fileID: 6142553789647345545, guid: f430135ca632c8e41a6303558a33bd79,
-    type: 3}
-  basicTowerPoolSize: 10
-  bombTowerPoolSize: 10
-  slowTowerPoolSize: 10
-  arrowTowerPoolSize: 10
-  fireTowerPoolSize: 10
-  iceTowerPoolSize: 10
+  TowerPrefabs:
+    _Buckets: 020000000000000001000000
+    _HashCodes: 010000000200000003000000
+    _Next: ffffffffffffffffffffffff
+    _Count: 3
+    _Version: 12
+    _FreeList: -1
+    _FreeCount: 0
+    _Keys: 010000000200000003000000
+    _Values:
+    - {fileID: 6448762565945295959, guid: 3caf00cdb3974d34a916f2b284f35848, type: 3}
+    - {fileID: 6448762565945295959, guid: 23fdac48bba267c45a7d805f37c2ca17, type: 3}
+    - {fileID: 6448762565945295959, guid: 81bd815703f26084cb0f3b8b39516e5b, type: 3}
+  TowerVisualPrefabs:
+    _Buckets: 020000000000000001000000
+    _HashCodes: 010000000200000003000000
+    _Next: ffffffffffffffffffffffff
+    _Count: 3
+    _Version: 13
+    _FreeList: -1
+    _FreeCount: 0
+    _Keys: 010000000200000003000000
+    _Values:
+    - {fileID: 6448762565945295959, guid: fa5bddeae03858a4d86c11dec5186b27, type: 3}
+    - {fileID: 7966645053031218133, guid: c875a091de3c3fb40befbd2dd1c2d295, type: 3}
+    - {fileID: 0}
+  TowerVisualPoolRoot: {fileID: 7957652913586144395}
+  InitialPoolSize: 4
+  TowerIcons:
+    _Buckets: 020000000000000001000000
+    _HashCodes: 010000000200000003000000
+    _Next: ffffffffffffffffffffffff
+    _Count: 3
+    _Version: 13
+    _FreeList: -1
+    _FreeCount: 0
+    _Keys: 010000000200000003000000
+    _Values:
+    - {fileID: 2800000, guid: abd88e5b56b85ce49847cafc7d60a319, type: 3}
+    - {fileID: 2800000, guid: aabb836d3f1c7564b94523f9311ef09b, type: 3}
+    - {fileID: 2800000, guid: b3d37e88d80f57e4a893074c37079c31, type: 3}
