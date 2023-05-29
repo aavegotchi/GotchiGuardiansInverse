@@ -14,18 +14,16 @@ public class SplitterJump : MonoBehaviour
     [SerializeField] private float rotationSpeed = 2f;
     [SerializeField] private float initialSearchRadius = 10f;
     [SerializeField] private float minJumpDistance = 9f;
-   
-    private Transform targetTransform;
+
+
 
     [SerializeField] private float coneAngle = 10;
     #endregion
 
     #region Private Variables
-    private EnemyBlueprint enemyBlueprint;
-    private Vector3 startingPosition;
+    private Transform targetTransform;
     private Vector3 nextTarget;
     private const float TargetThreshold = .2f;
-
     private LickquidatorManager lickquidatorManager;
     #endregion
 
@@ -33,20 +31,26 @@ public class SplitterJump : MonoBehaviour
     private void Awake()
     {
         lickquidatorManager = LickquidatorManager.Instance;
-        startingPosition = transform.localPosition;
         targetTransform = NetworkManager.Instance.LocalPlayerGotchi.transform;
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        nextTarget = findPointOnNavMesh(transform.position, initialSearchRadius, minJumpDistance);
-        MoveToPoint();
+        // Start jump logic when enabled
+        startJumpLogic();
     }
-
     #endregion
 
     #region Private Functions
-    private void MoveToPoint()
+
+    private void startJumpLogic()
+    {
+        nextTarget = findPointOnNavMesh(transform.position, initialSearchRadius, minJumpDistance);
+        moveToPoint();
+    }
+
+
+    private void moveToPoint()
     {
         StartCoroutine(moveToTargetCoroutine(nextTarget));
     }
@@ -94,6 +98,7 @@ public class SplitterJump : MonoBehaviour
             yield return null;
         }
 
+
         // Ensure the final position is exactly the target position.
         transform.position = target;
         deactivateOldSplitterAndEnableNewOne();
@@ -102,8 +107,8 @@ public class SplitterJump : MonoBehaviour
     private void deactivateOldSplitterAndEnableNewOne()
     {
         lickquidatorManager.SpawnSplitterAtPosition(this.transform.position, this.transform.rotation, false, _splitter.Model.EnemyBlueprint);
-        transform.localPosition = startingPosition;
         _splitter.DeactivateSplitterAfterJump();
+        this.gameObject.SetActive(false);
     }
 
     private Vector3 findPointOnNavMesh(Vector3 start, float searchRadius, float minDistance = 1f, float maxSearchRadius = 100f)

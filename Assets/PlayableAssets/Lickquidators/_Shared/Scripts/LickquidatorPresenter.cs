@@ -32,7 +32,7 @@ namespace Gotchi.Lickquidator.Presenter
 
         #region Private Variables
         private HealthBar_UI healthBar = null;
-        protected NavMeshAgent agent = null;
+        [SerializeField] protected NavMeshAgent agent = null;
         private Transform inRangeTargetTransform = null;
         private GotchiPresenter inRangeTarget = null;
         protected Rigidbody rigidBody = null;
@@ -121,36 +121,42 @@ namespace Gotchi.Lickquidator.Presenter
 
         public void PlayDead(bool keepUpgrades = false)
         {
-
             if (model is LickquidatorModel_Splitter && model.GetComponent<LickquidatorPresenter_Splitter>().IsGoingToSplitOnDeath())
             {
-                Debug.Log("model is LickquidatorModel_Splitter && model.GetComponent<LickquidatorPresenter_Splitter>().IsGoingToSplitOnDeath()");
-                return;
-
-            } // splitter hack
-
+                HandleSplitter();
+            }
             else
             {
-                Debug.Log("Else");
-                Debug.Log("model.EnemyBlueprint.type - " + model.EnemyBlueprint.type);
-
-                GameMasterEvents.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
-                ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
-
-                gameObject.SetActive(false);
-                if (healthBar != null)
-                {
-                    healthBar.Reset();
-                    healthBar = null;
-                }
-
-                if (!keepUpgrades)
-                {
-                    model.ResetConfig();
-                }
-
-                rewardDeath();
+                HandleNormalDeath(keepUpgrades);
             }
+        }
+
+        private void HandleSplitter()
+        {
+            Debug.Log("model is LickquidatorModel_Splitter && model.GetComponent<LickquidatorPresenter_Splitter>().IsGoingToSplitOnDeath()");
+        }
+
+        private void HandleNormalDeath(bool keepUpgrades)
+        {
+            Debug.Log("Else");
+            Debug.Log("model.EnemyBlueprint.type - " + model.EnemyBlueprint.type);
+
+            GameMasterEvents.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
+            ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
+
+            gameObject.SetActive(false);
+            if (healthBar != null)
+            {
+                healthBar.Reset();
+                healthBar = null;
+            }
+
+            if (!keepUpgrades)
+            {
+                model.ResetConfig();
+            }
+
+            rewardDeath();
         }
 
         public void Knockback(Vector3 force)

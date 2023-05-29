@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &462755329372116384
 Transform:
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 8506557226920511997}
   - component: {fileID: 3024331144907935862}
   m_Layer: 0
-  m_Name: ProgressbarManager
+  m_Name: BuildProgressPool_UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -218,6 +218,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: PhaseManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6305502727634556823, guid: 4370e2dfe9cd2c548b2cb5fbc85b434e,
+        type: 3}
+      propertyPath: Flags
+      value: 2561
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305502727634556823, guid: 4370e2dfe9cd2c548b2cb5fbc85b434e,
+        type: 3}
+      propertyPath: AllowStateAuthorityOverride
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305502727634556823, guid: 4370e2dfe9cd2c548b2cb5fbc85b434e,
+        type: 3}
+      propertyPath: NetworkGuid.RawGuidValue.Array.data[0]
+      value: 4200430917315620219
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305502727634556823, guid: 4370e2dfe9cd2c548b2cb5fbc85b434e,
+        type: 3}
+      propertyPath: NetworkGuid.RawGuidValue.Array.data[1]
+      value: -2610644857284070733
+      objectReference: {fileID: 0}
     - target: {fileID: 8672783815577021957, guid: 4370e2dfe9cd2c548b2cb5fbc85b434e,
         type: 3}
       propertyPath: m_RootOrder
@@ -291,7 +311,42 @@ PrefabInstance:
     - target: {fileID: 8528727737571152800, guid: 15b34dfa57d45fa45bc678d651338137,
         type: 3}
       propertyPath: m_Name
-      value: TowerManager
+      value: TowerPool
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528727737571152800, guid: 15b34dfa57d45fa45bc678d651338137,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528727737571152806, guid: 15b34dfa57d45fa45bc678d651338137,
+        type: 3}
+      propertyPath: iceTowerPoolSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528727737571152806, guid: 15b34dfa57d45fa45bc678d651338137,
+        type: 3}
+      propertyPath: bombTowerPoolSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528727737571152806, guid: 15b34dfa57d45fa45bc678d651338137,
+        type: 3}
+      propertyPath: fireTowerPoolSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528727737571152806, guid: 15b34dfa57d45fa45bc678d651338137,
+        type: 3}
+      propertyPath: slowTowerPoolSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528727737571152806, guid: 15b34dfa57d45fa45bc678d651338137,
+        type: 3}
+      propertyPath: arrowTowerPoolSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528727737571152806, guid: 15b34dfa57d45fa45bc678d651338137,
+        type: 3}
+      propertyPath: basicTowerPoolSize
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8528727737571152807, guid: 15b34dfa57d45fa45bc678d651338137,
         type: 3}
@@ -658,8 +713,52 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3486682523363039922, guid: 1be163641f6cbb74988abbf4cd9a1a0a,
+        type: 3}
+      propertyPath: Flags
+      value: 2561
+      objectReference: {fileID: 0}
+    - target: {fileID: 3486682523363039922, guid: 1be163641f6cbb74988abbf4cd9a1a0a,
+        type: 3}
+      propertyPath: NetworkGuid.RawGuidValue.Array.data[0]
+      value: 667295826982097644
+      objectReference: {fileID: 0}
+    - target: {fileID: 3486682523363039922, guid: 1be163641f6cbb74988abbf4cd9a1a0a,
+        type: 3}
+      propertyPath: NetworkGuid.RawGuidValue.Array.data[1]
+      value: 8819485652469809547
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1be163641f6cbb74988abbf4cd9a1a0a, type: 3}
+--- !u!1 &1885259775240720430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3033548336271726600, guid: 1be163641f6cbb74988abbf4cd9a1a0a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3472448921135630374}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &764892630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885259775240720430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2561
+  NetworkGuid:
+    RawGuidValue: efb9117d106c42dd8d53a5ba134f3ff1
+  NestedObjects: []
+  NetworkedBehaviours: []
+  SimulationBehaviours: []
 --- !u!4 &2797928974927285589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1649619772824487283, guid: 1be163641f6cbb74988abbf4cd9a1a0a,
@@ -731,7 +830,12 @@ PrefabInstance:
     - target: {fileID: 3970650567075290079, guid: 24b7b1032cc28ee439a3790e6cfe5198,
         type: 3}
       propertyPath: m_Name
-      value: HealthbarManager
+      value: HealthBarPool_UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3970650567075290079, guid: 24b7b1032cc28ee439a3790e6cfe5198,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24b7b1032cc28ee439a3790e6cfe5198, type: 3}
@@ -751,7 +855,7 @@ PrefabInstance:
     - target: {fileID: 4332533784369299404, guid: e2576913c79c24d4ea8186f97c01ccf5,
         type: 3}
       propertyPath: m_Name
-      value: CanMovePopUpManager
+      value: GotchiWaypointsPool_UI
       objectReference: {fileID: 0}
     - target: {fileID: 7258233429920503806, guid: e2576913c79c24d4ea8186f97c01ccf5,
         type: 3}
@@ -827,6 +931,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TestWaveSpawnManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548082084864127105, guid: b64e55e077c0b46468220ea7131b74a9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6548082084864127106, guid: b64e55e077c0b46468220ea7131b74a9,
         type: 3}
@@ -968,6 +1077,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4932840285352484437, guid: 2ab959bcf5ed392489c8089232914720,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ab959bcf5ed392489c8089232914720, type: 3}
 --- !u!4 &462755329045584044 stripped
@@ -996,7 +1110,7 @@ PrefabInstance:
     - target: {fileID: 1805435417177374865, guid: 51ca3f8518e02884db15f70f52b878dd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 1805435417177374865, guid: 51ca3f8518e02884db15f70f52b878dd,
         type: 3}
@@ -1041,7 +1155,7 @@ PrefabInstance:
     - target: {fileID: 2741324284478699804, guid: 51ca3f8518e02884db15f70f52b878dd,
         type: 3}
       propertyPath: m_Name
-      value: DamagePopUpManager
+      value: DamagePool_UI
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5654030952964573495, guid: 51ca3f8518e02884db15f70f52b878dd, type: 3}
@@ -1059,6 +1173,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 462755329372116384}
     m_Modifications:
+    - target: {fileID: 1436068082631546822, guid: ba35fa4b3a2be2e4dabaa1e1d47a8d96,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 813.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436068082631546822, guid: ba35fa4b3a2be2e4dabaa1e1d47a8d96,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 98
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436068082631546822, guid: ba35fa4b3a2be2e4dabaa1e1d47a8d96,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 588
+      objectReference: {fileID: 0}
     - target: {fileID: 5657520700067688740, guid: ba35fa4b3a2be2e4dabaa1e1d47a8d96,
         type: 3}
       propertyPath: m_Name
@@ -1243,7 +1372,12 @@ PrefabInstance:
     - target: {fileID: 3805818175144359571, guid: 633cfa4d306394943b4660e5e85cb623,
         type: 3}
       propertyPath: m_Name
-      value: ImpactManager
+      value: ImpactPool_FX
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805818175144359571, guid: 633cfa4d306394943b4660e5e85cb623,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 633cfa4d306394943b4660e5e85cb623, type: 3}
@@ -1263,7 +1397,12 @@ PrefabInstance:
     - target: {fileID: 5096007368269997514, guid: e7fc3ba7a4dda7e439d9ef4edf80d2fe,
         type: 3}
       propertyPath: m_Name
-      value: ProjectileManager
+      value: ProjectilePool_FX
+      objectReference: {fileID: 0}
+    - target: {fileID: 5096007368269997514, guid: e7fc3ba7a4dda7e439d9ef4edf80d2fe,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5096007368269997515, guid: e7fc3ba7a4dda7e439d9ef4edf80d2fe,
         type: 3}

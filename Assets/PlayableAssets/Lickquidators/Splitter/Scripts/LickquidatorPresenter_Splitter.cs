@@ -8,15 +8,20 @@ namespace Gotchi.Lickquidator.Splitter.Presenter
     {
         #region Fields
         [SerializeField] GameObject lickquidatorVisual;
-        [SerializeField] SplitterJump splitterJump;
         #endregion
 
         #region Private Variables
-
+        private SplitterJumpManager splitterJumpManager;
+        private SplitterJump splitterJump;
         public bool willSplitOnDeath = true;
         #endregion
 
         #region Unity Functions
+        private void Awake()
+        {
+            splitterJumpManager = SplitterJumpManager.Instance;
+        }
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -52,23 +57,27 @@ namespace Gotchi.Lickquidator.Splitter.Presenter
             }
         }
 
-        private void TriggerSplit() {
+        private void TriggerSplit()
+        {
             // Hide visual and stop movement
             lickquidatorVisual.SetActive(false);
             agent.enabled = false;
 
-            if(splitterJump != null)
-            {
-                splitterJump.gameObject.SetActive(true);
-            }
+            // Get SplitterJump from the SplitterJumpManager
+            splitterJump = splitterJumpManager.ActivateSplitterJump(this.transform);
         }
+
         #endregion
 
         #region Public Functions
         public void DeactivateSplitterAfterJump()
         {
             agent.enabled = true;
+
+            // Return splitterJump to the pool
             splitterJump.gameObject.SetActive(false);
+            splitterJump = null; // Clear reference to allow GC and reassignment
+
             gameObject.SetActive(false);
         }
 
