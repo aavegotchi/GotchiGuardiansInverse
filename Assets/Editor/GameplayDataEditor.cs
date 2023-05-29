@@ -1,21 +1,20 @@
 using UnityEngine;
 using UnityEditor;
 using WebSocketSharp;
+using System.Linq;
 
 public class GameplayDataEditor : EditorWindow
 {
-    private GameplayData gameplayData;
     private Vector2 towerListScrollPosition;
     private int selectedTowerIndex = -1;
    // private TowerCoreData selectedTower;
-    private Vector2 towerInspectorScrollPosition;
-    private bool isLoaded = false;
+    private Vector2 rightPaneScrollInspector;
     private string newTowerName = "New Tower";
 
     private float splitterWidth = 5f;
     private float leftPaneWidth = 300f;
 
-    private TowerTemplate currentTowerTemplate = null;
+    private IDataTemplate currentEditingTemplate = null;
 
     [MenuItem("Tools/Gameplay/GameplayDataEditor")]
     private static void OpenEditor()
@@ -27,7 +26,6 @@ public class GameplayDataEditor : EditorWindow
 
     private void OnEnable()
     {
-        LoadData();
     }
 
     private void OnGUI()
@@ -56,27 +54,20 @@ public class GameplayDataEditor : EditorWindow
             LoadData();
         }
 
-        if (isLoaded && GUILayout.Button("Save"))
+        if (GUILayout.Button("Save"))
         {
             SaveData();
         }
 
         EditorGUILayout.EndHorizontal();
 
-        if (!isLoaded)
-        {
-            EditorGUILayout.HelpBox("No GameplayData found. Press Load to create a new file with default values.", MessageType.Info);
-
-            return;
-        }
-
         EditorGUILayout.LabelField("General Settings", EditorStyles.boldLabel);
 
         EditorGUILayout.Space();
 
-        EditorGUILayout.TextField("Version", gameplayData.version);
-        gameplayData.startingGold = EditorGUILayout.IntField("Starting Gold", gameplayData.startingGold);
-        gameplayData.startingIncome = EditorGUILayout.IntField("Starting Income", gameplayData.startingIncome);
+        EditorGUILayout.TextField("Version", GameplayData.Singleton.version);
+        GameplayData.Singleton.startingGold = EditorGUILayout.IntField("Starting Gold", GameplayData.Singleton.startingGold);
+        GameplayData.Singleton.startingIncome = EditorGUILayout.IntField("Starting Income", GameplayData.Singleton.startingIncome);
         
 
         EditorGUILayout.Space();
@@ -114,9 +105,18 @@ public class GameplayDataEditor : EditorWindow
     {
         EditorGUILayout.BeginVertical(GUI.skin.box, GUILayout.ExpandWidth(true));
 
-        if (ValidateCurrentTowerTemplate())
+        if (currentEditingTemplate != null)
         {
-            DrawCurrentTowerTemplateData();
+            EditorGUILayout.LabelField("Current Template Data", EditorStyles.boldLabel);
+
+            EditorGUILayout.Space();
+
+            rightPaneScrollInspector = EditorGUILayout.BeginScrollView(rightPaneScrollInspector, GUILayout.ExpandHeight(true));
+
+            currentEditingTemplate = currentEditingTemplate.DrawDataInspectors(GameplayData.Singleton);
+
+            EditorGUILayout.EndScrollView();
+            
         }
         else
         {
@@ -128,13 +128,13 @@ public class GameplayDataEditor : EditorWindow
 
     private void LoadData()
     {
-        gameplayData = GameplayData.LoadData();
-        isLoaded = true;
+        GameplayData.ReloadSingleton();
+        currentEditingTemplate = null;
     }
 
     private void SaveData()
     {
-        gameplayData.SaveData();
+        GameplayData.Singleton.SaveData();
     }
 
     #region Tower Data
@@ -144,90 +144,29 @@ public class GameplayDataEditor : EditorWindow
         EditorGUILayout.LabelField("Tower Templates", EditorStyles.boldLabel);
         towerListScrollPosition = EditorGUILayout.BeginScrollView(towerListScrollPosition, GUILayout.ExpandHeight(true));
 
-        if (gameplayData != null && gameplayData.towerTemplates != null)
+        if (GameplayData.Singleton != null && GameplayData.Singleton.towerTemplates != null)
         {
-            for (int i = 0; i < gameplayData.towerTemplates.Count; i++)
+            for (int i = 0; i < GameplayData.Singleton.towerTemplates.Count; i++)
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(gameplayData.towerTemplates[i].name);
+                if (GameplayData.Singleton.towerTemplates[i] == currentEditingTemplate)
+                {
+                    GUI.color = Color.yellow; // Set the highlight color
+                }
+                EditorGUILayout.LabelField(GameplayData.Singleton.towerTemplates[i].name);
 
                 if (GUILayout.Button("Edit"))
                 {
-                    currentTowerTemplate = gameplayData.towerTemplates[i];
+                    currentEditingTemplate = GameplayData.Singleton.towerTemplates[i];
                 }
-
-                if (GUILayout.Button("Delete"))
-                {
-                    if (currentTowerTemplate == gameplayData.towerTemplates[i])
-                    {
-                        currentTowerTemplate = null;
-                    }
-                    gameplayData.RemoveTowerTemplate(gameplayData.towerTemplates[i]);
-                }
+                GUI.color = Color.white;
 
                 EditorGUILayout.EndHorizontal();
             }
         }
 
         EditorGUILayout.Space();
-
-        EditorGUILayout.BeginHorizontal();
-
-        newTowerName = GUILayout.TextField(newTowerName);
-
-        if (GUILayout.Button("Create"))
-        {
-            gameplayData.AddTowerTemplate(newTowerName);
-        }
-        EditorGUILayout.EndHorizontal();
-
-        EditorGUILayout.EndScrollView();
-    }
-
-    private bool ValidateCurrentTowerTemplate()
-    {
-        if (currentTowerTemplate == null)
-        {
-            return false;
-        }
-        if (gameplayData == null)
-        {
-            return false;
-        }
-        if (!gameplayData.towerTemplates.Contains(currentTowerTemplate))
-        {
-            currentTowerTemplate = null;
-
-            return false;
-        }
-
-        return true;
-    }
-
-    public void DrawCurrentTowerTemplateData()
-    {
-        EditorGUILayout.LabelField("Current Template Data", EditorStyles.boldLabel);
-
-        EditorGUILayout.Space();
-
-        towerInspectorScrollPosition = EditorGUILayout.BeginScrollView(towerInspectorScrollPosition, GUILayout.ExpandHeight(true));
-
-        if (currentTowerTemplate != null)
-        {
-            string newName = EditorGUILayout.TextField("Tower Name", currentTowerTemplate.name);
-            if (!newName.IsNullOrEmpty() && gameplayData.GetTemplateFromName(newName) == null)
-            {
-                currentTowerTemplate.name = newName;
-            }
-
-            currentTowerTemplate.tooltipText = EditorGUILayout.TextField("Tooltip Text", currentTowerTemplate.tooltipText);
-            currentTowerTemplate.type = (TowerTypeID)EditorGUILayout.EnumPopup("Tower Type", currentTowerTemplate.type);
-            currentTowerTemplate.tier = (TowerTiers)EditorGUILayout.EnumPopup("Tower Tier", currentTowerTemplate.tier);
-            currentTowerTemplate.buildCost = EditorGUILayout.IntField("Build Cost", currentTowerTemplate.buildCost);
-            currentTowerTemplate.buildTime = EditorGUILayout.FloatField("Build Time", currentTowerTemplate.buildTime);
-            currentTowerTemplate.range = EditorGUILayout.FloatField("Range", currentTowerTemplate.range);
-        }
 
         EditorGUILayout.EndScrollView();
     }

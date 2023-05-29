@@ -4,6 +4,7 @@ using UnityEngine;
 using PhaseManager;
 using PhaseManager.Presenter;
 
+// DEPRECATED
 public class TurretTower : BaseTower
 {
     #region Fields
@@ -81,25 +82,25 @@ public class TurretTower : BaseTower
     #region Private Functions
     private bool isLaserAttack()
     {
-        return turretTowerObjectSO.projectile.ProjectileType == ProjectilePool_FX.ProjectileType.Laser;
+        return false;//turretTowerObjectSO.projectile.ProjectileType == ProjectilePool_FX.ProjectileType.Laser;
     }
 
     private void attack()
     {
-        if (isLaserAttack())
-        {
-            projectile = ProjectilePool_FX.Instance.SpawnProjectile(turretTowerObjectSO, attackPoint, target);
-        }
-        else
-        {
-            if (attackCountdownTracker <= 0f)
-            {
-                ProjectilePool_FX.Instance.SpawnProjectile(turretTowerObjectSO, attackPoint, target);
-                attackCountdownTracker = turretTowerObjectSO.AttackCountdown;
-            }
-
-            attackCountdownTracker -= Time.deltaTime;
-        }
+        //if (isLaserAttack())
+        //{
+        //    projectile = ProjectilePool_FX.Instance.SpawnProjectile(turretTowerObjectSO, attackPoint, target);
+        //}
+        //else
+        //{
+        //    if (attackCountdownTracker <= 0f)
+        //    {
+        //        ProjectilePool_FX.Instance.SpawnProjectile(turretTowerObjectSO, attackPoint, target);
+        //        attackCountdownTracker = turretTowerObjectSO.AttackCountdown;
+        //    }
+        //
+        //    attackCountdownTracker -= Time.deltaTime;
+        //}
     }
 
     private void lockOntoTarget()

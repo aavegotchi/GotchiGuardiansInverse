@@ -485,7 +485,7 @@ MonoBehaviour:
   _interpolationDataSource: 0
   buildEffect: {fileID: 6003160467092726283}
   nodeUI: {fileID: 0}
-  visualRenderer: {fileID: 2893535992045054523}
+  visualRenderer: {fileID: 0}
   unoccupiedMaterial: {fileID: 2100000, guid: 94ab48b16f24fd74ca3c86ef23c8fcd1, type: 2}
   occupiedMaterial: {fileID: 2100000, guid: 690f216a352093943993e1a29c201c2b, type: 2}
   graphicRaycaster: {fileID: 0}
@@ -683,6 +683,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: VisualNode
       objectReference: {fileID: 0}
+    - target: {fileID: 6026036238488002008, guid: a3aab68a8a31c4b4f9460c2d66b8d635,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6620767370116115514, guid: a3aab68a8a31c4b4f9460c2d66b8d635,
         type: 3}
       propertyPath: m_Enabled
@@ -690,12 +695,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3aab68a8a31c4b4f9460c2d66b8d635, type: 3}
---- !u!23 &2893535992045054523 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 6620767370116115514, guid: a3aab68a8a31c4b4f9460c2d66b8d635,
-    type: 3}
-  m_PrefabInstance: {fileID: 8342451563576657409}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4588101960235076289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5506320231866715328, guid: a3aab68a8a31c4b4f9460c2d66b8d635,

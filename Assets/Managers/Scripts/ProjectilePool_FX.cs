@@ -3,6 +3,7 @@ using UnityEngine;
 using GameMaster;
 using Gotchi.Lickquidator.Manager;
 
+// DEPRECATED
 public class ProjectilePool_FX : MonoBehaviour
 {
     #region Public Variables
