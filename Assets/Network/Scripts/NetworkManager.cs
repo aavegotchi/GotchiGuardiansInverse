@@ -20,6 +20,10 @@ namespace Gotchi.Network
         }
         #endregion
 
+        #region
+        private NetworkRunner networkRunnerInstance = null;
+        #endregion
+
         #region Fields
         [SerializeField] private NetworkRunner networkRunnerPrefab = null;
         [SerializeField] private int maxPlayerCount = 8;
@@ -42,15 +46,22 @@ namespace Gotchi.Network
         #region Public Functions
         public void InitializeNetworkRunner(string lobbyId)
         {
-            var networkRunner = Instantiate(networkRunnerPrefab);
-            networkRunner.name = "network_listener";
-            networkRunner.ProvideInput = true;
+            if (networkRunnerInstance == null) {
+                networkRunnerInstance = FindObjectOfType<NetworkRunner>();
 
-            var sceneManager = getSceneManager(networkRunner);
+                if (networkRunnerInstance == null) {
+                    networkRunnerInstance = Instantiate(networkRunnerPrefab);
+                }
+            }
+            
+            networkRunnerInstance.name = "network_listener";
+            networkRunnerInstance.ProvideInput = true;
+
+            var sceneManager = getSceneManager(networkRunnerInstance);
 
             Debug.Log("Server started");
 
-            networkRunner.StartGame(new StartGameArgs
+            networkRunnerInstance.StartGame(new StartGameArgs
             {
                 GameMode = GameMode.AutoHostOrClient,
                 Address = NetAddress.Any(),
@@ -60,6 +71,11 @@ namespace Gotchi.Network
                 SceneManager = sceneManager,
                 PlayerCount = maxPlayerCount
             });
+        }
+
+        public void LeaveMultiplayerRoom()
+        {
+            networkRunnerInstance.Shutdown();
         }
         #endregion
         
