@@ -47,7 +47,6 @@ namespace Gotchi.Lickquidator.Splitter.Presenter
             {
                 if(willSplitOnDeath)
                 {
-                    Debug.Log("splitting");
                     TriggerSplit();
                 }
             }

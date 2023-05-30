@@ -135,10 +135,6 @@ namespace Gotchi.Lickquidator.Presenter
 
         private void HandleSplitter(bool keepUpgrades)
         {
-            Debug.Log("model is LickquidatorModel_Splitter && model.GetComponent<LickquidatorPresenter_Splitter>().IsGoingToSplitOnDeath()");
-
-            Debug.Log("model.EnemyBlueprint.type - " + model.EnemyBlueprint.type);
-
             GameMasterEvents.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
             ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
 

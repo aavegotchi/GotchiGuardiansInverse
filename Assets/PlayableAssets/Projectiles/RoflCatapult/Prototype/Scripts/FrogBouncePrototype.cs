@@ -2,6 +2,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
+
+
+
+// NOTE Check the prototype used the FrogBounceController script to trigger targets for the demo
 public class FrogBouncePrototype : MonoBehaviour
 {
     [SerializeField] private int bouncesRemaining = 2;
