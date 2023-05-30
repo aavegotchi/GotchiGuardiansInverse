@@ -301,8 +301,6 @@ namespace Gotchi.EnvironmentCamera
         );
         vCameraTransposer.m_FollowOffset = newCameraPositionOffset;
 
-        Debug.Log("-----newCameraPositionOffset: " + newCameraPositionOffset.ToString());
-
         // Move camera to either mouse point or default
         transform.position = Vector3.Lerp(
           origCameraPosition,

@@ -254,7 +254,7 @@ public class UpgradeInventory : MonoBehaviour
         upgradeText.text = $"Upgrade to {convertToRomanNumeral(enemyHolder.Config.Level + 1)}";
         disableUpgradeButtonIfNoMoney(upgradeCost);
         
-        if (enemyHolder.Config.Type == LickquidatorManager.LickquidatorType.PawnLickquidator)
+        if (enemyHolder.Config.Type == LickquidatorManager.LickquidatorType.SplitterLickquidator)
         {
             upgradeButtonImage.sprite = pawnLickquidatorSprite;
             sellButtonImage.sprite = pawnLickquidatorSprite;

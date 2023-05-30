@@ -17,10 +17,10 @@ MonoBehaviour:
   SpinAbilityRange: 15
   SpinAbilityKnockbackForce: 50
   AttackCountdown: 1
-  AttackDamage: 20
+  AttackDamage: 2000
   AttackRange: 18
   Health: 200
-  MovementSpeed: 30
+  MovementSpeed: 300
   MovementAcceleration: 70
   AngularSpeed: 800
   AttackRotationSpeed: 70

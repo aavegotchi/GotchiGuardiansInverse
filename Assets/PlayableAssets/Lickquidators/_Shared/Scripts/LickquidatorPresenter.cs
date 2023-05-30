@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
-using GameMaster;
 using PhaseManager;
 using PhaseManager.Presenter;
 using Gotchi.Lickquidator.Model;
 using Gotchi.Player.Presenter;
+using Gotchi.Lickquidator.Splitter.Model;
+using Gotchi.Lickquidator.Splitter.Presenter;
+using GameMaster;
+using Gotchi.Lickquidator.Manager;
 
 namespace Gotchi.Lickquidator.Presenter
 {
@@ -30,7 +33,7 @@ namespace Gotchi.Lickquidator.Presenter
 
         #region Private Variables
         private HealthBar_UI healthBar = null;
-        private NavMeshAgent agent = null;
+        protected NavMeshAgent agent = null;
         private Transform inRangeTargetTransform = null;
         private GotchiPresenter inRangeTarget = null;
         protected Rigidbody rigidBody = null;
@@ -38,7 +41,7 @@ namespace Gotchi.Lickquidator.Presenter
         #endregion
 
         #region Unity Functions
-        void Awake()
+        protected virtual void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             rigidBody = GetComponent<Rigidbody>();
@@ -92,7 +95,7 @@ namespace Gotchi.Lickquidator.Presenter
             if (model.Config == null) return;
 
             Gizmos.color = model.RangeIndicatorColor;
-            Gizmos.DrawWireSphere(transform.position, model.Config.AttackRange);
+            //Gizmos.DrawWireSphere(transform.position, model.Config.AttackRange);
         }
 
         void OnCollisionEnter(Collision other)
@@ -113,16 +116,46 @@ namespace Gotchi.Lickquidator.Presenter
         public void AssignHealthBar()
         {
             healthBar = HealthBarPool_UI.Instance.GetHealthbar(model.HealthBarOffset);
-            healthBar.SetHealthbarMaxHealth(model.Health);
+
             model.UpdateHealth(model.MaxHealth);
+
+            healthBar.SetHealthbarMaxHealth(model.Health);
         }
 
         public void PlayDead(bool keepUpgrades = false)
         {
+            if (model is LickquidatorModel_Splitter && model.GetComponent<LickquidatorPresenter_Splitter>().IsGoingToSplitOnDeath())
+            {
+                HandleSplitter(keepUpgrades);
+            } else
+            {
+                HandleNormalDeath(keepUpgrades);
+            }
+        }
+
+        private void HandleSplitter(bool keepUpgrades)
+        {
             GameMasterEvents.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
             ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
 
+            if (healthBar != null)
+            {
+                healthBar.Reset();
+                healthBar = null;
+            }
+
+            LickquidatorManager.Instance.DelayDeactivationForSplitter(this);
+
             gameObject.SetActive(false);
+        }
+
+        private void HandleNormalDeath (bool keepUpgrades)
+        {
+            Debug.Log("model.EnemyBlueprint.type - " + model.EnemyBlueprint.type);
+
+            GameMasterEvents.EnemyEvents.EnemyDied(model.EnemyBlueprint.type);
+            ImpactPool_FX.Instance.SpawnImpact(deathEffect, transform.position, transform.rotation);
+
             if (healthBar != null)
             {
                 healthBar.Reset();
@@ -135,6 +168,11 @@ namespace Gotchi.Lickquidator.Presenter
             }
 
             rewardDeath();
+
+            // Notify the LickquidatorManager that this Lickquidator has been deactivated
+            LickquidatorManager.Instance.DeactivateLickquidator(this);
+
+            gameObject.SetActive(false);
         }
 
         public void Knockback(Vector3 force)
@@ -167,7 +205,7 @@ namespace Gotchi.Lickquidator.Presenter
             PlayDead(true);
         }
         #endregion
-        
+
         #region Private Functions
         private bool isSurvivalPhase()
         {
@@ -282,11 +320,11 @@ namespace Gotchi.Lickquidator.Presenter
 
             if (attackAnimation != null) attackAnimation.SetTrigger(model.AttackAnimTriggerHash);
             if (attackParticleSystemObj != null) attackParticleSystemObj.SetActive(true);
-            
+
             GameMasterEvents.EnemyEvents.EnemyAttacked(model.Config.Type);
             inRangeTarget.Damage(model.Config.AttackDamage);
             model.PublishOnAttacked();
-            
+
             inRangeTargetTransform = null;
             inRangeTarget = null;
         }
@@ -294,7 +332,7 @@ namespace Gotchi.Lickquidator.Presenter
         private void rewardDeath()
         {
             StatsManager.Instance.TrackKillEnemy(model.EnemyBlueprint);
-            
+
             float value = model.Config.Cost / model.GeneralConfig.EnemyKillRewardMultipleByCost;
             int roundedValue = Mathf.RoundToInt(value / 5.0f) * 5;
             StatsManager.Instance.Money += roundedValue;
