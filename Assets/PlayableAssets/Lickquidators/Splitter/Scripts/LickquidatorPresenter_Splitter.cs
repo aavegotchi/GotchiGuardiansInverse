@@ -9,7 +9,7 @@ namespace Gotchi.Lickquidator.Splitter.Presenter
         #region Private Variables
         private SplitterJumpManager splitterJumpManager;
         private SplitterJump splitterJump;
-        public bool willSplitOnDeath = true;
+        private bool willSplitOnDeath = true;
         #endregion
 
         #region Unity Functions

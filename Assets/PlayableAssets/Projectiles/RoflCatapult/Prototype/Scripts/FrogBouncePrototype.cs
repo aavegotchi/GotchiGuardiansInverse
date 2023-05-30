@@ -2,10 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
+// See the prototype scene, FrogBouncePrototypeScene, to see the code in action
 
+// TODO:  Hook up the ROFL Catapult with SetNextTarget() and pass it the transform of the enemy that entered the targeting range 
 
+// TODO: Damaging the enemy functionality has not been added.
 
-// NOTE Check the prototype used the FrogBounceController script to trigger targets for the demo
 public class FrogBouncePrototype : MonoBehaviour
 {
     [SerializeField] private int bouncesRemaining = 2;

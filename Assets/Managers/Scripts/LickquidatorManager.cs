@@ -140,32 +140,6 @@ namespace Gotchi.Lickquidator.Manager
             }
         }
 
-
-        private void spawnSplitterAtPosition(Vector3 position, Quaternion rotation, bool canSplitNextSpawn, EnemyBlueprint enemyBlueprint)
-        {
-            List<GameObject> pool = getPool(LickquidatorType.SplitterLickquidator);
-
-            foreach (GameObject lickquidatorObj in pool)
-            {
-                if (lickquidatorObj.activeSelf) continue;
-
-                LickquidatorModel lickquidatorModel = lickquidatorObj.GetComponent<LickquidatorModel>();
-
-                lickquidatorModel.EnemyBlueprint = enemyBlueprint;
-                lickquidatorObj.transform.position = position;
-                lickquidatorObj.transform.rotation = rotation;
-                lickquidatorObj.SetActive(true);
-
-                LickquidatorPresenter lickquidator = GetByObject(lickquidatorObj);
-                activeLickquidators.Add(lickquidator);
-
-                lickquidator.AssignHealthBar();
-                lickquidator.GetComponent<LickquidatorPresenter_Splitter>().SetCanSplitOnDeath(canSplitNextSpawn);
-
-                return;
-            }
-        }
-
         private void initializeLookup()
         {
             foreach (GameObject lickquidatorObj in combinedPool)
@@ -242,7 +216,27 @@ namespace Gotchi.Lickquidator.Manager
         #region Public Functions
         public void SpawnSplitterAtPosition(Vector3 position, Quaternion rotation, bool canSplitNextSpawn, EnemyBlueprint enemyBlueprint)
         {
-            spawnSplitterAtPosition(position, rotation, canSplitNextSpawn, enemyBlueprint);
+            List<GameObject> pool = getPool(LickquidatorType.SplitterLickquidator);
+
+            foreach (GameObject lickquidatorObj in pool)
+            {
+                if (lickquidatorObj.activeSelf) continue;
+
+                LickquidatorModel lickquidatorModel = lickquidatorObj.GetComponent<LickquidatorModel>();
+
+                lickquidatorModel.EnemyBlueprint = enemyBlueprint;
+                lickquidatorObj.transform.position = position;
+                lickquidatorObj.transform.rotation = rotation;
+                lickquidatorObj.SetActive(true);
+
+                LickquidatorPresenter lickquidator = GetByObject(lickquidatorObj);
+                activeLickquidators.Add(lickquidator);
+
+                lickquidator.AssignHealthBar();
+                lickquidator.GetComponent<LickquidatorPresenter_Splitter>().SetCanSplitOnDeath(canSplitNextSpawn);
+
+                return;
+            }
         }
 
         // Add this function to be called when a Lickquidator dies or is otherwise deactivated
