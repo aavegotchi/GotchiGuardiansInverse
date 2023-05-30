@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Gotchi.Network;
 
 public class GameOver_UI : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class GameOver_UI : MonoBehaviour
     #region Public Functions
     public void Restart()
     {
+        NetworkManager.Instance.LeaveMultiplayerRoom();
         Destroy(managers);
         SceneManager.LoadScene(loadSceneName);
     }
